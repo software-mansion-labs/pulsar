@@ -427,7 +427,7 @@
 }
 
 .banner-background {
-  background-image: url('../../../../src/assets/logo_line_pattern.png');
+  background-image: url('/logo_line_pattern.png');
   background-size: 1000px;
   background-clip: content-box;
   background-repeat: no-repeat;
@@ -474,7 +474,7 @@
 }
 
 .no-results-background {
-  background-image: url('../../../../src/assets/logo_line_pattern.png');
+  background-image: url('/logo_line_pattern.png');
   background-size: 1000px;
   background-clip: content-box;
   background-repeat: no-repeat;
@@ -539,7 +539,7 @@
 .hero-background-line {
   width: 200%;
   height: 80px;
-  background-image: url('../../../../src/assets/signal_line.png');
+  background-image: url('/signal_line.png');
   opacity: 0.5;
   background-size: cover;
   background-clip:padding-box;

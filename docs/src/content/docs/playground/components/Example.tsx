@@ -32,7 +32,7 @@ export default function Example(
       return;
     }
     component.style.animationDuration = `${props.duration}s`
-    var audio = new Audio(`../../src/assets/presets/${props.presetName}/pattern.wav`);
+    var audio = new Audio(`/presets/${props.presetName}/pattern.wav`);
     audio.play();
     component.classList.remove('indicator-inactive')
     component.classList.add('indicator-active')
@@ -97,7 +97,7 @@ export default function Example(
         <div ref={indicator as any} className='indicator'>
           <div className='verticalLine'></div>
         </div>
-        <img src={`../../src/assets/presets/${props.presetName}/pattern.png`} />
+        <img src={`/presets/${props.presetName}/pattern.png`} />
       </div>
     </div>
 
