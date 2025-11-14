@@ -12,21 +12,17 @@ import com.swmansion.pulsarapp.types.BarPreset
 
 const val TAG = "HapticsHandler"
 
-class HapticsHandler(val context: Context) {
+class HapticsHandler(context: Context) {
     private val vibrationService = context.getSystemService(Vibrator::class.java)
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun playPresetVibration(preset: BarPreset){
-        if(checkVibrationPermission()){
-            Log.i(TAG, "permission granted")
-            vibrationService.vibrate(preset.vibrationEffect)
-        } else {
-            Log.i(TAG, "permission not granted")
-        }
+        vibrationService.vibrate(preset.vibrationEffect)
     }
-
-    fun checkVibrationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(context, Manifest.permission.VIBRATE) ==
-            PackageManager.PERMISSION_GRANTED
+    fun isAmplitudeSupported(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vibrationService.hasAmplitudeControl()
+    }
+    fun isEnvelopeSupported(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA && vibrationService.areEnvelopeEffectsSupported()
     }
 }

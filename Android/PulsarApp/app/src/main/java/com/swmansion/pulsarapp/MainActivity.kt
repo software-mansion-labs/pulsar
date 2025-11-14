@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    DeviceInfo()
                     VibrationButton(SUCCESS_PRESET)
                     VibrationButton(FAILURE_PRESET)
                 }
@@ -54,6 +55,14 @@ class MainActivity : ComponentActivity() {
             onClick = { hapticsHandler?.playPresetVibration(preset) }
         ) {
             Text(preset.name)
+        }
+    }
+
+    @Composable
+    fun DeviceInfo(){
+        Column(modifier = Modifier.padding(48.dp)){
+            Text("Device supports amplitude:   ${hapticsHandler?.isAmplitudeSupported()}")
+            Text("Device supports envelope:    ${hapticsHandler?.isEnvelopeSupported()}")
         }
     }
 }
