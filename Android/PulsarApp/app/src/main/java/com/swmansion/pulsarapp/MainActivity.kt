@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.swmansion.pulsarapp.types.BarPreset
+import com.swmansion.pulsarapp.types.Preset
 
 class MainActivity : ComponentActivity() {
     private var hapticsHandler: HapticsHandler? = null
@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
                     DeviceInfo()
                     VibrationButton(SUCCESS_PRESET)
                     VibrationButton(FAILURE_PRESET)
+                    VibrationButton(ENVELOPE_PRESET, hapticsHandler?.isEnvelopeSupported())
                 }
             }
         }
@@ -49,10 +50,11 @@ class MainActivity : ComponentActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     @Composable
-    fun VibrationButton(preset: BarPreset){
+    fun VibrationButton(preset: Preset, enabled: Boolean? = true){
         Button(
             modifier = Modifier.padding(6.dp),
-            onClick = { hapticsHandler?.playPresetVibration(preset) }
+            onClick = { hapticsHandler?.playPresetVibration(preset) },
+            enabled = enabled ?: true
         ) {
             Text(preset.name)
         }
