@@ -16,7 +16,9 @@ class HapticsHandler(context: Context) {
         if(isEnvelopeSupported()){
             logEnvelopeSpecification()
         }
-        vibrationService.vibrate(preset.vibrationEffect)
+        preset.vibrationEffect?.let {
+            vibrationService.vibrate(it)
+        }
     }
     fun isAmplitudeSupported(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vibrationService.hasAmplitudeControl()

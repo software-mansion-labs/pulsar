@@ -10,21 +10,18 @@ val SUCCESS_PRESET =
     name = "Success",
     bars =
       arrayListOf(
-        Bar(0, 300, (0.8 * 255).toInt()),
-        Bar(400, 500, (0.6 * 255).toInt()),
-        Bar(600, 700, (0.6 * 255).toInt()),
-      ),
+        Bar(100, 200, 0.3f, 0.8f),
+        Bar(300, 500, 0.6f, 0.8f),
+        Bar(600, 800, 1f, 0.8f)),
   )
 
 val FAILURE_PRESET =
   Preset(
     name = "Failure",
-    bars =
-      arrayListOf(
-        Bar(0, 200, (0.3 * 255).toInt()),
-        Bar(300, 500, (0.6 * 255).toInt()),
-        Bar(600, 800, 1 * 255),
-      ),
+    bars = arrayListOf(
+      Bar(0, 200, 0.3f, 1f),
+      Bar(300, 500, 0.6f, 1f), 
+      Bar(600, 800, 1f, 1f)),
   )
 
 val ENVELOPE_PRESET =
@@ -32,9 +29,10 @@ val ENVELOPE_PRESET =
     name = "Envelope",
     controlPoints =
       arrayListOf(
-        EnvelopePoint(1.0f, 0.8f, 1200),
-        EnvelopePoint(0.0f, 0.8f, 1200),
-        EnvelopePoint(0.0f, 0.8f, 1400),
-        EnvelopePoint(1.0f, 0.8f, 2000),
+        EnvelopePoint(1.0f, 0.8f, 0),
+        EnvelopePoint(0.0f, 0.8f, 500),
+        EnvelopePoint(0.0f, 0.8f, 2000),
+        EnvelopePoint(1.0f, 0.8f, 3000),
+        EnvelopePoint(0.0f, 0.8f, 5000),
       ),
   )
