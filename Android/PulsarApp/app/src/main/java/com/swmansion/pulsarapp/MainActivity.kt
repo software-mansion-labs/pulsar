@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
           VibrationButton(SUCCESS_PRESET)
           VibrationButton(FAILURE_PRESET)
           VibrationButton(ENVELOPE_PRESET, hapticsHandler?.isEnvelopeSupported())
+          VibrationButton(FALLING_BRICKS, hapticsHandler?.isEnvelopeSupported())
         }
       }
     }

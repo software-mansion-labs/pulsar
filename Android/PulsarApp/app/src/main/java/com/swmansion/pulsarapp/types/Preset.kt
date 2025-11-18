@@ -7,6 +7,8 @@ import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsarapp.TAG
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 const val MAX_AMPLITUDE = 255
@@ -78,6 +80,8 @@ data class Preset(
     return VibrationEffect.createWaveform(timings, amplitudes, -1)
   }
 
+  // TODO: check consts from envelopeInfo:
+  // https://developer.android.com/reference/android/os/VibrationEffect.WaveformEnvelopeBuilder#:~:text=You%20can%20use,duration%3A%20VibratorEnvelopeEffectInfo.getMaxDurationMillis()
   fun createWaveformFromPoints(
     points: ArrayList<EnvelopePoint>,
     frequencyProfile: VibratorFrequencyProfile,
@@ -137,11 +141,15 @@ data class Preset(
     sharpness: Float,
     duration: Long,
   ) {
-    val frequencyHz = sharpness * frequencyProfile.maxFrequencyHz
+    val minDuration = envelopeInfo.minControlPointDurationMillis
+    val maxDuration = envelopeInfo.maxControlPointDurationMillis
+    val adjustedDuration = max(min(duration, maxDuration), minDuration)
 
-    // TODO: values needs to be adjusted to consts from envelopeInfo:
-    // https://developer.android.com/reference/android/os/VibrationEffect.WaveformEnvelopeBuilder#:~:text=You%20can%20use,duration%3A%20VibratorEnvelopeEffectInfo.getMaxDurationMillis()
-    builder.addControlPoint(intensity, frequencyHz, duration)
+    val minFrequencyHz = frequencyProfile.minFrequencyHz
+    val maxFrequencyHz = frequencyProfile.maxFrequencyHz
+    val frequencyHz = sharpness * (maxFrequencyHz - minFrequencyHz) + minFrequencyHz
+
+    builder.addControlPoint(intensity, frequencyHz, adjustedDuration)
   }
 
   fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<EnvelopePoint> {

@@ -36,3 +36,15 @@ val ENVELOPE_PRESET =
         EnvelopePoint(0.0f, 0.8f, 5000),
       ),
   )
+
+val FALLING_BRICKS =
+  Preset(
+    name = "Falling Bricks",
+    barsList = arrayListOf(
+      Bar(0, 100, 1f, 1f),
+      Bar(200, 300, 0.675f, 0.675f),
+      Bar(400, 500, 0.406f, 0.2f),
+      Bar(600, 700, 0.659f, 0.659f),
+      Bar(800, 900, 0.941f, 0.941f)
+    )
+  )
