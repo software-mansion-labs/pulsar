@@ -122,37 +122,39 @@ data class Preset(
       return null
     } else {
       val minDuration = envelopeInfo.minControlPointDurationMillis
-
       val builder = VibrationEffect.WaveformEnvelopeBuilder()
       val n = points.size
 
-      for (i in 1..n - 1) {
-        val prevPoint = points[i - 1]
+      for (i in 0..n - 1) {
         val currPoint = points[i]
 
-        // handle start from non zero value
-        if (i == 1 && prevPoint.intensity.toInt() != 0) {
+        if (i == 0) {
+          // handle start from non zero amplitude
+          if (currPoint.intensity != 0f) {
+            addPointToBuilder(
+              builder,
+              frequencyProfile,
+              envelopeInfo,
+              currPoint.intensity,
+              currPoint.sharpness,
+              minDuration,
+            )
+          }
+        } else {
+          // handle transition between points
+          val prevPoint = points[i - 1]
+          val pointsTimeDiff = currPoint.relativeTime - prevPoint.relativeTime
+          val duration = if (pointsTimeDiff > 0) pointsTimeDiff else minDuration
+
           addPointToBuilder(
             builder,
             frequencyProfile,
             envelopeInfo,
-            prevPoint.intensity,
-            prevPoint.sharpness,
-            minDuration,
+            currPoint.intensity,
+            currPoint.sharpness,
+            duration,
           )
         }
-
-        val pointsTimeDiff = currPoint.relativeTime - prevPoint.relativeTime
-        val duration = if (pointsTimeDiff > 0) pointsTimeDiff else minDuration
-
-        addPointToBuilder(
-          builder,
-          frequencyProfile,
-          envelopeInfo,
-          currPoint.intensity,
-          currPoint.sharpness,
-          duration,
-        )
       }
 
       return builder.build()
@@ -188,7 +190,7 @@ data class Preset(
       val currBar = bars[i]
 
       // add empty interval at the beginning if first bar do not start at 0
-      if (i == 0 && currBar.x1.toInt() != 0) {
+      if (i == 0 && currBar.x1 != 0.toLong()) {
         addIntervalEdgesToPoints(points, 0f, currBar.frequency, 0, currBar.x1)
       }
 
@@ -204,7 +206,7 @@ data class Preset(
     return points
   }
 
-  fun addIntervalEdgesToPoints(
+  private fun addIntervalEdgesToPoints(
     points: ArrayList<EnvelopePoint>,
     intensity: Float,
     sharpness: Float,
