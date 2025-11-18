@@ -25,16 +25,16 @@ class ExampleUnitTest {
 
     val points = preset.convertBarsToPoints(bars)
 
-    val convertedTimes = points?.map { it.relativeTime }
-    val convertedAmplitude = points?.map { it.intensity }
+    val convertedTimes = points.map { it.relativeTime }
+    val convertedAmplitude = points.map { it.intensity }
 
-    assertEquals(expectedPositions.size, convertedTimes?.size)
-    assertEquals(expectedAmplitude.size, convertedAmplitude?.size)
-    assertEquals(convertedTimes?.size, convertedAmplitude?.size)
+    assertEquals(expectedPositions.size, convertedTimes.size)
+    assertEquals(expectedAmplitude.size, convertedAmplitude.size)
+    assertEquals(convertedTimes.size, convertedAmplitude.size)
 
     for (i in 0..expectedPositions.size - 1) {
-      assertEquals(expectedPositions[i], convertedTimes?.get(i))
-      assertEquals(expectedAmplitude[i], convertedAmplitude?.get(i))
+      assertEquals(expectedPositions[i], convertedTimes[i])
+      assertEquals(expectedAmplitude[i], convertedAmplitude[i])
     }
   }
 }

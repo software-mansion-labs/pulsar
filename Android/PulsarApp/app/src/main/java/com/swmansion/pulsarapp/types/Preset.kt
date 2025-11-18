@@ -144,7 +144,7 @@ data class Preset(
     builder.addControlPoint(intensity, frequencyHz, duration)
   }
 
-  private fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<EnvelopePoint> {
+  fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<EnvelopePoint> {
     val points = ArrayList<EnvelopePoint>()
     val n = bars.size
 
