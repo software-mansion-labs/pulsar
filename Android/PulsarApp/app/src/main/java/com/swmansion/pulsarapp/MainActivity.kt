@@ -39,10 +39,12 @@ class MainActivity : ComponentActivity() {
           horizontalAlignment = Alignment.CenterHorizontally,
         ) {
           DeviceInfo()
+          VibrationButton(ENVELOPE_TEST_PRESET)
+          VibrationButton(FALLING_BRICKS)
+          VibrationButton(EARTHQUAKE_PRESET)
+          VibrationButton(RANDOM_PRESET)
+          VibrationButton(FAIL_PRESET)
           VibrationButton(SUCCESS_PRESET)
-          VibrationButton(FAILURE_PRESET)
-          VibrationButton(ENVELOPE_PRESET, hapticsHandler?.isEnvelopeSupported())
-          VibrationButton(FALLING_BRICKS, hapticsHandler?.isEnvelopeSupported())
         }
       }
     }
@@ -50,11 +52,12 @@ class MainActivity : ComponentActivity() {
 
   @RequiresApi(Build.VERSION_CODES.O)
   @Composable
-  fun VibrationButton(preset: Preset, enabled: Boolean? = true) {
+  fun VibrationButton(preset: Preset) {
     Button(
       modifier = Modifier.padding(6.dp),
       onClick = { hapticsHandler?.playPresetVibration(preset) },
-      enabled = enabled ?: true,
+      enabled =
+        preset.barsList?.let { true } ?: run { hapticsHandler?.isEnvelopeSupported() == true },
     ) {
       Text(preset.name)
     }

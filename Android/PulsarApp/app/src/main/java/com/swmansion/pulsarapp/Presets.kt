@@ -8,35 +8,32 @@ import kotlin.collections.arrayListOf
 val SUCCESS_PRESET =
   Preset(
     name = "Success",
+    barsList = arrayListOf(
+      Bar(0, 100, 0.809f, 0.616f),
+      Bar(200, 300, 0.809f, 0.619f),
+      Bar(550, 650, 1f, 1f)),
+  )
+val FAIL_PRESET =
+  Preset(
+    name = "Fail",
     barsList =
       arrayListOf(
-        Bar(100, 200, 0.3f, 0.8f),
-        Bar(300, 500, 0.6f, 0.8f),
-        Bar(600, 800, 1f, 0.8f)),
+        Bar(0, 100, 0.809f, 0.616f),
+        Bar(200, 300, 0.809f, 0.619f),
+        Bar(550, 650, 0.591f, 0.309f)),
   )
-
-val FAILURE_PRESET =
+val ENVELOPE_TEST_PRESET =
   Preset(
-    name = "Failure",
-    barsList = arrayListOf(
-      Bar(0, 200, 0.3f, 1f),
-      Bar(300, 500, 0.6f, 1f), 
-      Bar(600, 800, 1f, 1f)),
-  )
-
-val ENVELOPE_PRESET =
-  Preset(
-    name = "Envelope",
+    name = "Envelope Test",
     controlPointsList =
       arrayListOf(
         EnvelopePoint(1.0f, 0.8f, 0),
         EnvelopePoint(0.0f, 0.8f, 500),
+        EnvelopePoint(0.0f, 0.8f, 1000),
+        EnvelopePoint(1.0f, 0.8f, 2000),
         EnvelopePoint(0.0f, 0.8f, 2000),
-        EnvelopePoint(1.0f, 0.8f, 3000),
-        EnvelopePoint(0.0f, 0.8f, 5000),
       ),
   )
-
 val FALLING_BRICKS =
   Preset(
     name = "Falling Bricks",
@@ -47,4 +44,36 @@ val FALLING_BRICKS =
       Bar(600, 700, 0.659f, 0.659f),
       Bar(800, 900, 0.941f, 0.941f)
     )
+  )
+val EARTHQUAKE_PRESET =
+  Preset(
+    name = "Earthquake",
+    controlPointsList = arrayListOf(
+      EnvelopePoint(0f, 1f, 0),
+      EnvelopePoint(0.8f, 1f, 400),
+      EnvelopePoint(0f, 1f, 400),
+      EnvelopePoint(0f, 1f, 500),
+      EnvelopePoint(0.8f, 1f, 700),
+      EnvelopePoint(0f, 0f, 700),
+      )
+  )
+val RANDOM_PRESET =
+  Preset(
+    name = "Random Preset",
+    controlPointsList = arrayListOf(
+      EnvelopePoint(0f, 1f, 0),
+      EnvelopePoint(0.8f, 1f, 400),
+      EnvelopePoint(0f, 1f, 400),
+      EnvelopePoint(0f, 1f, 500),
+      EnvelopePoint(0.8f, 1f, 700),
+      EnvelopePoint(0f, 1f, 700),
+      EnvelopePoint(0f, 1f, 900),
+      EnvelopePoint(1f, 0.9f, 900),
+      EnvelopePoint(1f, 0.9f, 1000),
+      EnvelopePoint(0f, 0.9f, 1000),
+      EnvelopePoint(0f, 0.9f, 1100),
+      EnvelopePoint(1f, 0.9f, 1100),
+      EnvelopePoint(1f, 0.9f, 1200),
+      EnvelopePoint(0f, 0.9f, 1200),
+      )
   )
