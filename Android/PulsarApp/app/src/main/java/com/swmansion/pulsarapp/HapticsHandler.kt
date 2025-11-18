@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Vibrator
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.swmansion.pulsarapp.types.CreateVibrationEffectProps
 import com.swmansion.pulsarapp.types.Preset
 
 const val TAG = "HapticsHandler"
@@ -16,7 +17,17 @@ class HapticsHandler(context: Context) {
         if(isEnvelopeSupported()){
             logEnvelopeSpecification()
         }
-        preset.vibrationEffect?.let {
+        val vibrationEffect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA){
+            // if frequency profile is not available use API before 16
+            val props = vibrationService.frequencyProfile?.let { frequencyProfile ->
+                CreateVibrationEffectProps(frequencyProfile, vibrationService.envelopeEffectInfo)
+            }
+            preset.createVibrationEffect(props)
+        } else {
+            preset.createVibrationEffect()
+        }
+
+        vibrationEffect?.let {
             vibrationService.vibrate(it)
         }
     }

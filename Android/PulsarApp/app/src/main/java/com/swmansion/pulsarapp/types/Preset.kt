@@ -2,6 +2,8 @@ package com.swmansion.pulsarapp.types
 
 import android.os.Build
 import android.os.VibrationEffect
+import android.os.vibrator.VibratorEnvelopeEffectInfo
+import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsarapp.TAG
@@ -10,36 +12,36 @@ import kotlin.math.roundToInt
 const val MIN_TIME: Long = 20
 const val MAX_FREQUENCY = 160
 
+data class CreateVibrationEffectProps(
+  val frequencyProfile: VibratorFrequencyProfile? = null,
+  val envelopeInfo: VibratorEnvelopeEffectInfo,
+)
+
 data class Preset(
   val name: String,
   val bars: ArrayList<Bar>? = null,
   val controlPoints: ArrayList<EnvelopePoint>? = null,
 ) {
-  @RequiresApi(Build.VERSION_CODES.O) val vibrationEffect = createVibrationEffect()
-
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createVibrationEffect(): VibrationEffect? {
+  fun createVibrationEffect(props: CreateVibrationEffectProps? = null): VibrationEffect? {
     val barsWaveform =
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-        createWaveformFromPoints(convertBarsToPoints(bars))
-      } else {
-        createWaveformFromBars()
-      }
+      props?.frequencyProfile?.let {
+        val convertedControlPoints = convertBarsToPoints(bars)
+        createWaveformFromPoints(convertedControlPoints) }
+        ?: run { createWaveformFromBars() }
 
-    val pointsWaveform = createWaveformFromPoints(controlPoints)
+    val pointsWaveform = props?.let { createWaveformFromPoints(controlPoints) }
 
-    barsWaveform?.let {
+    if (barsWaveform != null) {
       Log.i(TAG, "Vibration created based on bars.")
       return barsWaveform
-    }
-
-    pointsWaveform?.let {
+    } else if (pointsWaveform != null) {
       Log.i(TAG, "Vibration created based on points.")
       return pointsWaveform
+    } else {
+      Log.w(TAG, "Vibration creation failed.")
+      return null
     }
-
-    Log.w(TAG, "Vibration creation failed.")
-    return null
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
@@ -90,7 +92,11 @@ data class Preset(
 
         // handle start from non zero value
         if (i == 1 && prevPoint.intensity.toInt() != 0) {
-          builder.addControlPoint(prevPoint.intensity, prevPoint.sharpness * MAX_FREQUENCY, MIN_TIME)
+          builder.addControlPoint(
+            prevPoint.intensity,
+            prevPoint.sharpness * MAX_FREQUENCY,
+            MIN_TIME,
+          )
         }
 
         val pointsTimeDiff = currPoint.relativeTime - prevPoint.relativeTime
