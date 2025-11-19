@@ -54,4 +54,8 @@ class HapticsHandler(context: Context) {
         Log.i(TAG, "Control point duration range: $minControlPointDuration - $maxControlPointDuration")
         Log.i(TAG, "Max duration: $maxDuration")
     }
+
+    fun isFrequencyProfileSupported(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA && vibrationService.frequencyProfile !== null
+    }
 }

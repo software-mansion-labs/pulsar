@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.swmansion.pulsarapp.types.Preset
 import com.swmansion.pulsarapp.ui.theme.PulsarAppTheme
@@ -65,9 +67,10 @@ class MainActivity : ComponentActivity() {
 
   @Composable
   fun DeviceInfo() {
-    Column(modifier = Modifier.padding(48.dp)) {
-      Text("Device supports amplitude:   ${hapticsHandler?.isAmplitudeSupported()}")
-      Text("Device supports envelope:    ${hapticsHandler?.isEnvelopeSupported()}")
+    Column(modifier = Modifier.padding(vertical = 48.dp)) {
+      Text("Device supports amplitude: ${hapticsHandler?.isAmplitudeSupported()}")
+      Text("Device supports envelope: ${hapticsHandler?.isEnvelopeSupported()}")
+      Text("Device supports frequency profile: ${hapticsHandler?.isFrequencyProfileSupported()}")
     }
   }
 }
