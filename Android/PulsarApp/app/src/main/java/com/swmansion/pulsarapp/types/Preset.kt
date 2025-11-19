@@ -36,6 +36,18 @@ data class Preset(
         }
       }
     }
+
+    controlPointsList?.let {
+      val n = controlPointsList.size
+      val firstPoint = if (n > 0) controlPointsList[0] else null
+      firstPoint?.let {
+        if (it.relativeTime != 0.toLong()){
+          throw Exception("Found invalid controlPointsList. First element relativeTime must be 0.")
+        } else if (n == 1){
+          throw Exception("Found invalid controlPointsList. It must contain at least two points.")
+        }
+      }
+    }
   }
 
   private fun checkAmplitude(amplitude: Float) {
