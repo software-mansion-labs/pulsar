@@ -2,7 +2,6 @@ package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.EnvelopePoint
-import com.swmansion.pulsarapp.types.Preset
 import org.junit.Assert.*
 import org.junit.Test
 

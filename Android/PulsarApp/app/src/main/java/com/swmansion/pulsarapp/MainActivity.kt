@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
           VibrationButton(RANDOM_PRESET)
           VibrationButton(FAIL_PRESET)
           VibrationButton(SUCCESS_PRESET)
+          VibrationButton(LONG_RISING_PRESET)
         }
       }
     }
@@ -56,7 +57,6 @@ class MainActivity : ComponentActivity() {
     Button(
       modifier = Modifier.padding(6.dp),
       onClick = { hapticsHandler?.playPresetVibration(preset) },
-      enabled = preset.bars?.let { true } ?: run { hapticsHandler?.isEnvelopeSupported() == true },
     ) {
       Text(preset.name)
     }

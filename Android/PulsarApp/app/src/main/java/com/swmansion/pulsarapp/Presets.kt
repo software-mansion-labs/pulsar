@@ -12,7 +12,8 @@ val SUCCESS_PRESET =
       arrayListOf(
         Bar(0, 100, 0.809f, 0.616f),
         Bar(200, 300, 0.809f, 0.619f),
-        Bar(550, 650, 1f, 1f)),
+        Bar(550, 650, 1f, 1f)
+      ),
   )
 val FAIL_PRESET =
   Preset(
@@ -80,5 +81,16 @@ val RANDOM_PRESET =
         EnvelopePoint(1f, 0.9f, 1100),
         EnvelopePoint(1f, 0.9f, 1200),
         EnvelopePoint(0f, 0.9f, 1200),
+      ),
+  )
+
+val LONG_RISING_PRESET =
+  Preset(
+    name = "Long Rising",
+    points =
+      arrayListOf(
+        EnvelopePoint(0f, 1f, 0),
+        EnvelopePoint(1f, 1f, 10000),
+        EnvelopePoint(0f, 1f, 10000),
       ),
   )
