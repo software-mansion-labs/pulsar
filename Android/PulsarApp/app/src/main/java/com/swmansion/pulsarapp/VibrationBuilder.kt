@@ -127,7 +127,7 @@ class VibrationBuilder {
     points: ArrayList<EnvelopePoint>,
     props: CreateVibrationEffectProps,
   ): ArrayList<EnvelopePoint> {
-    val controlPoints: ArrayList<EnvelopePoint> = arrayListOf()
+    val controlPoints = ArrayList<EnvelopePoint>()
     val n = points.size
     val minDuration = props.envelopeInfo.minControlPointDurationMillis
 
@@ -208,12 +208,8 @@ class VibrationBuilder {
     return points
   }
 
-  private fun supportAndroid36(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA
-  }
-
   private fun convertPointsToBars(points: ArrayList<EnvelopePoint>): ArrayList<Bar> {
-    val bars = arrayListOf<Bar>()
+    val bars = ArrayList<Bar>()
 
     val n = points.size
     for (i in 1..n - 1) {
@@ -254,5 +250,9 @@ class VibrationBuilder {
     }
 
     return bars
+  }
+
+  private fun supportAndroid36(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA
   }
 }
