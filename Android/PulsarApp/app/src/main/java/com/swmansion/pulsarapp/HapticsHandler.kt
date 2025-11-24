@@ -5,57 +5,45 @@ import android.os.Build
 import android.os.Vibrator
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.swmansion.pulsarapp.types.CreateVibrationEffectProps
 import com.swmansion.pulsarapp.types.Preset
 
 const val TAG = "HapticsHandler"
+
 class HapticsHandler(context: Context) {
-    private val vibrationService = context.getSystemService(Vibrator::class.java)
+  private val vibrationService = context.getSystemService(Vibrator::class.java)
+  private val vibrationBuilder = VibrationBuilder()
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun playPresetVibration(preset: Preset){
-        val vibrationEffect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA){
-            Log.i(TAG, "Generate vibration using frequency profile.")
-            val props =  CreateVibrationEffectProps(
-                vibrationService.frequencyProfile,
-                vibrationService.envelopeEffectInfo
-            )
-            preset.createVibrationEffect(props)
-        } else {
-            Log.i(TAG, "Generate vibration without frequency profile.")
-            preset.createVibrationEffect()
-        }
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun playPresetVibration(preset: Preset) {
+    val vibrationEffect =
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+        val props =
+          CreateVibrationEffectProps(
+            vibrationService.frequencyProfile,
+            vibrationService.envelopeEffectInfo,
+          )
+        vibrationBuilder.createVibrationEffect(preset, props)
+      } else {
+        vibrationBuilder.createVibrationEffect(preset)
+      }
 
-        vibrationEffect?.let {
-            Log.i(TAG, "Vibrate...")
-            vibrationService.vibrate(it)
-        }
+    vibrationEffect?.let {
+      Log.i(TAG, "Vibrate...")
+      vibrationService.vibrate(it)
     }
-    fun isAmplitudeSupported(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vibrationService.hasAmplitudeControl()
-    }
-    fun isEnvelopeSupported(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA && vibrationService.areEnvelopeEffectsSupported()
-    }
-    @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-    fun logEnvelopeSpecification(){
-        val profile = vibrationService.frequencyProfile
-        val minFrequency = profile?.minFrequencyHz
-        val maxFrequency = profile?.maxFrequencyHz
+  }
 
-        val info = vibrationService.envelopeEffectInfo
-        val maxControlPoints = info.maxSize
-        val maxControlPointDuration = info.maxControlPointDurationMillis
-        val minControlPointDuration = info.minControlPointDurationMillis
-        val maxDuration = info.maxDurationMillis
+  fun isAmplitudeSupported(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vibrationService.hasAmplitudeControl()
+  }
 
-        Log.i(TAG, "Frequency range: $minFrequency - $maxFrequency")
-        Log.i(TAG, "Max control points number: $maxControlPoints")
-        Log.i(TAG, "Control point duration range: $minControlPointDuration - $maxControlPointDuration")
-        Log.i(TAG, "Max duration: $maxDuration")
-    }
+  fun isEnvelopeSupported(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
+      vibrationService.areEnvelopeEffectsSupported()
+  }
 
-    fun isFrequencyProfileSupported(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA && vibrationService.frequencyProfile !== null
-    }
+  fun isFrequencyProfileSupported(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
+      vibrationService.frequencyProfile !== null
+  }
 }
