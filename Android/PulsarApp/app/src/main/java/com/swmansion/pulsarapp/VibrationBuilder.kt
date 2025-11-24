@@ -16,7 +16,8 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 const val MAX_AMPLITUDE = 255
-const val STEPS_PER_100_MS = 20
+const val STEPS_PER_100_MS = 30
+const val DEFAULT_FREQUENCY = 1f
 
 data class CreateVibrationEffectProps(
   val frequencyProfile: VibratorFrequencyProfile? = null,
@@ -69,7 +70,10 @@ class VibrationBuilder {
     props: CreateVibrationEffectProps?,
   ): VibrationEffect? {
     return if (supportAndroid36() && props != null) createEnvelopeWaveform(points, props)
-    else createApproximateWaveform(points)
+    else {
+      val bars = convertPointsToBars(points)
+      createWaveform(bars)
+    }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
@@ -208,78 +212,47 @@ class VibrationBuilder {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA
   }
 
-  //  @RequiresApi(Build.VERSION_CODES.O)
-  //  private fun createApproximateWaveform(points: ArrayList<EnvelopePoint>): VibrationEffect? {
-  //    var timings = longArrayOf()
-  //    var amplitudes = intArrayOf()
-  //
-  //    val n = points.size
-  //    for (i in 1..n - 1) {
-  //      val currPoint = points[i]
-  //      val prevPoint = points[i - 1]
-  //
-  //      // skip vertical lines
-  //      if (prevPoint.intensity == currPoint.intensity) {
-  //        val duration = currPoint.relativeTime - prevPoint.relativeTime
-  //        timings += duration
-  //        amplitudes += (currPoint.intensity * MAX_AMPLITUDE).roundToInt()
-  //      } else if (prevPoint.relativeTime != currPoint.relativeTime) {
-  //        val step = 5
-  //        val startIntensity = (prevPoint.intensity * MAX_AMPLITUDE).roundToInt()
-  //        val endIntensity = (currPoint.intensity * MAX_AMPLITUDE).roundToInt()
-  //
-  //        val steps = abs((endIntensity - startIntensity) / step)
-  //        val stepDuration = abs((currPoint.relativeTime - prevPoint.relativeTime) / steps)
-  //
-  //        val isAscending = prevPoint.intensity < currPoint.intensity
-  //
-  //        for (i in 0..steps - 1) {
-  //          timings += stepDuration
-  //          val amplitude = if (isAscending) startIntensity + step * i else startIntensity - step
-  // * i
-  //          amplitudes += amplitude
-  //        }
-  //      }
-  //    }
-  //
-  //    return VibrationEffect.createWaveform(timings, amplitudes, -1)
-  //  }
-
-  @RequiresApi(Build.VERSION_CODES.O)
-  private fun createApproximateWaveform(points: ArrayList<EnvelopePoint>): VibrationEffect? {
-    var timings = longArrayOf()
-    var amplitudes = intArrayOf()
+  private fun convertPointsToBars(points: ArrayList<EnvelopePoint>): ArrayList<Bar> {
+    val bars = arrayListOf<Bar>()
 
     val n = points.size
     for (i in 1..n - 1) {
       val currPoint = points[i]
       val prevPoint = points[i - 1]
 
-      // skip vertical lines
+      // when prevPoint.relativeTime == currPoint.relativeTime skip (vertical lines)
+
       if (prevPoint.intensity == currPoint.intensity) {
-        val duration = currPoint.relativeTime - prevPoint.relativeTime
-        timings += duration
-        amplitudes += (currPoint.intensity * MAX_AMPLITUDE).roundToInt()
+        bars +=
+          Bar(
+            prevPoint.relativeTime,
+            currPoint.relativeTime,
+            currPoint.intensity,
+            DEFAULT_FREQUENCY, // frequency of this bar will never be used
+          )
       } else if (prevPoint.relativeTime != currPoint.relativeTime) {
         val intervalDuration = currPoint.relativeTime - prevPoint.relativeTime
 
         val startIntensity = prevPoint.intensity
         val endIntensity = currPoint.intensity
 
-        val stepDuration = intervalDuration * STEPS_PER_100_MS / 100
-        val steps = intervalDuration / stepDuration
+        val steps = (intervalDuration * STEPS_PER_100_MS) / 100
+        val stepDuration = intervalDuration / steps
         val stepValue = abs(startIntensity - endIntensity) / steps
 
         val isAscending = startIntensity < endIntensity
 
         for (i in 0..steps - 1) {
-          timings += stepDuration
+          val startTime = prevPoint.relativeTime + stepDuration * i
+          val endTime = if (i < steps - 1) startTime + stepDuration else currPoint.relativeTime
           val amplitude =
             if (isAscending) startIntensity + stepValue * i else startIntensity - stepValue * i
-          amplitudes += (amplitude * MAX_AMPLITUDE).roundToInt()
+
+          bars += Bar(startTime, endTime, amplitude, DEFAULT_FREQUENCY)
         }
       }
     }
-    return VibrationEffect.createWaveform(timings, amplitudes, -1)
+
+    return bars
   }
 }

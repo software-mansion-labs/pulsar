@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,17 +36,35 @@ class MainActivity : ComponentActivity() {
       PulsarAppTheme {
         Column(
           modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-          verticalArrangement = Arrangement.Center,
+          verticalArrangement = Arrangement.spacedBy(48.dp, Alignment.CenterVertically),
           horizontalAlignment = Alignment.CenterHorizontally,
         ) {
           DeviceInfo()
-          VibrationButton(ENVELOPE_TEST_PRESET)
-          VibrationButton(FALLING_BRICKS)
-          VibrationButton(EARTHQUAKE_PRESET)
-          VibrationButton(RANDOM_PRESET)
-          VibrationButton(FAIL_PRESET)
-          VibrationButton(SUCCESS_PRESET)
-          VibrationButton(LONG_RISING_PRESET)
+
+          Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Bars presets:")
+            Row {
+              VibrationButton(SUCCESS_PRESET)
+              VibrationButton(FAIL_PRESET)
+              VibrationButton(FALLING_BRICKS)
+            }
+          }
+
+          Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Points presets:")
+            Row {
+              VibrationButton(EARTHQUAKE_PRESET)
+              VibrationButton(RANDOM_PRESET)
+            }
+            Row {
+              VibrationButton(ENVELOPE_PRESET)
+              VibrationButton(LONG_RISING_PRESET)
+            }
+            Row {
+              VibrationButton(UP_PRESET)
+              VibrationButton(UP_AND_DOWN_PRESET)
+            }
+          }
         }
       }
     }
@@ -64,7 +83,7 @@ class MainActivity : ComponentActivity() {
 
   @Composable
   fun DeviceInfo() {
-    Column(modifier = Modifier.padding(vertical = 48.dp)) {
+    Column {
       Text("Device supports amplitude: ${hapticsHandler?.isAmplitudeSupported()}")
       Text("Device supports envelope: ${hapticsHandler?.isEnvelopeSupported()}")
       Text("Device supports frequency profile: ${hapticsHandler?.isFrequencyProfileSupported()}")

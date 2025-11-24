@@ -25,9 +25,9 @@ val FAIL_PRESET =
         Bar(550, 650, 0.591f, 0.309f),
       ),
   )
-val ENVELOPE_TEST_PRESET =
+val ENVELOPE_PRESET =
   Preset(
-    name = "Envelope Test",
+    name = "Envelope",
     points =
       arrayListOf(
         EnvelopePoint(1.0f, 0.8f, 0),
@@ -92,5 +92,57 @@ val LONG_RISING_PRESET =
         EnvelopePoint(0f, 1f, 0),
         EnvelopePoint(1f, 1f, 10000),
         EnvelopePoint(0f, 1f, 10000),
+      ),
+  )
+
+val UP_PRESET =
+  Preset(
+    name = "Up",
+    points =
+      arrayListOf(
+        EnvelopePoint(0f, 1f, 0),
+        EnvelopePoint(1f, 1f, 50), // 50ms
+        EnvelopePoint(0f, 1f, 50),
+        EnvelopePoint(0f, 1f, 1050),
+        EnvelopePoint(1f, 1f, 1200), // 150ms
+        EnvelopePoint(0f, 1f, 1200),
+        EnvelopePoint(0f, 1f, 2200),
+        EnvelopePoint(1f, 1f, 2500), // 300ms
+        EnvelopePoint(0f, 1f, 2500),
+        EnvelopePoint(0f, 1f, 3500),
+        EnvelopePoint(1f, 1f, 4100), // 600ms
+        EnvelopePoint(0f, 1f, 4100),
+        EnvelopePoint(0f, 1f, 5100),
+        EnvelopePoint(1f, 1f, 6100), // 1000ms
+        EnvelopePoint(0f, 1f, 6100),
+        EnvelopePoint(0f, 1f, 7100),
+        EnvelopePoint(1f, 1f, 10100), // 3000ms
+        EnvelopePoint(0f, 1f, 10100),
+      ),
+  )
+
+val UP_AND_DOWN_PRESET =
+  Preset(
+    name = "Up and Down",
+    points =
+      arrayListOf(
+        EnvelopePoint(0f, 1f, 0),
+        EnvelopePoint(1f, 1f, 50), // 50ms
+        EnvelopePoint(0f, 1f, 100),
+        EnvelopePoint(0f, 1f, 1100),
+        EnvelopePoint(1f, 1f, 1250), // 150ms
+        EnvelopePoint(0f, 1f, 1400),
+        EnvelopePoint(0f, 1f, 2400),
+        EnvelopePoint(1f, 1f, 2700), // 300ms
+        EnvelopePoint(0f, 1f, 3000),
+        EnvelopePoint(0f, 1f, 4000),
+        EnvelopePoint(1f, 1f, 4600), // 600ms
+        EnvelopePoint(0f, 1f, 5200),
+        EnvelopePoint(0f, 1f, 6200),
+        EnvelopePoint(1f, 1f, 7200), // 1000ms
+        EnvelopePoint(0f, 1f, 8200),
+        EnvelopePoint(0f, 1f, 9200),
+        EnvelopePoint(1f, 1f, 12200), // 3000ms
+        EnvelopePoint(0f, 1f, 15200),
       ),
   )
