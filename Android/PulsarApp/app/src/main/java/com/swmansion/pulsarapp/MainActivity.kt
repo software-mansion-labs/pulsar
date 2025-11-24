@@ -56,8 +56,7 @@ class MainActivity : ComponentActivity() {
     Button(
       modifier = Modifier.padding(6.dp),
       onClick = { hapticsHandler?.playPresetVibration(preset) },
-      enabled =
-        preset.barsList?.let { true } ?: run { hapticsHandler?.isEnvelopeSupported() == true },
+      enabled = preset.bars?.let { true } ?: run { hapticsHandler?.isEnvelopeSupported() == true },
     ) {
       Text(preset.name)
     }

@@ -15,17 +15,15 @@ class VibrationHandler(context: Context) {
 
   @RequiresApi(Build.VERSION_CODES.O)
   fun playPresetVibration(preset: Preset) {
-    val vibrationEffect =
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-        val props =
-          CreateVibrationEffectProps(
-            vibrationService.frequencyProfile,
-            vibrationService.envelopeEffectInfo,
-          )
-        vibrationBuilder.createVibrationEffect(preset, props)
-      } else {
-        vibrationBuilder.createVibrationEffect(preset)
-      }
+    val props =
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA)
+        CreateVibrationEffectProps(
+          vibrationService.frequencyProfile,
+          vibrationService.envelopeEffectInfo,
+        )
+      else null
+
+    val vibrationEffect = vibrationBuilder.createVibrationEffect(preset, props)
 
     vibrationEffect?.let {
       Log.i(TAG, "Vibrate...")

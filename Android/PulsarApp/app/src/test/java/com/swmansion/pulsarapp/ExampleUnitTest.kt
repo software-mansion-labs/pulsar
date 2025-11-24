@@ -21,8 +21,8 @@ class ExampleUnitTest {
         Bar(600, 800, 1f, 0.8f)
       )
 
-    val preset = Preset(name = "test", barsList = bars)
-    val points = preset.convertBarsToPoints(bars)
+    val vibrationBuilder = VibrationBuilder()
+    val points = vibrationBuilder.convertBarsToPoints(bars)
 
     val expectedPoints: ArrayList<EnvelopePoint> =
       arrayListOf(
@@ -51,8 +51,8 @@ class ExampleUnitTest {
       Bar(200, 300, 0.6f, 0.8f)
     )
 
-    val preset = Preset(name = "test", barsList = bars)
-    val points = preset.convertBarsToPoints(bars)
+    val vibrationBuilder = VibrationBuilder()
+    val points = vibrationBuilder.convertBarsToPoints(bars)
 
     val expectedPoints: ArrayList<EnvelopePoint> =
       arrayListOf(
@@ -74,8 +74,8 @@ class ExampleUnitTest {
       Bar(0, 200, 0.3f, 0.8f)
     )
 
-    val preset = Preset(name = "test", barsList = bars)
-    val points = preset.convertBarsToPoints(bars)
+    val vibrationBuilder = VibrationBuilder()
+    val points = vibrationBuilder.convertBarsToPoints(bars)
 
     val expectedPoints: ArrayList<EnvelopePoint> =
       arrayListOf(

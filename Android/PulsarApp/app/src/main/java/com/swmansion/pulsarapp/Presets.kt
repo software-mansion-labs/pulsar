@@ -8,7 +8,7 @@ import kotlin.collections.arrayListOf
 val SUCCESS_PRESET =
   Preset(
     name = "Success",
-    barsList =
+    bars =
       arrayListOf(
         Bar(0, 100, 0.809f, 0.616f),
         Bar(200, 300, 0.809f, 0.619f),
@@ -17,7 +17,7 @@ val SUCCESS_PRESET =
 val FAIL_PRESET =
   Preset(
     name = "Fail",
-    barsList =
+    bars =
       arrayListOf(
         Bar(0, 100, 0.809f, 0.616f),
         Bar(200, 300, 0.809f, 0.619f),
@@ -27,7 +27,7 @@ val FAIL_PRESET =
 val ENVELOPE_TEST_PRESET =
   Preset(
     name = "Envelope Test",
-    pointsList =
+    points =
       arrayListOf(
         EnvelopePoint(1.0f, 0.8f, 0),
         EnvelopePoint(0.0f, 0.8f, 500),
@@ -39,7 +39,7 @@ val ENVELOPE_TEST_PRESET =
 val FALLING_BRICKS =
   Preset(
     name = "Falling Bricks",
-    barsList =
+    bars =
       arrayListOf(
         Bar(0, 100, 1f, 1f),
         Bar(200, 300, 0.675f, 0.675f),
@@ -51,7 +51,7 @@ val FALLING_BRICKS =
 val EARTHQUAKE_PRESET =
   Preset(
     name = "Earthquake",
-    pointsList =
+    points =
       arrayListOf(
         EnvelopePoint(0f, 1f, 0),
         EnvelopePoint(0.8f, 1f, 400),
@@ -64,7 +64,7 @@ val EARTHQUAKE_PRESET =
 val RANDOM_PRESET =
   Preset(
     name = "Random Preset",
-    pointsList =
+    points =
       arrayListOf(
         EnvelopePoint(0f, 1f, 0),
         EnvelopePoint(0.8f, 1f, 400),

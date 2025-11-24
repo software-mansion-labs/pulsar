@@ -2,40 +2,36 @@ package com.swmansion.pulsarapp.types
 
 data class Preset(
   val name: String,
-  val barsList: ArrayList<Bar>? = null,
-  val pointsList: ArrayList<EnvelopePoint>? = null,
+  val bars: ArrayList<Bar>? = null,
+  val points: ArrayList<EnvelopePoint>? = null,
 ) {
   init {
-    barsList?.let {
+    bars?.let {
       for (bar in it) {
         checkAmplitude(bar.amplitude)
         checkFrequency(bar.frequency)
       }
     }
 
-    pointsList?.let { points ->
-      for (point in points) {
+    points?.let {
+      for (point in it) {
         checkAmplitude(point.intensity)
         checkFrequency(point.sharpness)
       }
 
-      val n = points.size
+      val n = it.size
       if (n > 0) {
-        val firstPoint = points[0]
-        val lastPoint = points[n - 1]
+        val firstPoint = it[0]
+        val lastPoint = it[n - 1]
 
         if (firstPoint.relativeTime != 0L) {
           throw getInitException(
-            "Found invalid controlPointsList. First element relativeTime must be 0."
+            "Property points is invalid. First element relativeTime must be 0."
           )
         } else if (n == 1) {
-          throw getInitException(
-            "Found invalid controlPointsList. It must contain at least two points."
-          )
+          throw getInitException("Property points is invalid. It must contain at least two points.")
         } else if (lastPoint.intensity != 0f) { // required in basic envelope
-          throw getInitException(
-            "Found invalid controlPointsList. Last element intensity must be 0."
-          )
+          throw getInitException("Property points is invalid. Last element intensity must be 0.")
         }
       }
     }

@@ -26,18 +26,17 @@ class VibrationBuilder {
     preset: Preset,
     props: CreateVibrationEffectProps? = null,
   ): VibrationEffect? {
-    val barsList = preset.barsList
-    val pointsList = preset.pointsList
+    val (_, bars, points) = preset
 
-    if (barsList == null && pointsList == null) {
+    if (bars == null && points == null) {
       Log.w(TAG, "Vibration creation failed. No data in preset.")
       return null
     } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       Log.w(TAG, "Vibration not supported on version before 26 yet.") // TODO: handle somehow
       return null
     } else {
-      val barsWaveform = barsList?.let { createWaveformFromBars(it, props) }
-      val pointsWaveform = pointsList?.let { createWaveformFromPoints(it, props) }
+      val barsWaveform = bars?.let { createWaveformFromBars(it, props) }
+      val pointsWaveform = points?.let { createWaveformFromPoints(it, props) }
 
       if (barsWaveform != null) {
         Log.i(TAG, "Vibration created based on bars.")
@@ -101,16 +100,16 @@ class VibrationBuilder {
     points: ArrayList<EnvelopePoint>,
     props: CreateVibrationEffectProps,
   ): VibrationEffect {
-    val mappedPoints = getControlPoints(points, props)
+    val controlPoints = getControlPoints(points, props)
 
     return props.frequencyProfile?.let {
       val builder = VibrationEffect.WaveformEnvelopeBuilder()
-      mappedPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.relativeTime) }
+      controlPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.relativeTime) }
       builder.build()
     }
       ?: run {
         val builder = VibrationEffect.BasicEnvelopeBuilder()
-        mappedPoints.forEach {
+        controlPoints.forEach {
           builder.addControlPoint(it.intensity, it.sharpness, it.relativeTime)
         }
         builder.build()
