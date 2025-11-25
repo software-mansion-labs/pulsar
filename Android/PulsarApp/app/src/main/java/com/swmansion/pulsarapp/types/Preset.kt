@@ -3,7 +3,7 @@ package com.swmansion.pulsarapp.types
 data class Preset(
   val name: String,
   val bars: ArrayList<Bar>? = null,
-  val points: ArrayList<EnvelopePoint>? = null,
+  val points: ArrayList<Point>? = null,
 ) {
   init {
     checkBars()
@@ -22,8 +22,8 @@ data class Preset(
       for (i in 0..n - 1) {
         val currBar = it[i]
 
-        checkAmplitude(currBar.amplitude)
-        checkFrequency(currBar.frequency)
+        checkIntensity(currBar.intensity)
+        checkSharpness(currBar.sharpness)
 
         if (currBar.x1 >= currBar.x2) {
           throw getInitException(
@@ -50,8 +50,8 @@ data class Preset(
   private fun checkPoints() {
     points?.let {
       for (point in it) {
-        checkAmplitude(point.intensity)
-        checkFrequency(point.sharpness)
+        checkIntensity(point.intensity)
+        checkSharpness(point.sharpness)
       }
 
       val n = it.size
@@ -72,18 +72,18 @@ data class Preset(
     }
   }
 
-  private fun checkAmplitude(amplitude: Float) {
-    if (amplitude < 0 || amplitude > 1) {
+  private fun checkIntensity(intensity: Float) {
+    if (intensity < 0 || intensity > 1) {
       throw getInitException(
-        "Found invalid amplitude: ${amplitude}. Amplitude must be value from [0,1]."
+        "Found invalid intensity: ${intensity}. Intensity must be value from [0,1]."
       )
     }
   }
 
-  private fun checkFrequency(frequency: Float) {
-    if (frequency <= 0 || frequency > 1) {
+  private fun checkSharpness(sharpness: Float) {
+    if (sharpness <= 0 || sharpness > 1) {
       throw getInitException(
-        "Found invalid frequency: $frequency. Frequency must be value from (0,1]."
+        "Found invalid sharpness: $sharpness. Sharpness must be value from (0,1]."
       ) // TODO correct for bars
     }
   }

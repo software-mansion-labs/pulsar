@@ -1,7 +1,7 @@
 package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
-import com.swmansion.pulsarapp.types.EnvelopePoint
+import com.swmansion.pulsarapp.types.Point
 import com.swmansion.pulsarapp.types.Preset
 import kotlin.collections.arrayListOf
 
@@ -30,11 +30,11 @@ val ENVELOPE_PRESET =
     name = "Envelope",
     points =
       arrayListOf(
-        EnvelopePoint(1.0f, 0.8f, 0),
-        EnvelopePoint(0.0f, 0.8f, 500),
-        EnvelopePoint(0.0f, 0.8f, 1000),
-        EnvelopePoint(1.0f, 0.8f, 2000),
-        EnvelopePoint(0.0f, 0.8f, 2000),
+        Point(1.0f, 0.8f, 0),
+        Point(0.0f, 0.8f, 500),
+        Point(0.0f, 0.8f, 1000),
+        Point(1.0f, 0.8f, 2000),
+        Point(0.0f, 0.8f, 2000),
       ),
   )
 val FALLING_BRICKS =
@@ -54,12 +54,12 @@ val EARTHQUAKE_PRESET =
     name = "Earthquake",
     points =
       arrayListOf(
-        EnvelopePoint(0f, 1f, 0),
-        EnvelopePoint(0.8f, 1f, 400),
-        EnvelopePoint(0f, 1f, 400),
-        EnvelopePoint(0f, 1f, 500),
-        EnvelopePoint(0.8f, 1f, 700),
-        EnvelopePoint(0f, 1f, 700),
+        Point(0f, 1f, 0),
+        Point(0.8f, 1f, 400),
+        Point(0f, 1f, 400),
+        Point(0f, 1f, 500),
+        Point(0.8f, 1f, 700),
+        Point(0f, 1f, 700),
       ),
   )
 val RANDOM_PRESET =
@@ -67,20 +67,20 @@ val RANDOM_PRESET =
     name = "Random Preset",
     points =
       arrayListOf(
-        EnvelopePoint(0f, 1f, 0),
-        EnvelopePoint(0.8f, 1f, 400),
-        EnvelopePoint(0f, 1f, 400),
-        EnvelopePoint(0f, 1f, 500),
-        EnvelopePoint(0.8f, 1f, 700),
-        EnvelopePoint(0f, 1f, 700),
-        EnvelopePoint(0f, 1f, 900),
-        EnvelopePoint(1f, 0.9f, 900),
-        EnvelopePoint(1f, 0.9f, 1000),
-        EnvelopePoint(0f, 0.9f, 1000),
-        EnvelopePoint(0f, 0.9f, 1100),
-        EnvelopePoint(1f, 0.9f, 1100),
-        EnvelopePoint(1f, 0.9f, 1200),
-        EnvelopePoint(0f, 0.9f, 1200),
+        Point(0f, 1f, 0),
+        Point(0.8f, 1f, 400),
+        Point(0f, 1f, 400),
+        Point(0f, 1f, 500),
+        Point(0.8f, 1f, 700),
+        Point(0f, 1f, 700),
+        Point(0f, 1f, 900),
+        Point(1f, 0.9f, 900),
+        Point(1f, 0.9f, 1000),
+        Point(0f, 0.9f, 1000),
+        Point(0f, 0.9f, 1100),
+        Point(1f, 0.9f, 1100),
+        Point(1f, 0.9f, 1200),
+        Point(0f, 0.9f, 1200),
       ),
   )
 
@@ -89,9 +89,9 @@ val LONG_RISING_PRESET =
     name = "Long Rising",
     points =
       arrayListOf(
-        EnvelopePoint(0f, 1f, 0),
-        EnvelopePoint(1f, 1f, 10000),
-        EnvelopePoint(0f, 1f, 10000),
+        Point(0f, 1f, 0),
+        Point(1f, 1f, 10000),
+        Point(0f, 1f, 10000),
       ),
   )
 
@@ -100,24 +100,24 @@ val UP_PRESET =
     name = "Up",
     points =
       arrayListOf(
-        EnvelopePoint(0f, 1f, 0),
-        EnvelopePoint(1f, 1f, 50), // 50ms
-        EnvelopePoint(0f, 1f, 50),
-        EnvelopePoint(0f, 1f, 1050),
-        EnvelopePoint(1f, 1f, 1200), // 150ms
-        EnvelopePoint(0f, 1f, 1200),
-        EnvelopePoint(0f, 1f, 2200),
-        EnvelopePoint(1f, 1f, 2500), // 300ms
-        EnvelopePoint(0f, 1f, 2500),
-        EnvelopePoint(0f, 1f, 3500),
-        EnvelopePoint(1f, 1f, 4100), // 600ms
-        EnvelopePoint(0f, 1f, 4100),
-        EnvelopePoint(0f, 1f, 5100),
-        EnvelopePoint(1f, 1f, 6100), // 1000ms
-        EnvelopePoint(0f, 1f, 6100),
-        EnvelopePoint(0f, 1f, 7100),
-        EnvelopePoint(1f, 1f, 10100), // 3000ms
-        EnvelopePoint(0f, 1f, 10100),
+        Point(0f, 1f, 0),
+        Point(1f, 1f, 50), // 50ms
+        Point(0f, 1f, 50),
+        Point(0f, 1f, 1050),
+        Point(1f, 1f, 1200), // 150ms
+        Point(0f, 1f, 1200),
+        Point(0f, 1f, 2200),
+        Point(1f, 1f, 2500), // 300ms
+        Point(0f, 1f, 2500),
+        Point(0f, 1f, 3500),
+        Point(1f, 1f, 4100), // 600ms
+        Point(0f, 1f, 4100),
+        Point(0f, 1f, 5100),
+        Point(1f, 1f, 6100), // 1000ms
+        Point(0f, 1f, 6100),
+        Point(0f, 1f, 7100),
+        Point(1f, 1f, 10100), // 3000ms
+        Point(0f, 1f, 10100),
       ),
   )
 
@@ -126,24 +126,24 @@ val UP_AND_DOWN_PRESET =
     name = "Up and Down",
     points =
       arrayListOf(
-        EnvelopePoint(0f, 1f, 0),
-        EnvelopePoint(1f, 1f, 50), // 50ms
-        EnvelopePoint(0f, 1f, 100),
-        EnvelopePoint(0f, 1f, 1100),
-        EnvelopePoint(1f, 1f, 1250), // 150ms
-        EnvelopePoint(0f, 1f, 1400),
-        EnvelopePoint(0f, 1f, 2400),
-        EnvelopePoint(1f, 1f, 2700), // 300ms
-        EnvelopePoint(0f, 1f, 3000),
-        EnvelopePoint(0f, 1f, 4000),
-        EnvelopePoint(1f, 1f, 4600), // 600ms
-        EnvelopePoint(0f, 1f, 5200),
-        EnvelopePoint(0f, 1f, 6200),
-        EnvelopePoint(1f, 1f, 7200), // 1000ms
-        EnvelopePoint(0f, 1f, 8200),
-        EnvelopePoint(0f, 1f, 9200),
-        EnvelopePoint(1f, 1f, 12200), // 3000ms
-        EnvelopePoint(0f, 1f, 15200),
+        Point(0f, 1f, 0),
+        Point(1f, 1f, 50), // 50ms
+        Point(0f, 1f, 100),
+        Point(0f, 1f, 1100),
+        Point(1f, 1f, 1250), // 150ms
+        Point(0f, 1f, 1400),
+        Point(0f, 1f, 2400),
+        Point(1f, 1f, 2700), // 300ms
+        Point(0f, 1f, 3000),
+        Point(0f, 1f, 4000),
+        Point(1f, 1f, 4600), // 600ms
+        Point(0f, 1f, 5200),
+        Point(0f, 1f, 6200),
+        Point(1f, 1f, 7200), // 1000ms
+        Point(0f, 1f, 8200),
+        Point(0f, 1f, 9200),
+        Point(1f, 1f, 12200), // 3000ms
+        Point(0f, 1f, 15200),
       ),
   )
 
@@ -161,8 +161,8 @@ val COMPLEX =
       ),
     points =
       arrayListOf(
-        EnvelopePoint(0f, 1f, 0),
-        EnvelopePoint(0.9f, 1f, 5000),
-        EnvelopePoint(0f, 1f, 10000),
+        Point(0f, 1f, 0),
+        Point(0.9f, 1f, 5000),
+        Point(0f, 1f, 10000),
       ),
   )

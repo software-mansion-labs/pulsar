@@ -1,7 +1,7 @@
 package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
-import com.swmansion.pulsarapp.types.EnvelopePoint
+import com.swmansion.pulsarapp.types.Point
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -23,21 +23,21 @@ class ExampleUnitTest {
     val vibrationBuilder = VibrationBuilder()
     val points = vibrationBuilder.convertBarsToPoints(bars)
 
-    val expectedPoints: ArrayList<EnvelopePoint> =
+    val expectedPoints: ArrayList<Point> =
       arrayListOf(
-        EnvelopePoint(0f, 0f, 0),
-        EnvelopePoint(0f, 0.8f, 100),
-        EnvelopePoint(0.3f, 0.8f, 100),
-        EnvelopePoint(0.3f, 0.8f, 200),
-        EnvelopePoint(0f, 0.8f, 200),
-        EnvelopePoint(0f, 0.8f, 300),
-        EnvelopePoint(0.6f, 0.8f, 300),
-        EnvelopePoint(0.6f, 0.8f, 500),
-        EnvelopePoint(0f, 0.8f, 500),
-        EnvelopePoint(0f, 0.8f, 600),
-        EnvelopePoint(1f, 0.8f, 600),
-        EnvelopePoint(1f, 0.8f, 800),
-        EnvelopePoint(0f, 0.8f, 800),
+        Point(0f, 0f, 0),
+        Point(0f, 0.8f, 100),
+        Point(0.3f, 0.8f, 100),
+        Point(0.3f, 0.8f, 200),
+        Point(0f, 0.8f, 200),
+        Point(0f, 0.8f, 300),
+        Point(0.6f, 0.8f, 300),
+        Point(0.6f, 0.8f, 500),
+        Point(0f, 0.8f, 500),
+        Point(0f, 0.8f, 600),
+        Point(1f, 0.8f, 600),
+        Point(1f, 0.8f, 800),
+        Point(0f, 0.8f, 800),
       )
 
     assertEquals(points, expectedPoints)
@@ -53,15 +53,15 @@ class ExampleUnitTest {
     val vibrationBuilder = VibrationBuilder()
     val points = vibrationBuilder.convertBarsToPoints(bars)
 
-    val expectedPoints: ArrayList<EnvelopePoint> =
+    val expectedPoints: ArrayList<Point> =
       arrayListOf(
-        EnvelopePoint(0f, 0f, 0),
-        EnvelopePoint(0f, 0.8f, 100),
-        EnvelopePoint(0.3f, 0.8f, 100),
-        EnvelopePoint(0.3f, 0.8f, 200),
-        EnvelopePoint(0.6f, 0.8f, 200),
-        EnvelopePoint(0.6f, 0.8f, 300),
-        EnvelopePoint(0f, 0.8f, 300),
+        Point(0f, 0f, 0),
+        Point(0f, 0.8f, 100),
+        Point(0.3f, 0.8f, 100),
+        Point(0.3f, 0.8f, 200),
+        Point(0.6f, 0.8f, 200),
+        Point(0.6f, 0.8f, 300),
+        Point(0f, 0.8f, 300),
       )
 
     assertEquals(points, expectedPoints)
@@ -76,12 +76,12 @@ class ExampleUnitTest {
     val vibrationBuilder = VibrationBuilder()
     val points = vibrationBuilder.convertBarsToPoints(bars)
 
-    val expectedPoints: ArrayList<EnvelopePoint> =
+    val expectedPoints: ArrayList<Point> =
       arrayListOf(
-        EnvelopePoint(0f, 0.8f, 0),
-        EnvelopePoint(0.3f, 0.8f, 0),
-        EnvelopePoint(0.3f, 0.8f, 200),
-        EnvelopePoint(0f, 0.8f, 200),
+        Point(0f, 0.8f, 0),
+        Point(0.3f, 0.8f, 0),
+        Point(0.3f, 0.8f, 200),
+        Point(0f, 0.8f, 200),
       )
 
     assertEquals(points, expectedPoints)
@@ -94,9 +94,9 @@ class ExampleUnitTest {
     )
     val points =
       arrayListOf(
-        EnvelopePoint(0f, 1f, 0),
-        EnvelopePoint(0.6f, 1f, 500),
-        EnvelopePoint(0f, 1f, 1000),
+        Point(0f, 1f, 0),
+        Point(0.6f, 1f, 500),
+        Point(0f, 1f, 1000),
       )
 
     val builder = VibrationBuilder()

@@ -7,7 +7,7 @@ import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsarapp.types.Bar
-import com.swmansion.pulsarapp.types.EnvelopePoint
+import com.swmansion.pulsarapp.types.Point
 import com.swmansion.pulsarapp.types.Preset
 import kotlin.collections.forEach
 import kotlin.collections.plusAssign
@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 
 const val MAX_AMPLITUDE = 255
 const val STEPS_PER_100_MS = 30
-const val DEFAULT_FREQUENCY = 1f
+const val DEFAULT_SHARPNESS = 1f
 
 data class CreateVibrationEffectProps(
   val frequencyProfile: VibratorFrequencyProfile? = null,
@@ -75,7 +75,7 @@ class VibrationBuilder {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveformFromPoints(
-    points: ArrayList<EnvelopePoint>,
+    points: ArrayList<Point>,
     props: CreateVibrationEffectProps?,
   ): VibrationEffect? {
     return if (supportAndroid36() && props != null) createEnvelopeWaveform(points, props)
@@ -87,7 +87,7 @@ class VibrationBuilder {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createComplexWaveform(
-    points: ArrayList<EnvelopePoint>,
+    points: ArrayList<Point>,
     bars: ArrayList<Bar>,
     props: CreateVibrationEffectProps?,
   ): VibrationEffect? {
@@ -114,7 +114,7 @@ class VibrationBuilder {
 
       val currBarDuration = currBar.x2 - currBar.x1
       timings += currBarDuration
-      amplitudes += (currBar.amplitude * MAX_AMPLITUDE).roundToInt()
+      amplitudes += (currBar.intensity * MAX_AMPLITUDE).roundToInt()
     }
 
     return VibrationEffect.createWaveform(timings, amplitudes, -1)
@@ -122,7 +122,7 @@ class VibrationBuilder {
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   private fun createEnvelopeWaveform(
-    points: ArrayList<EnvelopePoint>,
+    points: ArrayList<Point>,
     props: CreateVibrationEffectProps,
   ): VibrationEffect {
     val controlPoints = getControlPoints(points, props)
@@ -143,10 +143,10 @@ class VibrationBuilder {
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   private fun getControlPoints(
-    points: ArrayList<EnvelopePoint>,
+    points: ArrayList<Point>,
     props: CreateVibrationEffectProps,
-  ): ArrayList<EnvelopePoint> {
-    val controlPoints = ArrayList<EnvelopePoint>()
+  ): ArrayList<Point> {
+    val controlPoints = ArrayList<Point>()
     val n = points.size
     val minDuration = props.envelopeInfo.minControlPointDurationMillis
 
@@ -154,7 +154,7 @@ class VibrationBuilder {
       val currPoint = points[i]
 
       if (i == 0) {
-        // handle start from non zero amplitude
+        // handle start from non zero intensity
         if (currPoint.intensity != 0f) {
           controlPoints +=
             createControlPoint(props, currPoint.intensity, currPoint.sharpness, minDuration)
@@ -179,7 +179,7 @@ class VibrationBuilder {
     intensity: Float,
     sharpness: Float,
     duration: Long,
-  ): EnvelopePoint {
+  ): Point {
     val envelopeInfo = props.envelopeInfo
     val frequencyProfile = props.frequencyProfile
 
@@ -187,47 +187,45 @@ class VibrationBuilder {
     val maxDuration = envelopeInfo.maxControlPointDurationMillis
     val adjustedDuration = max(min(duration, maxDuration), minDuration)
 
-    val adjustedFrequency =
+    val adjustedSharpness =
       frequencyProfile?.let {
-        val minFrequencyHz = it.minFrequencyHz
-        val maxFrequencyHz = it.maxFrequencyHz
-        sharpness * (maxFrequencyHz - minFrequencyHz) + minFrequencyHz
+        sharpness * (it.maxFrequencyHz - it.minFrequencyHz) + it.minFrequencyHz
       } ?: sharpness
 
-    return EnvelopePoint(intensity, adjustedFrequency, adjustedDuration)
+    return Point(intensity, adjustedSharpness, adjustedDuration)
   }
 
-  fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<EnvelopePoint> {
-    val points = ArrayList<EnvelopePoint>()
+  fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<Point> {
+    val points = ArrayList<Point>()
     val n = bars.size
 
     // TODO: better validation
-    val validBars = bars.filter { it.amplitude != 0f }
+    val validBars = bars.filter { it.intensity != 0f }
 
     // create empty interval at the beginning
     if (validBars.isNotEmpty() && validBars[0].x1 != 0L) {
-      points += EnvelopePoint(0f, 0f, 0)
+      points += Point(0f, 0f, 0)
     }
 
     for (i in 0..n - 1) {
       val currBar = validBars[i]
 
       if (i == 0 || validBars[i - 1].x2 != currBar.x1) {
-        points += EnvelopePoint(0f, currBar.frequency, currBar.x1)
+        points += Point(0f, currBar.sharpness, currBar.x1)
       }
 
-      points += EnvelopePoint(currBar.amplitude, currBar.frequency, currBar.x1)
-      points += EnvelopePoint(currBar.amplitude, currBar.frequency, currBar.x2)
+      points += Point(currBar.intensity, currBar.sharpness, currBar.x1)
+      points += Point(currBar.intensity, currBar.sharpness, currBar.x2)
 
       if (i == n - 1 || currBar.x2 != validBars[i + 1].x1) {
-        points += EnvelopePoint(0f, currBar.frequency, currBar.x2)
+        points += Point(0f, currBar.sharpness, currBar.x2)
       }
     }
 
     return points
   }
 
-  private fun convertPointsToBars(points: ArrayList<EnvelopePoint>): ArrayList<Bar> {
+  private fun convertPointsToBars(points: ArrayList<Point>): ArrayList<Bar> {
     val bars = ArrayList<Bar>()
 
     val n = points.size
@@ -243,7 +241,7 @@ class VibrationBuilder {
             prevPoint.relativeTime,
             currPoint.relativeTime,
             currPoint.intensity,
-            DEFAULT_FREQUENCY, // frequency of this bar will never be used
+            DEFAULT_SHARPNESS, // sharpness of this bar will never be used
           )
       } else if (prevPoint.relativeTime != currPoint.relativeTime) {
         val intervalDuration = currPoint.relativeTime - prevPoint.relativeTime
@@ -260,10 +258,10 @@ class VibrationBuilder {
         for (i in 0..steps - 1) {
           val startTime = prevPoint.relativeTime + stepDuration * i
           val endTime = if (i < steps - 1) startTime + stepDuration else currPoint.relativeTime
-          val amplitude =
+          val intensity =
             if (isAscending) startIntensity + stepValue * i else startIntensity - stepValue * i
 
-          bars += Bar(startTime, endTime, amplitude, DEFAULT_FREQUENCY)
+          bars += Bar(startTime, endTime, intensity, DEFAULT_SHARPNESS)
         }
       }
     }
@@ -275,12 +273,9 @@ class VibrationBuilder {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA
   }
 
-  fun mergePointsAndBars(
-    bars: ArrayList<Bar>,
-    points: ArrayList<EnvelopePoint>,
-  ): ArrayList<EnvelopePoint> {
+  fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayList<Point> {
     val pointsMap = getBarsWithinLineMap(points, bars)
-    val resultPoints: ArrayList<EnvelopePoint> = arrayListOf()
+    val resultPoints: ArrayList<Point> = arrayListOf()
     val n = points.size
 
     for (i in 1..n - 1) {
@@ -293,8 +288,8 @@ class VibrationBuilder {
       val barsWithinLine = pointsMap[startLinePoint]!!
 
       for (bar in barsWithinLine) {
-        val startBarPoint = EnvelopePoint(bar.amplitude, bar.frequency, bar.x1)
-        val endBarPoint = EnvelopePoint(bar.amplitude, bar.frequency, bar.x2)
+        val startBarPoint = Point(bar.intensity, bar.sharpness, bar.x1)
+        val endBarPoint = Point(bar.intensity, bar.sharpness, bar.x2)
 
         val startIntersectionPoint = getIntersectionPoint(a, b, startBarPoint)
         val endIntersectionPoint = getIntersectionPoint(a, b, endBarPoint)
@@ -322,10 +317,10 @@ class VibrationBuilder {
   }
 
   fun getBarsWithinLineMap(
-    points: ArrayList<EnvelopePoint>,
+    points: ArrayList<Point>,
     bars: ArrayList<Bar>,
-  ): Map<EnvelopePoint, ArrayList<Bar>> {
-    val barsWithinLineMap = mutableMapOf<EnvelopePoint, ArrayList<Bar>>()
+  ): Map<Point, ArrayList<Bar>> {
+    val barsWithinLineMap = mutableMapOf<Point, ArrayList<Bar>>()
     val n = points.size
     var currBarIndex = 0
 
@@ -350,7 +345,7 @@ class VibrationBuilder {
     return barsWithinLineMap
   }
 
-  fun getLineParameters(point1: EnvelopePoint, point2: EnvelopePoint): Pair<Float, Float> {
+  fun getLineParameters(point1: Point, point2: Point): Pair<Float, Float> {
     val x1 = point1.relativeTime.toFloat()
     val x2 = point2.relativeTime.toFloat()
 
@@ -364,10 +359,10 @@ class VibrationBuilder {
   }
 
   // intersection between y = ax + b and y = x (point)
-  fun getIntersectionPoint(a: Float, b: Float, point: EnvelopePoint): EnvelopePoint {
+  fun getIntersectionPoint(a: Float, b: Float, point: Point): Point {
     val x = point.relativeTime.toFloat()
     val y = a * x + b
 
-    return EnvelopePoint(y, point.sharpness, x.toLong())
+    return Point(y, point.sharpness, x.toLong())
   }
 }
