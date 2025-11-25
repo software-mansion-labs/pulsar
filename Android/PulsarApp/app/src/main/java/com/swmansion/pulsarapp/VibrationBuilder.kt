@@ -7,6 +7,7 @@ import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsarapp.types.Bar
+import com.swmansion.pulsarapp.types.ControlPoint
 import com.swmansion.pulsarapp.types.Point
 import com.swmansion.pulsarapp.types.Preset
 import kotlin.collections.forEach
@@ -129,14 +130,12 @@ class VibrationBuilder {
 
     return props.frequencyProfile?.let {
       val builder = VibrationEffect.WaveformEnvelopeBuilder()
-      controlPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.relativeTime) }
+      controlPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.duration) }
       builder.build()
     }
       ?: run {
         val builder = VibrationEffect.BasicEnvelopeBuilder()
-        controlPoints.forEach {
-          builder.addControlPoint(it.intensity, it.sharpness, it.relativeTime)
-        }
+        controlPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.duration) }
         builder.build()
       }
   }
@@ -145,8 +144,8 @@ class VibrationBuilder {
   private fun getControlPoints(
     points: ArrayList<Point>,
     props: CreateVibrationEffectProps,
-  ): ArrayList<Point> {
-    val controlPoints = ArrayList<Point>()
+  ): ArrayList<ControlPoint> {
+    val controlPoints = ArrayList<ControlPoint>()
     val n = points.size
     val minDuration = props.envelopeInfo.minControlPointDurationMillis
 
@@ -179,7 +178,7 @@ class VibrationBuilder {
     intensity: Float,
     sharpness: Float,
     duration: Long,
-  ): Point {
+  ): ControlPoint {
     val envelopeInfo = props.envelopeInfo
     val frequencyProfile = props.frequencyProfile
 
@@ -192,7 +191,7 @@ class VibrationBuilder {
         sharpness * (it.maxFrequencyHz - it.minFrequencyHz) + it.minFrequencyHz
       } ?: sharpness
 
-    return Point(intensity, adjustedSharpness, adjustedDuration)
+    return ControlPoint(intensity, adjustedSharpness, adjustedDuration)
   }
 
   fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<Point> {
