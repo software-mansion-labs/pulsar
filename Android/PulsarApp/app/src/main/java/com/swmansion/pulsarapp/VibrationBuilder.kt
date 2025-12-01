@@ -57,7 +57,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveformFromBars(bars: ArrayList<Bar>): VibrationEffect {
-    return if (supportEnvelope()) {
+    return if (isEnvelopeSupported()) {
       val points = convertBarsToPoints(bars)
       createEnvelopeWaveform(points)
     } else createWaveform(bars)
@@ -65,7 +65,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveformFromPoints(points: ArrayList<Point>): VibrationEffect? {
-    return if (supportEnvelope()) createEnvelopeWaveform(points)
+    return if (isEnvelopeSupported()) createEnvelopeWaveform(points)
     else {
       val bars = convertPointsToBars(points)
       createWaveform(bars)
@@ -111,12 +111,12 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   private fun createEnvelopeWaveform(points: ArrayList<Point>): VibrationEffect {
     val controlPoints = getControlPoints(points)
-    val p = convertControlPointToPoints(controlPoints)
 
     Log.i(TAG, "----------- POINTS -----------")
     printPointsToPlot(points)
     Log.i(TAG, "----------- CONTROL POINTS -----------")
-    printPointsToPlot(p)
+    val plotControlPoints = convertControlPointToPoints(controlPoints)
+    printPointsToPlot(plotControlPoints)
     Log.i(TAG, "--------------------------------------")
 
     return vibrationService.frequencyProfile?.let {
@@ -235,6 +235,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
         val isAscending = startIntensity < endIntensity
 
+        // TODO fix last interval length
         for (i in 0..steps - 1) {
           val startTime = prevPoint.relativeTime + stepDuration * i
           val endTime = if (i < steps - 1) startTime + stepDuration else currPoint.relativeTime
@@ -249,22 +250,21 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     return bars
   }
 
-  private fun supportEnvelope(): Boolean {
+  private fun isEnvelopeSupported(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
       vibrationService.areEnvelopeEffectsSupported()
   }
 
   fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayList<Point> {
     val barsWithinLineMap = getBarsWithinLineMap(points, bars)
-    val nLinePoints = points.size
-
     var mergedPoints = ArrayList<Point>()
 
+    val nLinePoints = points.size
     for (i in 1..nLinePoints - 1) {
       val linePoint1 = points[i - 1]
       val linePoint2 = points[i]
 
-      val barsWithinLine = barsWithinLineMap[linePoint1]!!
+      val barsWithinLine = barsWithinLineMap[linePoint1]
       var linePoints = getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine)
 
       if (i != 1) {
@@ -292,40 +292,39 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     mergedPoints.removeAll(toDelete)
     mergedPoints = ArrayList(mergedPoints.distinct())
 
-    removeDuplicats(mergedPoints)
-
-    Log.i(TAG, "points: $mergedPoints")
-    Log.i(TAG, "size: ${mergedPoints.size}")
+    removeMultiplePointsOnHorizontalLine(mergedPoints)
 
     return mergedPoints
   }
 
-  private fun removeDuplicats(mergedPoints: ArrayList<Point>) {
-    val toDelete = ArrayList<Point>()
-    val nP = mergedPoints.size
-    for (i in 0..nP - 1) {
-      if (i != 0 && i != nP - 1) {
-        val prev = mergedPoints[i - 1]
-        val curr = mergedPoints[i]
-        val next = mergedPoints[i + 1]
+  private fun removeMultiplePointsOnHorizontalLine(points: ArrayList<Point>) {
+    val pointsToDelete = ArrayList<Point>()
+    val n = points.size
+    for (i in 0..n - 1) {
+      if (i != 0 && i != n - 1) {
+        val prev = points[i - 1]
+        val curr = points[i]
+        val next = points[i + 1]
 
         if (prev.intensity == curr.intensity && curr.intensity == next.intensity) {
-          toDelete.add(curr)
+          pointsToDelete.add(curr)
         }
       }
     }
 
-    mergedPoints.removeAll(toDelete)
+    points.removeAll(pointsToDelete)
   }
 
   fun getPointsOnTheLine(
     linePoint1: Point,
     linePoint2: Point,
-    bars: ArrayList<Bar>,
+    bars: ArrayList<Bar>?,
   ): ArrayList<Point> {
-    var points = arrayListOf<Point>()
-    points += linePoint1
+    if (bars == null) {
+      return arrayListOf(linePoint1, linePoint2)
+    }
 
+    var points = arrayListOf(linePoint1)
     val (a, b) = getLineParameters(linePoint1, linePoint2)
 
     val nBars = bars.size
@@ -333,38 +332,47 @@ class VibrationBuilder(val vibrationService: Vibrator) {
       val bar = bars[j]
 
       getBarIntersectionPoints(a, b, bar)?.let {
-        val (intersection1, intersectionHorizontal, intersection2) = it
+        val (verticalIntersection1, horizontalIntersection, verticalIntersection2) = it
         val (barPoint1, barPoint2) = getBarPoints(bar)
-        var barPoints: ArrayList<Point>? = null
 
-        if (intersectionHorizontal != null) {
-          if (intersection1 != null) {
-            barPoints = arrayListOf(intersection1, barPoint1, intersectionHorizontal)
-          } else if (intersection2 != null) {
-            barPoints = arrayListOf(intersectionHorizontal, barPoint2, intersection2)
+        var barPointsToAdd: ArrayList<Point>? = null
+
+        if (verticalIntersection1 != null && verticalIntersection2 != null) {
+          barPointsToAdd =
+            arrayListOf(verticalIntersection1, barPoint1, barPoint2, verticalIntersection2)
+        } else if (
+          horizontalIntersection != null &&
+            (verticalIntersection1 != null || verticalIntersection2 != null)
+        ) {
+          if (verticalIntersection1 != null) {
+            barPointsToAdd = arrayListOf(verticalIntersection1, barPoint1, horizontalIntersection)
+          } else if (verticalIntersection2 != null) {
+            barPointsToAdd = arrayListOf(horizontalIntersection, barPoint2, verticalIntersection2)
           }
-        } else if (intersection1 != null && intersection2 != null) {
-          barPoints = arrayListOf(intersection1, barPoint1, barPoint2, intersection2)
         } else {
-          Log.i(TAG, "bar ${bar.x1}-${bar.x2} is under line - shouldn't happen")
+          Log.i(
+            TAG,
+            "Bar ${bar.x1}-${bar.x2} wasn't added to the line. This shouldn't happen. Intersections are not empty.",
+          )
         }
 
-        barPoints?.forEach { p -> points.add(p) }
+        barPointsToAdd?.forEach { point -> points.add(point) }
       }
     }
 
     points += linePoint2
 
+    // remove unnecessary duplicates
     points = ArrayList(points.distinct())
-    removeBecauseOfTriples(points)
 
-    Log.i(TAG, "MY POINTS: ${points}")
+    // handle jump when two bars have common relative time
+    handleTriples(points)
 
     return points
   }
 
-  fun removeBecauseOfTriples(points: ArrayList<Point>) {
-    val toDelete = ArrayList<Point>()
+  private fun handleTriples(points: ArrayList<Point>) {
+    val pointsToDelete = ArrayList<Point>()
 
     val nPoints = points.size
     points.forEachIndexed { index, point ->
@@ -377,14 +385,15 @@ class VibrationBuilder(val vibrationService: Vibrator) {
           prevPoint.relativeTime == currPoint.relativeTime &&
             currPoint.relativeTime == nextPoint.relativeTime
         ) {
-          toDelete.add(currPoint)
+          pointsToDelete.add(currPoint)
         }
       }
     }
-    points.removeAll(toDelete)
+
+    points.removeAll(pointsToDelete)
   }
 
-  fun getBarsWithinLineMap(
+  private fun getBarsWithinLineMap(
     points: ArrayList<Point>,
     bars: ArrayList<Bar>,
   ): Map<Point, ArrayList<Bar>> {
@@ -426,33 +435,34 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     return (a to b)
   }
 
-  // intersection between y = ax + b and y = x (point)
   fun getBarIntersectionPoints(a: Float, b: Float, bar: Bar): Triple<Point?, Point?, Point?>? {
     val (barPoint1, barPoint2) = getBarPoints(bar)
 
-    val intersectionPoint1 = getVerticalIntervalIntersectionPoint(a, b, barPoint1)
-    val intersectionPoint2 = getVerticalIntervalIntersectionPoint(a, b, barPoint2)
-    val horizontalIntersection = getHorizontalIntersection(a, b, bar)
+    val verticalIntersection1 = getBarVerticalIntersectionPoint(a, b, barPoint1)
+    val verticalIntersection2 = getBarVerticalIntersectionPoint(a, b, barPoint2)
+    val horizontalIntersection = getBarHorizontalIntersectionPoint(a, b, bar)
 
     return Triple(
-      intersectionPoint1,
+      verticalIntersection1,
       if (
-        horizontalIntersection != intersectionPoint1 && horizontalIntersection != intersectionPoint2
+        horizontalIntersection != verticalIntersection1 &&
+          horizontalIntersection != verticalIntersection2
       )
         horizontalIntersection
       else null,
-      intersectionPoint2,
+      verticalIntersection2,
     )
   }
 
-  fun getVerticalIntervalIntersectionPoint(a: Float, b: Float, point: Point): Point? {
+  // intersection between y = ax + b and y = x
+  private fun getBarVerticalIntersectionPoint(a: Float, b: Float, point: Point): Point? {
     val x = point.relativeTime.toFloat()
     val y = a * x + b
 
     return if (y < 0 || y > point.intensity) null else Point(y, point.sharpness, point.relativeTime)
   }
 
-  fun getHorizontalIntersection(a: Float, b: Float, bar: Bar): Point? {
+  fun getBarHorizontalIntersectionPoint(a: Float, b: Float, bar: Bar): Point? {
     if (a == 0f) {
       return null
     } else {
