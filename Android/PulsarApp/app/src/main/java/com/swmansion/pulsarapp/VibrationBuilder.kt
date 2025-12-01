@@ -127,6 +127,13 @@ class VibrationBuilder {
     props: CreateVibrationEffectProps,
   ): VibrationEffect {
     val controlPoints = getControlPoints(points, props)
+    val p = convertControlPointToPoints(controlPoints)
+
+    Log.i(TAG, "----------- POINTS -----------")
+    printPointsToPlot(points)
+    Log.i(TAG, "----------- CONTROL POINTS -----------")
+    printPointsToPlot(p)
+    Log.i(TAG, "--------------------------------------")
 
     return props.frequencyProfile?.let {
       val builder = VibrationEffect.WaveformEnvelopeBuilder()
@@ -273,46 +280,86 @@ class VibrationBuilder {
   }
 
   fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayList<Point> {
-    val pointsMap = getBarsWithinLineMap(points, bars)
-    val resultPoints: ArrayList<Point> = arrayListOf()
-    val n = points.size
+    val barsWithinLineMap = getBarsWithinLineMap(points, bars)
+    val nLinePoints = points.size
 
-    for (i in 1..n - 1) {
-      val startLinePoint = points[i - 1]
-      val endLinePoint = points[i]
+    var mergedPoints = ArrayList<Point>()
 
-      resultPoints += startLinePoint
+    for (i in 1..nLinePoints - 1) {
+      val linePoint1 = points[i - 1]
+      val linePoint2 = points[i]
 
-      val (a, b) = getLineParameters(startLinePoint, endLinePoint)
-      val barsWithinLine = pointsMap[startLinePoint]!!
+      val barsWithinLine = barsWithinLineMap[linePoint1]!!
+      val linePoints = getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine)
 
-      for (bar in barsWithinLine) {
-        val startBarPoint = Point(bar.intensity, bar.sharpness, bar.x1)
-        val endBarPoint = Point(bar.intensity, bar.sharpness, bar.x2)
+      mergedPoints.addAll(linePoints)
+      mergedPoints = ArrayList(mergedPoints.distinct())
+    }
 
-        val startIntersectionPoint = getIntersectionPoint(a, b, startBarPoint)
-        val endIntersectionPoint = getIntersectionPoint(a, b, endBarPoint)
+    return mergedPoints
+  }
 
-        if (
-          startIntersectionPoint.intensity < startBarPoint.intensity &&
-            endIntersectionPoint.intensity < endBarPoint.intensity
-        ) {
-          if (startLinePoint.relativeTime != startIntersectionPoint.relativeTime) {
-            resultPoints += startIntersectionPoint
+  fun getPointsOnTheLine(
+    linePoint1: Point,
+    linePoint2: Point,
+    bars: ArrayList<Bar>,
+  ): ArrayList<Point> {
+    var points = arrayListOf<Point>()
+    points += linePoint1
+
+    val (a, b) = getLineParameters(linePoint1, linePoint2)
+
+    val nBars = bars.size
+    for (j in 0..nBars - 1) {
+      val bar = bars[j]
+
+      getBarIntersectionPoints(a, b, bar)?.let {
+        val (intersection1, intersectionHorizontal, intersection2) = it
+        val (barPoint1, barPoint2) = getBarPoints(bar)
+        var barPoints: ArrayList<Point>? = null
+
+        if (intersectionHorizontal != null) {
+          if (intersection1 != null) {
+            barPoints = arrayListOf(intersection1, barPoint1, intersectionHorizontal)
+          } else if (intersection2 != null) {
+            barPoints = arrayListOf(intersectionHorizontal, barPoint2, intersection2)
           }
-          resultPoints += startBarPoint
-          resultPoints += endBarPoint
-          if (endLinePoint.relativeTime != endIntersectionPoint.relativeTime) {
-            resultPoints += endIntersectionPoint
-          }
+        } else if (intersection1 != null && intersection2 != null) {
+          barPoints = arrayListOf(intersection1, barPoint1, barPoint2, intersection2)
+        } else {
+          Log.i(TAG, "bar ${bar.x1}-${bar.x2} is under line - shouldn't happen")
         }
-      }
 
-      if (i == n - 1) {
-        resultPoints += endLinePoint
+        barPoints?.forEach { p -> points.add(p) }
       }
     }
-    return resultPoints
+
+    points += linePoint2
+
+    // remove duplicates
+    points = ArrayList(points.distinct())
+
+    // remove triples
+    val toDelete = ArrayList<Point>()
+
+    val nPoints = points.size
+    points.forEachIndexed { index, point ->
+      if (index != 0 && index != nPoints - 1) {
+        val prevPoint = points[index - 1]
+        val currPoint = points[index]
+        val nextPoint = points[index + 1]
+
+        if (
+          prevPoint.relativeTime == currPoint.relativeTime &&
+            currPoint.relativeTime == nextPoint.relativeTime
+        ) {
+          toDelete.add(currPoint)
+        }
+      }
+    }
+    points.removeAll(toDelete)
+
+    return points
   }
 
   fun getBarsWithinLineMap(
@@ -358,10 +405,46 @@ class VibrationBuilder {
   }
 
   // intersection between y = ax + b and y = x (point)
-  fun getIntersectionPoint(a: Float, b: Float, point: Point): Point {
+  fun getBarIntersectionPoints(a: Float, b: Float, bar: Bar): Triple<Point?, Point?, Point?>? {
+    val (barPoint1, barPoint2) = getBarPoints(bar)
+
+    val intersectionPoint1 = getVerticalIntervalIntersectionPoint(a, b, barPoint1)
+    val intersectionPoint2 = getVerticalIntervalIntersectionPoint(a, b, barPoint2)
+    val horizontalIntersection = getHorizontalIntersection(a, b, bar)
+
+    return Triple(
+      intersectionPoint1,
+      if (
+        horizontalIntersection != intersectionPoint1 && horizontalIntersection != intersectionPoint2
+      )
+        horizontalIntersection
+      else null,
+      intersectionPoint2,
+    )
+  }
+
+  fun getVerticalIntervalIntersectionPoint(a: Float, b: Float, point: Point): Point? {
     val x = point.relativeTime.toFloat()
     val y = a * x + b
 
-    return Point(y, point.sharpness, x.toLong())
+    return if (y < 0 || y > point.intensity) null else Point(y, point.sharpness, x.toLong())
+  }
+
+  fun getHorizontalIntersection(a: Float, b: Float, bar: Bar): Point? {
+    if (a == 0f) {
+      return null
+    } else {
+      val y = bar.intensity
+      val x = (y - b) / a
+
+      return if (x < bar.x1 || x > bar.x2) null else Point(bar.intensity, bar.sharpness, x.toLong())
+    }
+  }
+
+  fun getBarPoints(bar: Bar): Pair<Point, Point> {
+    val point1 = Point(bar.intensity, bar.sharpness, bar.x1)
+    val point2 = Point(bar.intensity, bar.sharpness, bar.x2)
+
+    return (point1 to point2)
   }
 }

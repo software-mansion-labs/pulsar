@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
               VibrationButton(SUCCESS_PRESET)
               VibrationButton(FAIL_PRESET)
               VibrationButton(FALLING_BRICKS)
+              VibrationButton(T)
             }
           }
 

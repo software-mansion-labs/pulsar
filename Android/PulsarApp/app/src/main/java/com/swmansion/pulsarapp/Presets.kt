@@ -152,9 +152,9 @@ val COMPLEX =
     name = "Complex",
     bars =
       arrayListOf(
-        Bar(200, 400, 1f, 1f),
-        Bar(1200, 1400, 1f, 1f),
-        Bar(2200, 2400, 1f, 1f),
+        Bar(200, 500, 0.5f, 1f),
+        Bar(500, 800, 1f, 1f),
+        Bar(800, 1100, 0.5f, 1f),
         Bar(7200, 7400, 1f, 1f),
         Bar(8200, 8400, 1f, 1f),
         Bar(9200, 9400, 1f, 1f),
@@ -165,4 +165,24 @@ val COMPLEX =
         Point(0.9f, 1f, 5000),
         Point(0f, 1f, 10000),
       ),
+  )
+
+val T =
+  Preset(
+    name = "T",
+    bars =
+      arrayListOf(
+        Bar(100, 600, 0.6f, 1f),
+        Bar(600, 700, 1f, 1f),
+        Bar(1500, 1600, 1f, 1f),
+        Bar(2000, 2500, 1f, 1f),
+        ),
+    points = arrayListOf(
+      Point(0f,1f,0),
+      Point(1f, 1f, 1000),
+      Point(0f, 1f, 1000),
+      Point(0f, 1f, 2000),
+      Point(1f, 1f, 2000),
+      Point(0f, 1f, 3000),
+      )
   )
