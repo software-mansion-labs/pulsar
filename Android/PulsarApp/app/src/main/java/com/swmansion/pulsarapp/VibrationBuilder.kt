@@ -16,6 +16,7 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 const val MAX_AMPLITUDE = 255
 const val STEPS_PER_100_MS = 30
@@ -427,7 +428,7 @@ class VibrationBuilder {
     val x = point.relativeTime.toFloat()
     val y = a * x + b
 
-    return if (y < 0 || y > point.intensity) null else Point(y, point.sharpness, x.toLong())
+    return if (y < 0 || y > point.intensity) null else Point(y, point.sharpness, point.relativeTime)
   }
 
   fun getHorizontalIntersection(a: Float, b: Float, bar: Bar): Point? {
@@ -437,7 +438,7 @@ class VibrationBuilder {
       val y = bar.intensity
       val x = (y - b) / a
 
-      return if (x < bar.x1 || x > bar.x2) null else Point(bar.intensity, bar.sharpness, x.toLong())
+      return if (x < bar.x1 || x > bar.x2) null else Point(bar.intensity, bar.sharpness, x.roundToLong())
     }
   }
 
