@@ -5,7 +5,6 @@ import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.Point
 import kotlin.collections.forEach
 import kotlin.math.abs
-import kotlin.math.pow
 import kotlin.math.round
 import kotlin.math.roundToLong
 
@@ -94,22 +93,24 @@ fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayLis
 
         val barsWithinLine = barsWithinLineMap[linePoint1]
 
-        val linePoints =
-            getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine).let {
-                // do not add linePoint1 multiple times
-                if (i == 1) {
-                    it
-                } else ArrayList(it.subList(1, it.size))
-            }
-
+        val linePoints = getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine)
         mergedPoints.addAll(linePoints)
     }
 
-    // handle decline on two bars with common relative time connection (on lines connection)
-    handleDeclineOnBarsConnection(mergedPoints)
+    //Log.i(TAG, "POINTS: $mergedPoints")
 
-    // will appear after connecting bars on lines connection with the same intensity
-    handleRedundantPointsOnHorizontalLine(mergedPoints)
+    // leave only unique points
+    deleteDuplicatePoints(mergedPoints)
+    //Log.i(TAG, "DELETE DUPLICATES: $mergedPoints")
+
+    // remove leftover point between adjacent bars with common relative time
+    deleteDeclineBetweenConnectedBars(mergedPoints)
+    //Log.i(TAG, "DELETE DECLINES: $mergedPoints")
+
+    // remove points on the same horizontal line with the same pair of amplitude and frequency
+    deleteRedundantPointsOnHorizontalLines(mergedPoints)
+    //Log.i(TAG, "DELETE REDUNDANT POINTS: $mergedPoints")
+
 
     return mergedPoints
 }
@@ -152,7 +153,7 @@ private fun getPointsOnTheLine(
         return arrayListOf(linePoint1, linePoint2)
     }
 
-    var points = arrayListOf(linePoint1)
+    val points = arrayListOf(linePoint1)
     val (a, b) = getLineParameters(linePoint1, linePoint2)
 
     val nBars = bars.size
@@ -183,27 +184,38 @@ private fun getPointsOnTheLine(
                 )
             }
 
-            barPointsToAdd?.forEach { point -> points.add(point) }
+            barPointsToAdd?.let{barPoints -> points.addAll(barPoints) }
         }
     }
 
     points += linePoint2
 
-    // remove duplicates which might occur during adding bar points
-    points = ArrayList(points.distinct())
-
-    // handle decline on two bars with common relative time connection
-    handleDeclineOnBarsConnection(points)
-
     return points
 }
+private fun deletePointsOfIndexes(points: ArrayList<Point>, indexes: ArrayList<Int>){
+    indexes.reversed().forEach { points.removeAt(it) }
+}
+private fun deleteDuplicatePoints(points: ArrayList<Point>) {
+    val indexesToDelete = ArrayList<Int>()
+    val n = points.size
 
-private fun handleDeclineOnBarsConnection(points: ArrayList<Point>) {
-    val pointsToDelete = ArrayList<Point>()
-    val nPoints = points.size
+    for (index in 1 .. n-1){
+        val prevPoint = points[index-1]
+        val currPoint = points[index]
 
-    points.forEachIndexed { index, point ->
-        if (index != 0 && index != nPoints - 1) {
+        if(currPoint.intensity == prevPoint.intensity && currPoint.relativeTime == prevPoint.relativeTime){
+            indexesToDelete.add(index)
+        }
+    }
+
+    deletePointsOfIndexes(points, indexesToDelete)
+}
+private fun deleteDeclineBetweenConnectedBars(points: ArrayList<Point>) {
+    val indexesToDelete = ArrayList<Int>()
+    val n = points.size
+
+    for (index in 0..n-1) {
+        if (index != 0 && index != n - 1) {
             val prevPoint = points[index - 1]
             val currPoint = points[index]
             val nextPoint = points[index + 1]
@@ -212,30 +224,31 @@ private fun handleDeclineOnBarsConnection(points: ArrayList<Point>) {
                 prevPoint.relativeTime == currPoint.relativeTime &&
                 currPoint.relativeTime == nextPoint.relativeTime
             ) {
-                pointsToDelete.add(currPoint)
+                indexesToDelete.add(index)
             }
         }
     }
 
-    points.removeAll(pointsToDelete)
+    deletePointsOfIndexes(points, indexesToDelete)
 }
 
-private fun handleRedundantPointsOnHorizontalLine(points: ArrayList<Point>) {
-    val pointsToDelete = ArrayList<Point>()
+private fun deleteRedundantPointsOnHorizontalLines(points: ArrayList<Point>) {
+    val indexesToDelete = ArrayList<Int>()
     val n = points.size
-    for (i in 0..n - 1) {
-        if (i != 0 && i != n - 1) {
-            val prev = points[i - 1]
-            val curr = points[i]
-            val next = points[i + 1]
+
+    for (index in 0..n - 1) {
+        if(index != 0 && index != n-1) {
+            val prev = points[index - 1]
+            val curr = points[index]
+            val next = points[index + 1]
 
             if (prev.intensity == curr.intensity && curr.intensity == next.intensity) {
-                pointsToDelete.add(curr)
+                indexesToDelete.add(index)
             }
         }
     }
 
-    points.removeAll(pointsToDelete)
+    deletePointsOfIndexes(points, indexesToDelete)
 }
 
 private fun getLineParameters(point1: Point, point2: Point): Pair<Float, Float> {
