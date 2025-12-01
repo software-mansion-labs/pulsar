@@ -2,8 +2,7 @@ package com.swmansion.pulsarapp
 
 import android.os.Build
 import android.os.VibrationEffect
-import android.os.vibrator.VibratorEnvelopeEffectInfo
-import android.os.vibrator.VibratorFrequencyProfile
+import android.os.Vibrator
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsarapp.types.Bar
@@ -22,16 +21,8 @@ const val MAX_AMPLITUDE = 255
 const val STEPS_PER_100_MS = 30
 const val DEFAULT_SHARPNESS = 1f
 
-data class CreateVibrationEffectProps(
-  val frequencyProfile: VibratorFrequencyProfile? = null,
-  val envelopeInfo: VibratorEnvelopeEffectInfo,
-)
-
-class VibrationBuilder {
-  fun createVibrationEffect(
-    preset: Preset,
-    props: CreateVibrationEffectProps? = null,
-  ): VibrationEffect? {
+class VibrationBuilder(val vibrationService: Vibrator) {
+  fun createVibrationEffect(preset: Preset): VibrationEffect? {
     val (_, bars, points) = preset
 
     if (bars == null && points == null) {
@@ -42,13 +33,13 @@ class VibrationBuilder {
       return null
     } else {
       if (bars != null && points != null) {
-        val complexWaveform = createComplexWaveform(points, bars, props)
+        val complexWaveform = createComplexWaveform(points, bars)
 
         Log.i(TAG, "Complex vibration created based on bars and points.")
         return complexWaveform
       } else {
-        val barsWaveform = bars?.let { createWaveformFromBars(it, props) }
-        val pointsWaveform = points?.let { createWaveformFromPoints(it, props) }
+        val barsWaveform = bars?.let { createWaveformFromBars(it) }
+        val pointsWaveform = points?.let { createWaveformFromPoints(it) }
 
         if (barsWaveform != null) {
           Log.i(TAG, "Vibration created based on bars.")
@@ -65,22 +56,16 @@ class VibrationBuilder {
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createWaveformFromBars(
-    bars: ArrayList<Bar>,
-    props: CreateVibrationEffectProps?,
-  ): VibrationEffect {
-    return if (supportAndroid36() && props != null) {
+  private fun createWaveformFromBars(bars: ArrayList<Bar>): VibrationEffect {
+    return if (supportEnvelope()) {
       val points = convertBarsToPoints(bars)
-      createEnvelopeWaveform(points, props)
+      createEnvelopeWaveform(points)
     } else createWaveform(bars)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createWaveformFromPoints(
-    points: ArrayList<Point>,
-    props: CreateVibrationEffectProps?,
-  ): VibrationEffect? {
-    return if (supportAndroid36() && props != null) createEnvelopeWaveform(points, props)
+  private fun createWaveformFromPoints(points: ArrayList<Point>): VibrationEffect? {
+    return if (supportEnvelope()) createEnvelopeWaveform(points)
     else {
       val bars = convertPointsToBars(points)
       createWaveform(bars)
@@ -91,10 +76,9 @@ class VibrationBuilder {
   private fun createComplexWaveform(
     points: ArrayList<Point>,
     bars: ArrayList<Bar>,
-    props: CreateVibrationEffectProps?,
   ): VibrationEffect? {
     val mergedPoints = mergePointsAndBars(bars, points)
-    return createWaveformFromPoints(mergedPoints, props)
+    return createWaveformFromPoints(mergedPoints)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
@@ -125,11 +109,8 @@ class VibrationBuilder {
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun createEnvelopeWaveform(
-    points: ArrayList<Point>,
-    props: CreateVibrationEffectProps,
-  ): VibrationEffect {
-    val controlPoints = getControlPoints(points, props)
+  private fun createEnvelopeWaveform(points: ArrayList<Point>): VibrationEffect {
+    val controlPoints = getControlPoints(points)
     val p = convertControlPointToPoints(controlPoints)
 
     Log.i(TAG, "----------- POINTS -----------")
@@ -138,7 +119,7 @@ class VibrationBuilder {
     printPointsToPlot(p)
     Log.i(TAG, "--------------------------------------")
 
-    return props.frequencyProfile?.let {
+    return vibrationService.frequencyProfile?.let {
       val builder = VibrationEffect.WaveformEnvelopeBuilder()
       controlPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.duration) }
       builder.build()
@@ -151,13 +132,10 @@ class VibrationBuilder {
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun getControlPoints(
-    points: ArrayList<Point>,
-    props: CreateVibrationEffectProps,
-  ): ArrayList<ControlPoint> {
+  private fun getControlPoints(points: ArrayList<Point>): ArrayList<ControlPoint> {
     val controlPoints = ArrayList<ControlPoint>()
     val n = points.size
-    val minDuration = props.envelopeInfo.minControlPointDurationMillis
+    val minDuration = vibrationService.envelopeEffectInfo.minControlPointDurationMillis
 
     for (i in 0..n - 1) {
       val currPoint = points[i]
@@ -165,8 +143,7 @@ class VibrationBuilder {
       if (i == 0) {
         // handle start from non zero intensity
         if (currPoint.intensity != 0f) {
-          controlPoints +=
-            createControlPoint(props, currPoint.intensity, currPoint.sharpness, minDuration)
+          controlPoints += createControlPoint(currPoint.intensity, currPoint.sharpness, minDuration)
         }
       } else {
         // handle transition between points
@@ -174,8 +151,7 @@ class VibrationBuilder {
         val pointsTimeDiff = currPoint.relativeTime - prevPoint.relativeTime
         val duration = if (pointsTimeDiff > 0) pointsTimeDiff else minDuration
 
-        controlPoints +=
-          createControlPoint(props, currPoint.intensity, currPoint.sharpness, duration)
+        controlPoints += createControlPoint(currPoint.intensity, currPoint.sharpness, duration)
       }
     }
 
@@ -183,14 +159,9 @@ class VibrationBuilder {
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun createControlPoint(
-    props: CreateVibrationEffectProps,
-    intensity: Float,
-    sharpness: Float,
-    duration: Long,
-  ): ControlPoint {
-    val envelopeInfo = props.envelopeInfo
-    val frequencyProfile = props.frequencyProfile
+  private fun createControlPoint(intensity: Float, sharpness: Float, duration: Long): ControlPoint {
+    val envelopeInfo = vibrationService.envelopeEffectInfo
+    val frequencyProfile = vibrationService.frequencyProfile
 
     val minDuration = envelopeInfo.minControlPointDurationMillis
     val maxDuration = envelopeInfo.maxControlPointDurationMillis
@@ -278,8 +249,9 @@ class VibrationBuilder {
     return bars
   }
 
-  private fun supportAndroid36(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA
+  private fun supportEnvelope(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
+      vibrationService.areEnvelopeEffectsSupported()
   }
 
   fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayList<Point> {
@@ -295,9 +267,9 @@ class VibrationBuilder {
       val barsWithinLine = barsWithinLineMap[linePoint1]!!
       var linePoints = getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine)
 
-      if (i != 1){
+      if (i != 1) {
         val n = linePoints.size
-        linePoints = ArrayList(linePoints.subList(1 , n)) // delete unnecesary point
+        linePoints = ArrayList(linePoints.subList(1, n)) // delete unnecesary point
       }
 
       mergedPoints.addAll(linePoints)
@@ -305,13 +277,13 @@ class VibrationBuilder {
 
     val toDelete = ArrayList<Point>()
     val nP = mergedPoints.size
-    for (i in 0 .. nP-1){
-      if(i != 0 && i != nP - 1){
-        val prev = mergedPoints[i-1]
+    for (i in 0..nP - 1) {
+      if (i != 0 && i != nP - 1) {
+        val prev = mergedPoints[i - 1]
         val curr = mergedPoints[i]
-        val next = mergedPoints[i+1]
+        val next = mergedPoints[i + 1]
 
-        if(prev.relativeTime == curr.relativeTime && curr.relativeTime == next.relativeTime){
+        if (prev.relativeTime == curr.relativeTime && curr.relativeTime == next.relativeTime) {
           toDelete.add(curr)
         }
       }
@@ -331,13 +303,13 @@ class VibrationBuilder {
   private fun removeDuplicats(mergedPoints: ArrayList<Point>) {
     val toDelete = ArrayList<Point>()
     val nP = mergedPoints.size
-    for (i in 0 .. nP-1){
-      if(i != 0 && i != nP - 1){
-        val prev = mergedPoints[i-1]
+    for (i in 0..nP - 1) {
+      if (i != 0 && i != nP - 1) {
+        val prev = mergedPoints[i - 1]
         val curr = mergedPoints[i]
-        val next = mergedPoints[i+1]
+        val next = mergedPoints[i + 1]
 
-        if(prev.intensity == curr.intensity && curr.intensity == next.intensity){
+        if (prev.intensity == curr.intensity && curr.intensity == next.intensity) {
           toDelete.add(curr)
         }
       }
@@ -391,7 +363,7 @@ class VibrationBuilder {
     return points
   }
 
-  fun removeBecauseOfTriples(points: ArrayList<Point>){
+  fun removeBecauseOfTriples(points: ArrayList<Point>) {
     val toDelete = ArrayList<Point>()
 
     val nPoints = points.size
@@ -403,7 +375,7 @@ class VibrationBuilder {
 
         if (
           prevPoint.relativeTime == currPoint.relativeTime &&
-          currPoint.relativeTime == nextPoint.relativeTime
+            currPoint.relativeTime == nextPoint.relativeTime
         ) {
           toDelete.add(currPoint)
         }
@@ -487,7 +459,8 @@ class VibrationBuilder {
       val y = bar.intensity
       val x = (y - b) / a
 
-      return if (x < bar.x1 || x > bar.x2) null else Point(bar.intensity, bar.sharpness, x.roundToLong())
+      return if (x < bar.x1 || x > bar.x2) null
+      else Point(bar.intensity, bar.sharpness, x.roundToLong())
     }
   }
 

@@ -47,7 +47,6 @@ class MainActivity : ComponentActivity() {
               VibrationButton(SUCCESS_PRESET)
               VibrationButton(FAIL_PRESET)
               VibrationButton(FALLING_BRICKS)
-              VibrationButton(T)
             }
           }
 
@@ -69,7 +68,10 @@ class MainActivity : ComponentActivity() {
 
           Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text("Complex presets:")
-            Row { VibrationButton(COMPLEX) }
+            Row {
+              VibrationButton(COMPLEX_PRESET)
+              VibrationButton(TEST)
+            }
           }
         }
       }

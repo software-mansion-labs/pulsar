@@ -147,14 +147,14 @@ val UP_AND_DOWN_PRESET =
       ),
   )
 
-val COMPLEX =
+val COMPLEX_PRESET =
   Preset(
     name = "Complex",
     bars =
       arrayListOf(
-        Bar(200, 500, 0.5f, 1f),
-        Bar(500, 800, 1f, 1f),
-        Bar(800, 1100, 0.5f, 1f),
+        Bar(200, 400, 1f, 1f),
+        Bar(1200, 1400, 1f, 1f),
+        Bar(2200, 2400, 1f, 1f),
         Bar(7200, 7400, 1f, 1f),
         Bar(8200, 8400, 1f, 1f),
         Bar(9200, 9400, 1f, 1f),
@@ -167,9 +167,9 @@ val COMPLEX =
       ),
   )
 
-val T =
+val TEST =
   Preset(
-    name = "T",
+    name = "Test",
     bars =
       arrayListOf(
         Bar(0, 100, 1f, 1f),

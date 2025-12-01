@@ -11,19 +11,11 @@ const val TAG = "VibrationHandler"
 
 class VibrationHandler(context: Context) {
   private val vibrationService = context.getSystemService(Vibrator::class.java)
-  private val vibrationBuilder = VibrationBuilder()
+  private val vibrationBuilder = VibrationBuilder(vibrationService)
 
   @RequiresApi(Build.VERSION_CODES.O)
   fun playPresetVibration(preset: Preset) {
-    val props =
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA)
-        CreateVibrationEffectProps(
-          vibrationService.frequencyProfile,
-          vibrationService.envelopeEffectInfo,
-        )
-      else null
-
-    val vibrationEffect = vibrationBuilder.createVibrationEffect(preset, props)
+    val vibrationEffect = vibrationBuilder.createVibrationEffect(preset)
 
     vibrationEffect?.let {
       Log.i(TAG, "Vibrate...")
