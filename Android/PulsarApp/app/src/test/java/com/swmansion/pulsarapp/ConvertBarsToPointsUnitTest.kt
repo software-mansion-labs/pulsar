@@ -10,9 +10,9 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ConvertBarsToPointsUnitTest {
   @Test
-  fun basicConvertBarsToPointsTest() {
+  fun simpleTest() {
     val bars =
       arrayListOf(
         Bar(100, 200, 0.3f, 0.8f),
@@ -43,7 +43,7 @@ class ExampleUnitTest {
   }
 
   @Test
-  fun commonPointConvertBarsToPointsTest() {
+  fun commonPointTest() {
     val bars = arrayListOf(
       Bar(100, 200, 0.3f, 0.8f),
       Bar(200, 300, 0.6f, 0.8f)
@@ -66,7 +66,7 @@ class ExampleUnitTest {
   }
 
   @Test
-  fun startWith0ConvertBarsToPointsTest() {
+  fun startWith0Test() {
     val bars = arrayListOf(
       Bar(0, 200, 0.3f, 0.8f)
     )
@@ -82,25 +82,5 @@ class ExampleUnitTest {
       )
 
     assertEquals(points, expectedPoints)
-  }
-
-  @Test
-  fun mapBarsToPoints(){
-    val bars = arrayListOf(
-      Bar(500, 600, 1f, 1f),
-    )
-    val points =
-      arrayListOf(
-        Point(0f, 1f, 0),
-        Point(0.6f, 1f, 500),
-        Point(0f, 1f, 1000),
-      )
-
-    val p = mergePointsAndBars(bars, points)
-
-    for (i in p){
-      println(i.toString())
-    }
-
   }
 }

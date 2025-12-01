@@ -5,6 +5,8 @@ import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.Point
 import kotlin.collections.forEach
 import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.round
 import kotlin.math.roundToLong
 
 fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<Point> {
@@ -273,7 +275,9 @@ private fun getBarIntersectionPoints(
 // intersection between y = ax + b and y = x
 private fun getBarVerticalIntersectionPoint(a: Float, b: Float, point: Point): Point? {
     val x = point.relativeTime.toFloat()
-    val y = a * x + b
+    var y = a * x + b
+    // TODO avoid points gap on connections
+    y = round(y * 100) / 100
 
     return if (y < 0 || y > point.intensity) null else Point(y, point.sharpness, point.relativeTime)
 }
