@@ -102,6 +102,8 @@ class VibrationBuilder {
     var timings = longArrayOf()
     var amplitudes = intArrayOf()
 
+    printBarsToPlot(bars)
+
     val n = bars.size
     for (i in 0..n - 1) {
       val prevBar = if (i == 0) null else bars[i - 1]
@@ -291,13 +293,57 @@ class VibrationBuilder {
       val linePoint2 = points[i]
 
       val barsWithinLine = barsWithinLineMap[linePoint1]!!
-      val linePoints = getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine)
+      var linePoints = getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine)
+
+      if (i != 1){
+        val n = linePoints.size
+        linePoints = ArrayList(linePoints.subList(1 , n)) // delete unnecesary point
+      }
 
       mergedPoints.addAll(linePoints)
-      mergedPoints = ArrayList(mergedPoints.distinct())
     }
 
+    val toDelete = ArrayList<Point>()
+    val nP = mergedPoints.size
+    for (i in 0 .. nP-1){
+      if(i != 0 && i != nP - 1){
+        val prev = mergedPoints[i-1]
+        val curr = mergedPoints[i]
+        val next = mergedPoints[i+1]
+
+        if(prev.relativeTime == curr.relativeTime && curr.relativeTime == next.relativeTime){
+          toDelete.add(curr)
+        }
+      }
+    }
+
+    mergedPoints.removeAll(toDelete)
+    mergedPoints = ArrayList(mergedPoints.distinct())
+
+    removeDuplicats(mergedPoints)
+
+    Log.i(TAG, "points: $mergedPoints")
+    Log.i(TAG, "size: ${mergedPoints.size}")
+
     return mergedPoints
+  }
+
+  private fun removeDuplicats(mergedPoints: ArrayList<Point>) {
+    val toDelete = ArrayList<Point>()
+    val nP = mergedPoints.size
+    for (i in 0 .. nP-1){
+      if(i != 0 && i != nP - 1){
+        val prev = mergedPoints[i-1]
+        val curr = mergedPoints[i]
+        val next = mergedPoints[i+1]
+
+        if(prev.intensity == curr.intensity && curr.intensity == next.intensity){
+          toDelete.add(curr)
+        }
+      }
+    }
+
+    mergedPoints.removeAll(toDelete)
   }
 
   fun getPointsOnTheLine(
@@ -337,10 +383,15 @@ class VibrationBuilder {
 
     points += linePoint2
 
-    // remove duplicates
     points = ArrayList(points.distinct())
+    removeBecauseOfTriples(points)
 
-    // remove triples
+    Log.i(TAG, "MY POINTS: ${points}")
+
+    return points
+  }
+
+  fun removeBecauseOfTriples(points: ArrayList<Point>){
     val toDelete = ArrayList<Point>()
 
     val nPoints = points.size
@@ -352,15 +403,13 @@ class VibrationBuilder {
 
         if (
           prevPoint.relativeTime == currPoint.relativeTime &&
-            currPoint.relativeTime == nextPoint.relativeTime
+          currPoint.relativeTime == nextPoint.relativeTime
         ) {
           toDelete.add(currPoint)
         }
       }
     }
     points.removeAll(toDelete)
-
-    return points
   }
 
   fun getBarsWithinLineMap(
