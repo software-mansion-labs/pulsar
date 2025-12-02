@@ -138,15 +138,15 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   private fun getControlPoints(points: ArrayList<Point>): ArrayList<ControlPoint> {
     val controlPoints = ArrayList<ControlPoint>()
     val n = points.size
-    val minDuration = vibrationService.envelopeEffectInfo.minControlPointDurationMillis
 
+    // First point is always 0 amplitude and should be omitted:
+    // https://developer.android.com/reference/android/os/VibrationEffect.BasicEnvelopeBuilder#:~:text=The%20builder%20automatically%20starts%20all%20effects%20at%200%20intensity.
+    // https://developer.android.com/reference/android/os/VibrationEffect.WaveformEnvelopeBuilder#:~:text=The%20builder%20automatically%20starts%20all%20effects%20at%200%20amplitude.
     for (i in 1..n - 1) {
       val currPoint = points[i]
       val prevPoint = points[i - 1]
 
-      val pointsTimeDiff = currPoint.relativeTime - prevPoint.relativeTime
-      val duration = if (pointsTimeDiff > 0) pointsTimeDiff else minDuration
-
+      val duration = currPoint.relativeTime - prevPoint.relativeTime
       controlPoints += createControlPoint(currPoint.intensity, currPoint.sharpness, duration)
     }
 
@@ -172,6 +172,6 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   private fun isEnvelopeSupported(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
-            vibrationService.areEnvelopeEffectsSupported()
+      vibrationService.areEnvelopeEffectsSupported()
   }
 }
