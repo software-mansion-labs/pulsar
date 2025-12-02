@@ -71,8 +71,8 @@ data class Preset(
           )
         } else if (n == 1) {
           throw getInitException("Property points is invalid. It must contain at least two points.")
-        } else if (lastPoint.intensity != 0f) { // required in basic envelope
-          throw getInitException("Property points is invalid. Last element intensity must be 0.")
+        } else if (firstPoint.intensity != 0f || lastPoint.intensity != 0f) {
+          throw getInitException("Property points is invalid. First and last element intensity must be 0.")
         }
       }
     }

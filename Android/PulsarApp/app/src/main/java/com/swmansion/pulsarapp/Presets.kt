@@ -30,6 +30,7 @@ val ENVELOPE_PRESET =
     name = "Envelope",
     points =
       arrayListOf(
+        Point(0f, 0.8f, 0),
         Point(1.0f, 0.8f, 0),
         Point(0.0f, 0.8f, 500),
         Point(0.0f, 0.8f, 1000),
