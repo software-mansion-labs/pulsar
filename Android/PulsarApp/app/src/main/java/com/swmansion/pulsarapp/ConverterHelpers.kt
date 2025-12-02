@@ -80,18 +80,23 @@ fun convertPointsToBars(points: ArrayList<Point>): ArrayList<Bar> {
     return bars
 }
 fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayList<Point> {
-    val barsWithinLineMap = getBarsWithinLineMap(points, bars)
+    val linePoints = ArrayList(points)
+    if(points.last().relativeTime < bars.last().x2){
+        linePoints.add(Point(0f, 1f, bars.last().x2))
+    }
+
+    val barsWithinLineMap = getBarsWithinLineMap(linePoints, bars)
     val mergedPoints = ArrayList<Point>()
 
-    val nLinePoints = points.size
+    val nLinePoints = linePoints.size
     for (i in 1..nLinePoints - 1) {
-        val linePoint1 = points[i - 1]
-        val linePoint2 = points[i]
+        val linePoint1 = linePoints[i - 1]
+        val linePoint2 = linePoints[i]
 
         val barsWithinLine = barsWithinLineMap[linePoint1]
 
-        val linePoints = getPointsOnTheLine(linePoint1, linePoint2, barsWithinLine)
-        mergedPoints.addAll(linePoints)
+        val pointsWithinLine = getPointsWithinLine(linePoint1, linePoint2, barsWithinLine)
+        mergedPoints.addAll(pointsWithinLine)
     }
 
     //Log.i(TAG, "POINTS: $mergedPoints")
@@ -141,7 +146,7 @@ private fun getBarsWithinLineMap(
     return barsWithinLineMap
 }
 
-private fun getPointsOnTheLine(
+private fun getPointsWithinLine(
     linePoint1: Point,
     linePoint2: Point,
     bars: ArrayList<Bar>?,
