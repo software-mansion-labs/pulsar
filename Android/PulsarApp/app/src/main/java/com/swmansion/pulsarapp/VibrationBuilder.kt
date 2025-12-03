@@ -60,7 +60,10 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     return if (isEnvelopeSupported()) {
       val points = convertBarsToPoints(bars)
       createEnvelopeWaveform(points)
-    } else createWaveform(bars)
+    } else {
+      printBarsToPlot(bars)
+      createWaveform(bars)
+    }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)

@@ -12,7 +12,7 @@ fun printBarsToPlot(bars: ArrayList<Bar>) {
   Log.i(TAG, "----------- BARS -----------")
 
   Log.i(TAG, getPlotHeader())
-  bars.forEach { bar ->
+  getBarsWithPauses(bars).forEach { bar ->
     Log.i(TAG, "${bar.x1} ${bar.intensity}")
     Log.i(TAG, "${bar.x2} ${bar.intensity}")
   }
@@ -29,7 +29,9 @@ fun printControlPointsToPlot(controlPoints: ArrayList<ControlPoint>) {
   Log.i(TAG, "----------- CONTROL POINTS -----------")
 
   val points = convertControlPointsToPoints(controlPoints)
-  printPointsToPlot(points)
+
+  Log.i(TAG, getPlotHeader())
+  points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity}") }
 }
 
 private fun convertControlPointsToPoints(controlPoints: ArrayList<ControlPoint>): ArrayList<Point> {
@@ -46,5 +48,5 @@ private fun convertControlPointsToPoints(controlPoints: ArrayList<ControlPoint>)
 }
 
 private fun getPlotHeader(): String {
-  return "relative_time intensity"
+  return "x x x x relative_time intensity"
 }

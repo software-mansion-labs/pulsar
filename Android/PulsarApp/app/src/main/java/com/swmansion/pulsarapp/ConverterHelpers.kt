@@ -33,7 +33,7 @@ fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<Point> {
   return points
 }
 
-private fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
+fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
   val barsWithPauses = ArrayList<Bar>()
   val n = bars.size
 
