@@ -168,7 +168,7 @@ val COMPLEX_PRESET =
       ),
   )
 
-val TEST =
+val TEST_PRESET =
   Preset(
     name = "Test",
     bars =

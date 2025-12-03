@@ -70,7 +70,7 @@ class MainActivity : ComponentActivity() {
             Text("Complex presets:")
             Row {
               VibrationButton(COMPLEX_PRESET)
-              VibrationButton(TEST)
+              VibrationButton(TEST_PRESET)
             }
           }
         }

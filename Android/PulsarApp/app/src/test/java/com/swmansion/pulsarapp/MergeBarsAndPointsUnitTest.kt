@@ -20,11 +20,7 @@ class MergeBarsAndPointsUnitTest {
         Bar(400, 500, 1f, 1f), // end
       )
 
-    val points = arrayListOf(
-      Point(0f, 1f, 0),
-      Point(1f, 1f, 500),
-      Point(0f, 1f, 500)
-    )
+    val points = arrayListOf(Point(0f, 1f, 0), Point(1f, 1f, 500), Point(0f, 1f, 500))
 
     val expectedResults =
       arrayListOf(
@@ -42,7 +38,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 500),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     assertEquals(expectedResults.size, mergedPoints.size)
     assertEquals(expectedResults, mergedPoints)
@@ -75,7 +71,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 500),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     assertEquals(expectedResults.size, mergedPoints.size)
     assertEquals(expectedResults, mergedPoints)
@@ -109,7 +105,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 500),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     assertEquals(expectedResults.size, mergedPoints.size)
     assertEquals(expectedResults, mergedPoints)
@@ -123,11 +119,7 @@ class MergeBarsAndPointsUnitTest {
         Bar(350, 400, 0.8f, 1f), // corner bar
       )
 
-    val points = arrayListOf(
-      Point(0f, 1f, 0),
-      Point(1f, 1f, 500),
-      Point(0f, 1f, 500)
-    )
+    val points = arrayListOf(Point(0f, 1f, 0), Point(1f, 1f, 500), Point(0f, 1f, 500))
 
     val expectedResults =
       arrayListOf(
@@ -142,7 +134,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 500),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     assertEquals(expectedResults.size, mergedPoints.size)
     assertEquals(expectedResults, mergedPoints)
@@ -160,12 +152,7 @@ class MergeBarsAndPointsUnitTest {
       )
 
     val points =
-      arrayListOf(
-        Point(0f, 1f, 0),
-        Point(0.2f, 1f, 0),
-        Point(0.2f, 1f, 500),
-        Point(0f, 1f, 500)
-      )
+      arrayListOf(Point(0f, 1f, 0), Point(0.2f, 1f, 0), Point(0.2f, 1f, 500), Point(0f, 1f, 500))
 
     val expectedResults =
       arrayListOf(
@@ -189,7 +176,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 500),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     assertEquals(expectedResults.size, mergedPoints.size)
     assertEquals(expectedResults, mergedPoints)
@@ -208,12 +195,7 @@ class MergeBarsAndPointsUnitTest {
       )
 
     val points =
-      arrayListOf(
-        Point(0f, 1f, 0),
-        Point(0.2f, 1f, 0),
-        Point(0.2f, 1f, 500),
-        Point(0f, 1f, 500)
-      )
+      arrayListOf(Point(0f, 1f, 0), Point(0.2f, 1f, 0), Point(0.2f, 1f, 500), Point(0f, 1f, 500))
 
     val expectedResults =
       arrayListOf(
@@ -231,7 +213,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 500),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     print(mergedPoints)
 
@@ -266,7 +248,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 1000),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     assertEquals(expectedResults.size, mergedPoints.size)
     assertEquals(expectedResults, mergedPoints)
@@ -274,9 +256,7 @@ class MergeBarsAndPointsUnitTest {
 
   @Test
   fun sameFrequencyEdgeTest() {
-    val bars = arrayListOf(
-      Bar(400, 500, 1f, 1f),
-      Bar(500, 600, 1f, 1f))
+    val bars = arrayListOf(Bar(400, 500, 1f, 1f), Bar(500, 600, 1f, 1f))
 
     val points =
       arrayListOf(
@@ -299,7 +279,7 @@ class MergeBarsAndPointsUnitTest {
         Point(0f, 1f, 1000),
       )
 
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
 
     assertEquals(expectedResults.size, mergedPoints.size)
     assertEquals(expectedResults, mergedPoints)

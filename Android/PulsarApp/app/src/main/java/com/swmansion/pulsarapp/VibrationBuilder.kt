@@ -15,7 +15,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-const val MAX_AMPLITUDE = 255
+const val MAX_INT_AMPLITUDE = 255
 
 class VibrationBuilder(val vibrationService: Vibrator) {
   fun createVibrationEffect(preset: Preset): VibrationEffect? {
@@ -31,7 +31,11 @@ class VibrationBuilder(val vibrationService: Vibrator) {
       if (bars != null && points != null) {
         val complexWaveform = createComplexWaveform(points, bars)
 
-        Log.i(TAG, "Complex vibration created based on bars and points.")
+        Log.i(
+          TAG,
+          if (complexWaveform != null) "Complex vibration created based on bars and points."
+          else "Vibration creation failed.",
+        )
         return complexWaveform
       } else {
         val barsWaveform = bars?.let { createWaveformFromBars(it) }
@@ -64,10 +68,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     return if (isEnvelopeSupported()) createEnvelopeWaveform(points)
     else {
       val bars = convertPointsToBars(points)
-
-      Log.i(TAG, "----------- POINTS -----------")
       printBarsToPlot(bars)
-
       createWaveform(bars)
     }
   }
@@ -77,7 +78,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     points: ArrayList<Point>,
     bars: ArrayList<Bar>,
   ): VibrationEffect? {
-    val mergedPoints = mergePointsAndBars(bars, points)
+    val mergedPoints = mergePointsAndBars(points, bars)
     return createWaveformFromPoints(mergedPoints)
   }
 
@@ -86,8 +87,8 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     var timings = longArrayOf()
     var amplitudes = intArrayOf()
 
-    val n = bars.size
-    for (i in 0..n - 1) {
+    val nBars = bars.size
+    for (i in 0..nBars - 1) {
       val currBar = bars[i]
 
       // add pause at the beginning
@@ -99,10 +100,10 @@ class VibrationBuilder(val vibrationService: Vibrator) {
       // add bar
       val currBarDuration = currBar.x2 - currBar.x1
       timings += currBarDuration
-      amplitudes += (currBar.intensity * MAX_AMPLITUDE).roundToInt()
+      amplitudes += (currBar.intensity * MAX_INT_AMPLITUDE).roundToInt()
 
       // add pause between bars
-      val nextBar = if (i != n - 1) bars[i + 1] else null
+      val nextBar = if (i != nBars - 1) bars[i + 1] else null
       if (nextBar != null && currBar.x2 != nextBar.x1) {
         val pauseDuration = nextBar.x1 - currBar.x2
         timings += pauseDuration
@@ -117,12 +118,8 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   private fun createEnvelopeWaveform(points: ArrayList<Point>): VibrationEffect {
     val controlPoints = getControlPoints(points)
 
-    Log.i(TAG, "----------- POINTS -----------")
     printPointsToPlot(points)
-    Log.i(TAG, "----------- CONTROL POINTS -----------")
-    val plotControlPoints = convertControlPointToPoints(controlPoints)
-    printPointsToPlot(plotControlPoints)
-    Log.i(TAG, "--------------------------------------")
+    printControlPointsToPlot(controlPoints)
 
     return vibrationService.frequencyProfile?.let {
       val builder = VibrationEffect.WaveformEnvelopeBuilder()
@@ -139,14 +136,11 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   private fun getControlPoints(points: ArrayList<Point>): ArrayList<ControlPoint> {
     val controlPoints = ArrayList<ControlPoint>()
-    val n = points.size
+    val nPoints = points.size
 
-    // First point is always 0 amplitude and should be omitted:
-    // https://developer.android.com/reference/android/os/VibrationEffect.BasicEnvelopeBuilder#:~:text=The%20builder%20automatically%20starts%20all%20effects%20at%200%20intensity.
-    // https://developer.android.com/reference/android/os/VibrationEffect.WaveformEnvelopeBuilder#:~:text=The%20builder%20automatically%20starts%20all%20effects%20at%200%20amplitude.
-    for (i in 1..n - 1) {
-      val currPoint = points[i]
+    for (i in 1..nPoints - 1) {
       val prevPoint = points[i - 1]
+      val currPoint = points[i]
 
       val duration = currPoint.relativeTime - prevPoint.relativeTime
       controlPoints += createControlPoint(currPoint.intensity, currPoint.sharpness, duration)

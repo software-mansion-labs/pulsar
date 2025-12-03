@@ -60,8 +60,8 @@ private fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
 fun convertPointsToBars(points: ArrayList<Point>): ArrayList<Bar> {
   val bars = ArrayList<Bar>()
 
-  val n = points.size
-  for (i in 1..n - 1) {
+  val nPoints = points.size
+  for (i in 1..nPoints - 1) {
     val linePoint1 = points[i - 1]
     val linePoint2 = points[i]
 
@@ -73,7 +73,7 @@ fun convertPointsToBars(points: ArrayList<Point>): ArrayList<Bar> {
         Bar(
           linePoint1.relativeTime,
           linePoint2.relativeTime,
-          linePoint2.intensity,
+          linePoint1.intensity,
           DEFAULT_SHARPNESS, // sharpness of this bar will never be used
         )
     } else if (!isLineVertical) {
@@ -88,7 +88,7 @@ fun convertPointsToBars(points: ArrayList<Point>): ArrayList<Bar> {
       val stepDuration = lineDuration / nSteps
       val stepValue = abs(intensityDiff) / nSteps
 
-      for (i in 0..nSteps - 1) { // TODO fix last interval length ?
+      for (i in 0..nSteps - 1) { // TODO fix long last interval length ?
         val x1 = linePoint1.relativeTime + stepDuration * i
         val x2 = if (i < nSteps - 1) x1 + stepDuration else linePoint2.relativeTime
         val intensity =
@@ -103,9 +103,9 @@ fun convertPointsToBars(points: ArrayList<Point>): ArrayList<Bar> {
   return bars
 }
 
-fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayList<Point> {
+fun mergePointsAndBars(points: ArrayList<Point>, bars: ArrayList<Bar>): ArrayList<Point> {
   // compare max relative time and extend if needed
-  val linePoints = getAdjustedLinePoints(bars, points)
+  val linePoints = getAdjustedLinePoints(points, bars)
 
   val barsWithinLineMap = getBarsWithinLineMap(linePoints, bars)
   val mergedPoints = ArrayList<Point>()
@@ -139,8 +139,8 @@ fun mergePointsAndBars(bars: ArrayList<Bar>, points: ArrayList<Point>): ArrayLis
 }
 
 private fun getAdjustedLinePoints(
-  bars: ArrayList<Bar>,
   points: ArrayList<Point>,
+  bars: ArrayList<Bar>,
 ): ArrayList<Point> {
   val linePoints = ArrayList(points)
   val shouldExtendLine = points.last().relativeTime < bars.last().x2
@@ -157,10 +157,10 @@ private fun getBarsWithinLineMap(
   bars: ArrayList<Bar>,
 ): Map<Point, ArrayList<Bar>> {
   val barsWithinLineMap = mutableMapOf<Point, ArrayList<Bar>>()
-  val n = points.size
+  val nPoints = points.size
   var currBarIndex = 0
 
-  for (i in 1..n - 1) {
+  for (i in 1..nPoints - 1) {
     val linePoint1 = points[i - 1]
     val linePoint2 = points[i]
     val lineBars = ArrayList<Bar>()
@@ -216,15 +216,11 @@ private fun getPointsWithinLine(
   return pointsWithinLine
 }
 
-private fun deletePointsOfIndexes(points: ArrayList<Point>, indexes: ArrayList<Int>) {
-  indexes.reversed().forEach { points.removeAt(it) }
-}
-
 private fun deleteDuplicates(points: ArrayList<Point>) {
   val indexesToDelete = ArrayList<Int>()
-  val n = points.size
+  val nPoints = points.size
 
-  for (index in 1..n - 1) {
+  for (index in 1..nPoints - 1) {
     val prevPoint = points[index - 1]
     val currPoint = points[index]
 
@@ -242,18 +238,16 @@ private fun deleteDeclines(points: ArrayList<Point>) {
   val indexesToDelete = ArrayList<Int>()
   val nPoints = points.size
 
-  for (index in 0..nPoints - 1) {
-    if (index != 0 && index != nPoints - 1) {
-      val prevPoint = points[index - 1]
-      val currPoint = points[index]
-      val nextPoint = points[index + 1]
+  for (index in 1..nPoints - 2) {
+    val prevPoint = points[index - 1]
+    val currPoint = points[index]
+    val nextPoint = points[index + 1]
 
-      if (
-        prevPoint.relativeTime == currPoint.relativeTime &&
-          currPoint.relativeTime == nextPoint.relativeTime
-      ) {
-        indexesToDelete.add(index)
-      }
+    if (
+      prevPoint.relativeTime == currPoint.relativeTime &&
+        currPoint.relativeTime == nextPoint.relativeTime
+    ) {
+      indexesToDelete.add(index)
     }
   }
 
@@ -264,22 +258,24 @@ private fun deleteRedundantHorizontalLinePoints(points: ArrayList<Point>) {
   val indexesToDelete = ArrayList<Int>()
   val nPoints = points.size
 
-  for (index in 0..nPoints - 1) {
-    if (index != 0 && index != nPoints - 1) {
-      val prev = points[index - 1]
-      val curr = points[index]
-      val next = points[index + 1]
+  for (index in 1..nPoints - 2) {
+    val prevPoint = points[index - 1]
+    val currPoint = points[index]
+    val nextPoint = points[index + 1]
 
-      if (prev.intensity == curr.intensity && curr.intensity == next.intensity) {
-        indexesToDelete.add(index)
-      }
+    if (prevPoint.intensity == currPoint.intensity && currPoint.intensity == nextPoint.intensity) {
+      indexesToDelete.add(index)
     }
   }
 
   deletePointsOfIndexes(points, indexesToDelete)
 }
 
-// obtain a nad b of y = a*x + b
+private fun deletePointsOfIndexes(points: ArrayList<Point>, indexes: ArrayList<Int>) {
+  indexes.reversed().forEach { points.removeAt(it) }
+}
+
+// a, b from y = a*x + b
 private fun getLineParameters(linePoint1: Point, linePoint2: Point): Pair<Float, Float> {
   val x1 = linePoint1.relativeTime.toFloat()
   val x2 = linePoint2.relativeTime.toFloat()
