@@ -19,6 +19,10 @@ data class Line(val point1: Point, val point2: Point) {
 
   // return line point if x is within line interval
   fun getPointOnLine(x: Long): Point? {
+    if (isVertical()) {
+      return null
+    }
+
     val point = Point(x, roundTo(a * x + b, 2))
     return if (
       point1.relativeTime <= point.relativeTime && point.relativeTime <= point2.relativeTime

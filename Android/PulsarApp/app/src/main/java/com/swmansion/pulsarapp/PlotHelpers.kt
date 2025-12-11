@@ -18,6 +18,30 @@ fun printBarsToPlot(bars: ArrayList<Bar>) {
   }
 }
 
+fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
+  val barsWithPauses = ArrayList<Bar>()
+  val n = bars.size
+
+  for (i in 0..n - 1) {
+    val currBar = bars[i]
+    val nextBar = if (i != n - 1) bars[i + 1] else null
+
+    // create pause at the beginning
+    if (i == 0 && currBar.x1 != 0L) {
+      barsWithPauses.add(Bar(0, currBar.x1, 0f, currBar.sharpness))
+    }
+
+    barsWithPauses.add(currBar)
+
+    // create pause between bars
+    if (nextBar != null && currBar.x2 != nextBar.x1) {
+      barsWithPauses.add(Bar(currBar.x2, nextBar.x1, 0f, currBar.sharpness))
+    }
+  }
+
+  return barsWithPauses
+}
+
 fun printPointsToPlot(points: ArrayList<Point>) {
   Log.i(TAG, "----------- POINTS -----------")
 
