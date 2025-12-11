@@ -61,7 +61,7 @@ class ConvertBarsToPointsUnitTest {
         Point(0, 0f),
         Point(100, 0f),
         Point(100, 0.3f),
-        Point(200, 0.3f), // TODO remove duplicates
+        Point(200, 0.3f),
         Point(200, 0.6f),
         Point(300, 0.6f),
         Point(300, 0f),
