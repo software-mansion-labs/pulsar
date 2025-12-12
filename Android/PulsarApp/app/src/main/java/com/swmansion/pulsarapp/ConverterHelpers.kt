@@ -198,7 +198,7 @@ private fun convertLinesToBars(lines: ArrayList<Line>): ArrayList<Bar> {
           val x1 = line.point1.relativeTime + stepDuration * i
           val x2 = if (i < nSteps - 1) x1 + stepDuration else line.point2.relativeTime
           val intensity =
-            if (isLineAscending) line.point1.intensity + stepValue * i
+            if (isLineAscending) line.point1.intensity + stepValue * i // TODO: middle step
             else line.point1.intensity - stepValue * i
 
           bars += Bar(x1, x2, intensity, DEFAULT_SHARPNESS)
