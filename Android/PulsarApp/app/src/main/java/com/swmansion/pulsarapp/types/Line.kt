@@ -3,7 +3,13 @@ package com.swmansion.pulsarapp.types
 import kotlin.math.pow
 import kotlin.math.round
 
-data class Line(val point1: Point, val point2: Point) {
+/**
+ * Represents intensity interval.
+ *
+ * @param point1 - interval start.
+ * @param point2 - interval end.
+ */
+data class Line(val point1: IntensityPoint, val point2: IntensityPoint) {
   val a =
     (point2.intensity - point1.intensity) /
       (point2.relativeTime.toFloat() - point1.relativeTime.toFloat())
@@ -18,12 +24,12 @@ data class Line(val point1: Point, val point2: Point) {
   }
 
   // return line point if x is within line interval
-  fun getPointOnLine(x: Long): Point? {
+  fun getPointOnLine(x: Long): IntensityPoint? {
     if (isVertical()) {
       return null
     }
 
-    val point = Point(x, roundTo(a * x + b, 2))
+    val point = IntensityPoint(x, roundTo(a * x + b, 2))
     return if (
       point1.relativeTime <= point.relativeTime && point.relativeTime <= point2.relativeTime
     )

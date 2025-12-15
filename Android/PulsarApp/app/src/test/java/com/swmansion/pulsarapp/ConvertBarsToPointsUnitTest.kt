@@ -1,7 +1,7 @@
 package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
-import com.swmansion.pulsarapp.types.Point
+import com.swmansion.pulsarapp.types.IntensityPoint
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -29,19 +29,19 @@ class ConvertBarsToPointsUnitTest {
 
     val expectedPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(100, 0f),
-        Point(100, 0.3f),
-        Point(200, 0.3f),
-        Point(200, 0f),
-        Point(300, 0f),
-        Point(300, 0.6f),
-        Point(500, 0.6f),
-        Point(500, 0f),
-        Point(600, 0f),
-        Point(600, 1f),
-        Point(800, 1f),
-        Point(800, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(100, 0f),
+        IntensityPoint(100, 0.3f),
+        IntensityPoint(200, 0.3f),
+        IntensityPoint(200, 0f),
+        IntensityPoint(300, 0f),
+        IntensityPoint(300, 0.6f),
+        IntensityPoint(500, 0.6f),
+        IntensityPoint(500, 0f),
+        IntensityPoint(600, 0f),
+        IntensityPoint(600, 1f),
+        IntensityPoint(800, 1f),
+        IntensityPoint(800, 0f),
       )
 
     assertEquals(expectedPoints, points)
@@ -58,13 +58,13 @@ class ConvertBarsToPointsUnitTest {
 
     val expectedPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(100, 0f),
-        Point(100, 0.3f),
-        Point(200, 0.3f),
-        Point(200, 0.6f),
-        Point(300, 0.6f),
-        Point(300, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(100, 0f),
+        IntensityPoint(100, 0.3f),
+        IntensityPoint(200, 0.3f),
+        IntensityPoint(200, 0.6f),
+        IntensityPoint(300, 0.6f),
+        IntensityPoint(300, 0f),
       )
 
     assertEquals(expectedPoints, points)
@@ -79,10 +79,10 @@ class ConvertBarsToPointsUnitTest {
     val points = convertBarsToPoints(bars)
 
     val expectedPoints = arrayListOf(
-      Point(0, 0f),
-      Point(0, 0.3f),
-      Point(100, 0.3f),
-      Point(100, 0f)
+      IntensityPoint(0, 0f),
+      IntensityPoint(0, 0.3f),
+      IntensityPoint(100, 0.3f),
+      IntensityPoint(100, 0f)
     )
 
     assertEquals(expectedPoints, points)

@@ -1,7 +1,7 @@
 package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
-import com.swmansion.pulsarapp.types.Point
+import com.swmansion.pulsarapp.types.IntensityPoint
 import com.swmansion.pulsarapp.types.Preset
 import kotlin.collections.arrayListOf
 
@@ -28,14 +28,14 @@ val FAIL_PRESET =
 val ENVELOPE_PRESET =
   Preset(
     name = "Envelope",
-    points =
+    intensityPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(0, 1f),
-        Point(500, 0f),
-        Point(1000, 0f),
-        Point(2000, 1f),
-        Point(2000, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(0, 1f),
+        IntensityPoint(500, 0f),
+        IntensityPoint(1000, 0f),
+        IntensityPoint(2000, 1f),
+        IntensityPoint(2000, 0f),
       ),
   )
 val FALLING_BRICKS =
@@ -53,98 +53,98 @@ val FALLING_BRICKS =
 val EARTHQUAKE_PRESET =
   Preset(
     name = "Earthquake",
-    points =
+    intensityPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(400, 0.8f),
-        Point(400, 0f),
-        Point(500, 0f),
-        Point(700, 0.8f),
-        Point(700, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(400, 0.8f),
+        IntensityPoint(400, 0f),
+        IntensityPoint(500, 0f),
+        IntensityPoint(700, 0.8f),
+        IntensityPoint(700, 0f),
       ),
   )
 val RANDOM_PRESET =
   Preset(
     name = "Random Preset",
-    points =
+    intensityPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(400, 0.8f),
-        Point(400, 0f),
-        Point(500, 0f),
-        Point(700, 0.8f),
-        Point(700, 0f),
-        Point(900, 0f),
-        Point(900, 1f),
-        Point(1000, 1f),
-        Point(1000, 0f),
-        Point(1100, 0f),
-        Point(1100, 1f),
-        Point(1200, 1f),
-        Point(1200, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(400, 0.8f),
+        IntensityPoint(400, 0f),
+        IntensityPoint(500, 0f),
+        IntensityPoint(700, 0.8f),
+        IntensityPoint(700, 0f),
+        IntensityPoint(900, 0f),
+        IntensityPoint(900, 1f),
+        IntensityPoint(1000, 1f),
+        IntensityPoint(1000, 0f),
+        IntensityPoint(1100, 0f),
+        IntensityPoint(1100, 1f),
+        IntensityPoint(1200, 1f),
+        IntensityPoint(1200, 0f),
       ),
   )
 
 val LONG_RISING_PRESET =
   Preset(
     name = "Long Rising",
-    points =
+    intensityPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(10000, 1f),
-        Point(10000, 0f)
+        IntensityPoint(0, 0f),
+        IntensityPoint(10000, 1f),
+        IntensityPoint(10000, 0f)
       ),
   )
 
 val UP_PRESET =
   Preset(
     name = "Up",
-    points =
+    intensityPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(50, 1f), // 50ms
-        Point(50, 0f),
-        Point(1050, 0f),
-        Point(1200, 1f), // 150ms
-        Point(1200, 0f),
-        Point(2200, 0f),
-        Point(2500, 1f), // 300ms
-        Point(2500, 0f),
-        Point(3500, 0f),
-        Point(4100, 1f), // 600ms
-        Point(4100, 0f),
-        Point(5100, 0f),
-        Point(6100, 1f), // 1000ms
-        Point(6100, 0f),
-        Point(7100, 0f),
-        Point(10100, 1f), // 3000ms
-        Point(10100, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(50, 1f), // 50ms
+        IntensityPoint(50, 0f),
+        IntensityPoint(1050, 0f),
+        IntensityPoint(1200, 1f), // 150ms
+        IntensityPoint(1200, 0f),
+        IntensityPoint(2200, 0f),
+        IntensityPoint(2500, 1f), // 300ms
+        IntensityPoint(2500, 0f),
+        IntensityPoint(3500, 0f),
+        IntensityPoint(4100, 1f), // 600ms
+        IntensityPoint(4100, 0f),
+        IntensityPoint(5100, 0f),
+        IntensityPoint(6100, 1f), // 1000ms
+        IntensityPoint(6100, 0f),
+        IntensityPoint(7100, 0f),
+        IntensityPoint(10100, 1f), // 3000ms
+        IntensityPoint(10100, 0f),
       ),
   )
 
 val UP_AND_DOWN_PRESET =
   Preset(
     name = "Up and Down",
-    points =
+    intensityPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(50, 1f), // 50ms
-        Point(100, 0f),
-        Point(1100, 0f),
-        Point(1250, 1f), // 150ms
-        Point(1400, 0f),
-        Point(2400, 0f),
-        Point(2700, 1f), // 300ms
-        Point(3000, 0f),
-        Point(4000, 0f),
-        Point(4600, 1f), // 600ms
-        Point(5200, 0f),
-        Point(6200, 0f),
-        Point(7200, 1f), // 1000ms
-        Point(8200, 0f),
-        Point(9200, 0f),
-        Point(12200, 1f), // 3000ms
-        Point(15200, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(50, 1f), // 50ms
+        IntensityPoint(100, 0f),
+        IntensityPoint(1100, 0f),
+        IntensityPoint(1250, 1f), // 150ms
+        IntensityPoint(1400, 0f),
+        IntensityPoint(2400, 0f),
+        IntensityPoint(2700, 1f), // 300ms
+        IntensityPoint(3000, 0f),
+        IntensityPoint(4000, 0f),
+        IntensityPoint(4600, 1f), // 600ms
+        IntensityPoint(5200, 0f),
+        IntensityPoint(6200, 0f),
+        IntensityPoint(7200, 1f), // 1000ms
+        IntensityPoint(8200, 0f),
+        IntensityPoint(9200, 0f),
+        IntensityPoint(12200, 1f), // 3000ms
+        IntensityPoint(15200, 0f),
       ),
   )
 
@@ -160,11 +160,11 @@ val COMPLEX_PRESET =
         Bar(8200, 8400, 1f, 1f),
         Bar(9200, 9400, 1f, 1f),
       ),
-    points =
+    intensityPoints =
       arrayListOf(
-        Point(0, 0f),
-        Point(5000, 0.9f),
-        Point(10000, 0f)
+        IntensityPoint(0, 0f),
+        IntensityPoint(5000, 0.9f),
+        IntensityPoint(10000, 0f)
       ),
   )
 
@@ -182,9 +182,9 @@ val TEST_PRESET =
         Bar(1500, 1600, 1f, 1f),
         Bar(1900, 2000, 1f, 1f),
       ),
-    points = arrayListOf(
-      Point(0, 0f),
-      Point(1000, 0.5f),
-      Point(2000, 0f)
+    intensityPoints = arrayListOf(
+      IntensityPoint(0, 0f),
+      IntensityPoint(1000, 0.5f),
+      IntensityPoint(2000, 0f)
     )
   )

@@ -1,7 +1,7 @@
 package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
-import com.swmansion.pulsarapp.types.Point
+import com.swmansion.pulsarapp.types.IntensityPoint
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -21,26 +21,26 @@ class MergeBarsAndPointsUnitTest {
       )
 
     val points = arrayListOf(
-      Point(0, 0f),
-      Point(0, 0.2f),
-      Point(500, 0.2f),
-      Point(500, 0f)
+      IntensityPoint(0, 0f),
+      IntensityPoint(0, 0.2f),
+      IntensityPoint(500, 0.2f),
+      IntensityPoint(500, 0f)
     )
 
     val expectedResults =
       arrayListOf(
-        Point(0, 0f),
-        Point(0, 1f),
-        Point(100, 1f),
-        Point(100, 0.2f),
-        Point(200, 0.2f),
-        Point(200, 1f),
-        Point(300, 1f),
-        Point(300, 0.2f),
-        Point(400, 0.2f),
-        Point(400, 1f),
-        Point(500, 1f),
-        Point(500, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(0, 1f),
+        IntensityPoint(100, 1f),
+        IntensityPoint(100, 0.2f),
+        IntensityPoint(200, 0.2f),
+        IntensityPoint(200, 1f),
+        IntensityPoint(300, 1f),
+        IntensityPoint(300, 0.2f),
+        IntensityPoint(400, 0.2f),
+        IntensityPoint(400, 1f),
+        IntensityPoint(500, 1f),
+        IntensityPoint(500, 0f),
       )
 
     assertEquals(expectedResults, mergePointsAndBars(points, bars))
@@ -58,32 +58,32 @@ class MergeBarsAndPointsUnitTest {
       )
 
     val points = arrayListOf(
-      Point(0, 0f),
-      Point(0, 0.2f),
-      Point(500, 0.2f),
-      Point(500, 0f)
+      IntensityPoint(0, 0f),
+      IntensityPoint(0, 0.2f),
+      IntensityPoint(500, 0.2f),
+      IntensityPoint(500, 0f)
     )
 
     val expectedResults =
       arrayListOf(
-        Point(0, 0f),
-        Point(0, 0.2f),
-        Point(50, 0.2f),
-        Point(50, 1f),
-        Point(100, 1f),
-        Point(100, 0.8f),
-        Point(150, 0.8f),
-        Point(150, 0.2f),
-        Point(200, 0.2f),
-        Point(200, 0.8f),
-        Point(250, 0.8f),
-        Point(250, 1f),
-        Point(300, 1f),
-        Point(300, 0.8f),
-        Point(350, 0.8f),
-        Point(350, 0.2f),
-        Point(500, 0.2f),
-        Point(500, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(0, 0.2f),
+        IntensityPoint(50, 0.2f),
+        IntensityPoint(50, 1f),
+        IntensityPoint(100, 1f),
+        IntensityPoint(100, 0.8f),
+        IntensityPoint(150, 0.8f),
+        IntensityPoint(150, 0.2f),
+        IntensityPoint(200, 0.2f),
+        IntensityPoint(200, 0.8f),
+        IntensityPoint(250, 0.8f),
+        IntensityPoint(250, 1f),
+        IntensityPoint(300, 1f),
+        IntensityPoint(300, 0.8f),
+        IntensityPoint(350, 0.8f),
+        IntensityPoint(350, 0.2f),
+        IntensityPoint(500, 0.2f),
+        IntensityPoint(500, 0f),
       )
 
     assertEquals(expectedResults, mergePointsAndBars(points, bars))
@@ -102,26 +102,26 @@ class MergeBarsAndPointsUnitTest {
       )
 
     val points = arrayListOf(
-      Point(0, 0f),
-      Point(0, 0.2f),
-      Point(500, 0.2f),
-      Point(500, 0f)
+      IntensityPoint(0, 0f),
+      IntensityPoint(0, 0.2f),
+      IntensityPoint(500, 0.2f),
+      IntensityPoint(500, 0f)
     )
 
     val expectedResults =
       arrayListOf(
-        Point(0, 0f),
-        Point(0, 0.2f),
-        Point(50, 0.2f),
-        Point(50, 1f),
-        Point(150, 1f),
-        Point(150, 0.2f),
-        Point(200, 0.2f),
-        Point(200, 1f),
-        Point(400, 1f),
-        Point(400, 0.2f),
-        Point(500, 0.2f),
-        Point(500, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(0, 0.2f),
+        IntensityPoint(50, 0.2f),
+        IntensityPoint(50, 1f),
+        IntensityPoint(150, 1f),
+        IntensityPoint(150, 0.2f),
+        IntensityPoint(200, 0.2f),
+        IntensityPoint(200, 1f),
+        IntensityPoint(400, 1f),
+        IntensityPoint(400, 0.2f),
+        IntensityPoint(500, 0.2f),
+        IntensityPoint(500, 0f),
       )
 
     assertEquals(expectedResults, mergePointsAndBars(points, bars))
@@ -140,26 +140,26 @@ class MergeBarsAndPointsUnitTest {
       )
 
     val points = arrayListOf(
-      Point(0, 0f),
-      Point(0, 0.2f),
-      Point(500, 0.2f),
-      Point(500, 0f)
+      IntensityPoint(0, 0f),
+      IntensityPoint(0, 0.2f),
+      IntensityPoint(500, 0.2f),
+      IntensityPoint(500, 0f)
     )
 
     val expectedResults =
       arrayListOf(
-        Point(0, 0f),
-        Point(0, 0.2f),
-        Point(50, 0.2f),
-        Point(50, 1f),
-        Point(150, 1f),
-        Point(150, 0.2f),
-        Point(200, 0.2f),
-        Point(200, 1f),
-        Point(400, 1f),
-        Point(400, 0.2f),
-        Point(500, 0.2f),
-        Point(500, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(0, 0.2f),
+        IntensityPoint(50, 0.2f),
+        IntensityPoint(50, 1f),
+        IntensityPoint(150, 1f),
+        IntensityPoint(150, 0.2f),
+        IntensityPoint(200, 0.2f),
+        IntensityPoint(200, 1f),
+        IntensityPoint(400, 1f),
+        IntensityPoint(400, 0.2f),
+        IntensityPoint(500, 0.2f),
+        IntensityPoint(500, 0f),
       )
 
     assertEquals(expectedResults, mergePointsAndBars(points, bars))
@@ -169,22 +169,22 @@ class MergeBarsAndPointsUnitTest {
   fun complexTest() {
     val points =
       arrayListOf(
-        Point(0, 0f),
-        Point(100, 0.2f),
-        Point(200, 0.2f),
-        Point(300, 1f),
-        Point(500, 0f),
-        Point(700, 0.2f),
-        Point(800, 0.5f),
-        Point(800, 0.7f),
-        Point(900, 0.7f),
-        Point(1000, 0.5f),
-        Point(1200, 0f),
-        Point(1200, 0.5f),
-        Point(1200, 0f),
-        Point(1300, 0.9f),
-        Point(1600, 0.9f),
-        Point(1600, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(100, 0.2f),
+        IntensityPoint(200, 0.2f),
+        IntensityPoint(300, 1f),
+        IntensityPoint(500, 0f),
+        IntensityPoint(700, 0.2f),
+        IntensityPoint(800, 0.5f),
+        IntensityPoint(800, 0.7f),
+        IntensityPoint(900, 0.7f),
+        IntensityPoint(1000, 0.5f),
+        IntensityPoint(1200, 0f),
+        IntensityPoint(1200, 0.5f),
+        IntensityPoint(1200, 0f),
+        IntensityPoint(1300, 0.9f),
+        IntensityPoint(1600, 0.9f),
+        IntensityPoint(1600, 0f),
       )
 
     val bars =
@@ -198,32 +198,32 @@ class MergeBarsAndPointsUnitTest {
 
     val expectedResults =
       arrayListOf(
-        Point(0, 0f),
-        Point(50, 0.1f),
-        Point(50, 1f),
-        Point(100, 1f),
-        Point(100, 0.2f),
-        Point(200, 0.2f),
-        Point(300, 1f),
-        Point(500, 0f),
-        Point(550, 0.05f),
-        Point(550, 1f),
-        Point(650, 1f),
-        Point(650, 0.15f),
-        Point(700, 0.2f),
-        Point(750, 0.35f),
-        Point(750, 1f),
-        Point(800, 1f),
-        Point(800, 0.9f),
-        Point(950, 0.9f),
-        Point(950, 0.6f),
-        Point(1000, 0.5f),
-        Point(1100, 0.25f),
-        Point(1100, 1f),
-        Point(1400, 1f),
-        Point(1400, 0.9f),
-        Point(1600, 0.9f),
-        Point(1600, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(50, 0.1f),
+        IntensityPoint(50, 1f),
+        IntensityPoint(100, 1f),
+        IntensityPoint(100, 0.2f),
+        IntensityPoint(200, 0.2f),
+        IntensityPoint(300, 1f),
+        IntensityPoint(500, 0f),
+        IntensityPoint(550, 0.05f),
+        IntensityPoint(550, 1f),
+        IntensityPoint(650, 1f),
+        IntensityPoint(650, 0.15f),
+        IntensityPoint(700, 0.2f),
+        IntensityPoint(750, 0.35f),
+        IntensityPoint(750, 1f),
+        IntensityPoint(800, 1f),
+        IntensityPoint(800, 0.9f),
+        IntensityPoint(950, 0.9f),
+        IntensityPoint(950, 0.6f),
+        IntensityPoint(1000, 0.5f),
+        IntensityPoint(1100, 0.25f),
+        IntensityPoint(1100, 1f),
+        IntensityPoint(1400, 1f),
+        IntensityPoint(1400, 0.9f),
+        IntensityPoint(1600, 0.9f),
+        IntensityPoint(1600, 0f),
       )
 
     assertEquals(expectedResults, mergePointsAndBars(points, bars))

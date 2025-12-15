@@ -3,19 +3,23 @@ package com.swmansion.pulsarapp.types
 data class Preset(
   val name: String,
   val bars: ArrayList<Bar>? = null,
-  val points: ArrayList<Point>? = null,
+  val intensityPoints: ArrayList<IntensityPoint>? = null,
 ) {
   init {
-    if (bars == null && points == null) {
+    if (bars == null && intensityPoints == null) {
       throw getInitException("At least one of bars and points must be declared.")
     }
 
     verifyBars()
-    verifyPoints()
+    verifyIntensityPoints()
 
-    if (bars != null && points != null && bars.last().x2 > points.last().relativeTime) {
+    if (
+      bars != null &&
+        intensityPoints != null &&
+        bars.last().x2 > intensityPoints.last().relativeTime
+    ) {
       throw getInitException(
-        "Bars relativeTime (${bars.last().x2}) cannot be greater than points relativeTime (${points.last().relativeTime})."
+        "Bars relativeTime (${bars.last().x2}) cannot be greater than points relativeTime (${intensityPoints.last().relativeTime})."
       )
     }
   }
@@ -68,8 +72,8 @@ data class Preset(
     return diff.toInt()
   }
 
-  private fun verifyPoints() {
-    points?.let {
+  private fun verifyIntensityPoints() {
+    intensityPoints?.let {
       for (point in it) {
         checkIntensity(point.intensity)
       }

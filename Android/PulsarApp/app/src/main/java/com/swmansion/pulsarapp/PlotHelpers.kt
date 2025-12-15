@@ -3,7 +3,7 @@ package com.swmansion.pulsarapp
 import android.util.Log
 import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.ControlPoint
-import com.swmansion.pulsarapp.types.Point
+import com.swmansion.pulsarapp.types.IntensityPoint
 import kotlin.collections.forEach
 
 // helper functions for plotting only
@@ -42,7 +42,7 @@ fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
   return barsWithPauses
 }
 
-fun printPointsToPlot(points: ArrayList<Point>) {
+fun printPointsToPlot(points: ArrayList<IntensityPoint>) {
   Log.i(TAG, "----------- POINTS -----------")
 
   Log.i(TAG, getPlotHeader())
@@ -58,14 +58,16 @@ fun printControlPointsToPlot(controlPoints: ArrayList<ControlPoint>) {
   points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity}") }
 }
 
-private fun convertControlPointsToPoints(controlPoints: ArrayList<ControlPoint>): ArrayList<Point> {
+private fun convertControlPointsToPoints(
+  controlPoints: ArrayList<ControlPoint>
+): ArrayList<IntensityPoint> {
   var relativeTime = 0L
-  val points = ArrayList<Point>()
-  points += Point(1, 0f)
+  val points = ArrayList<IntensityPoint>()
+  points += IntensityPoint(1, 0f)
 
   controlPoints.forEach {
     relativeTime += it.duration
-    points += Point(relativeTime, it.intensity)
+    points += IntensityPoint(relativeTime, it.intensity)
   }
 
   return points

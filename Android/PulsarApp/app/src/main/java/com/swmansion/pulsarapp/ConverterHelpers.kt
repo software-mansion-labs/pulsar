@@ -2,20 +2,23 @@ package com.swmansion.pulsarapp
 
 import android.util.Log
 import com.swmansion.pulsarapp.types.Bar
+import com.swmansion.pulsarapp.types.IntensityPoint
 import com.swmansion.pulsarapp.types.Line
-import com.swmansion.pulsarapp.types.Point
 import kotlin.collections.forEach
 import kotlin.math.abs
 
 const val STEPS_PER_100_MS = 30
 const val DEFAULT_SHARPNESS = 1f
 
-fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<Point> {
-  val points = arrayListOf(Point(0, 0f), Point(bars.last().x2, 0f))
+fun convertBarsToPoints(bars: ArrayList<Bar>): ArrayList<IntensityPoint> {
+  val points = arrayListOf(IntensityPoint(0, 0f), IntensityPoint(bars.last().x2, 0f))
   return mergePointsAndBars(points, bars)
 }
 
-fun mergePointsAndBars(points: ArrayList<Point>, allBars: ArrayList<Bar>): ArrayList<Point> {
+fun mergePointsAndBars(
+  points: ArrayList<IntensityPoint>,
+  allBars: ArrayList<Bar>,
+): ArrayList<IntensityPoint> {
   val lines = convertPointsToLines(points)
 
   // filter invalid bars
@@ -25,8 +28,8 @@ fun mergePointsAndBars(points: ArrayList<Point>, allBars: ArrayList<Bar>): Array
     return points
   }
 
-  val startPoint = Point(0, 0f)
-  val endPoint = Point(lines.last().point2.relativeTime, 0f)
+  val startPoint = IntensityPoint(0, 0f)
+  val endPoint = IntensityPoint(lines.last().point2.relativeTime, 0f)
 
   // add start point
   var mergedPoints = arrayListOf(startPoint)
@@ -82,7 +85,11 @@ fun shouldBarBeMerged(bar: Bar, lines: ArrayList<Line>): Boolean {
   return true
 }
 
-fun getLinePointsFromInterval(x1: Point, x2: Point, allLines: ArrayList<Line>): ArrayList<Point>? {
+fun getLinePointsFromInterval(
+  x1: IntensityPoint,
+  x2: IntensityPoint,
+  allLines: ArrayList<Line>,
+): ArrayList<IntensityPoint>? {
   if (x1.relativeTime == x2.relativeTime) {
     return null
   }
@@ -123,7 +130,7 @@ fun getLinePointsFromInterval(x1: Point, x2: Point, allLines: ArrayList<Line>): 
     }
   }
 
-  val intervalPoints = ArrayList<Point>()
+  val intervalPoints = ArrayList<IntensityPoint>()
 
   intervalLines.forEach { line ->
     intervalPoints.add(line.point1)
@@ -133,7 +140,7 @@ fun getLinePointsFromInterval(x1: Point, x2: Point, allLines: ArrayList<Line>): 
   return ArrayList(intervalPoints.distinct())
 }
 
-private fun deleteRedundantHorizontalLinePoints(points: ArrayList<Point>) {
+private fun deleteRedundantHorizontalLinePoints(points: ArrayList<IntensityPoint>) {
   val indexesToDelete = ArrayList<Int>()
   val nPoints = points.size
 
@@ -150,7 +157,7 @@ private fun deleteRedundantHorizontalLinePoints(points: ArrayList<Point>) {
   indexesToDelete.reversed().forEach { points.removeAt(it) }
 }
 
-fun convertPointsToLines(points: ArrayList<Point>): ArrayList<Line> {
+fun convertPointsToLines(points: ArrayList<IntensityPoint>): ArrayList<Line> {
   val lines = ArrayList<Line>()
 
   for (i in 1..points.size - 1) {
@@ -162,7 +169,7 @@ fun convertPointsToLines(points: ArrayList<Point>): ArrayList<Line> {
   return lines
 }
 
-fun convertPointsToBars(points: ArrayList<Point>): ArrayList<Bar> {
+fun convertPointsToBars(points: ArrayList<IntensityPoint>): ArrayList<Bar> {
   val lines = convertPointsToLines(points)
   val bars = convertLinesToBars(lines)
   return bars

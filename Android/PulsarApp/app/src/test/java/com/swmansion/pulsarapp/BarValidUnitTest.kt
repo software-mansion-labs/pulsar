@@ -1,7 +1,7 @@
 package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
-import com.swmansion.pulsarapp.types.Point
+import com.swmansion.pulsarapp.types.IntensityPoint
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -10,9 +10,9 @@ class BarValidUnitTest {
   fun singleIntervalAscendingTest() {
     val points =
         arrayListOf(
-            Point(0, 0f),
-            Point(1000, 0.5f),
-            Point(1000, 0f)
+            IntensityPoint(0, 0f),
+            IntensityPoint(1000, 0.5f),
+            IntensityPoint(1000, 0f)
         )
 
     val lines = convertPointsToLines(points)
@@ -44,9 +44,9 @@ class BarValidUnitTest {
   fun singleIntervalDescendingTest() {
     val points =
         arrayListOf(
-            Point(0, 0f),
-            Point(0, 0.5f),
-            Point(1000, 0f)
+            IntensityPoint(0, 0f),
+            IntensityPoint(0, 0.5f),
+            IntensityPoint(1000, 0f)
         )
 
     val lines = convertPointsToLines(points)
@@ -78,10 +78,10 @@ class BarValidUnitTest {
   fun singleIntervalHorizontalTest() {
     val points =
         arrayListOf(
-            Point(0, 0f),
-            Point(0, 0.5f),
-            Point(1000, 0.5f),
-            Point(1000, 0f)
+            IntensityPoint(0, 0f),
+            IntensityPoint(0, 0.5f),
+            IntensityPoint(1000, 0.5f),
+            IntensityPoint(1000, 0f)
         )
 
     val lines = convertPointsToLines(points)
@@ -113,15 +113,15 @@ class BarValidUnitTest {
   fun multipleIntervalsTest() {
     val points =
       arrayListOf(
-        Point(0, 0f),
-        Point(300, 0f),
-        Point(400, 0.3f),
-        Point(500, 0.9f),
-        Point(500, 0f),
-        Point(600, 0.5f),
-        Point(650, 0.5f),
-        Point(700, 0f),
-        Point(1000, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(300, 0f),
+        IntensityPoint(400, 0.3f),
+        IntensityPoint(500, 0.9f),
+        IntensityPoint(500, 0f),
+        IntensityPoint(600, 0.5f),
+        IntensityPoint(650, 0.5f),
+        IntensityPoint(700, 0f),
+        IntensityPoint(1000, 0f),
       )
 
     val lines = convertPointsToLines(points)
@@ -142,14 +142,14 @@ class BarValidUnitTest {
   fun verticalAdjacentLineOutsideTest() {
     val points =
       arrayListOf(
-        Point(0, 0f),
-        Point(100, 0.5f),
-        Point(200, 0.5f),
-        Point(200, 0f),
-        Point(300, 0f),
-        Point(300, 0.5f),
-        Point(400, 0.5f),
-        Point(400, 0f),
+        IntensityPoint(0, 0f),
+        IntensityPoint(100, 0.5f),
+        IntensityPoint(200, 0.5f),
+        IntensityPoint(200, 0f),
+        IntensityPoint(300, 0f),
+        IntensityPoint(300, 0.5f),
+        IntensityPoint(400, 0.5f),
+        IntensityPoint(400, 0f),
       )
 
     val lines = convertPointsToLines(points)

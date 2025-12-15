@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.ControlPoint
-import com.swmansion.pulsarapp.types.Point
+import com.swmansion.pulsarapp.types.IntensityPoint
 import com.swmansion.pulsarapp.types.Preset
 import kotlin.collections.forEach
 import kotlin.collections.plusAssign
@@ -67,7 +67,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createWaveformFromPoints(points: ArrayList<Point>): VibrationEffect? {
+  private fun createWaveformFromPoints(points: ArrayList<IntensityPoint>): VibrationEffect? {
     return if (isEnvelopeSupported()) createEnvelopeWaveform(points)
     else {
       val bars = convertPointsToBars(points)
@@ -78,7 +78,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createComplexWaveform(
-    points: ArrayList<Point>,
+    points: ArrayList<IntensityPoint>,
     bars: ArrayList<Bar>,
   ): VibrationEffect? {
     val mergedPoints = mergePointsAndBars(points, bars)
@@ -118,7 +118,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun createEnvelopeWaveform(points: ArrayList<Point>): VibrationEffect {
+  private fun createEnvelopeWaveform(points: ArrayList<IntensityPoint>): VibrationEffect {
     val controlPoints = getControlPoints(points)
 
     printPointsToPlot(points)
@@ -137,7 +137,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun getControlPoints(points: ArrayList<Point>): ArrayList<ControlPoint> {
+  private fun getControlPoints(points: ArrayList<IntensityPoint>): ArrayList<ControlPoint> {
     val controlPoints = ArrayList<ControlPoint>()
     val nPoints = points.size
 
