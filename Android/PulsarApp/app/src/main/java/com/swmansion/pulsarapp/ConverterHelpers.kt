@@ -34,21 +34,21 @@ fun mergePointsAndBars(
   // add start point
   var mergedPoints = arrayListOf(startPoint)
 
-  // add points before first bar
-  bars.first().let { bar ->
-    getLinePointsFromInterval(startPoint, bar.point1, lines)?.let { mergedPoints.addAll(it) }
-  }
-
   // add points within bars range
   val nBars = bars.size
   for (i in 0..nBars - 1) {
     val currBar = bars[i]
+    val nextBar = if (i + 1 < nBars) bars[i + 1] else null
+
+    // add points before first bar
+    if (i == 0) {
+      getLinePointsFromInterval(startPoint, currBar.point1, lines)?.let { mergedPoints.addAll(it) }
+    }
 
     mergedPoints.add(currBar.point1)
     mergedPoints.add(currBar.point2)
 
     // add lines between two bars
-    val nextBar = if (i + 1 < nBars) bars[i + 1] else null
     nextBar?.let { nextBar ->
       if (currBar.x2 != nextBar.x1) {
         getLinePointsFromInterval(currBar.point2, nextBar.point1, lines)?.let {
@@ -56,11 +56,11 @@ fun mergePointsAndBars(
         }
       }
     }
-  }
 
-  // add points after last bar
-  bars.last().let { bar ->
-    getLinePointsFromInterval(bar.point2, endPoint, lines)?.let { mergedPoints.addAll(it) }
+    // add points after last bar
+    if (i == nBars - 1) {
+      getLinePointsFromInterval(currBar.point2, endPoint, lines)?.let { mergedPoints.addAll(it) }
+    }
   }
 
   // add end point
