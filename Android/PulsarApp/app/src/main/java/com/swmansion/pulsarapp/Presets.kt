@@ -3,17 +3,14 @@ package com.swmansion.pulsarapp
 import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.IntensityPoint
 import com.swmansion.pulsarapp.types.Preset
+import com.swmansion.pulsarapp.types.PresetPlot
+import com.swmansion.pulsarapp.types.SharpnessPoint
 import kotlin.collections.arrayListOf
 
 val SUCCESS_PRESET =
   Preset(
     name = "Success",
-    bars =
-      arrayListOf(
-        Bar(0, 100, 0.809f, 0.616f),
-        Bar(200, 300, 0.809f, 0.619f),
-        Bar(550, 650, 1f, 1f)
-      ),
+    bars = arrayListOf(Bar(0, 100, 1f, 0.5f), Bar(200, 300, 1f, 0.5f), Bar(550, 650, 1f, 1f)),
   )
 val FAIL_PRESET =
   Preset(
@@ -28,14 +25,18 @@ val FAIL_PRESET =
 val ENVELOPE_PRESET =
   Preset(
     name = "Envelope",
-    intensityPoints =
-      arrayListOf(
-        IntensityPoint(0, 0f),
-        IntensityPoint(0, 1f),
-        IntensityPoint(500, 0f),
-        IntensityPoint(1000, 0f),
-        IntensityPoint(2000, 1f),
-        IntensityPoint(2000, 0f),
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(0, 1f),
+            IntensityPoint(500, 0f),
+            IntensityPoint(1000, 0f),
+            IntensityPoint(2000, 1f),
+            IntensityPoint(2000, 0f),
+          ),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
       ),
   )
 val FALLING_BRICKS =
@@ -53,98 +54,114 @@ val FALLING_BRICKS =
 val EARTHQUAKE_PRESET =
   Preset(
     name = "Earthquake",
-    intensityPoints =
-      arrayListOf(
-        IntensityPoint(0, 0f),
-        IntensityPoint(400, 0.8f),
-        IntensityPoint(400, 0f),
-        IntensityPoint(500, 0f),
-        IntensityPoint(700, 0.8f),
-        IntensityPoint(700, 0f),
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(400, 0.8f),
+            IntensityPoint(400, 0f),
+            IntensityPoint(500, 0f),
+            IntensityPoint(700, 0.8f),
+            IntensityPoint(700, 0f),
+          ),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
       ),
   )
 val RANDOM_PRESET =
   Preset(
     name = "Random Preset",
-    intensityPoints =
-      arrayListOf(
-        IntensityPoint(0, 0f),
-        IntensityPoint(400, 0.8f),
-        IntensityPoint(400, 0f),
-        IntensityPoint(500, 0f),
-        IntensityPoint(700, 0.8f),
-        IntensityPoint(700, 0f),
-        IntensityPoint(900, 0f),
-        IntensityPoint(900, 1f),
-        IntensityPoint(1000, 1f),
-        IntensityPoint(1000, 0f),
-        IntensityPoint(1100, 0f),
-        IntensityPoint(1100, 1f),
-        IntensityPoint(1200, 1f),
-        IntensityPoint(1200, 0f),
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(400, 0.8f),
+            IntensityPoint(400, 0f),
+            IntensityPoint(500, 0f),
+            IntensityPoint(700, 0.8f),
+            IntensityPoint(700, 0f),
+            IntensityPoint(900, 0f),
+            IntensityPoint(900, 1f),
+            IntensityPoint(1000, 1f),
+            IntensityPoint(1000, 0f),
+            IntensityPoint(1100, 0f),
+            IntensityPoint(1100, 1f),
+            IntensityPoint(1200, 1f),
+            IntensityPoint(1200, 0f),
+          ),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
       ),
   )
 
 val LONG_RISING_PRESET =
   Preset(
     name = "Long Rising",
-    intensityPoints =
-      arrayListOf(
-        IntensityPoint(0, 0f),
-        IntensityPoint(10000, 1f),
-        IntensityPoint(10000, 0f)
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(IntensityPoint(0, 0f), IntensityPoint(10000, 1f), IntensityPoint(10000, 0f)),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
       ),
   )
 
 val UP_PRESET =
   Preset(
     name = "Up",
-    intensityPoints =
-      arrayListOf(
-        IntensityPoint(0, 0f),
-        IntensityPoint(50, 1f), // 50ms
-        IntensityPoint(50, 0f),
-        IntensityPoint(1050, 0f),
-        IntensityPoint(1200, 1f), // 150ms
-        IntensityPoint(1200, 0f),
-        IntensityPoint(2200, 0f),
-        IntensityPoint(2500, 1f), // 300ms
-        IntensityPoint(2500, 0f),
-        IntensityPoint(3500, 0f),
-        IntensityPoint(4100, 1f), // 600ms
-        IntensityPoint(4100, 0f),
-        IntensityPoint(5100, 0f),
-        IntensityPoint(6100, 1f), // 1000ms
-        IntensityPoint(6100, 0f),
-        IntensityPoint(7100, 0f),
-        IntensityPoint(10100, 1f), // 3000ms
-        IntensityPoint(10100, 0f),
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(50, 1f), // 50ms
+            IntensityPoint(50, 0f),
+            IntensityPoint(1050, 0f),
+            IntensityPoint(1200, 1f), // 150ms
+            IntensityPoint(1200, 0f),
+            IntensityPoint(2200, 0f),
+            IntensityPoint(2500, 1f), // 300ms
+            IntensityPoint(2500, 0f),
+            IntensityPoint(3500, 0f),
+            IntensityPoint(4100, 1f), // 600ms
+            IntensityPoint(4100, 0f),
+            IntensityPoint(5100, 0f),
+            IntensityPoint(6100, 1f), // 1000ms
+            IntensityPoint(6100, 0f),
+            IntensityPoint(7100, 0f),
+            IntensityPoint(10100, 1f), // 3000ms
+            IntensityPoint(10100, 0f),
+          ),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
       ),
   )
 
 val UP_AND_DOWN_PRESET =
   Preset(
     name = "Up and Down",
-    intensityPoints =
-      arrayListOf(
-        IntensityPoint(0, 0f),
-        IntensityPoint(50, 1f), // 50ms
-        IntensityPoint(100, 0f),
-        IntensityPoint(1100, 0f),
-        IntensityPoint(1250, 1f), // 150ms
-        IntensityPoint(1400, 0f),
-        IntensityPoint(2400, 0f),
-        IntensityPoint(2700, 1f), // 300ms
-        IntensityPoint(3000, 0f),
-        IntensityPoint(4000, 0f),
-        IntensityPoint(4600, 1f), // 600ms
-        IntensityPoint(5200, 0f),
-        IntensityPoint(6200, 0f),
-        IntensityPoint(7200, 1f), // 1000ms
-        IntensityPoint(8200, 0f),
-        IntensityPoint(9200, 0f),
-        IntensityPoint(12200, 1f), // 3000ms
-        IntensityPoint(15200, 0f),
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(50, 1f), // 50ms
+            IntensityPoint(100, 0f),
+            IntensityPoint(1100, 0f),
+            IntensityPoint(1250, 1f), // 150ms
+            IntensityPoint(1400, 0f),
+            IntensityPoint(2400, 0f),
+            IntensityPoint(2700, 1f), // 300ms
+            IntensityPoint(3000, 0f),
+            IntensityPoint(4000, 0f),
+            IntensityPoint(4600, 1f), // 600ms
+            IntensityPoint(5200, 0f),
+            IntensityPoint(6200, 0f),
+            IntensityPoint(7200, 1f), // 1000ms
+            IntensityPoint(8200, 0f),
+            IntensityPoint(9200, 0f),
+            IntensityPoint(12200, 1f), // 3000ms
+            IntensityPoint(15200, 0f),
+          ),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
       ),
   )
 
@@ -160,11 +177,11 @@ val COMPLEX_PRESET =
         Bar(8200, 8400, 1f, 1f),
         Bar(9200, 9400, 1f, 1f),
       ),
-    intensityPoints =
-      arrayListOf(
-        IntensityPoint(0, 0f),
-        IntensityPoint(5000, 0.9f),
-        IntensityPoint(10000, 0f)
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(IntensityPoint(0, 0f), IntensityPoint(5000, 0.9f), IntensityPoint(10000, 0f)),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
       ),
   )
 
@@ -182,9 +199,39 @@ val TEST_PRESET =
         Bar(1500, 1600, 1f, 1f),
         Bar(1900, 2000, 1f, 1f),
       ),
-    intensityPoints = arrayListOf(
-      IntensityPoint(0, 0f),
-      IntensityPoint(1000, 0.5f),
-      IntensityPoint(2000, 0f)
-    )
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(IntensityPoint(0, 0f), IntensityPoint(1000, 0.5f), IntensityPoint(2000, 0f)),
+        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+      ),
+  )
+
+val FREQUENCY_PRESET =
+  Preset(
+    name = "Frequency",
+    bars =
+      arrayListOf(
+        Bar(400, 600, 1f, 0.1f),
+        Bar(1400, 1600, 0.8f, 0.1f),
+        Bar(2400, 2600, 1f, 0.1f),
+        Bar(3400, 3600, 0.8f, 0.1f),
+      ),
+    plot =
+      PresetPlot(
+        intensity =
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(0, 0.5f),
+            IntensityPoint(4000, 0.5f),
+            IntensityPoint(4000, 0f),
+          ),
+        sharpness =
+          arrayListOf(
+            SharpnessPoint(0, 1f),
+            SharpnessPoint(1000, 0.75f),
+            SharpnessPoint(2000, 0.5f),
+            SharpnessPoint(3000, 0.25f),
+          ),
+      ),
   )

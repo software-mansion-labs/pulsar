@@ -3,12 +3,14 @@ package com.swmansion.pulsarapp
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.ControlPoint
-import com.swmansion.pulsarapp.types.IntensityPoint
+import com.swmansion.pulsarapp.types.PlotPoint
 import com.swmansion.pulsarapp.types.Preset
+import com.swmansion.pulsarapp.types.PresetPlot
 import kotlin.collections.forEach
 import kotlin.collections.plusAssign
 import kotlin.math.max
@@ -19,34 +21,32 @@ const val MAX_INT_AMPLITUDE = 255
 
 class VibrationBuilder(val vibrationService: Vibrator) {
   fun createVibrationEffect(preset: Preset): VibrationEffect? {
-    val (_, bars, points) = preset
+    val (_, bars, plot) = preset
 
-    if (bars == null && points == null) {
+    if (bars == null && plot == null) {
       Log.w(TAG, "Vibration creation failed. No data in preset.")
       return null
     } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       Log.w(TAG, "Vibration not supported on version before 26 yet.") // TODO: handle somehow
       return null
     } else {
-      if (bars != null && points != null) {
-        val complexWaveform = createComplexWaveform(points, bars)
+      if (bars != null && plot != null) {
+        val complexWaveform = createComplexWaveform(plot, bars)
 
-        Log.i(
-          TAG,
-          if (complexWaveform != null) "Complex vibration created based on bars and points."
-          else "Vibration creation failed.",
-        )
+        complexWaveform?.let { Log.i(TAG, "Complex vibration created.") }
+          ?: run { Log.w(TAG, "Complex vibration creation failed.") }
+
         return complexWaveform
       } else {
         val barsWaveform = bars?.let { createWaveformFromBars(it) }
-        val pointsWaveform = points?.let { createWaveformFromPoints(it) }
+        val plotWaveform = plot?.let { createWaveformFromPlot(it) }
 
         if (barsWaveform != null) {
           Log.i(TAG, "Vibration created based on bars.")
           return barsWaveform
-        } else if (pointsWaveform != null) {
+        } else if (plotWaveform != null) {
           Log.i(TAG, "Vibration created based on points.")
-          return pointsWaveform
+          return plotWaveform
         } else {
           Log.w(TAG, "Vibration creation failed.")
           return null
@@ -58,35 +58,32 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveformFromBars(bars: ArrayList<Bar>): VibrationEffect {
     return if (isEnvelopeSupported()) {
-      val points = convertBarsToPoints(bars)
-      createEnvelopeWaveform(points)
+      val plot = generatePlot(bars)
+      createEnvelopeWaveform(plot)
     } else {
-      printBarsToPlot(bars)
       createWaveform(bars)
     }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createWaveformFromPoints(points: ArrayList<IntensityPoint>): VibrationEffect? {
-    return if (isEnvelopeSupported()) createEnvelopeWaveform(points)
+  private fun createWaveformFromPlot(plot: PresetPlot): VibrationEffect? {
+    return if (isEnvelopeSupported()) createEnvelopeWaveform(plot)
     else {
-      val bars = convertPointsToBars(points)
-      printBarsToPlot(bars)
+      val bars = generateBars(plot)
       createWaveform(bars)
     }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createComplexWaveform(
-    points: ArrayList<IntensityPoint>,
-    bars: ArrayList<Bar>,
-  ): VibrationEffect? {
-    val mergedPoints = mergePointsAndBars(points, bars)
-    return createWaveformFromPoints(mergedPoints)
+  private fun createComplexWaveform(plot: PresetPlot, bars: ArrayList<Bar>): VibrationEffect? {
+    val complexPlot = generateComplexPlot(plot, bars)
+    return createWaveformFromPlot(complexPlot)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveform(bars: ArrayList<Bar>): VibrationEffect {
+    printBarsToPlot(bars)
+
     var timings = longArrayOf()
     var amplitudes = intArrayOf()
 
@@ -118,26 +115,37 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun createEnvelopeWaveform(points: ArrayList<IntensityPoint>): VibrationEffect {
-    val controlPoints = getControlPoints(points)
+  private fun createEnvelopeWaveform(plot: PresetPlot): VibrationEffect {
+    val points = convertPlotToEnvelopePoints(plot) ?: ArrayList()
+    val controlPoints = convertPointsToControlPoints(points)
 
     printPointsToPlot(points)
     printControlPointsToPlot(controlPoints)
 
-    return vibrationService.frequencyProfile?.let {
+    val initialSharpness = plot.sharpness[0].sharpness
+
+    return vibrationService.frequencyProfile?.let { frequencyProfile ->
       val builder = VibrationEffect.WaveformEnvelopeBuilder()
-      controlPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.duration) }
+      controlPoints.forEach {
+        builder
+          .setInitialFrequencyHz(getSharpnessInHz(initialSharpness, frequencyProfile))
+          .addControlPoint(it.intensity, it.sharpness, it.duration)
+      }
       builder.build()
     }
       ?: run {
         val builder = VibrationEffect.BasicEnvelopeBuilder()
-        controlPoints.forEach { builder.addControlPoint(it.intensity, it.sharpness, it.duration) }
+        controlPoints.forEach {
+          builder
+            .setInitialSharpness(initialSharpness)
+            .addControlPoint(it.intensity, it.sharpness, it.duration)
+        }
         builder.build()
       }
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun getControlPoints(points: ArrayList<IntensityPoint>): ArrayList<ControlPoint> {
+  private fun convertPointsToControlPoints(points: ArrayList<PlotPoint>): ArrayList<ControlPoint> {
     val controlPoints = ArrayList<ControlPoint>()
     val nPoints = points.size
 
@@ -146,7 +154,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
       val currPoint = points[i]
 
       val duration = currPoint.relativeTime - prevPoint.relativeTime
-      controlPoints += createControlPoint(currPoint.intensity, DEFAULT_SHARPNESS, duration)
+      controlPoints += createControlPoint(currPoint.intensity, currPoint.sharpness, duration)
     }
 
     return controlPoints
@@ -162,11 +170,19 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     val adjustedDuration = max(min(duration, maxDuration), minDuration)
 
     val adjustedSharpness =
-      frequencyProfile?.let {
-        sharpness * (it.maxFrequencyHz - it.minFrequencyHz) + it.minFrequencyHz
-      } ?: sharpness
+      frequencyProfile?.let { getSharpnessInHz(sharpness, frequencyProfile) } ?: sharpness
 
     return ControlPoint(intensity, adjustedSharpness, adjustedDuration)
+  }
+
+  @RequiresApi(Build.VERSION_CODES.BAKLAVA)
+  private fun getSharpnessInHz(
+    sharpness: Float,
+    frequencyProfile: VibratorFrequencyProfile,
+  ): Float {
+    return frequencyProfile.let {
+      sharpness * (it.maxFrequencyHz - it.minFrequencyHz) + it.minFrequencyHz
+    }
   }
 
   private fun isEnvelopeSupported(): Boolean {

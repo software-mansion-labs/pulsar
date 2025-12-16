@@ -15,7 +15,7 @@ class BarValidUnitTest {
             IntensityPoint(1000, 0f)
         )
 
-    val lines = convertPointsToLines(points)
+    val lines = generateLines(points)
 
     val start = 0L
     val middle1 = 400L
@@ -49,7 +49,7 @@ class BarValidUnitTest {
             IntensityPoint(1000, 0f)
         )
 
-    val lines = convertPointsToLines(points)
+    val lines = generateLines(points)
 
     val start = 0L
     val middle1 = 500L
@@ -84,7 +84,7 @@ class BarValidUnitTest {
             IntensityPoint(1000, 0f)
         )
 
-    val lines = convertPointsToLines(points)
+    val lines = generateLines(points)
 
     val start = 0L
     val middle1 = 200L
@@ -124,7 +124,7 @@ class BarValidUnitTest {
         IntensityPoint(1000, 0f),
       )
 
-    val lines = convertPointsToLines(points)
+    val lines = generateLines(points)
 
     val x1 = 200L
     val x2 = 800L
@@ -152,7 +152,7 @@ class BarValidUnitTest {
         IntensityPoint(400, 0f),
       )
 
-    val lines = convertPointsToLines(points)
+    val lines = generateLines(points)
 
     val start = 200L
     val middle = 250L

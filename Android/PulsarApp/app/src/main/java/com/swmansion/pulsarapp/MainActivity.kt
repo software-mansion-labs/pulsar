@@ -73,6 +73,11 @@ class MainActivity : ComponentActivity() {
               VibrationButton(TEST_PRESET)
             }
           }
+
+          Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Frequency change presets:")
+            Row { VibrationButton(FREQUENCY_PRESET) }
+          }
         }
       }
     }

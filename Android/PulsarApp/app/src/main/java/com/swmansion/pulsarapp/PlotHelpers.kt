@@ -3,7 +3,7 @@ package com.swmansion.pulsarapp
 import android.util.Log
 import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.ControlPoint
-import com.swmansion.pulsarapp.types.IntensityPoint
+import com.swmansion.pulsarapp.types.PlotPoint
 import kotlin.collections.forEach
 
 // helper functions for plotting only
@@ -42,11 +42,11 @@ fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
   return barsWithPauses
 }
 
-fun printPointsToPlot(points: ArrayList<IntensityPoint>) {
+fun printPointsToPlot(points: ArrayList<PlotPoint>) {
   Log.i(TAG, "----------- POINTS -----------")
 
   Log.i(TAG, getPlotHeader())
-  points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity}") }
+  points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity} ${it.sharpness}") }
 }
 
 fun printControlPointsToPlot(controlPoints: ArrayList<ControlPoint>) {
@@ -55,24 +55,24 @@ fun printControlPointsToPlot(controlPoints: ArrayList<ControlPoint>) {
   val points = convertControlPointsToPoints(controlPoints)
 
   Log.i(TAG, getPlotHeader())
-  points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity}") }
+  points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity} ${it.sharpness}") }
 }
 
 private fun convertControlPointsToPoints(
   controlPoints: ArrayList<ControlPoint>
-): ArrayList<IntensityPoint> {
+): ArrayList<PlotPoint> {
   var relativeTime = 0L
-  val points = ArrayList<IntensityPoint>()
-  points += IntensityPoint(1, 0f)
+  val points = ArrayList<PlotPoint>()
+  points += PlotPoint(0, 0f, controlPoints[0].sharpness)
 
   controlPoints.forEach {
     relativeTime += it.duration
-    points += IntensityPoint(relativeTime, it.intensity)
+    points += PlotPoint(relativeTime, it.intensity, it.sharpness)
   }
 
   return points
 }
 
 private fun getPlotHeader(): String {
-  return "x x x x relative_time intensity"
+  return "x x x x relative_time intensity sharpness"
 }

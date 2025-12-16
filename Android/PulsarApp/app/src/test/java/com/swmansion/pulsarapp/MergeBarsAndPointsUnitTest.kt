@@ -2,6 +2,8 @@ package com.swmansion.pulsarapp
 
 import com.swmansion.pulsarapp.types.Bar
 import com.swmansion.pulsarapp.types.IntensityPoint
+import com.swmansion.pulsarapp.types.PresetPlot
+import com.swmansion.pulsarapp.types.SharpnessPoint
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -11,6 +13,8 @@ import org.junit.Test
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class MergeBarsAndPointsUnitTest {
+  val sharpness = arrayListOf(SharpnessPoint(0, 1f))
+
   @Test
   fun horizontalTest() {
     val bars =
@@ -20,7 +24,7 @@ class MergeBarsAndPointsUnitTest {
         Bar(400, 500, 1f, 1f), // end
       )
 
-    val points = arrayListOf(
+    val intensity = arrayListOf(
       IntensityPoint(0, 0f),
       IntensityPoint(0, 0.2f),
       IntensityPoint(500, 0.2f),
@@ -43,7 +47,7 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, mergePointsAndBars(points, bars))
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
   }
 
   @Test
@@ -57,7 +61,7 @@ class MergeBarsAndPointsUnitTest {
         Bar(300, 350, 0.8f, 1f),
       )
 
-    val points = arrayListOf(
+    val intensity = arrayListOf(
       IntensityPoint(0, 0f),
       IntensityPoint(0, 0.2f),
       IntensityPoint(500, 0.2f),
@@ -86,7 +90,7 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, mergePointsAndBars(points, bars))
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
   }
 
   @Test
@@ -101,7 +105,7 @@ class MergeBarsAndPointsUnitTest {
         Bar(350, 400, 1f, 1f),
       )
 
-    val points = arrayListOf(
+    val intensity = arrayListOf(
       IntensityPoint(0, 0f),
       IntensityPoint(0, 0.2f),
       IntensityPoint(500, 0.2f),
@@ -124,7 +128,7 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, mergePointsAndBars(points, bars))
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
   }
 
   @Test
@@ -139,7 +143,7 @@ class MergeBarsAndPointsUnitTest {
         Bar(350, 400, 1f, 1f),
       )
 
-    val points = arrayListOf(
+    val instensity = arrayListOf(
       IntensityPoint(0, 0f),
       IntensityPoint(0, 0.2f),
       IntensityPoint(500, 0.2f),
@@ -162,12 +166,12 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, mergePointsAndBars(points, bars))
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(instensity, sharpness), bars).intensity)
   }
 
   @Test
   fun complexTest() {
-    val points =
+    val intensity =
       arrayListOf(
         IntensityPoint(0, 0f),
         IntensityPoint(100, 0.2f),
@@ -226,6 +230,6 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(1600, 0f),
       )
 
-    assertEquals(expectedResults, mergePointsAndBars(points, bars))
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
   }
 }

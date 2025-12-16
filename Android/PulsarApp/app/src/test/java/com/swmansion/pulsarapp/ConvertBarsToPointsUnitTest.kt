@@ -25,7 +25,7 @@ class ConvertBarsToPointsUnitTest {
         Bar(600, 800, 1f, 0.3f)
       )
 
-    val points = convertBarsToPoints(bars)
+    val points = generateIntensity(bars)
 
     val expectedPoints =
       arrayListOf(
@@ -54,7 +54,7 @@ class ConvertBarsToPointsUnitTest {
       Bar(200, 300, 0.6f, 0.6f)
     )
 
-    val points = convertBarsToPoints(bars)
+    val points = generateIntensity(bars)
 
     val expectedPoints =
       arrayListOf(
@@ -76,7 +76,7 @@ class ConvertBarsToPointsUnitTest {
       Bar(0, 100, 0.3f, 0.8f)
     )
 
-    val points = convertBarsToPoints(bars)
+    val points = generateIntensity(bars)
 
     val expectedPoints = arrayListOf(
       IntensityPoint(0, 0f),
