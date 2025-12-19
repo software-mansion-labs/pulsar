@@ -13,8 +13,6 @@ import org.junit.Test
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class MergeBarsAndPointsUnitTest {
-  val sharpness = arrayListOf(SharpnessPoint(0, 1f))
-
   @Test
   fun horizontalTest() {
     val bars =
@@ -47,7 +45,7 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, CONST_PLOT_SHARPNESS), bars).intensity)
   }
 
   @Test
@@ -90,7 +88,7 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, CONST_PLOT_SHARPNESS), bars).intensity)
   }
 
   @Test
@@ -128,7 +126,7 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, CONST_PLOT_SHARPNESS), bars).intensity)
   }
 
   @Test
@@ -166,7 +164,7 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(500, 0f),
       )
 
-    assertEquals(expectedResults, generateComplexPlot(PresetPlot(instensity, sharpness), bars).intensity)
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(instensity, CONST_PLOT_SHARPNESS), bars).intensity)
   }
 
   @Test
@@ -230,6 +228,6 @@ class MergeBarsAndPointsUnitTest {
         IntensityPoint(1600, 0f),
       )
 
-    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, sharpness), bars).intensity)
+    assertEquals(expectedResults, generateComplexPlot(PresetPlot(intensity, CONST_PLOT_SHARPNESS), bars).intensity)
   }
 }

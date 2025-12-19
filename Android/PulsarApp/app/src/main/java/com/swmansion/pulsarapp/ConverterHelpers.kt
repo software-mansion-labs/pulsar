@@ -98,7 +98,7 @@ fun generateComplexPlot(plot: PresetPlot, initBars: ArrayList<Bar>): PresetPlot 
       getLinePointsFromInterval(startPoint, currBar.point1, lines)?.let {
         complexIntensity.addAll(it)
       }
-      getSharpnessFromInterval(startPoint.relativeTime, currBar.x1, sharpness).let {
+      getSharpnessFromInterval(startPoint.relativeTime, currBar.x1, sharpness)?.let {
         complexSharpness.addAll(it)
       }
     }
@@ -116,7 +116,7 @@ fun generateComplexPlot(plot: PresetPlot, initBars: ArrayList<Bar>): PresetPlot 
         getLinePointsFromInterval(currBar.point2, nextBar.point1, lines)?.let {
           complexIntensity.addAll(it)
         }
-        getSharpnessFromInterval(currBar.x2, nextBar.x1, sharpness).let {
+        getSharpnessFromInterval(currBar.x2, nextBar.x1, sharpness)?.let {
           complexSharpness.addAll(it)
         }
       }
@@ -126,7 +126,7 @@ fun generateComplexPlot(plot: PresetPlot, initBars: ArrayList<Bar>): PresetPlot 
       getLinePointsFromInterval(currBar.point2, endPoint, lines)?.let {
         complexIntensity.addAll(it)
       }
-      getSharpnessFromInterval(currBar.x2, endPoint.relativeTime, sharpness).let {
+      getSharpnessFromInterval(currBar.x2, endPoint.relativeTime, sharpness)?.let {
         complexSharpness.addAll(it)
       }
     }
@@ -227,11 +227,15 @@ private fun deleteRedundantHorizontalLinePoints(points: ArrayList<IntensityPoint
   indexesToDelete.reversed().forEach { points.removeAt(it) }
 }
 
-private fun getSharpnessFromInterval(
+fun getSharpnessFromInterval(
   x1: Long,
   x2: Long,
   sharpness: ArrayList<SharpnessPoint>,
-): ArrayList<SharpnessPoint> {
+): ArrayList<SharpnessPoint>? {
+  if(x1 == x2){
+    return null
+  }
+
   val startSharpness = sharpness.findLast { it.relativeTime <= x1 }!!.sharpness
   val intervalSharpness = sharpness.filter { x1 < it.relativeTime && it.relativeTime < x2 }
 
@@ -280,13 +284,9 @@ private fun generateSharpness(bars: ArrayList<Bar>): ArrayList<SharpnessPoint> {
   return sharpness
 }
 
-fun generatePlotPoints(plot: PresetPlot): ArrayList<PlotPoint>? {
+fun generatePlotPoints(plot: PresetPlot): ArrayList<PlotPoint> {
   val (plotPoints, plotSharpness) = plot
   val lines = generateLines(plotPoints)
-
-  if (lines.isEmpty() || plotSharpness.isEmpty()) {
-    return null
-  }
 
   var prevSharpness = plotSharpness[0].sharpness
   val result = arrayListOf(PlotPoint(0, 0f, prevSharpness))

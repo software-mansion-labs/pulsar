@@ -7,10 +7,16 @@ import com.swmansion.pulsarapp.types.PresetPlot
 import com.swmansion.pulsarapp.types.SharpnessPoint
 import kotlin.collections.arrayListOf
 
+val CONST_PLOT_SHARPNESS = arrayListOf(SharpnessPoint(0, 1f))
 val SUCCESS_PRESET =
   Preset(
     name = "Success",
-    bars = arrayListOf(Bar(0, 100, 1f, 0.5f), Bar(200, 300, 1f, 0.5f), Bar(550, 650, 1f, 1f)),
+    bars =
+      arrayListOf(
+        Bar(0, 100, 1f, 0.5f),
+        Bar(200, 300, 1f, 0.5f),
+        Bar(550, 650, 1f, 1f)
+      ),
   )
 val FAIL_PRESET =
   Preset(
@@ -36,7 +42,7 @@ val ENVELOPE_PRESET =
             IntensityPoint(2000, 1f),
             IntensityPoint(2000, 0f),
           ),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 val FALLING_BRICKS =
@@ -65,7 +71,7 @@ val EARTHQUAKE_PRESET =
             IntensityPoint(700, 0.8f),
             IntensityPoint(700, 0f),
           ),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 val RANDOM_PRESET =
@@ -90,7 +96,7 @@ val RANDOM_PRESET =
             IntensityPoint(1200, 1f),
             IntensityPoint(1200, 0f),
           ),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 
@@ -100,8 +106,12 @@ val LONG_RISING_PRESET =
     plot =
       PresetPlot(
         intensity =
-          arrayListOf(IntensityPoint(0, 0f), IntensityPoint(10000, 1f), IntensityPoint(10000, 0f)),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(10000, 1f),
+            IntensityPoint(10000, 0f)
+          ),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 
@@ -131,7 +141,7 @@ val UP_PRESET =
             IntensityPoint(10100, 1f), // 3000ms
             IntensityPoint(10100, 0f),
           ),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 
@@ -161,7 +171,7 @@ val UP_AND_DOWN_PRESET =
             IntensityPoint(12200, 1f), // 3000ms
             IntensityPoint(15200, 0f),
           ),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 
@@ -180,8 +190,12 @@ val COMPLEX_PRESET =
     plot =
       PresetPlot(
         intensity =
-          arrayListOf(IntensityPoint(0, 0f), IntensityPoint(5000, 0.9f), IntensityPoint(10000, 0f)),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(5000, 0.9f),
+            IntensityPoint(10000, 0f)
+          ),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 
@@ -202,8 +216,12 @@ val TEST_PRESET =
     plot =
       PresetPlot(
         intensity =
-          arrayListOf(IntensityPoint(0, 0f), IntensityPoint(1000, 0.5f), IntensityPoint(2000, 0f)),
-        sharpness = arrayListOf(SharpnessPoint(0, 1f)),
+          arrayListOf(
+            IntensityPoint(0, 0f),
+            IntensityPoint(1000, 0.5f),
+            IntensityPoint(2000, 0f)
+          ),
+        sharpness = CONST_PLOT_SHARPNESS
       ),
   )
 
