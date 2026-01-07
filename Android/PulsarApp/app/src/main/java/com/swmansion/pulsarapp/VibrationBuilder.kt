@@ -24,7 +24,7 @@ const val MAX_INT_AMPLITUDE = 255
 class VibrationBuilder(val vibrationService: Vibrator) {
   fun createVibrationEffect(preset: Preset): VibrationEffect? {
     val (_, impulses, plot) = preset
-    val bars = impulses?.let { convertImpulsesToBars(it) }
+    val bars = impulses?.let { convertImpulsesToBars(vibrationService, it) }
 
     if (bars == null && plot == null) {
       Log.w(TAG, "Vibration creation failed. No data in preset.")
