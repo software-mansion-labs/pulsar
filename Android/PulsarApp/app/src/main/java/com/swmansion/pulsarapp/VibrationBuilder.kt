@@ -176,11 +176,12 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     val minControlPointDuration = vibrationService.envelopeEffectInfo.minControlPointDurationMillis
 
     val time = controlPoints.sumOf { it.duration }
-    val timeDiff = time - vibrationTime
+    var timeDiff = time - vibrationTime
     val subtractableTime = controlPoints.sumOf { it.duration - minControlPointDuration }
 
     if (subtractableTime < timeDiff) {
-      throw Exception("Subtractable items cannot be constructed.")
+      Log.w(TAG, "There is not enough subtractable time to make exact adjustment. $subtractableTime/$timeDiff will be adjusted.")
+      timeDiff = subtractableTime
     }
 
     val subtractableItems = ArrayList<SubtractableItem>()
