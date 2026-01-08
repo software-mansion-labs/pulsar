@@ -7,6 +7,11 @@ package com.swmansion.pulsarapp.types
  * @param intensity - should be value from [0-1].
  */
 data class IntensityPoint(val relativeTime: Long, var intensity: Float) {
+  init {
+    verifyRelativeTime(relativeTime)
+    verifyIntensity(intensity)
+  }
+
   override fun toString(): String {
     return "(${relativeTime}, ${intensity})"
   }
@@ -19,6 +24,11 @@ data class IntensityPoint(val relativeTime: Long, var intensity: Float) {
  * @param sharpness - should be value from (0-1].
  */
 class SharpnessPoint(val relativeTime: Long, val sharpness: Float) {
+  init {
+    verifyRelativeTime(relativeTime)
+    verifySharpness(sharpness)
+  }
+
   override fun toString(): String {
     return "(${relativeTime}, ${sharpness})"
   }
@@ -29,9 +39,15 @@ class SharpnessPoint(val relativeTime: Long, val sharpness: Float) {
  *
  * @param relativeTime - time relative to the beginning of the vibration.
  * @param intensity - should be value from [0-1].
- * @param sharpness - should be value from (0-1].
+ * @param sharpness - should be value from (0-1] or greater if Hz.
  */
 data class PlotPoint(val relativeTime: Long, var intensity: Float, val sharpness: Float) {
+  init {
+    verifyRelativeTime(relativeTime)
+    verifyIntensity(intensity)
+    // TODO: verify sharpness ?
+  }
+
   override fun toString(): String {
     return "($relativeTime, $intensity, $sharpness)"
   }

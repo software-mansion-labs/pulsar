@@ -84,14 +84,28 @@ private fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
 fun generateComplexPlot(plot: PresetPlot, initBars: ArrayList<Bar>): PresetPlot {
   val (intensity, sharpness) = plot
   val lines = generateLines(intensity)
-  val bars = initBars.filter { shouldBarBeMerged(it, lines) }
+
+  val startPoint = IntensityPoint(0, 0f)
+  val endPoint = IntensityPoint(lines.last().point2.relativeTime, 0f)
+
+  val bars =
+    initBars
+      .mapNotNull { // cut bars to fit the line
+        val (x1, x2, intensity, sharpness) = it
+        if (x1 < endPoint.relativeTime) {
+          if (x2 <= endPoint.relativeTime) it
+          else {
+            Bar(x1, endPoint.relativeTime, sharpness, intensity)
+          }
+        } else {
+          null
+        }
+      }
+      .filter { shouldBarBeMerged(it, lines) } // include bars above line
 
   if (bars.isEmpty()) {
     return plot
   }
-
-  val startPoint = IntensityPoint(0, 0f)
-  val endPoint = IntensityPoint(lines.last().point2.relativeTime, 0f)
 
   var complexIntensity = arrayListOf(startPoint)
   val complexSharpness = arrayListOf<SharpnessPoint>()
@@ -362,9 +376,11 @@ private fun getBarBasedOnSharpness(vibrationService: Vibrator, impulse: Impulse)
       vibrationService.areEnvelopeEffectsSupported()
 
   val durationRange =
-    if (isEnvelopeSupported) ENVELOPE_SUPPORT_BAR_DURATION_RANGE_MS else DEFAULT_BAR_DURATION_RANGE_MS
+    if (isEnvelopeSupported) ENVELOPE_SUPPORT_BAR_DURATION_RANGE_MS
+    else DEFAULT_BAR_DURATION_RANGE_MS
   val minDuration =
-    if (isEnvelopeSupported) vibrationService.envelopeEffectInfo.minControlPointDurationMillis else DEFAULT_MIN_BAR_DURATION_MS
+    if (isEnvelopeSupported) vibrationService.envelopeEffectInfo.minControlPointDurationMillis
+    else DEFAULT_MIN_BAR_DURATION_MS
 
   val ratio = 1 - impulse.sharpness
   val duration = ratio * durationRange + minDuration

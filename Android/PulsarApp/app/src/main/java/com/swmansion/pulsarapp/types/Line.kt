@@ -10,6 +10,12 @@ import kotlin.math.round
  * @param point2 - interval end.
  */
 data class Line(val point1: IntensityPoint, val point2: IntensityPoint) {
+  init {
+    if (point1.relativeTime > point2.relativeTime) {
+      throw Exception("point1 relative cannot be greater than point2 relative time.")
+    }
+  }
+
   val a =
     (point2.intensity - point1.intensity) /
       (point2.relativeTime.toFloat() - point1.relativeTime.toFloat())
@@ -29,11 +35,8 @@ data class Line(val point1: IntensityPoint, val point2: IntensityPoint) {
       return null
     }
 
-    val point = IntensityPoint(x, roundTo(a * x + b, 2))
-    return if (
-      point1.relativeTime <= point.relativeTime && point.relativeTime <= point2.relativeTime
-    )
-      point
+    return if (point1.relativeTime <= x && x <= point2.relativeTime)
+      IntensityPoint(x, roundTo(a * x + b, 2))
     else null
   }
 
