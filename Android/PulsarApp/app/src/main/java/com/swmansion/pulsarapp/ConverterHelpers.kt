@@ -1,7 +1,10 @@
 package com.swmansion.pulsarapp
 
+import android.os.Build
+import android.os.Vibrator
 import android.util.Log
 import com.swmansion.pulsarapp.types.Bar
+import com.swmansion.pulsarapp.types.Impulse
 import com.swmansion.pulsarapp.types.IntensityPoint
 import com.swmansion.pulsarapp.types.Line
 import com.swmansion.pulsarapp.types.PlotPoint
@@ -9,9 +12,15 @@ import com.swmansion.pulsarapp.types.PresetPlot
 import com.swmansion.pulsarapp.types.SharpnessPoint
 import kotlin.collections.forEach
 import kotlin.math.abs
+import kotlin.math.max
 
 const val STEPS_PER_100_MS = 30
 const val DEFAULT_SHARPNESS = 1f
+
+// TODO: adjust these values
+const val ENVELOPE_SUPPORT_BAR_DURATION_RANGE_MS = 40
+const val DEFAULT_BAR_DURATION_RANGE_MS = 70
+const val DEFAULT_MIN_BAR_DURATION_MS = 70L
 
 fun generateBars(plot: PresetPlot): ArrayList<Bar> {
   val lines = generateLines(plot.intensity)
@@ -57,11 +66,11 @@ private fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
         val stepDuration = lineDuration / nSteps
         val stepValue = abs(intensityDiff) / nSteps
 
-        for (i in 0..nSteps - 1) { // TODO fix long last interval length ?
+        for (i in 0..nSteps - 1) { // TODO fix long last interval length ? - middle step
           val x1 = line.point1.relativeTime + stepDuration * i
           val x2 = if (i < nSteps - 1) x1 + stepDuration else line.point2.relativeTime
           val intensity =
-            if (isLineAscending) line.point1.intensity + stepValue * i // TODO: middle step
+            if (isLineAscending) line.point1.intensity + stepValue * i
             else line.point1.intensity - stepValue * i
 
           bars += Bar(x1, x2, intensity, DEFAULT_SHARPNESS)
@@ -75,14 +84,28 @@ private fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
 fun generateComplexPlot(plot: PresetPlot, initBars: ArrayList<Bar>): PresetPlot {
   val (intensity, sharpness) = plot
   val lines = generateLines(intensity)
-  val bars = initBars.filter { shouldBarBeMerged(it, lines) }
+
+  val startPoint = IntensityPoint(0, 0f)
+  val endPoint = IntensityPoint(lines.last().point2.relativeTime, 0f)
+
+  val bars =
+    initBars
+      .mapNotNull { // cut bars to fit the line
+        val (x1, x2, intensity, sharpness) = it
+        if (x1 < endPoint.relativeTime) {
+          if (x2 <= endPoint.relativeTime) it
+          else {
+            Bar(x1, endPoint.relativeTime, intensity, sharpness)
+          }
+        } else {
+          null
+        }
+      }
+      .filter { shouldBarBeMerged(it, lines) } // include bars above line
 
   if (bars.isEmpty()) {
     return plot
   }
-
-  val startPoint = IntensityPoint(0, 0f)
-  val endPoint = IntensityPoint(lines.last().point2.relativeTime, 0f)
 
   var complexIntensity = arrayListOf(startPoint)
   val complexSharpness = arrayListOf<SharpnessPoint>()
@@ -318,4 +341,50 @@ fun generatePlotPoints(plot: PresetPlot): ArrayList<PlotPoint> {
   }
 
   return result
+}
+
+fun convertImpulsesToBars(
+  vibrationService: Vibrator,
+  impulses: ArrayList<Impulse>,
+): ArrayList<Bar> {
+  val bars = impulses.map { getBarBasedOnSharpness(vibrationService, it) }
+  val resultBars = ArrayList<Bar>()
+
+  var prevBar: Bar? = null
+  bars.forEachIndexed { index, currBar ->
+    var resultBar: Bar? = null
+
+    if (index == 0) {
+      resultBar = currBar
+    } else if (currBar.x2 > prevBar!!.x2) { // cut beginning if bars overlap
+      val start = max(prevBar.x2, currBar.x1)
+      resultBar = Bar(start, currBar.x2, currBar.intensity, currBar.sharpness)
+    }
+
+    resultBar?.let {
+      resultBars += it
+      prevBar = it
+    }
+  }
+
+  return resultBars
+}
+
+private fun getBarBasedOnSharpness(vibrationService: Vibrator, impulse: Impulse): Bar {
+  val isEnvelopeSupported =
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
+      vibrationService.areEnvelopeEffectsSupported()
+
+  val durationRange =
+    if (isEnvelopeSupported) ENVELOPE_SUPPORT_BAR_DURATION_RANGE_MS
+    else DEFAULT_BAR_DURATION_RANGE_MS
+  val minDuration =
+    if (isEnvelopeSupported) vibrationService.envelopeEffectInfo.minControlPointDurationMillis
+    else DEFAULT_MIN_BAR_DURATION_MS
+
+  val ratio = 1 - impulse.sharpness
+  val duration = ratio * durationRange + minDuration
+  val r = (duration / 2).toLong()
+
+  return Bar(max(0, impulse.x - r), impulse.x + r, impulse.intensity, impulse.sharpness)
 }

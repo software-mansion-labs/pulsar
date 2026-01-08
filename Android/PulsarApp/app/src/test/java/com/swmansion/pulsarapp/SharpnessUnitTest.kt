@@ -72,6 +72,7 @@ class SharpnessUnitTest {
         IntensityPoint(1000, 1f),
         IntensityPoint(2000, 0f),
         IntensityPoint(2500, 1f),
+        IntensityPoint(2500, 0f),
       )
 
     val sharpness =
@@ -88,6 +89,7 @@ class SharpnessUnitTest {
         PlotPoint(1000, 1f, 0.2f),
         PlotPoint(2000, 0f, 0.2f),
         PlotPoint(2500, 1f, 0.2f),
+        PlotPoint(2500, 0f, 0.2f),
       )
 
     verifyPlotPoints(expectedResult, generatePlotPoints(plot))
