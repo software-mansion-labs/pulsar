@@ -11,6 +11,11 @@ import org.junit.Test
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ConvertBarsToPointsUnitTest {
+  fun generateIntensity(bars: ArrayList<Bar>): ArrayList<IntensityPoint> {
+    val complexPlot = generatePlot(bars)
+    return complexPlot.intensity
+  }
+
   @Test
   fun separatedBarsTest() {
     val bars =
