@@ -119,7 +119,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
       controlPoints.forEach {
         builder
           .setInitialFrequencyHz(getSharpnessInHz(initialSharpness, frequencyProfile))
-          .addControlPoint(it.intensity, it.sharpness, it.duration)
+          .addControlPoint(it.intensity, getSharpnessInHz(it.sharpness, frequencyProfile), it.duration)
       }
       builder.build()
     }
@@ -227,16 +227,12 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   private fun createControlPoint(intensity: Float, sharpness: Float, duration: Long): ControlPoint {
     val envelopeInfo = vibrationService.envelopeEffectInfo
-    val frequencyProfile = vibrationService.frequencyProfile
 
     val minDuration = envelopeInfo.minControlPointDurationMillis
     val maxDuration = envelopeInfo.maxControlPointDurationMillis
     val adjustedDuration = max(min(duration, maxDuration), minDuration)
 
-    val adjustedSharpness =
-      frequencyProfile?.let { getSharpnessInHz(sharpness, frequencyProfile) } ?: sharpness
-
-    return ControlPoint(intensity, adjustedSharpness, adjustedDuration)
+    return ControlPoint(intensity, sharpness, adjustedDuration)
   }
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
