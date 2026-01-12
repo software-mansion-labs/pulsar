@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Oscillator Synthesizer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .controls {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .osc-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .osc-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .global-controls {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .start-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .stop-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            margin-top: 10px;
+        }
+        .stop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .value-display {
+            float: right;
+            font-weight: bold;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Multi-Oscillator Synthesizer</h1>
+        
+        <div class="global-controls">
+            <div class="control-group">
+                <label>Master Gain <span class="value-display" id="masterGainVal">0.3</span></label>
+                <input type="range" id="masterGain" min="0" max="1" step="0.01" value="0.3">
+            </div>
+            <div class="control-group">
+                <label>Low Pass Filter Frequency <span class="value-display" id="filterFreqVal">2000 Hz</span></label>
+                <input type="range" id="filterFreq" min="100" max="5000" step="10" value="2000">
+            </div>
+        </div>
+
+        <div class="controls" id="oscillators"></div>
+
+        <button class="start-btn" id="startBtn">Start Synthesis</button>
+        <button class="stop-btn" id="stopBtn" style="display:none;">Stop Synthesis</button>
+    </div>
+
+    <script>
+        let audioContext;
+        let masterGain;
+        let filter;
+        const oscillators = [];
+        const oscConfigs = [
+            { type: 'sine', baseFreq: 220, freqMod: 2, gain: 0.3, attack: 0.5, decay: 0.3, sustain: 0.7, release: 0.5 },
+            { type: 'square', baseFreq: 440, freqMod: 3, gain: 0.2, attack: 0.3, decay: 0.2, sustain: 0.5, release: 0.4 },
+            { type: 'sawtooth', baseFreq: 110, freqMod: 1.5, gain: 0.25, attack: 0.4, decay: 0.4, sustain: 0.6, release: 0.6 },
+            { type: 'triangle', baseFreq: 330, freqMod: 2.5, gain: 0.28, attack: 0.2, decay: 0.3, sustain: 0.8, release: 0.3 }
+        ];
+
+        function createOscillatorUI() {
+            const container = document.getElementById('oscillators');
+            oscConfigs.forEach((config, i) => {
+                const section = document.createElement('div');
+                section.className = 'osc-section';
+                section.innerHTML = `
+                    <div class="osc-header">
+                        <span>Oscillator ${i + 1} - ${config.type.toUpperCase()}</span>
+                    </div>
+                    <div class="control-group">
+                        <label>Base Frequency <span class="value-display" id="freq${i}Val">${config.baseFreq} Hz</span></label>
+                        <input type="range" id="freq${i}" min="50" max="880" step="1" value="${config.baseFreq}">
+                    </div>
+                    <div class="control-group">
+                        <label>Frequency Modulation <span class="value-display" id="freqMod${i}Val">${config.freqMod}x</span></label>
+                        <input type="range" id="freqMod${i}" min="0.5" max="5" step="0.1" value="${config.freqMod}">
+                    </div>
+                    <div class="control-group">
+                        <label>Gain <span class="value-display" id="gain${i}Val">${config.gain}</span></label>
+                        <input type="range" id="gain${i}" min="0" max="0.5" step="0.01" value="${config.gain}">
+                    </div>
+                    <div class="control-group">
+                        <label>Attack <span class="value-display" id="attack${i}Val">${config.attack}s</span></label>
+                        <input type="range" id="attack${i}" min="0.1" max="2" step="0.1" value="${config.attack}">
+                    </div>
+                    <div class="control-group">
+                        <label>Release <span class="value-display" id="release${i}Val">${config.release}s</span></label>
+                        <input type="range" id="release${i}" min="0.1" max="2" step="0.1" value="${config.release}">
+                    </div>
+                `;
+                container.appendChild(section);
+
+                // Add event listeners
+                ['freq', 'freqMod', 'gain', 'attack', 'release'].forEach(param => {
+                    const input = document.getElementById(`${param}${i}`);
+                    const display = document.getElementById(`${param}${i}Val`);
+                    input.addEventListener('input', (e) => {
+                        const val = parseFloat(e.target.value);
+                        config[param === 'freq' ? 'baseFreq' : param === 'freqMod' ? 'freqMod' : param] = val;
+                        display.textContent = param.includes('freq') ? `${val}${param === 'freqMod' ? 'x' : ' Hz'}` : 
+                                            param === 'gain' ? val : `${val}s`;
+                        if (oscillators[i] && param === 'gain') {
+                            oscillators[i].gainNode.gain.value = val;
+                        }
+                    });
+                });
+            });
+        }
+
+        function initAudio() {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioContext.createGain();
+            masterGain.gain.value = 0.3;
+            
+            filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 2000;
+            filter.Q.value = 1;
+            
+            filter.connect(masterGain);
+            masterGain.connect(audioContext.destination);
+        }
+
+        function startOscillator(config, index) {
+            const osc = audioContext.createOscillator();
+            osc.type = config.type;
+            
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0;
+            
+            osc.connect(gainNode);
+            gainNode.connect(filter);
+            
+            const now = audioContext.currentTime;
+            gainNode.gain.setValueAtTime(0, now);
+            gainNode.gain.linearRampToValueAtTime(config.gain, now + config.attack);
+            
+            osc.start(now);
+            
+            // Frequency modulation
+            const startFreq = config.baseFreq;
+            const endFreq = config.baseFreq * config.freqMod;
+            osc.frequency.setValueAtTime(startFreq, now);
+            osc.frequency.exponentialRampToValueAtTime(endFreq, now + 2);
+            osc.frequency.exponentialRampToValueAtTime(startFreq, now + 4);
+            
+            // Continue modulation
+            setInterval(() => {
+                if (osc.frequency) {
+                    const currentTime = audioContext.currentTime;
+                    osc.frequency.cancelScheduledValues(currentTime);
+                    osc.frequency.setValueAtTime(osc.frequency.value, currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(endFreq, currentTime + 2);
+                    osc.frequency.exponentialRampToValueAtTime(startFreq, currentTime + 4);
+                }
+            }, 4000);
+            
+            return { osc, gainNode, config };
+        }
+
+        function startSynthesis() {
+            if (oscillators.length > 0) return;
+            
+            if (!audioContext) initAudio();
+            
+            oscConfigs.forEach((config, i) => {
+                oscillators.push(startOscillator(config, i));
+            });
+            
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('stopBtn').style.display = 'block';
+        }
+
+        function stopSynthesis() {
+            const now = audioContext.currentTime;
+            oscillators.forEach(({ osc, gainNode, config }) => {
+                gainNode.gain.cancelScheduledValues(now);
+                gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+                gainNode.gain.linearRampToValueAtTime(0, now + config.release);
+                osc.stop(now + config.release);
+            });
+            
+            oscillators.length = 0;
+            
+            document.getElementById('startBtn').style.display = 'block';
+            document.getElementById('stopBtn').style.display = 'none';
+        }
+
+        // Global controls
+        document.getElementById('masterGain').addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.getElementById('masterGainVal').textContent = val;
+            if (masterGain) masterGain.gain.value = val;
+        });
+
+        document.getElementById('filterFreq').addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.getElementById('filterFreqVal').textContent = `${val} Hz`;
+            if (filter) filter.frequency.value = val;
+        });
+
+        document.getElementById('startBtn').addEventListener('click', startSynthesis);
+        document.getElementById('stopBtn').addEventListener('click', stopSynthesis);
+
+        createOscillatorUI();
+    </script>
+</body>
+</html>

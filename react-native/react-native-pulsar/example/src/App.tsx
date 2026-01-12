@@ -31,12 +31,12 @@ export default function App() {
       {counter == 3 ? <Button title="Downloaded successfully" onPress={() => {
         setCounter(0);
       }} /> : null}
-      <Button title="test" onPress={() => {
+      {/* <Button title="test" onPress={() => {
         runOnUI(() => {
           'worklet';
           Presets.System.ImpactHeavy();
         })();
-      }} />
+      }} /> */}
     </View>
   );
 }

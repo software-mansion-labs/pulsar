@@ -34,7 +34,7 @@ class WebSocketManager: ObservableObject, WebSocketDelegate {
   }
   
   func connectToPlayground() {
-    var request = URLRequest(url: URL(string: "ws://192.168.92.62:8080")!)
+    var request = URLRequest(url: URL(string: "ws://192.168.82.45:8080")!)
     request.timeoutInterval = 5
     socketPlayground = WebSocket(request: request)
     socketPlayground?.delegate = self
