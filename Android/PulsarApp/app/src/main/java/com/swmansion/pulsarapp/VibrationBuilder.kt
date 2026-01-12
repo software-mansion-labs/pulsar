@@ -60,7 +60,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveformFromBars(bars: ArrayList<Bar>): VibrationEffect {
-    return if (isEnvelopeSupported()) {
+    return if (areEnvelopesSupported()) {
       val plot = generatePlot(bars)
       createEnvelopeWaveform(plot)
     } else {
@@ -70,7 +70,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveformFromPlot(plot: Plot): VibrationEffect? {
-    return if (isEnvelopeSupported()) createEnvelopeWaveform(plot)
+    return if (areEnvelopesSupported()) createEnvelopeWaveform(plot)
     else {
       val bars = generateBars(plot)
       createWaveform(bars)
@@ -87,31 +87,15 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   private fun createWaveform(bars: ArrayList<Bar>): VibrationEffect {
     printBarsToPlot(bars)
 
+    val barsWithPauses = getBarsWithPauses(bars)
+
     var timings = longArrayOf()
     var amplitudes = intArrayOf()
 
-    val nBars = bars.size
-    for (i in 0..nBars - 1) {
-      val currBar = bars[i]
-
-      // add pause at the beginning
-      if (i == 0 && currBar.x1 != 0L) {
-        timings += currBar.x1
-        amplitudes += 0
-      }
-
-      // add bar
-      val currBarDuration = currBar.x2 - currBar.x1
-      timings += currBarDuration
-      amplitudes += (currBar.intensity * MAX_INT_AMPLITUDE).roundToInt()
-
-      // add pause between bars
-      val nextBar = if (i != nBars - 1) bars[i + 1] else null
-      if (nextBar != null && currBar.x2 != nextBar.x1) {
-        val pauseDuration = nextBar.x1 - currBar.x2
-        timings += pauseDuration
-        amplitudes += 0
-      }
+    barsWithPauses.forEach {
+      val duration = it.x2 - it.x1
+      timings += duration
+      amplitudes += (it.intensity * MAX_INT_AMPLITUDE).roundToInt()
     }
 
     return VibrationEffect.createWaveform(timings, amplitudes, -1)
@@ -119,12 +103,13 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   private fun createEnvelopeWaveform(plot: Plot): VibrationEffect {
-    val points = generatePlotPoints(plot) ?: ArrayList()
+    val points = generatePlotPoints(plot)
 
-    val vibrationTime = plot.intensity.last().relativeTime
-    val initialSharpness = plot.sharpness[0].sharpness
+    val expectedVibrationTime = plot.intensity.last().relativeTime
     val controlPoints =
-      getVibrationControlPoints(vibrationTime, convertPointsToControlPoints(points))
+      getShortenControlPoints(expectedVibrationTime, convertPointsToControlPoints(points))
+
+    val initialSharpness = plot.sharpness[0].sharpness
 
     printPointsToPlot(points)
     printControlPointsToPlot(controlPoints)
@@ -149,12 +134,13 @@ class VibrationBuilder(val vibrationService: Vibrator) {
       }
   }
 
+  // shorten some intervals to archive deterministic vibration length
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-  private fun getVibrationControlPoints(
-    vibrationTime: Long,
+  private fun getShortenControlPoints(
+    expectedVibrationTime: Long,
     controlPoints: ArrayList<ControlPoint>,
   ): ArrayList<ControlPoint> {
-    val subtractableItems = getSubtractableItems(vibrationTime, controlPoints)
+    val subtractableItems = getSubtractableItems(expectedVibrationTime, controlPoints)
     val result = ArrayList<ControlPoint>()
 
     controlPoints.forEachIndexed { index, point ->
@@ -171,13 +157,13 @@ class VibrationBuilder(val vibrationService: Vibrator) {
 
   @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   private fun getSubtractableItems(
-    vibrationTime: Long,
+    expectedVibrationTime: Long,
     controlPoints: ArrayList<ControlPoint>,
   ): ArrayList<SubtractableItem> {
     val minControlPointDuration = vibrationService.envelopeEffectInfo.minControlPointDurationMillis
 
     val time = controlPoints.sumOf { it.duration }
-    var timeDiff = time - vibrationTime
+    var timeDiff = time - expectedVibrationTime
     val subtractableTime = controlPoints.sumOf { it.duration - minControlPointDuration }
 
     if (subtractableTime < timeDiff) {
@@ -263,7 +249,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
     }
   }
 
-  private fun isEnvelopeSupported(): Boolean {
+  private fun areEnvelopesSupported(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
       vibrationService.areEnvelopeEffectsSupported()
   }

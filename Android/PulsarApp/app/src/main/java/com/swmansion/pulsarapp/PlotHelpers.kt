@@ -10,51 +10,35 @@ import kotlin.collections.forEach
 
 fun printBarsToPlot(bars: ArrayList<Bar>) {
   Log.i(TAG, "----------- BARS -----------")
-
   Log.i(TAG, getPlotHeader())
-  getBarsWithPauses(bars).forEach { bar ->
+
+  // start
+  Log.i(TAG, "0 0 1")
+
+  getBarsWithPauses(bars).forEachIndexed { index, bar ->
     Log.i(TAG, "${bar.x1} ${bar.intensity} 1")
     Log.i(TAG, "${bar.x2} ${bar.intensity} 1")
-  }
-}
 
-fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
-  val barsWithPauses = ArrayList<Bar>()
-  val n = bars.size
-
-  for (i in 0..n - 1) {
-    val currBar = bars[i]
-    val nextBar = if (i != n - 1) bars[i + 1] else null
-
-    // create pause at the beginning
-    if (i == 0 && currBar.x1 != 0L) {
-      barsWithPauses.add(Bar(0, currBar.x1, 0f, currBar.sharpness))
-    }
-
-    barsWithPauses.add(currBar)
-
-    // create pause between bars
-    if (nextBar != null && currBar.x2 != nextBar.x1) {
-      barsWithPauses.add(Bar(currBar.x2, nextBar.x1, 0f, currBar.sharpness))
+    if(index == bars.size - 1){
+      // end
+      Log.i(TAG, "${bar.x2} 0 1")
     }
   }
-
-  return barsWithPauses
 }
 
 fun printPointsToPlot(points: ArrayList<PlotPoint>) {
   Log.i(TAG, "----------- POINTS -----------")
-
   Log.i(TAG, getPlotHeader())
+
   points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity} ${it.sharpness}") }
 }
 
 fun printControlPointsToPlot(controlPoints: ArrayList<ControlPoint>) {
   Log.i(TAG, "----------- CONTROL POINTS -----------")
+  Log.i(TAG, getPlotHeader())
 
   val points = convertControlPointsToPoints(controlPoints)
 
-  Log.i(TAG, getPlotHeader())
   points.forEach { Log.i(TAG, "${it.relativeTime} ${it.intensity} ${it.sharpness}") }
 }
 
@@ -63,6 +47,7 @@ private fun convertControlPointsToPoints(
 ): ArrayList<PlotPoint> {
   var relativeTime = 0L
   val points = ArrayList<PlotPoint>()
+
   points += PlotPoint(0, 0f, controlPoints[0].sharpness)
 
   controlPoints.forEach {

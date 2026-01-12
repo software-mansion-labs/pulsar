@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
 
   @RequiresApi(Build.VERSION_CODES.O)
   @Composable
-  fun VibrationButton(preset: Preset) {
+  private fun VibrationButton(preset: Preset) {
     Button(
       modifier = Modifier.padding(6.dp),
       onClick = { hapticsHandler?.playPresetVibration(preset) },
@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
   }
 
   @Composable
-  fun DeviceInfo() {
+  private fun DeviceInfo() {
     Column {
       Text("Device supports amplitude: ${hapticsHandler?.isAmplitudeSupported()}")
       Text("Device supports envelope: ${hapticsHandler?.isEnvelopeSupported()}")

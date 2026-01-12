@@ -38,8 +38,8 @@ fun generateLines(intensity: ArrayList<IntensityPoint>): ArrayList<Line> {
 }
 
 // TODO: sharpness of these bars will never be used - this function should be used only on devices
-// that do not support envelopes, because they do not support sharpness as well
-private fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
+// that do not support envelopes, because they do not use sharpness
+fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
   val bars = ArrayList<Bar>()
 
   lines
@@ -53,7 +53,7 @@ private fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
             line.point1.intensity,
             DEFAULT_SHARPNESS,
           )
-      } else { // approximate inclined line with bars
+      } else { // approximate line with bars
         val intensity1 = line.point1.intensity
         val intensity2 = line.point2.intensity
 
@@ -65,7 +65,7 @@ private fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
         val stepDuration = lineDuration / nSteps
         val stepValue = abs(intensityDiff) / nSteps
 
-        // TODO: last step sometimes is longer than stepDuration, because we use int value.
+        // TODO: last step sometimes is longer than stepDuration, because we use int step value
         // TODO: for better fit middle of the step should be used instead of the beginning
         for (i in 0..nSteps - 1) {
           val x1 = line.point1.relativeTime + stepDuration * i
@@ -189,7 +189,7 @@ fun shouldBarBeMerged(bar: Bar, lines: ArrayList<Line>): Boolean {
   return true
 }
 
-fun addComplexPointsFromInterval(
+private fun addComplexPointsFromInterval(
   x1: Long,
   x2: Long,
   lines: ArrayList<Line>,
@@ -323,7 +323,6 @@ fun generatePlot(bars: ArrayList<Bar>): Plot {
   return generateComplexPlot(plot, bars)
 }
 
-// TODO: frequency change can be done on vertical lines ?
 fun generatePlotPoints(plot: Plot): ArrayList<PlotPoint> {
   val (intensity, sharpness) = plot
 
@@ -382,7 +381,13 @@ fun generatePlotPoints(plot: Plot): ArrayList<PlotPoint> {
     }
   }
 
-  // remove middle transition on vertical lines to archive sharpness transition on vertical lines
+  // remove middle plotPoints on vertical lines to archive vertical sharpness transition
+  removeVerticalMiddlePlotPoint(plotPoints)
+
+  return plotPoints
+}
+
+private fun removeVerticalMiddlePlotPoint(plotPoints: ArrayList<PlotPoint>){
   val indexesToDelete = ArrayList<Int>()
   val nPoints = plotPoints.size
 
@@ -397,7 +402,6 @@ fun generatePlotPoints(plot: Plot): ArrayList<PlotPoint> {
   }
 
   indexesToDelete.reversed().forEach { plotPoints.removeAt(it) }
-  return plotPoints
 }
 
 fun convertImpulsesToBars(
@@ -416,7 +420,7 @@ fun convertImpulsesToBars(
     } else {
       prevBar?.let { prev ->
         if (currBar.x2 > prev.x2) {
-          val start = max(prev.x2, currBar.x1) // cut beginning there is overlap
+          val start = max(prev.x2, currBar.x1) // cut the beginning if there is overlap
           resultBar = Bar(start, currBar.x2, currBar.intensity, currBar.sharpness)
         }
       } ?: run { Log.w(TAG, "This should not happen") }
@@ -450,7 +454,7 @@ private fun convertImpulseToBar(vibrationService: Vibrator, impulse: Impulse): B
   return Bar(max(0, impulse.x - r), impulse.x + r, impulse.intensity, impulse.sharpness)
 }
 
-fun convertLinesToPoints(lines: ArrayList<Line>): ArrayList<IntensityPoint> {
+private fun convertLinesToPoints(lines: ArrayList<Line>): ArrayList<IntensityPoint> {
   val points = ArrayList<IntensityPoint>()
 
   lines.forEach {
@@ -459,4 +463,28 @@ fun convertLinesToPoints(lines: ArrayList<Line>): ArrayList<IntensityPoint> {
   }
 
   return ArrayList(points.distinct())
+}
+
+fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
+  val barsWithPauses = ArrayList<Bar>()
+  val n = bars.size
+
+  for (i in 0..n - 1) {
+    val currBar = bars[i]
+    val nextBar = if (i + 1 < n) bars[i + 1] else null
+
+    // create pause at the beginning
+    if (i == 0 && currBar.x1 != 0L) {
+      barsWithPauses.add(Bar(0, currBar.x1, 0f, currBar.sharpness))
+    }
+
+    barsWithPauses.add(currBar)
+
+    // create pause between bars
+    if (nextBar != null && currBar.x2 != nextBar.x1) {
+      barsWithPauses.add(Bar(currBar.x2, nextBar.x1, 0f, currBar.sharpness))
+    }
+  }
+
+  return barsWithPauses
 }
