@@ -7,7 +7,7 @@ package com.swmansion.pulsarapp.types
  * @param sharpness list of points with sharpness change.
  */
 data class Plot(
-  val intensity: ArrayList<IntensityPoint>, // TODO: verify if ascending order
+  val intensity: ArrayList<IntensityPoint>,
   val sharpness: ArrayList<SharpnessPoint>,
 ) {
   init {
@@ -26,6 +26,11 @@ data class Plot(
       throwInitException("Intensity must contain at least 2 elements.")
     }
 
+    val intensityTime = intensity.map { it.relativeTime }
+    if (intensityTime != intensityTime.sorted()) {
+      throwInitException("Intensity relative time must be in ascending order.")
+    }
+
     val firstIntensityPoint = intensity.first()
     val lastIntensityPoint = intensity.last()
 
@@ -41,6 +46,15 @@ data class Plot(
   private fun verifySharpness() {
     if (sharpness.isEmpty()) {
       throwInitException("Sharpness cannot be empty.")
+    }
+
+    val sharpnessTime = sharpness.map { it.relativeTime }
+    if (sharpnessTime != sharpnessTime.sorted()) {
+      throwInitException("Sharpness relative time must be in ascending order.")
+    }
+
+    if (sharpnessTime != sharpnessTime.distinct()) {
+      throwInitException("Sharpness relative time cannot be duplicated.")
     }
 
     if (sharpness.first().relativeTime != 0L) {
