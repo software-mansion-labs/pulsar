@@ -15,7 +15,7 @@ class ShouldBarBeMergedTest {
         IntensityPoint(1000, 0f)
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val start = 0L
     val middle1 = 400L
@@ -47,7 +47,7 @@ class ShouldBarBeMergedTest {
         IntensityPoint(1000, 0f)
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val start = 0L
     val middle1 = 500L
@@ -80,7 +80,7 @@ class ShouldBarBeMergedTest {
         IntensityPoint(1000, 0f),
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val start = 0L
     val middle1 = 200L
@@ -118,7 +118,7 @@ class ShouldBarBeMergedTest {
         IntensityPoint(1000, 0f),
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val x1 = 200L
     val x2 = 800L
@@ -145,7 +145,7 @@ class ShouldBarBeMergedTest {
         IntensityPoint(400, 0f),
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val start = 200L
     val middle = 250L

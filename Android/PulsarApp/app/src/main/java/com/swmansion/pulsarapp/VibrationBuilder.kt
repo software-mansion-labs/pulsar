@@ -61,7 +61,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   @RequiresApi(Build.VERSION_CODES.O)
   private fun createWaveformFromBars(bars: ArrayList<Bar>): VibrationEffect {
     return if (areEnvelopesSupported()) {
-      val plot = generatePlot(bars)
+      val plot = generatePlotFromBars(bars)
       createEnvelopeWaveform(plot)
     } else {
       createWaveform(bars)
@@ -72,7 +72,7 @@ class VibrationBuilder(val vibrationService: Vibrator) {
   private fun createWaveformFromPlot(plot: Plot): VibrationEffect? {
     return if (areEnvelopesSupported()) createEnvelopeWaveform(plot)
     else {
-      val bars = generateBars(plot)
+      val bars = generateBarsFromPlot(plot)
       createWaveform(bars)
     }
   }

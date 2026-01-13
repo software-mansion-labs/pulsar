@@ -78,7 +78,7 @@ class GenerateIntensityBasedOnBarsTest {
   }
 
   private fun generateIntensity(bars: ArrayList<Bar>): ArrayList<IntensityPoint> {
-    val complexPlot = generatePlot(bars)
+    val complexPlot = generatePlotFromBars(bars)
     return complexPlot.intensity
   }
 }

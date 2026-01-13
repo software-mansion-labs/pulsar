@@ -18,14 +18,9 @@ const val STEPS_PER_100_MS = 30
 const val DEFAULT_SHARPNESS = 1f
 const val ENVELOPE_SUPPORT_BAR_DURATION_RANGE_MS = 30
 const val DEFAULT_BAR_DURATION_RANGE_MS = 70
-const val DEFAULT_MIN_BAR_DURATION_MS = 70L
+const val DEFAULT_MIN_BAR_DURATION_MS = 30L
 
-fun generateBars(plot: Plot): ArrayList<Bar> {
-  val lines = generateLines(plot.intensity)
-  return generateBars(lines)
-}
-
-fun generateLines(intensity: ArrayList<IntensityPoint>): ArrayList<Line> {
+fun convertIntensityToLines(intensity: ArrayList<IntensityPoint>): ArrayList<Line> {
   val lines = ArrayList<Line>()
 
   for (i in 1..intensity.size - 1) {
@@ -39,7 +34,8 @@ fun generateLines(intensity: ArrayList<IntensityPoint>): ArrayList<Line> {
 
 // TODO: sharpness of these bars will never be used - this function should be used only on devices
 // that do not support envelopes, because they do not use sharpness
-fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
+fun generateBarsFromPlot(plot: Plot): ArrayList<Bar> {
+  val lines = convertIntensityToLines(plot.intensity)
   val bars = ArrayList<Bar>()
 
   lines
@@ -66,7 +62,7 @@ fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
         val stepValue = abs(intensityDiff) / nSteps
 
         // TODO: last step sometimes is longer than stepDuration, because we use int step value
-        // TODO: for better fit middle of the step should be used instead of the beginning
+        // TODO: middle of the step can be used instead of the beginning
         for (i in 0..nSteps - 1) {
           val x1 = line.point1.relativeTime + stepDuration * i
           val x2 = if (i < nSteps - 1) x1 + stepDuration else line.point2.relativeTime
@@ -84,7 +80,7 @@ fun generateBars(lines: ArrayList<Line>): ArrayList<Bar> {
 
 fun generateComplexPlot(plot: Plot, initBars: ArrayList<Bar>): Plot {
   val (intensity, sharpness) = plot
-  val lines = generateLines(intensity)
+  val lines = convertIntensityToLines(intensity)
 
   val startPoint = intensity.first()
   val endPoint = intensity.last()
@@ -246,25 +242,8 @@ fun getIntensityFromInterval(
       }
     }
 
-    return convertLinesToPoints(intervalLines)
+    return convertLinesToIntensity(intervalLines)
   }
-}
-
-private fun deleteRedundantHorizontalLinePoints(points: ArrayList<IntensityPoint>) {
-  val indexesToDelete = ArrayList<Int>()
-  val nPoints = points.size
-
-  for (index in 1..nPoints - 2) {
-    val prevPoint = points[index - 1]
-    val currPoint = points[index]
-    val nextPoint = points[index + 1]
-
-    if (prevPoint.intensity == currPoint.intensity && currPoint.intensity == nextPoint.intensity) {
-      indexesToDelete.add(index)
-    }
-  }
-
-  indexesToDelete.reversed().forEach { points.removeAt(it) }
 }
 
 fun getSharpnessFromInterval(
@@ -296,6 +275,23 @@ fun getSharpnessFromInterval(
   }
 }
 
+private fun deleteRedundantHorizontalLinePoints(points: ArrayList<IntensityPoint>) {
+  val indexesToDelete = ArrayList<Int>()
+  val nPoints = points.size
+
+  for (index in 1..nPoints - 2) {
+    val prevPoint = points[index - 1]
+    val currPoint = points[index]
+    val nextPoint = points[index + 1]
+
+    if (prevPoint.intensity == currPoint.intensity && currPoint.intensity == nextPoint.intensity) {
+      indexesToDelete.add(index)
+    }
+  }
+
+  indexesToDelete.reversed().forEach { points.removeAt(it) }
+}
+
 private fun deleteRedundantSharpness(sharpness: ArrayList<SharpnessPoint>) {
   val indexesToDelete = ArrayList<Int>()
   val nPoints = sharpness.size
@@ -312,7 +308,7 @@ private fun deleteRedundantSharpness(sharpness: ArrayList<SharpnessPoint>) {
   indexesToDelete.reversed().forEach { sharpness.removeAt(it) }
 }
 
-fun generatePlot(bars: ArrayList<Bar>): Plot {
+fun generatePlotFromBars(bars: ArrayList<Bar>): Plot {
   // create simple plot
   val plotIntensity = arrayListOf(IntensityPoint(0, 0f), IntensityPoint(bars.last().x2, 0f))
   val plotSharpness =
@@ -457,7 +453,7 @@ private fun convertImpulseToBar(vibrationService: Vibrator, impulse: Impulse): B
   return Bar(max(0, impulse.x - r), impulse.x + r, impulse.intensity, impulse.sharpness)
 }
 
-private fun convertLinesToPoints(lines: ArrayList<Line>): ArrayList<IntensityPoint> {
+private fun convertLinesToIntensity(lines: ArrayList<Line>): ArrayList<IntensityPoint> {
   val points = ArrayList<IntensityPoint>()
 
   lines.forEach {

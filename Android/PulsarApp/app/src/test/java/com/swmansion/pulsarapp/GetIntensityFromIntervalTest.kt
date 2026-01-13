@@ -23,7 +23,7 @@ class GetIntensityFromIntervalTest {
     val middle2LinePoint = IntensityPoint(middleTime2, 0.8f)
     val endLinePoint = intensity.last()
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     // start / end
     assertEquals(
@@ -64,7 +64,7 @@ class GetIntensityFromIntervalTest {
         IntensityPoint(1000, 0f),
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val pointTime1 = 100L
     val pointTime2 = 300L
@@ -93,7 +93,7 @@ class GetIntensityFromIntervalTest {
         IntensityPoint(1000, 0f),
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val pointTime1 = 100L
     val pointTime2 = 300L
@@ -139,7 +139,7 @@ class GetIntensityFromIntervalTest {
         IntensityPoint(400, 0f),
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val startTime = 200L
     val middleTime = 250L
@@ -177,7 +177,7 @@ class GetIntensityFromIntervalTest {
         IntensityPoint(400, 0f),
       )
 
-    val lines = generateLines(intensity)
+    val lines = convertIntensityToLines(intensity)
 
     val pointTime1 = 80L
     val pointTime2 = 300L
