@@ -1,7 +1,7 @@
 import CoreHaptics
 
 @available(iOS 13.0, macOS 10.15, *)
-public struct DescreteLine {
+public struct DiscreteLine {
   private var events: [CHHapticEvent] = []
   
   public var getEvents: [CHHapticEvent] {

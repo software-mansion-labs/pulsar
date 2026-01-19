@@ -43,10 +43,10 @@ import UIKit
   private var player: CHHapticAdvancedPatternPlayer?
   private var initialized: Bool = false
   private var events: [CHHapticEvent] = []
-  private var descreteLine: DescreteLine = DescreteLine()
+  private var discreteLine: DiscreteLine = DiscreteLine()
   private var continuousLine: ContinuousLine = ContinuousLine()
-  private var intensityCurveLine: IntensityCurveLineModyfier = IntensityCurveLineModyfier()
-  private var sharpnessCurveLine: SharpnessCurveLineModyfier = SharpnessCurveLineModyfier()
+  private var intensityCurveLine: IntensityCurveLineModifier = IntensityCurveLineModifier()
+  private var sharpnessCurveLine: SharpnessCurveLineModifier = SharpnessCurveLineModifier()
   private var presets: PresetsWrapper?
   
   @objc public override init() {
@@ -60,7 +60,7 @@ import UIKit
 
       NotificationCenter.default.addObserver(
         self,
-        selector: #selector(appDidBecomeInctive),
+        selector: #selector(appDidBecomeInactive),
         name: UIApplication.didEnterBackgroundNotification,
         object: nil
       )
@@ -79,7 +79,7 @@ import UIKit
     }
   }
   
-  @objc func appDidBecomeInctive() {
+  @objc func appDidBecomeInactive() {
     initialized = false
   }
   
@@ -101,11 +101,11 @@ import UIKit
   }
   
   public func playPattern(hapticsData: PlaygroundData) {
-    descreteLine.reset()
+    discreteLine.reset()
     intensityCurveLine.reset()
     sharpnessCurveLine.reset()
     for bar in hapticsData.bar {
-      descreteLine.addEvent(timestamp: bar.x, intensity: bar.y1, sharpness: bar.y2)
+      discreteLine.addEvent(timestamp: bar.x, intensity: bar.y1, sharpness: bar.y2)
     }
     
     for intensityPoint in hapticsData.line[0] {
@@ -150,28 +150,28 @@ import UIKit
         continousPlayer = try engine?.makePlayer(with: continousPattern)
       }
       
-      var descretePlayer: CHHapticPatternPlayer?;
-      if (!descreteLine.getEvents.isEmpty) {
-        let descretePattern = try CHHapticPattern(
-          events: descreteLine.getEvents,
+      var discretePlayer: CHHapticPatternPlayer?;
+      if (!discreteLine.getEvents.isEmpty) {
+        let discretePattern = try CHHapticPattern(
+          events: discreteLine.getEvents,
           parameters: []
         )
-        descretePlayer = try engine?.makePlayer(with: descretePattern)
+        discretePlayer = try engine?.makePlayer(with: discretePattern)
       }
       
       if (continousPlayer != nil) {
         try continousPlayer?.start(atTime: 0)
       }
-      if (descretePlayer != nil) {
-        try descretePlayer?.start(atTime: 0)
+      if (discretePlayer != nil) {
+        try discretePlayer?.start(atTime: 0)
       }
     } catch {
       print("Error playing pattern: \(error.localizedDescription)")
     }
   }
   
-  public func getDescreteLine() -> DescreteLine {
-    return descreteLine
+  public func getDiscreteLine() -> DiscreteLine {
+    return discreteLine
   }
   
   public func getContinuousLine() -> ContinuousLine {

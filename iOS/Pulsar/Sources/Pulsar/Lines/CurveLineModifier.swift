@@ -1,7 +1,7 @@
 import CoreHaptics
 
 @available(iOS 13.0, macOS 10.15, *)
-public class CurveLineModyfier {
+public class CurveLineModifier {
   var points: [CHHapticParameterCurve.ControlPoint] = []
   var maxTime: Double = 0
   

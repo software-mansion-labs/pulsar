@@ -1,7 +1,7 @@
 import CoreHaptics
 
 @available(iOS 13.0, macOS 10.15, *)
-public class IntensityCurveLineModyfier : CurveLineModyfier {
+public class IntensityCurveLineModifier : CurveLineModifier {
   public var getCurve: CHHapticParameterCurve {
     return CHHapticParameterCurve(
       parameterID: .hapticIntensityControl,
