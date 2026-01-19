@@ -35,6 +35,7 @@ private extension Bundle {
   private var useCache: Bool = true
   private var cache: [String: Preset] = [:]
   private var haptics: Pulsar?
+  private var audioSimulator: AudioSimulator?
   
   private var mapper: [String: Preset.Type] = [
     "Earthquake": EarthquakePreset.self,
@@ -55,6 +56,7 @@ private extension Bundle {
   public init(haptics: Pulsar) {
     super.init()
     self.haptics = haptics
+    self.audioSimulator = AudioSimulator()
   }
   
   public func enableSound(state: Bool) {
@@ -166,7 +168,7 @@ private extension Bundle {
 
 
 @objc public class Player : NSObject {
-  private var audioPlayer: AVAudioPlayer?
+  private var audioSimulator: AudioSimulator?
   private var haptics: Pulsar?
   private var playSound: Bool = true
   
@@ -174,40 +176,61 @@ private extension Bundle {
     super.init()
     self.haptics = haptics
     #if DEBUG
-    self.configureSoundPlayer(presetName: presetName)
+    self.audioSimulator = AudioSimulator()
     #endif
   }
   
-  private func configureSoundPlayer(presetName: String) {
-    let bundle = Bundle.PulsarBundle
-    let path = bundle.url(forResource: presetName, withExtension: "wav")
+  @objc public func play(linePattern: [[[Double]]], barPattern: [[Double]]) {
+    // Convert preset pattern format to PlaygroundData format
+    let linePoints = convertLinePattern(linePattern)
+    let barPoints = convertBarPattern(barPattern)
+    let playgroundData = PlaygroundData(linePoints: linePoints, barPoints: barPoints)
     
-    guard let audioPath = path else {
-      if let resourceURLs = try? bundle.urls(forResourcesWithExtension: "wav", subdirectory: nil) {
-        print("Available wav files: \(resourceURLs)")
-      }
-      return
-    }
-    do {
-      audioPlayer = try AVAudioPlayer(contentsOf: audioPath)
-      audioPlayer?.volume = 1.0
-      audioPlayer?.numberOfLoops = 0
-      audioPlayer?.prepareToPlay()
-    } catch {
-      print("Error initializing audio player: \(error.localizedDescription)")
+    // Play haptics using PatternComposer
+    haptics?.PatternComposer().playPattern(hapticsData: playgroundData)
+    
+    // Play audio using AudioSimulator
+    if playSound {
+      audioSimulator?.render(from: playgroundData)
+      audioSimulator?.play()
     }
   }
   
-  @objc public func play(linePattern: [[[Double]]], barPattern: [[Double]]) {
-    if (playSound) {
-      audioPlayer?.currentTime = 0
-      audioPlayer?.play()
-    }
-    haptics?.PatternComposer().playPattern(hapticsData: PlaygroundData(line: linePattern, bar: barPattern))
+  @objc public func stop() {
+    audioSimulator?.stop()
   }
   
   @objc public func enableSound(state: Bool) {
     self.playSound = state
+  }
+  
+  private func convertLinePattern(_ linePattern: [[[Double]]]) -> [[ChartPoint]] {
+    var lines: [[ChartPoint]] = []
+    for line in linePattern {
+      var points: [ChartPoint] = []
+      for point in line {
+        if point.count >= 2 {
+          let x = point[0]
+          let y = Float(point[1])
+          points.append(ChartPoint(x: x, y: y))
+        }
+      }
+      lines.append(points)
+    }
+    return lines
+  }
+  
+  private func convertBarPattern(_ barPattern: [[Double]]) -> [BarChartPoint] {
+    var points: [BarChartPoint] = []
+    for bar in barPattern {
+      if bar.count >= 3 {
+        let x = bar[0]
+        let y1 = Float(bar[1])
+        let y2 = Float(bar[2])
+        points.append(BarChartPoint(x: x, y1: y1, y2: y2))
+      }
+    }
+    return points
   }
 }
 

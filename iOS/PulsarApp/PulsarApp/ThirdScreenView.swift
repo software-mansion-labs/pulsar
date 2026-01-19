@@ -3,6 +3,8 @@ import Pulsar
 
 struct ThirdScreenView: View {
     private var pulsar = Pulsar()
+    private var simulator = AudioSimulator()
+
     
     var body: some View {
         VStack {
@@ -18,6 +20,34 @@ struct ThirdScreenView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+
+            Spacer()
+
+            Button("Play Example Pattern") {
+                let amplitude: [ChartPoint] = [
+                    ChartPoint(x: 0.0,   y: 0.538),
+                    ChartPoint(x: 0.997, y: 1.0),
+                    ChartPoint(x: 1.015, y: 0.0),
+                ]
+                let frequency: [ChartPoint] = [
+                    ChartPoint(x: 0.0,   y: 0.675),
+                    ChartPoint(x: 0.996, y: 0.478),
+                ]
+                let barPoints: [BarChartPoint] = [
+                    BarChartPoint(x: 0.1, y1: 0.8, y2: 0.5),
+                    BarChartPoint(x: 0.3, y1: 0.6, y2: 0.7),
+                    BarChartPoint(x: 0.6, y1: 0.9, y2: 0.3),
+                    BarChartPoint(x: 0.9, y1: 0.7, y2: 0.8),
+                ]
+                let data = PlaygroundData(linePoints: [amplitude, frequency], barPoints: barPoints)
+
+                let duration = simulator.render(from: data)
+                simulator.play()
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.1) {
+                    simulator.stop()
+                }
+            }
             
             Spacer()
         }
@@ -25,7 +55,7 @@ struct ThirdScreenView: View {
     }
     
     func handlePress() {
-      pulsar.Presets().Earthquake()
+      pulsar.Presets().Success()
     }
 }
 
