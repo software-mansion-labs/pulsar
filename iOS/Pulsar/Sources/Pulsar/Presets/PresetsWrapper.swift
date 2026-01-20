@@ -3,39 +3,11 @@ import UIKit
 import Foundation
 import AVFAudio
 
-private extension Bundle {
-  static var PulsarBundle: Bundle {
-    #if SWIFT_PACKAGE
-    return Bundle.module
-    #else
-    let bundle = Bundle(for: EarthquakePreset.self)
-    
-    if bundle.url(forResource: "pattern", withExtension: "wav") != nil {
-      return bundle
-    }
-    
-    if Bundle.main.url(forResource: "pattern", withExtension: "wav") != nil {
-      return Bundle.main
-    }
-    
-    if let bundlePath = Bundle.main.path(forResource: "Haptics", ofType: "bundle"),
-       let resourceBundle = Bundle(path: bundlePath),
-       resourceBundle.url(forResource: "pattern", withExtension: "wav") != nil {
-      return resourceBundle
-    }
-    
-    return bundle
-    #endif
-  }
-}
-
-
 @objc public class PresetsWrapper : NSObject {
   private var playSound: Bool = true
   private var useCache: Bool = true
   private var cache: [String: Preset] = [:]
-  private var haptics: Pulsar?
-  private var audioSimulator: AudioSimulator?
+  private var haptics: Pulsar!
   
   private var mapper: [String: Preset.Type] = [
     "Earthquake": EarthquakePreset.self,
@@ -56,7 +28,6 @@ private extension Bundle {
   public init(haptics: Pulsar) {
     super.init()
     self.haptics = haptics
-    self.audioSimulator = AudioSimulator()
   }
   
   public func enableSound(state: Bool) {
@@ -168,16 +139,13 @@ private extension Bundle {
 
 
 @objc public class Player : NSObject {
-  private var audioSimulator: AudioSimulator?
+  private var audioSimulator: AudioSimulator = AudioSimulator()
   private var haptics: Pulsar?
   private var playSound: Bool = true
   
-  public init(haptics: Pulsar, presetName: String) {
+  public init(_ haptics: Pulsar) {
     super.init()
     self.haptics = haptics
-    #if DEBUG
-    self.audioSimulator = AudioSimulator()
-    #endif
   }
   
   @objc public func play(linePattern: [[[Double]]], barPattern: [[Double]]) {
@@ -189,13 +157,13 @@ private extension Bundle {
     haptics?.PatternComposer().playPattern(hapticsData: playgroundData)
     
     if playSound {
-      audioSimulator?.parsePattern(from: playgroundData)
-      audioSimulator?.play()
+      audioSimulator.parsePattern(from: playgroundData)
+      audioSimulator.play()
     }
   }
   
   @objc public func stop() {
-    audioSimulator?.stop()
+    audioSimulator.stop()
   }
   
   @objc public func enableSound(state: Bool) {
@@ -241,10 +209,6 @@ private extension Bundle {
   ]
   private var barPattern = [[0.0, 1.0, 1.0]]
   
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: EarthquakePreset.name)
-  }
-  
   @objc public func play() {
     super.play(linePattern: linePattern, barPattern: barPattern)
   }
@@ -263,10 +227,6 @@ private extension Bundle {
     [0.127, 0.5, 0.5],
     [0.31, 1, 1],
   ]
-  
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SuccessPreset.name)
-  }
   
   @objc public func play() {
     super.play(linePattern: linePattern, barPattern: barPattern)
@@ -287,10 +247,6 @@ private extension Bundle {
     [0.31, 1, 0.2],
   ]
   
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: FailPreset.name)
-  }
-  
   @objc public func play() {
     super.play(linePattern: linePattern, barPattern: barPattern)
   }
@@ -308,10 +264,6 @@ private extension Bundle {
     [0, 0.5, 0.5],
   ]
   
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: TapPreset.name)
-  }
-  
   @objc public func play() {
     super.play(linePattern: linePattern, barPattern: barPattern)
   }
@@ -328,9 +280,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemImpactLightPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     self.impactFeedbackGenerator.prepare()
   }
@@ -354,9 +305,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemImpactMediumPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     self.impactFeedbackGenerator.prepare()
   }
@@ -380,9 +330,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemImpactHeavyPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
     self.impactFeedbackGenerator.prepare()
   }
@@ -406,9 +355,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemImpactSoftPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
     self.impactFeedbackGenerator.prepare()
   }
@@ -432,9 +380,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemImpactRigidPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .rigid)
     self.impactFeedbackGenerator.prepare()
   }
@@ -458,9 +405,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var feedbackGenerator: UINotificationFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemNotificationSuccessPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.feedbackGenerator = UINotificationFeedbackGenerator()
     self.feedbackGenerator.prepare()
   }
@@ -484,9 +430,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var feedbackGenerator: UINotificationFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemNotificationWarningPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.feedbackGenerator = UINotificationFeedbackGenerator()
     self.feedbackGenerator.prepare()
   }
@@ -510,9 +455,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var feedbackGenerator: UINotificationFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemNotificationErrorPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.feedbackGenerator = UINotificationFeedbackGenerator()
     self.feedbackGenerator.prepare()
   }
@@ -536,9 +480,8 @@ private extension Bundle {
   private var barPattern: [[Double]] = []
   private var feedbackGenerator: UISelectionFeedbackGenerator!
   
-  @MainActor
-  public init(_ haptics: Pulsar) {
-    super.init(haptics: haptics, presetName: SystemSelectionPreset.name)
+  public override init(_ haptics: Pulsar) {
+    super.init(haptics)
     self.feedbackGenerator = UISelectionFeedbackGenerator()
     self.feedbackGenerator.prepare()
   }

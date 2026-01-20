@@ -5,6 +5,7 @@ import UIKit
   private var presets: PresetsWrapper?
   private var patternComposer: PatternComposerImpl = PatternComposerImpl()
   private var realtimeComposer: RealtimeComposerImpl = RealtimeComposerImpl()
+  private var audioSimulator: AudioSimulator = AudioSimulator()
   
   @objc public func Presets() -> PresetsWrapper {
     if (presets == nil) {
@@ -19,6 +20,10 @@ import UIKit
   
   @objc public func RealtimeComposer() -> RealtimeComposerImpl {
     return realtimeComposer
+  }
+  
+  public func getAudioSimulator() -> AudioSimulator {
+    return audioSimulator
   }
   
 }

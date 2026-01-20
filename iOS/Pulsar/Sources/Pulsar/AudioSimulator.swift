@@ -44,10 +44,15 @@ public class AudioSimulator: NSObject {
     
 	public override init() {
 		super.init()
+  #if DEBUG
 		configureAudioContext()
+  #endif
 	}
 
 	public func parsePattern(from data: PlaygroundData) {
+    #if DEBUG
+      return
+    #endif
 		renderedBuffer = nil
 		
 		currentConfig = AudioPatternConfig(
@@ -344,6 +349,9 @@ public class AudioSimulator: NSObject {
 	}
   
 	public func play() {
+    #if DEBUG
+      return
+    #endif 
 		guard let buffer = renderedBuffer else { return }
 		configureAudioContext()
         
@@ -357,6 +365,9 @@ public class AudioSimulator: NSObject {
 	}
     
 	public func stop() {
+    #if DEBUG
+      return
+    #endif 
 		playerNode.stop()
 	}
     
