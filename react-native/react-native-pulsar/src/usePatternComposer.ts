@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 import Pulsar from './NativeRNPulsar';
 
+// workaround for RN prototype caching issue 
+Pulsar.PatternComposer_play;
+
 type Pattern = {
   discretePattern: { time: number, amplitude: number, frequency: number }[],
   continuesPattern: {
@@ -25,10 +28,9 @@ export default function usePatternComposer(pattern: Pattern): PatternComposer {
   }, []);
 
   const parse = useCallback((pattern: Pattern) => {
-    'worklet';
     const patternId = Pulsar.PatternComposer_parsePattern(pattern);
     patternIdRef.current = patternId;
-  }, []);
+  }, [pattern]);
 
   useEffect(() => {
     parse(pattern);
@@ -39,3 +41,4 @@ export default function usePatternComposer(pattern: Pattern): PatternComposer {
 
   return { play, parse };
 }
+

@@ -10,11 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native/new-app-screen": "0.83.1",
     "react": "19.2.0",
     "react-native": "0.83.1",
-    "@react-native/new-app-screen": "0.83.1",
+    "react-native-pulsar": "file:../react-native-pulsar",
+    "react-native-reanimated": "^4.2.1",
     "react-native-safe-area-context": "^5.5.2",
-    "react-native-pulsar": "file:../react-native-pulsar"
+    "react-native-worklets": "^0.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
