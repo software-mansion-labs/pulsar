@@ -5,28 +5,28 @@ import AVFAudio
 
 @objc public class Player : NSObject {
   private var audioSimulator: AudioSimulator = AudioSimulator()
-  private var haptics: Pulsar?
+  private var haptics: Pulsar!
   private var playSound: Bool = true
-
-  private var linePattern: [[[Double]]] = []
-  private var barPattern: [[Double]] = []
+  private var patternComposer: PatternComposerImpl!
   
   public init(_ haptics: Pulsar, linePattern: [[[Double]]] = [], barPattern: [[Double]] = []) {
     super.init()
     self.haptics = haptics
-  }
-  
-  @objc public func play() {
+    patternComposer = haptics.PatternComposer()
+    
     let linePoints = convertLinePattern(linePattern)
     let barPoints = convertBarPattern(barPattern)
     let playgroundData = PlaygroundData(linePoints: linePoints, barPoints: barPoints)
     
-    haptics?.PatternComposer().playPattern(hapticsData: playgroundData)
-    
+    patternComposer.parsePattern(hapticsData: playgroundData)
+    audioSimulator.parsePattern(from: playgroundData)
+  }
+  
+  @objc public func play() {
     if playSound {
-      audioSimulator.parsePattern(from: playgroundData)
       audioSimulator.play()
     }
+    patternComposer.play()
   }
   
   @objc public func stop() {

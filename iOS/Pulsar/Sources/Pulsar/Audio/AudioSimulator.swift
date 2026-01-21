@@ -1,35 +1,6 @@
 import Foundation
 import AVFoundation
 
-public enum WaveformType: String {
-	case sine = "sine"
-	case square = "square"
-	case triangle = "triangle"
-	case sawtooth = "sawtooth"
-}
-
-struct OscillatorConfig {
-	let frequency: (initial: Double, final: Double, decayTime: Double)
-	let envelope: (attack: Double, decay: Double, sustainLevel: Double, sustainDuration: Double, release: Double)
-	let waveform: WaveformType
-}
-
-struct DiscreteAudioConfig {
-	let oscillator: OscillatorConfig
-	let timestamp: Double
-	let volume: Float
-}
-
-struct ContinuousAudioConfig {
-	let type: String
-	let data: (amplitude: [ChartPoint], frequency: [ChartPoint])
-}
-
-struct AudioPatternConfig {
-	let discreteData: [DiscreteAudioConfig]
-	let continuousData: [ContinuousAudioConfig]
-}
-
 public class AudioSimulator: NSObject {
 	private let sampleRate: Double = 44100
 	private var audioContext: AVAudioEngine = AVAudioEngine()
@@ -50,7 +21,7 @@ public class AudioSimulator: NSObject {
 	}
 
 	public func parsePattern(from data: PlaygroundData) {
-    #if DEBUG
+    #if NDEBUG
       return
     #endif
 		renderedBuffer = nil
@@ -197,7 +168,7 @@ public class AudioSimulator: NSObject {
 			return (modifiedAmplitude, modifiedFrequency)
 		}
 		
-		var continuousConfigs: [ContinuousAudioConfig] = [
+		let continuousConfigs: [ContinuousAudioConfig] = [
       ContinuousAudioConfig(
         type: "sine",
         data: applyModifiers(amplitude: amplitudePoints, frequency: frequencyPoints, ampMod: 0.6, freqMod: 0.8),
@@ -349,7 +320,7 @@ public class AudioSimulator: NSObject {
 	}
   
 	public func play() {
-    #if DEBUG
+    #if NDEBUG
       return
     #endif 
 		guard let buffer = renderedBuffer else { return }
@@ -365,7 +336,7 @@ public class AudioSimulator: NSObject {
 	}
     
 	public func stop() {
-    #if DEBUG
+    #if NDEBUG
       return
     #endif 
 		playerNode.stop()

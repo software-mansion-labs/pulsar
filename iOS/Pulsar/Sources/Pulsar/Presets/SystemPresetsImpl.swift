@@ -1,7 +1,7 @@
 import UIKit
 import Foundation
 
-@objc public class SystemImpactLightPreset : Player, @preconcurrency Preset {
+@objc public class SystemImpactLightPreset : Player, Preset {
   public static let name: String = "SystemImpactLight"
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
@@ -24,7 +24,7 @@ import Foundation
   }
 }
 
-@objc public class SystemImpactMediumPreset : Player, @preconcurrency Preset {
+@objc public class SystemImpactMediumPreset : Player, Preset {
   public static let name: String = "SystemImpactMedium"
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
@@ -47,7 +47,7 @@ import Foundation
   }
 }
 
-@objc public class SystemImpactHeavyPreset : Player, @preconcurrency Preset {
+@objc public class SystemImpactHeavyPreset : Player, Preset {
   public static let name: String = "SystemImpactHeavy"
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
@@ -70,7 +70,7 @@ import Foundation
   }
 }
 
-@objc public class SystemImpactSoftPreset : Player, @preconcurrency Preset {
+@objc public class SystemImpactSoftPreset : Player, Preset {
   public static let name: String = "SystemImpactSoft"
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
@@ -93,7 +93,7 @@ import Foundation
   }
 }
 
-@objc public class SystemImpactRigidPreset : Player, @preconcurrency Preset {
+@objc public class SystemImpactRigidPreset : Player, Preset {
   public static let name: String = "SystemImpactRigid"
   private var impactFeedbackGenerator: UIImpactFeedbackGenerator!
   
@@ -116,7 +116,7 @@ import Foundation
   }
 }
 
-@objc public class SystemNotificationSuccessPreset : Player, @preconcurrency Preset {
+@objc public class SystemNotificationSuccessPreset : Player, Preset {
   public static let name: String = "SystemNotificationSuccess"
   private var feedbackGenerator: UINotificationFeedbackGenerator!
   
@@ -139,7 +139,7 @@ import Foundation
   }
 }
 
-@objc public class SystemNotificationWarningPreset : Player, @preconcurrency Preset {
+@objc public class SystemNotificationWarningPreset : Player, Preset {
   public static let name: String = "SystemNotificationWarning"
   private var feedbackGenerator: UINotificationFeedbackGenerator!
   
@@ -162,7 +162,7 @@ import Foundation
   }
 }
 
-@objc public class SystemNotificationErrorPreset : Player, @preconcurrency Preset {
+@objc public class SystemNotificationErrorPreset : Player, Preset {
   public static let name: String = "SystemNotificationError"
   private var feedbackGenerator: UINotificationFeedbackGenerator!
   
@@ -185,7 +185,7 @@ import Foundation
   }
 }
 
-@objc public class SystemSelectionPreset : Player, @preconcurrency Preset {
+@objc public class SystemSelectionPreset : Player, Preset {
   public static let name: String = "SystemSelection"
   private var feedbackGenerator: UISelectionFeedbackGenerator!
   

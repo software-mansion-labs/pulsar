@@ -32,3 +32,32 @@ import Foundation
     self.bar = bar.map { BarChartPoint(x: Double($0[0]), y1: Float($0[1]), y2: Float($0[2])) }
   }
 }
+
+public enum WaveformType: String {
+	case sine = "sine"
+	case square = "square"
+	case triangle = "triangle"
+	case sawtooth = "sawtooth"
+}
+
+struct OscillatorConfig {
+	let frequency: (initial: Double, final: Double, decayTime: Double)
+	let envelope: (attack: Double, decay: Double, sustainLevel: Double, sustainDuration: Double, release: Double)
+	let waveform: WaveformType
+}
+
+struct DiscreteAudioConfig {
+	let oscillator: OscillatorConfig
+	let timestamp: Double
+	let volume: Float
+}
+
+struct ContinuousAudioConfig {
+	let type: String
+	let data: (amplitude: [ChartPoint], frequency: [ChartPoint])
+}
+
+struct AudioPatternConfig {
+	let discreteData: [DiscreteAudioConfig]
+	let continuousData: [ContinuousAudioConfig]
+}

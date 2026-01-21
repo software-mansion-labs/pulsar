@@ -3,49 +3,22 @@ import CoreHaptics
 import UIKit
 
 public class PatternComposerImpl: NSObject {
-  private var engine: CHHapticEngine?
-  private var player: CHHapticAdvancedPatternPlayer?
-  private var initialized: Bool = false
-  private var discreteLine: DiscreteLine = DiscreteLine()
-  private var continuousLine: ContinuousLine = ContinuousLine()
-  private var intensityCurveLine: IntensityCurveLineModifier = IntensityCurveLineModifier()
-  private var sharpnessCurveLine: SharpnessCurveLineModifier = SharpnessCurveLineModifier()
-  
-  @objc public override init() {
-    super.init()
-    guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
-      print("Error: Device doens't supports haptics")
-      return
-    }
+  private var engine: HapticEngineWrapper!
+  private var discreteLine = DiscreteLine()
+  private var continuousLine = ContinuousLine()
+  private var continuousPlayer: CHHapticPatternPlayer?
+  private var discretePlayer: CHHapticPatternPlayer?
     
-    do {
-      engine = try CHHapticEngine()
-      try engine?.start()
-      initialized = true
-
-      NotificationCenter.default.addObserver(
-        self,
-        selector: #selector(appDidBecomeInactive),
-        name: UIApplication.didEnterBackgroundNotification,
-        object: nil
-      )
-    } catch {
-        print("Error starting engine: \(error.localizedDescription)")
-    }
+  public convenience init(engine: HapticEngineWrapper) {
+    self.init()
+    self.engine = engine
   }
   
   deinit {
-    if !initialized { return }
     do {
-      try player?.stop(atTime: 0)
-      try engine?.stop()
-    } catch {
-        print("Error cleaning up: \(error.localizedDescription)")
-    }
-  }
-  
-  @objc func appDidBecomeInactive() {
-    initialized = false
+      try continuousPlayer?.stop(atTime: 0)
+      try discretePlayer?.stop(atTime: 0)
+    } catch {}
   }
   
   public func parseJSON(_ jsonData: String) -> PlaygroundData {
@@ -58,10 +31,13 @@ public class PatternComposerImpl: NSObject {
     }
   }
   
-  public func playPattern(hapticsData: PlaygroundData) {
+  public func parsePattern(hapticsData: PlaygroundData) {
     discreteLine.reset()
-    intensityCurveLine.reset()
-    sharpnessCurveLine.reset()
+    continuousLine.reset()
+    
+    let intensityCurveLine = continuousLine.intensityCurveLine
+    let sharpnessCurveLine = continuousLine.sharpnessCurveLine
+    
     for bar in hapticsData.bar {
       discreteLine.addEvent(timestamp: bar.x, intensity: bar.y1, sharpness: bar.y2)
     }
@@ -73,22 +49,11 @@ public class PatternComposerImpl: NSObject {
       sharpnessCurveLine.addPoint(time: sharpnessPoint.x, value: sharpnessPoint.y)
     }
     
-    self.play()
-  }
-  
-  public func play() {
-    if !initialized {
-      do {
-        try engine?.start()
-        initialized = true
-      } catch {
-        print("Error starting engine: \(error.localizedDescription)")
-      }
-    }
     do {
-      var continuousPlayer: CHHapticPatternPlayer?;
+      var continuousPattern: CHHapticPattern?;
+      var discretePattern: CHHapticPattern?;
       if (!intensityCurveLine.isEmpty && !sharpnessCurveLine.isEmpty) {
-        let continuousPattern = try CHHapticPattern(
+        continuousPattern = try CHHapticPattern(
           events: [
             CHHapticEvent(
               eventType: .hapticContinuous,
@@ -105,24 +70,31 @@ public class PatternComposerImpl: NSObject {
             sharpnessCurveLine.getCurve
           ]
         )
-        continuousPlayer = try engine?.makePlayer(with: continuousPattern)
       }
       
-      var discretePlayer: CHHapticPatternPlayer?;
       if (!discreteLine.getEvents.isEmpty) {
-        let discretePattern = try CHHapticPattern(
+        discretePattern = try CHHapticPattern(
           events: discreteLine.getEvents,
           parameters: []
         )
-        discretePlayer = try engine?.makePlayer(with: discretePattern)
       }
       
-      if (continuousPlayer != nil) {
-        try continuousPlayer?.start(atTime: 0)
-      }
-      if (discretePlayer != nil) {
-        try discretePlayer?.start(atTime: 0)
-      }
+      continuousPlayer = engine.getPlayer(pattern: continuousPattern)
+      discretePlayer = engine.getPlayer(pattern: discretePattern)
+    } catch {
+      print("Error playing pattern: \(error.localizedDescription)")
+    }
+  }
+  
+  public func playPattern(hapticsData: PlaygroundData) {
+    self.parsePattern(hapticsData: hapticsData)
+    self.play()
+  }
+  
+  public func play() {
+    do {
+      try continuousPlayer?.start(atTime: 0)
+      try discretePlayer?.start(atTime: 0)
     } catch {
       print("Error playing pattern: \(error.localizedDescription)")
     }

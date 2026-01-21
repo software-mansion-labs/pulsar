@@ -56,6 +56,11 @@ import AVFAudio
     cache.removeAll()
   }
   
+  public func preloadPresetByName(_ name: String) {
+    self.useCache = true
+    _ = getCacheablePreset(mapper[name]!)
+  }
+  
   @objc public func getByName(_ name: String) -> Preset? {
     guard mapper.keys.contains(name) else {
       return nil
