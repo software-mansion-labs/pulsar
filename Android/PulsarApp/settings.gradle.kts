@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "PulsarApp"
 include(":app")
 include(":Pulsar")
+project(":Pulsar").projectDir = file("../Pulsar")
