@@ -15,9 +15,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -41,6 +51,7 @@ import com.swmansion.pulsar.haptics.TEST_PRESET
 import com.swmansion.pulsar.haptics.UP_AND_DOWN_PRESET
 import com.swmansion.pulsar.haptics.UP_PRESET
 import com.swmansion.pulsar.types.Preset
+import com.swmansion.pulsarapp.screens.EmptyScreen
 import com.swmansion.pulsarapp.ui.theme.PulsarAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -59,7 +70,47 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       PulsarAppTheme {
+        var selectedTab by remember { mutableStateOf<BottomTab>(BottomTab.Home) }
+
         Column(
+          modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+        ) {
+          Column(
+            modifier = Modifier
+              .fillMaxWidth()
+              .weight(1f),
+            verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
+            horizontalAlignment = Alignment.CenterHorizontally,
+          ) {
+            when (selectedTab) {
+              BottomTab.Home -> HomeContent()
+              BottomTab.Settings -> EmptyScreen()
+            }
+          }
+
+          NavigationBar {
+            NavigationBarItem(
+              icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
+              label = { Text("Home") },
+              selected = selectedTab == BottomTab.Home,
+              onClick = { selectedTab = BottomTab.Home }
+            )
+            NavigationBarItem(
+              icon = { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
+              label = { Text("Settings") },
+              selected = selectedTab == BottomTab.Settings,
+              onClick = { selectedTab = BottomTab.Settings }
+            )
+          }
+        }
+      }
+    }
+  }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  @Composable
+  private fun HomeContent() {
+    Column(
           modifier = Modifier.fillMaxWidth().fillMaxHeight(),
           verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
           horizontalAlignment = Alignment.CenterHorizontally,
@@ -220,9 +271,7 @@ class MainActivity : ComponentActivity() {
             }
           }
         }
-      }
     }
-  }
 
   @RequiresApi(Build.VERSION_CODES.O)
   @Composable
@@ -243,4 +292,9 @@ class MainActivity : ComponentActivity() {
       Text("Device supports frequency profile: ${pulsar?.engine?.isFrequencyProfileSupported()}")
     }
   }
+}
+
+enum class BottomTab {
+  Home,
+  Settings
 }
