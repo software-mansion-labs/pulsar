@@ -44,12 +44,11 @@ export default function Example(
   }
 
   function handleDeviceClick() {
-    const channel = localStorage.getItem('hapticsChannel');
-    const token = localStorage.getItem('hapticsBroadcastToken');
-    fetch(`${API_SERVER_URL}/broadcast?channel=${channel}&token=${token}`, {
+    const token = localStorage.getItem('hapticsToken');
+    fetch(`${API_SERVER_URL}/broadcast`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: props.data,
+      body: JSON.stringify({message: props.data, token}),
     }).then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');

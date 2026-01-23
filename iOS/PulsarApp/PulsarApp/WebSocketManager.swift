@@ -10,14 +10,27 @@ class WebSocketManager: ObservableObject, WebSocketDelegate {
   @Published var statusInfo: String = "You are not connected 😕"
   let pulsar: Pulsar = Pulsar()
   var composer: PatternComposerImpl? = nil
-  var channel: String = "1234"
+  var channel: String = ""
   var isConnected: Bool = false
   var playAnimation: Bool = false
   
   func connect() {
     // var request = URLRequest(url: URL(string: "wss://haptics-server.onrender.com?channel=" + channel)!)
-    var request = URLRequest(url: URL(string: "ws://192.168.92.124:8080?channel=" + channel)!)
-    request.timeoutInterval = 5
+    var request: URLRequest;
+    var token = UserDefaults.standard.string(forKey: "token")
+    if (channel != "") {
+      token = nil;
+    }
+    if (token == nil) {
+//      request = URLRequest(url: URL(string: "ws://192.168.92.124:8080?type=receiver&action=new_connection&code=" + channel)!)
+      request = URLRequest(url: URL(string: "ws://localhost:8080?type=receiver&action=new_connection&code=" + channel)!)
+      request.timeoutInterval = 5
+    } else {
+//      request = URLRequest(url: URL(string: "ws://192.168.92.124:8080?type=receiver&action=reuse_connection&token=" + token!)!)
+      request = URLRequest(url: URL(string: "ws://localhost:8080?type=receiver&action=reuse_connection&token=" + token!)!)
+      request.timeoutInterval = 5
+    }
+    
     
     UserDefaults.standard.set(channel, forKey: "channel")
     
@@ -56,11 +69,44 @@ class WebSocketManager: ObservableObject, WebSocketDelegate {
         DispatchQueue.main.async {
           self.isConnected = true
           self.message = jsonData
-          self.statusInfo = "You are connected! 🎉"
           print("Received text: \(jsonData)")
-          let pattern = self.composer?.parseJSON(jsonData)
-          if (pattern != nil) {
-            self.composer?.playPattern(hapticsData: pattern!);
+          
+          // Parse JSON to check for event types
+          if let data = jsonData.data(using: .utf8),
+             let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+             let eventType = json["type"] as? String {
+            
+            switch eventType {
+            case "connection_established":
+              if let token = json["token"] as? String {
+                UserDefaults.standard.set(token, forKey: "token")
+                self.statusInfo = "Connection established! 🎉"
+                print("Token saved: \(token)")
+              }
+              
+            case "connection_restored":
+              self.statusInfo = "Connection restored! 🎉"
+              print("Connection restored")
+              
+            case "peer_disconnected":
+              self.statusInfo = "Peer disconnected 😕"
+              print("Peer disconnected")
+              
+            default:
+              // Handle broadcast messages with patterns
+              self.statusInfo = "You are connected! 🎉"
+              let pattern = self.composer?.parseJSON(jsonData)
+              if (pattern != nil) {
+                self.composer?.playPattern(hapticsData: pattern!);
+              }
+            }
+          } else {
+            // Fallback for non-JSON or pattern data
+            self.statusInfo = "You are connected! 🎉"
+            let pattern = self.composer?.parseJSON(jsonData)
+            if (pattern != nil) {
+              self.composer?.playPattern(hapticsData: pattern!);
+            }
           }
         }
         

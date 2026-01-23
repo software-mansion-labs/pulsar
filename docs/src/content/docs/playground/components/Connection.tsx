@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "./Modal";
 import { API_SERVER_URL, SOCKET_SERVER_URL } from "./config";
 
@@ -9,76 +9,78 @@ declare global {
 }
 
 export default function Connection({hideSubtitle = false, children}: {hideSubtitle?: boolean, children?: any}) {
-  const [channel, setChannel] = useState<number | string>('Loading...');
+  const [channel, setChannel] = useState<number | string>('Pulsar App already set up.');
   const [status, setStatus] = useState<boolean>(false);
   const [showHelp, setShowHelp] = useState<boolean>(false);
+  const ws = useRef<WebSocket | null>(null);
 
-  function connectToServer() {
-    const clientId = localStorage.getItem('hapticsClientId');
-    const clientIdQuery = clientId ? `&lastClientId=${clientId}` : '';
-
-    const preferredChannel = localStorage.getItem('hapticsChannel');
-    const preferredChannelQuery = preferredChannel ? `&preferred=${preferredChannel}` : '';
-
-    fetch(`${API_SERVER_URL}/generate-channel?${preferredChannelQuery}${clientIdQuery}`)
+  function createChannel() {
+    setChannel('Loading...');
+    fetch(`${API_SERVER_URL}/create-channel`)
     .then(response => response.json())
     .then(data => {
       if (!data.success) {
         console.error('Failed to get channel from server');
         return;
       }
-      console.log('Received channel from server:', data);
-      const channelNumber = data.channel;
+      const channelNumber = data.code;
       setChannel(channelNumber);
-      localStorage.setItem('hapticsChannel', channelNumber);
-      localStorage.setItem('hapticsBroadcastToken', data.token);
-
-      const statusWs = new WebSocket(`${SOCKET_SERVER_URL}?status=true&channel=${channelNumber}`);
-      statusWs.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        console.log(data)
-        switch(data.type) {
-          case 'initial_status': {
-            console.log('Connected to status server');
-            console.log('Subscribed to channel:', data.subscribedChannel);
-            console.log('Current activity:', data.channelActivity);
-            const channel = data.channelActivity[channelNumber];
-            if (channel) {
-              const clientId = channel.clients[channel.clients.length - 1].id;
-              localStorage.setItem('hapticsClientId', clientId);
-              setStatus(true);
-            }
-            break;
-          }
-            
-          case 'client_joined': {
-            console.log(`New client ${data.clientId} joined channel ${data.channel}`, data);
-            const channel = data.channelActivity[data.channel];
-            const clientId = channel.clients[channel.clients.length - 1].id;
-            localStorage.setItem('hapticsClientId', clientId);
-            setStatus(true);
-            break;
-          }
-            
-          case 'client_left':
-            console.log(`Client ${data.clientId} left channel ${data.channel}`);
-            setStatus(false);
-            break;
-        }
-      };
+  
+      webSocketConnection(channelNumber)
     });
+  }
+
+  function webSocketConnection(channelNumber?: string) {
+    let token = null;
+    if (localStorage.getItem('hapticsToken')) {
+      token = localStorage.getItem('hapticsToken');
+    }
+    let params = '';
+    if (token) {
+      params = `&action=reuse_connection&token=${token}`;
+    } else {
+      params = `&action=new_connection&code=${channelNumber}`;
+    }
+    
+    if (ws.current !== null) {
+      ws.current.close();
+    }
+    ws.current = new WebSocket(`${SOCKET_SERVER_URL}?type=sender${params}`);
+    ws.current.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log(data)
+      switch(data.type) {
+        case 'connection_established': {
+          localStorage.setItem('hapticsToken', data.token);
+          setStatus(true);
+        } break;
+        case 'connection_restored': {
+          setStatus(true);
+        } break;
+        case 'peer_disconnected': {
+          setStatus(false);
+        } break;
+      };
+    }
   }
   
   useEffect(() => {
-    connectToServer();
+    if (localStorage.getItem('hapticsToken')) {
+      webSocketConnection();
+    } else {
+      createChannel();
+    }
+    return () => {
+      if (ws.current) {
+        ws.current.close();
+      }
+    };
   }, []);
 
   function handleReset() {
-    localStorage.removeItem('hapticsChannel');
-    localStorage.removeItem('hapticsClientId');
-    localStorage.removeItem('hapticsBroadcastToken');
+    localStorage.removeItem('hapticsToken');
     setStatus(false);
-    connectToServer();
+    createChannel();
   }
 
   return <div className="not-content connectionBox">
