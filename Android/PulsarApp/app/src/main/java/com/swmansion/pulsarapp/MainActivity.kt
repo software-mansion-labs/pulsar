@@ -207,6 +207,7 @@ class MainActivity : ComponentActivity() {
           Button(
             modifier = Modifier.padding(6.dp),
             onClick = {
+              pulsar?.Presets()?.Success()
 //              vibrator.vibrate(VibrationEffect.WaveformEnvelopeBuilder()
 //                .setInitialFrequencyHz(50f)
 //                .addControlPoint(1.0f, 109f, 100)

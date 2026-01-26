@@ -11,16 +11,12 @@ import com.swmansion.pulsar.audio.PatternData
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
 import com.swmansion.pulsar.haptics.TAG
 import com.swmansion.pulsar.haptics.convertImpulsesToBars
-import com.swmansion.pulsar.lines.ContinuousLine
-import com.swmansion.pulsar.lines.DiscreteLine
 import com.swmansion.pulsar.types.Preset
 
 class PatternComposerImpl(
     private val engine: HapticEngineWrapper,
     private val audioSimulator: AudioSimulator
 ) {
-    private val discreteLine = DiscreteLine()
-    private val continuousLine = ContinuousLine()
     private var vibrationEffect: VibrationEffect? = null
     private var audioBuffer: ByteArray? = null
 

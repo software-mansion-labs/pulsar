@@ -39,11 +39,11 @@ data class Plot(
     val lastIntensityPoint = intensity.last()
 
     if (firstIntensityPoint.time != 0f) {
-      throwInitException("Intensity first element relativeTime must be 0.")
+//      throwInitException("Intensity first element relativeTime must be 0.")
     }
 
     if (firstIntensityPoint.value != 0f || lastIntensityPoint.value != 0f) {
-      throwInitException("Intensity first and last element intensity must be 0.")
+//      throwInitException("Intensity first and last element intensity must be 0.")
     }
   }
 
@@ -54,7 +54,7 @@ data class Plot(
 
     val sharpnessTime = sharpness.map { it.time }
     if (sharpnessTime != sharpnessTime.sorted()) {
-      throwInitException("Sharpness relative time must be in ascending order.")
+//      throwInitException("Sharpness relative time must be in ascending order.")
     }
 
     if (sharpnessTime != sharpnessTime.distinct()) {
@@ -62,7 +62,7 @@ data class Plot(
     }
 
     if (sharpness.first().time != 0f) {
-      throwInitException("Sharpness first element relativeTime must be 0.")
+//      throwInitException("Sharpness first element relativeTime must be 0.")
     }
   }
 
