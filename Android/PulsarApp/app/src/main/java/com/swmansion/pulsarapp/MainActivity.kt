@@ -43,7 +43,6 @@ class MainActivity : ComponentActivity() {
   private val vibrator by lazy { getSystemService(Vibrator::class.java) }
 
   @SuppressLint("NewApi")
-  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     pulsar = Pulsar(this)
 
@@ -88,7 +87,6 @@ class MainActivity : ComponentActivity() {
     }
   }
 
-  @RequiresApi(Build.VERSION_CODES.O)
   @Composable
   private fun HomeContent() {
     Column(
@@ -157,7 +155,7 @@ class MainActivity : ComponentActivity() {
 //              )
 
 
-                pulsar?.Presets()?.Earthquake()
+                pulsar?.getPresets()?.Earthquake()
 
 //              if (composer == null) {
 //                composer = pulsar?.PatternComposer()
@@ -188,7 +186,7 @@ class MainActivity : ComponentActivity() {
           Button(
             modifier = Modifier.padding(6.dp),
             onClick = {
-              pulsar?.Presets()?.Success()
+              pulsar?.getPresets()?.Success()
 //              vibrator.vibrate(VibrationEffect.WaveformEnvelopeBuilder()
 //                .setInitialFrequencyHz(50f)
 //                .addControlPoint(1.0f, 109f, 100)

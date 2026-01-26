@@ -1,13 +1,10 @@
 package com.swmansion.pulsar.presets
 
 import android.Manifest
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.swmansion.pulsar.Pulsar
 import com.swmansion.pulsar.types.PatternData
 
-@RequiresApi(Build.VERSION_CODES.O)
 class EarthquakePreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
@@ -37,7 +34,6 @@ class EarthquakePreset(haptics: Pulsar) :
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 class SuccessPreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
@@ -62,7 +58,7 @@ class FailPreset(private val haptics: Pulsar) : Preset {
     companion object: PresetWithName {
         override val name = "Fail"
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+
     @RequiresPermission(Manifest.permission.VIBRATE)
     override fun play() {
         val hapticData = PatternData(
@@ -76,7 +72,7 @@ class FailPreset(private val haptics: Pulsar) : Preset {
                 listOf(0.3, 1.0, 0.3)
             )
         )
-        haptics.PatternComposer().playPattern(hapticData)
+//        haptics.PatternComposer().playPattern(hapticData)
     }
 }
 
@@ -84,7 +80,6 @@ class TapPreset(private val haptics: Pulsar) : Preset {
     companion object: PresetWithName {
         override val name = "Tap"
     }
-    @RequiresApi(Build.VERSION_CODES.O)
     @RequiresPermission(Manifest.permission.VIBRATE)
     override fun play() {
         val hapticData = PatternData(
@@ -94,7 +89,7 @@ class TapPreset(private val haptics: Pulsar) : Preset {
             ),
             rawDiscretePattern = listOf(listOf(0.0, 1.0, 0.5))
         )
-        haptics.PatternComposer().playPattern(hapticData)
+//        haptics.PatternComposer().playPattern(hapticData)
     }
 }
 
@@ -104,7 +99,6 @@ class SystemImpactLightPreset(private val haptics: Pulsar) : Preset {
     companion object: PresetWithName {
         override val name = "SystemImpactLight"
     }
-    @RequiresApi(Build.VERSION_CODES.O)
     @RequiresPermission(Manifest.permission.VIBRATE)
     override fun play() {
         // TODO
@@ -115,6 +109,6 @@ class SystemImpactLightPreset(private val haptics: Pulsar) : Preset {
             ),
             rawDiscretePattern = listOf(listOf(0.0, 0.3, 0.5))
         )
-        haptics.PatternComposer().playPattern(hapticData)
+//        haptics.PatternComposer().playPattern(hapticData)
     }
 }

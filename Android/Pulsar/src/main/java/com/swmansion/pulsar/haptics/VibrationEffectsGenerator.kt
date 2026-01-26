@@ -10,10 +10,9 @@ import kotlin.math.roundToInt
 
 const val MAX_INT_AMPLITUDE = 255
 
-@RequiresApi(Build.VERSION_CODES.O)
 class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
     fun convertToVibrationEffect(controlPoints: List<ControlPoint>) : VibrationEffect {
-        return if (engine.isEnvelopeSupported()) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
             if (engine.isFrequencyProfileSupported()) {
                 convertToAdvanceEnvelope(controlPoints)
             } else {

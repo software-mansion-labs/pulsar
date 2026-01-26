@@ -8,12 +8,12 @@ import com.swmansion.pulsar.haptics.HapticEngineWrapper
 import com.swmansion.pulsar.presets.PresetsWrapper
 
 class Pulsar(context: Context) {
-    public val engine = HapticEngineWrapper(context)
+    val engine = HapticEngineWrapper(context)
     private val audioSimulator = AudioSimulator()
     private var presets: PresetsWrapper? = null
     private val realtimeComposer: RealtimeComposerImpl = RealtimeComposerImpl(engine)
 
-    fun Presets(): PresetsWrapper {
+    fun getPresets(): PresetsWrapper {
         if (presets == null) {
             presets = PresetsWrapper(this)
         }
@@ -21,7 +21,7 @@ class Pulsar(context: Context) {
     }
 
     fun preloadPresets(presetNames: List<String>) {
-        val presets = this.Presets()
+        val presets = this.getPresets()
         for (presetName in presetNames) {
             presets.preloadPresetByName(presetName)
         }
@@ -32,11 +32,11 @@ class Pulsar(context: Context) {
     }
 
     fun enableCache(state: Boolean) {
-        this.Presets().enableCache(state)
+        this.getPresets().enableCache(state)
     }
 
     fun clearCache() {
-        this.Presets().resetCache()
+        this.getPresets().resetCache()
     }
 
     fun PatternComposer(): PatternComposerImpl {

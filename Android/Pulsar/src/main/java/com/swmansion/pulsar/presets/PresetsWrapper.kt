@@ -8,7 +8,7 @@ class PresetsWrapper(
     private var useCache: Boolean = true
     private val cache = mutableMapOf<String, Preset>()
 
-    private val mapper: Map<String, (Pulsar) -> Preset?> = mapOf(
+    private val mapper: Map<String, (Pulsar) -> Preset> = mapOf(
         EarthquakePreset.name to { haptics -> EarthquakePreset(haptics) },
         SuccessPreset.name to { haptics -> SuccessPreset(haptics) },
         FailPreset.name to { haptics -> FailPreset(haptics) },

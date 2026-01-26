@@ -8,7 +8,6 @@ import com.swmansion.pulsar.Pulsar
 import com.swmansion.pulsar.types.PatternData
 import com.swmansion.pulsar.composers.PatternComposerImpl
 
-@RequiresApi(Build.VERSION_CODES.O)
 open class Player(
     haptics: Pulsar,
     pattern: PatternData,

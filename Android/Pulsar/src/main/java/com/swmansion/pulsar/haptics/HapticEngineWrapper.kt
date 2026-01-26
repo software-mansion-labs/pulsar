@@ -5,9 +5,8 @@ import android.content.Context
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.os.vibrator.VibratorEnvelopeEffectInfo
 import android.os.vibrator.VibratorFrequencyProfile
-import androidx.annotation.RequiresApi
+import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 
@@ -36,10 +35,13 @@ class HapticEngineWrapper(context: Context) {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @RequiresPermission(value = "android.permission.VIBRATE")
     fun vibrate(vibrationEffect: VibrationEffect) {
-        vibrationService.vibrate(vibrationEffect)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrationService.vibrate(vibrationEffect)
+        } else {
+            Log.w("Pulsar", "Incompatible Android version. Minimal supported version is Android API 26")
+        }
     }
 
     @RequiresPermission(Manifest.permission.VIBRATE)
@@ -68,13 +70,11 @@ class HapticEngineWrapper(context: Context) {
                 vibrationService.frequencyProfile !== null
     }
 
-    @RequiresApi(Build.VERSION_CODES.BAKLAVA)
-    fun getEnvelopConfig(): VibratorEnvelopeEffectInfo {
-        return vibrationService.envelopeEffectInfo
-    }
-
-    @RequiresApi(Build.VERSION_CODES.BAKLAVA)
     fun getFrequencyProfile() : VibratorFrequencyProfile? {
-        return vibrator?.frequencyProfile
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+            vibrator?.frequencyProfile
+        } else {
+            return null
+        }
     }
 }

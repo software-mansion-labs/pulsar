@@ -2,7 +2,7 @@ package com.swmansion.pulsar.haptics
 
 import com.swmansion.pulsar.types.ConfigPoint
 
-class ConfigLineBuilder(val amplitudeLine: ValueLineBuilder, val frequencyLine: ValueLineBuilder) {
+class ConfigLineBuilder(amplitudeLine: ValueLineBuilder, frequencyLine: ValueLineBuilder) {
     val points = ArrayList<ConfigPoint>()
 
     init {

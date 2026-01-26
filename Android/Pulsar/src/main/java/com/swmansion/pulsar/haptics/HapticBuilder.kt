@@ -1,22 +1,16 @@
 package com.swmansion.pulsar.haptics
 
-import android.os.Build
 import android.os.VibrationEffect
-import androidx.annotation.RequiresApi
 import com.swmansion.pulsar.types.PatternData
 import com.swmansion.pulsar.types.ControlPoint
 
-
-const val TAG = "Pulsar"
 const val DEFAULT_SHARPNESS = 1f
 
-class HapticBuilder(val engine: HapticEngineWrapper) {
-  @RequiresApi(Build.VERSION_CODES.O)
+class HapticBuilder(engine: HapticEngineWrapper) {
+
   private var vibrationEffectsGenerator = VibrationEffectsGenerator(engine)
 
-  @RequiresApi(Build.VERSION_CODES.BAKLAVA)
   fun createVibrationEffect(preset: PatternData): VibrationEffect {
-
     val controlPoints = convertToControlPoints(preset)
     return vibrationEffectsGenerator.convertToVibrationEffect(controlPoints)
   }
