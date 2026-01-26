@@ -1,9 +1,15 @@
 package com.swmansion.pulsar.haptics
 
-import com.swmansion.pulsar.audio.ValuePoint
+import com.swmansion.pulsar.types.ValuePoint
 
-class ValueLineBuilder {
+class ValueLineBuilder(initialList: List<ValuePoint>? = null) {
     var points = ArrayList<ValuePoint>()
+
+    init {
+        initialList?.forEach {
+            pushPoint(ValuePoint(it.time, it.value))
+        }
+    }
 
     fun pushPoint(point: ValuePoint) {
         if (points.isEmpty() || point.time >= points.last().time) {

@@ -1,7 +1,7 @@
 package com.swmansion.pulsar.haptics
 
 import com.swmansion.pulsar.types.ControlPoint
-import com.swmansion.pulsar.audio.ConfigPoint
+import com.swmansion.pulsar.types.ConfigPoint
 
 class ControlLineBuilder(var configLine: ConfigLineBuilder) {
     val points = ArrayList<ControlPoint>()

@@ -1,6 +1,5 @@
 package com.swmansion.pulsar.types
 
-import com.swmansion.pulsar.audio.ValuePoint
 import kotlin.math.pow
 import kotlin.math.round
 

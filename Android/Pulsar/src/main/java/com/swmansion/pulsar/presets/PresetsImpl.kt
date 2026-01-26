@@ -5,7 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.swmansion.pulsar.Pulsar
-import com.swmansion.pulsar.audio.PatternData
+import com.swmansion.pulsar.types.PatternData
 
 @RequiresApi(Build.VERSION_CODES.O)
 class EarthquakePreset(haptics: Pulsar) :
@@ -42,8 +42,8 @@ class SuccessPreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuesPattern = listOf(
-            listOf(listOf(0.0, 0.0), listOf(0.1 * 1000, 1.0), listOf(0.5 * 1000, 0.5), listOf(0.6 * 1000, 0.5)),
-            listOf(listOf(0.0, 0.0), listOf(0.1 * 1000, 0.5), listOf(0.5 * 1000, 0.5), listOf(0.6 * 1000, 0.5))
+            listOf(listOf(0.1 * 1000, 1.0), listOf(0.5 * 1000, 0.5), listOf(1.6 * 1000, 0.0)),
+            listOf(listOf(0.1 * 1000, 0.5), listOf(0.5 * 1000, 0.5), listOf(1.6 * 1000, 0.0))
         ),
         rawDiscretePattern = listOf(
 //            listOf(0.1 * 2000, 0.9, 0.5),

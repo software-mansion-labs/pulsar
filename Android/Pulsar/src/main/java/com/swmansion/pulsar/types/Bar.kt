@@ -1,7 +1,5 @@
 package com.swmansion.pulsar.types
 
-import com.swmansion.pulsar.audio.ValuePoint
-
 data class Bar(val x1: Long, val x2: Long, val intensity: Float, val sharpness: Float) {
   init {
     verifyRelativeTime(x1)

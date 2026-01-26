@@ -1,8 +1,5 @@
 package com.swmansion.pulsar.types
 
-import com.swmansion.pulsar.audio.ContinuesPattern
-import com.swmansion.pulsar.audio.ConfigPoint
-
 /**
  * Represents vibration preset. At least one of impulses or plot should be passed. If both of them
  * are passed, the result will be a combination of plot and impulses.

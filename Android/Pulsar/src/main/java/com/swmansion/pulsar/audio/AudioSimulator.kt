@@ -5,6 +5,16 @@ import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Build
+import com.swmansion.pulsar.types.AudioDataConfig
+import com.swmansion.pulsar.types.AudioPatternConfig
+import com.swmansion.pulsar.types.ContinuousAudioConfig
+import com.swmansion.pulsar.types.DiscreteAudioConfig
+import com.swmansion.pulsar.types.EnvelopeConfig
+import com.swmansion.pulsar.types.FrequencyConfig
+import com.swmansion.pulsar.types.OscillatorConfig
+import com.swmansion.pulsar.types.PatternData
+import com.swmansion.pulsar.types.ValuePoint
+import com.swmansion.pulsar.types.WaveformType
 import kotlin.math.*
 
 class AudioSimulator {

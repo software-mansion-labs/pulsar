@@ -3,15 +3,12 @@ package com.swmansion.pulsar.composers
 import android.Manifest
 import android.os.Build
 import android.os.VibrationEffect
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.swmansion.pulsar.audio.AudioSimulator
-import com.swmansion.pulsar.audio.PatternData
+import com.swmansion.pulsar.types.PatternData
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
-import com.swmansion.pulsar.haptics.TAG
 //import com.swmansion.pulsar.haptics.convertImpulsesToBars
-import com.swmansion.pulsar.types.Preset
 
 class PatternComposerImpl(
     private val engine: HapticEngineWrapper,

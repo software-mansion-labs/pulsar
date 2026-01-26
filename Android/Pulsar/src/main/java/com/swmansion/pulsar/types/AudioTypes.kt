@@ -1,8 +1,4 @@
-package com.swmansion.pulsar.audio
-
-import com.swmansion.pulsar.types.verifyIntensity
-import com.swmansion.pulsar.types.verifyRelativeTime
-import com.swmansion.pulsar.types.verifySharpness
+package com.swmansion.pulsar.types
 
 data class ValuePoint(
     val time: Float,
