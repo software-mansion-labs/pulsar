@@ -1,5 +1,7 @@
 package com.swmansion.pulsar.types
 
+import com.swmansion.pulsar.audio.PatternPoint
+
 data class Bar(val x1: Long, val x2: Long, val intensity: Float, val sharpness: Float) {
   init {
     verifyRelativeTime(x1)
@@ -12,6 +14,6 @@ data class Bar(val x1: Long, val x2: Long, val intensity: Float, val sharpness: 
     verifySharpness(sharpness)
   }
 
-  val point1 = IntensityPoint(x1, intensity)
-  val point2 = IntensityPoint(x2, intensity)
+  val point1 = PatternPoint(x1.toFloat(), intensity)
+  val point2 = PatternPoint(x2.toFloat(), intensity)
 }

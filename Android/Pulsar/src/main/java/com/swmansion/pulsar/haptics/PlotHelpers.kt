@@ -7,7 +7,7 @@ import com.swmansion.pulsar.types.PlotPoint
 
 // helper functions for plotting only
 
-fun printBarsToPlot(bars: ArrayList<Bar>) {
+fun printBarsToPlot(bars: List<Bar>) {
   Log.i(TAG, "----------- BARS -----------")
   Log.i(TAG, getPlotHeader())
 
@@ -25,7 +25,7 @@ fun printBarsToPlot(bars: ArrayList<Bar>) {
   }
 }
 
-fun printPointsToPlot(points: ArrayList<PlotPoint>) {
+fun printPointsToPlot(points: List<PlotPoint>) {
   Log.i(TAG, "----------- POINTS -----------")
   Log.i(TAG, getPlotHeader())
 
@@ -42,8 +42,8 @@ fun printControlPointsToPlot(controlPoints: ArrayList<ControlPoint>) {
 }
 
 private fun convertControlPointsToPoints(
-  controlPoints: ArrayList<ControlPoint>
-): ArrayList<PlotPoint> {
+  controlPoints: List<ControlPoint>
+): List<PlotPoint> {
   var relativeTime = 0L
   val points = ArrayList<PlotPoint>()
 

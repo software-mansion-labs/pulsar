@@ -3,13 +3,12 @@ package com.swmansion.pulsar.haptics
 import android.os.Build
 import android.os.Vibrator
 import android.util.Log
+import com.swmansion.pulsar.audio.DiscretePoint
+import com.swmansion.pulsar.audio.PatternPoint
 import com.swmansion.pulsar.types.Bar
-import com.swmansion.pulsar.types.Impulse
-import com.swmansion.pulsar.types.IntensityPoint
 import com.swmansion.pulsar.types.Line
 import com.swmansion.pulsar.types.Plot
 import com.swmansion.pulsar.types.PlotPoint
-import com.swmansion.pulsar.types.SharpnessPoint
 import kotlin.collections.forEach
 import kotlin.math.abs
 import kotlin.math.max
@@ -20,10 +19,10 @@ const val ENVELOPE_SUPPORT_BAR_DURATION_RANGE_MS = 30
 const val DEFAULT_BAR_DURATION_RANGE_MS = 70
 const val DEFAULT_MIN_BAR_DURATION_MS = 30L
 
-fun convertIntensityToLines(intensity: ArrayList<IntensityPoint>): ArrayList<Line> {
+fun convertIntensityToLines(intensity: List<PatternPoint>): ArrayList<Line> {
   val lines = ArrayList<Line>()
 
-  for (i in 1..intensity.size - 1) {
+  for (i in 1..< intensity.size) {
     val prevPoint = intensity[i - 1]
     val currPoint = intensity[i]
 
@@ -44,33 +43,33 @@ fun generateBarsFromPlot(plot: Plot): ArrayList<Bar> {
       if (line.isHorizontal()) {
         bars +=
           Bar(
-            line.point1.relativeTime,
-            line.point2.relativeTime,
-            line.point1.intensity,
+            line.point1.time.toLong(),
+            line.point2.time.toLong(),
+            line.point1.value,
             DEFAULT_SHARPNESS,
           )
       } else { // approximate line with bars
-        val intensity1 = line.point1.intensity
-        val intensity2 = line.point2.intensity
+        val intensity1 = line.point1.value
+        val intensity2 = line.point2.value
 
         val intensityDiff = intensity2 - intensity1
         val isLineAscending = intensityDiff > 0
-        val lineDuration = line.point2.relativeTime - line.point1.relativeTime
+        val lineDuration = line.point2.time - line.point1.time
 
-        val nSteps = max((lineDuration * STEPS_PER_100_MS) / 100, 1)
+        val nSteps = max((lineDuration.toLong() * STEPS_PER_100_MS) / 100, 1)
         val stepDuration = lineDuration / nSteps
         val stepValue = abs(intensityDiff) / nSteps
 
         // TODO: last step sometimes is longer than stepDuration, because we use int step value
         // TODO: middle of the step can be used instead of the beginning
-        for (i in 0..nSteps - 1) {
-          val x1 = line.point1.relativeTime + stepDuration * i
-          val x2 = if (i < nSteps - 1) x1 + stepDuration else line.point2.relativeTime
+        for (i in 0..<nSteps) {
+          val x1 = line.point1.time + stepDuration * i
+          val x2 = if (i < nSteps - 1) x1 + stepDuration else line.point2.time
           val intensity =
-            if (isLineAscending) line.point1.intensity + stepValue * i
-            else line.point1.intensity - stepValue * i
+            if (isLineAscending) line.point1.value + stepValue * i
+            else line.point1.value - stepValue * i
 
-          bars += Bar(x1, x2, intensity, DEFAULT_SHARPNESS)
+          bars += Bar(x1.toLong(), x2.toLong(), intensity, DEFAULT_SHARPNESS)
         }
       }
     }
@@ -78,7 +77,7 @@ fun generateBarsFromPlot(plot: Plot): ArrayList<Bar> {
   return bars
 }
 
-fun generateComplexPlot(plot: Plot, initBars: ArrayList<Bar>): Plot {
+fun generateComplexPlot(plot: Plot, initBars: List<Bar>): Plot {
   val (intensity, sharpness) = plot
   val lines = convertIntensityToLines(intensity)
 
@@ -89,17 +88,17 @@ fun generateComplexPlot(plot: Plot, initBars: ArrayList<Bar>): Plot {
   val bars =
     initBars
       .filter { // delete bars outside plot
-        if (it.x1 < endPoint.relativeTime) true
+        if (it.x1 < endPoint.time) true
         else {
           Log.w(TAG, "Bar $it will be omitted, because it's not within plot range.")
           false
         }
       }
       .map { // cut bars to fit the plot
-        if (it.x2 <= endPoint.relativeTime) it
+        if (it.x2 <= endPoint.time) it
         else {
           Log.w(TAG, "Bar $it will be cut, because it do not fit plot range.")
-          Bar(it.x1, endPoint.relativeTime, it.intensity, it.sharpness)
+          Bar(it.x1, endPoint.time.toLong(), it.intensity, it.sharpness)
         }
       }
       .filter { shouldBarBeMerged(it, lines) } // use only bars above plot
@@ -111,17 +110,17 @@ fun generateComplexPlot(plot: Plot, initBars: ArrayList<Bar>): Plot {
   // create complex plot
 
   var complexIntensity = arrayListOf(startPoint)
-  val complexSharpness = arrayListOf<SharpnessPoint>()
+  val complexSharpness = arrayListOf<PatternPoint>()
 
   val nBars = bars.size
-  for (i in 0..nBars - 1) {
+  for (i in 0..< nBars) {
     val currBar = bars[i]
     val nextBar = if (i + 1 < nBars) bars[i + 1] else null
 
     // handle interval before first bar
     if (i == 0) {
       addComplexPointsFromInterval(
-        x1 = startPoint.relativeTime,
+        x1 = startPoint.time.toLong(),
         x2 = currBar.x1,
         lines = lines,
         sharpness = sharpness,
@@ -135,7 +134,7 @@ fun generateComplexPlot(plot: Plot, initBars: ArrayList<Bar>): Plot {
     complexIntensity.add(currBar.point2)
 
     // add bar sharpness
-    complexSharpness.add(SharpnessPoint(currBar.x1, currBar.sharpness))
+    complexSharpness.add(PatternPoint(currBar.x1.toFloat(), currBar.sharpness))
 
     // handle interval between currBar and nextBar
     nextBar?.let { nextBar ->
@@ -153,7 +152,7 @@ fun generateComplexPlot(plot: Plot, initBars: ArrayList<Bar>): Plot {
     if (i == nBars - 1) {
       addComplexPointsFromInterval(
         x1 = currBar.x2,
-        x2 = endPoint.relativeTime,
+        x2 = endPoint.time.toLong(),
         lines = lines,
         sharpness = sharpness,
         complexIntensity = complexIntensity,
@@ -177,7 +176,7 @@ fun generateComplexPlot(plot: Plot, initBars: ArrayList<Bar>): Plot {
 
 fun shouldBarBeMerged(bar: Bar, lines: ArrayList<Line>): Boolean {
   getIntensityFromInterval(bar.x1, bar.x2, lines)?.forEach { point ->
-    if (point.intensity >= bar.intensity) {
+    if (point.value >= bar.intensity) {
       return false
     }
   } ?: { Log.w(TAG, "This should not happen") }
@@ -188,23 +187,23 @@ fun shouldBarBeMerged(bar: Bar, lines: ArrayList<Line>): Boolean {
 private fun addComplexPointsFromInterval(
   x1: Long,
   x2: Long,
-  lines: ArrayList<Line>,
-  sharpness: ArrayList<SharpnessPoint>,
-  complexIntensity: ArrayList<IntensityPoint>,
-  complexSharpness: ArrayList<SharpnessPoint>,
+  lines: List<Line>,
+  sharpness: List<PatternPoint>,
+  complexIntensity: List<PatternPoint>,
+  complexSharpness: List<PatternPoint>,
 ) {
   val intensityPoints = getIntensityFromInterval(x1, x2, lines)
   val sharpnessPoints = getSharpnessFromInterval(x1, x2, sharpness)
 
-  intensityPoints?.let { complexIntensity.addAll(it) }
-  sharpnessPoints?.let { complexSharpness.addAll(it) }
+  intensityPoints?.let { (complexIntensity as MutableList).addAll(it) }
+  sharpnessPoints?.let { (complexSharpness as MutableList).addAll(it) }
 }
 
 fun getIntensityFromInterval(
   x1: Long,
   x2: Long,
-  allLines: ArrayList<Line>,
-): ArrayList<IntensityPoint>? {
+  allLines: List<Line>,
+): List<PatternPoint>? {
   if (x1 == x2) {
     return null
   } else if (x1 > x2) {
@@ -249,8 +248,8 @@ fun getIntensityFromInterval(
 fun getSharpnessFromInterval(
   x1: Long,
   x2: Long,
-  sharpness: ArrayList<SharpnessPoint>,
-): ArrayList<SharpnessPoint>? {
+  sharpness: List<PatternPoint>,
+): List<PatternPoint>? {
   if (x1 == x2) {
     return null
   } else if (x1 > x2) {
@@ -259,13 +258,13 @@ fun getSharpnessFromInterval(
   } else {
 
     // we need to include < sharpness - in case last sharpness change was within bar
-    val startSharpness = sharpness.findLast { it.relativeTime <= x1 }?.sharpness
-    val intervalSharpness = sharpness.filter { x1 < it.relativeTime && it.relativeTime < x2 }
+    val startSharpness = sharpness.findLast { it.time <= x1 }?.value
+    val intervalSharpness = sharpness.filter { x1 < it.time && it.time < x2 }
 
-    val resultSharpness = ArrayList<SharpnessPoint>()
+    val resultSharpness = ArrayList<PatternPoint>()
 
     startSharpness?.let {
-      val point = SharpnessPoint(x1, it)
+      val point = PatternPoint(x1.toFloat(), it)
       resultSharpness.add(point)
     } ?: { Log.w(TAG, "This should not happen.") }
 
@@ -275,7 +274,7 @@ fun getSharpnessFromInterval(
   }
 }
 
-private fun deleteRedundantHorizontalLinePoints(points: ArrayList<IntensityPoint>) {
+private fun deleteRedundantHorizontalLinePoints(points: List<PatternPoint>) {
   val indexesToDelete = ArrayList<Int>()
   val nPoints = points.size
 
@@ -284,35 +283,35 @@ private fun deleteRedundantHorizontalLinePoints(points: ArrayList<IntensityPoint
     val currPoint = points[index]
     val nextPoint = points[index + 1]
 
-    if (prevPoint.intensity == currPoint.intensity && currPoint.intensity == nextPoint.intensity) {
+    if (prevPoint.value == currPoint.value && currPoint.value == nextPoint.value) {
       indexesToDelete.add(index)
     }
   }
 
-  indexesToDelete.reversed().forEach { points.removeAt(it) }
+  indexesToDelete.reversed().forEach { (points as MutableList).removeAt(it) }
 }
 
-private fun deleteRedundantSharpness(sharpness: ArrayList<SharpnessPoint>) {
+private fun deleteRedundantSharpness(sharpness: List<PatternPoint>) {
   val indexesToDelete = ArrayList<Int>()
   val nPoints = sharpness.size
 
-  for (index in 1..nPoints - 1) {
+  for (index in 1..< nPoints) {
     val prevPoint = sharpness[index - 1]
     val currPoint = sharpness[index]
 
-    if (prevPoint.sharpness == currPoint.sharpness) {
+    if (prevPoint.value == currPoint.value) {
       indexesToDelete.add(index)
     }
   }
 
-  indexesToDelete.reversed().forEach { sharpness.removeAt(it) }
+  indexesToDelete.reversed().forEach { (sharpness as MutableList).removeAt(it) }
 }
 
-fun generatePlotFromBars(bars: ArrayList<Bar>): Plot {
+fun generatePlotFromBars(bars: List<Bar>): Plot {
   // create simple plot
-  val plotIntensity = arrayListOf(IntensityPoint(0, 0f), IntensityPoint(bars.last().x2, 0f))
+  val plotIntensity = arrayListOf(PatternPoint(0f, 0f), PatternPoint(bars.last().x2.toFloat(), 0f))
   val plotSharpness =
-    arrayListOf(SharpnessPoint(0, bars.firstOrNull()?.sharpness ?: DEFAULT_SHARPNESS))
+    arrayListOf(PatternPoint(0f, bars.firstOrNull()?.sharpness ?: DEFAULT_SHARPNESS))
 
   val plot = Plot(plotIntensity, plotSharpness)
 
@@ -322,7 +321,7 @@ fun generatePlotFromBars(bars: ArrayList<Bar>): Plot {
 fun generatePlotPoints(plot: Plot): ArrayList<PlotPoint> {
   val (intensity, sharpness) = plot
 
-  val firstSharpness = sharpness[0].sharpness
+  val firstSharpness = sharpness[0].value
   var prevSharpness = firstSharpness
 
   val plotPoints = ArrayList<PlotPoint>()
@@ -334,8 +333,8 @@ fun generatePlotPoints(plot: Plot): ArrayList<PlotPoint> {
     // add currPoint
     val currPlotPoint =
       PlotPoint(
-        currPoint.relativeTime,
-        currPoint.intensity,
+        currPoint.time.toLong(),
+        currPoint.value,
         if (i == 0) firstSharpness else prevSharpness,
       )
     plotPoints.add(currPlotPoint)
@@ -343,13 +342,13 @@ fun generatePlotPoints(plot: Plot): ArrayList<PlotPoint> {
     // duplicate point with changed sharpness if needed
     val currPlotSharpnessChange =
       sharpness.find {
-        currPoint.relativeTime == it.relativeTime && i != 0 && it.sharpness != prevSharpness
+        currPoint.time == it.time && i != 0 && it.value != prevSharpness
       } // omit index 0 and do not duplicate point for vertical lines
 
     currPlotSharpnessChange?.let {
-      val newSharpness = currPlotSharpnessChange.sharpness
+      val newSharpness = currPlotSharpnessChange.value
       val sharpnessChangePlotPoint =
-        PlotPoint(currPoint.relativeTime, currPoint.intensity, newSharpness)
+        PlotPoint(currPoint.time.toLong(), currPoint.value, newSharpness)
       plotPoints.add(sharpnessChangePlotPoint)
 
       prevSharpness = newSharpness
@@ -360,16 +359,16 @@ fun generatePlotPoints(plot: Plot): ArrayList<PlotPoint> {
       val line = Line(currPoint, nextPoint)
       val sharpnessOnLine =
         sharpness.filter {
-          currPoint.relativeTime < it.relativeTime && it.relativeTime < nextPoint.relativeTime
+          currPoint.time < it.time && it.time < nextPoint.time
         }
 
       sharpnessOnLine.forEach {
-        val newSharpness = it.sharpness
-        val sharpnessChangePoint = line.getPoint(it.relativeTime)
+        val newSharpness = it.value
+        val sharpnessChangePoint = line.getPoint(it.time.toLong())
 
         sharpnessChangePoint?.let { it ->
-          plotPoints += PlotPoint(it.relativeTime, it.intensity, prevSharpness)
-          plotPoints += PlotPoint(it.relativeTime, it.intensity, newSharpness)
+          plotPoints += PlotPoint(it.time.toLong(), it.value, prevSharpness)
+          plotPoints += PlotPoint(it.time.toLong(), it.value, newSharpness)
         } ?: run { Log.w(TAG, "This should not happen.") }
 
         prevSharpness = newSharpness
@@ -405,8 +404,8 @@ private fun removeVerticalMiddlePlotPoint(plotPoints: ArrayList<PlotPoint>) {
 
 fun convertImpulsesToBars(
   vibrationService: Vibrator,
-  impulses: ArrayList<Impulse>,
-): ArrayList<Bar> {
+  impulses: List<DiscretePoint>,
+): List<Bar> {
   val bars = impulses.map { convertImpulseToBar(vibrationService, it) }
   val resultBars = ArrayList<Bar>()
 
@@ -434,7 +433,7 @@ fun convertImpulsesToBars(
   return resultBars
 }
 
-private fun convertImpulseToBar(vibrationService: Vibrator, impulse: Impulse): Bar {
+private fun convertImpulseToBar(vibrationService: Vibrator, impulse: DiscretePoint): Bar {
   val isEnvelopeSupported =
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
       vibrationService.areEnvelopeEffectsSupported()
@@ -446,15 +445,15 @@ private fun convertImpulseToBar(vibrationService: Vibrator, impulse: Impulse): B
     if (isEnvelopeSupported) vibrationService.envelopeEffectInfo.minControlPointDurationMillis
     else DEFAULT_MIN_BAR_DURATION_MS
 
-  val ratio = 1 - impulse.sharpness
+  val ratio = 1 - impulse.frequency
   val duration = ratio * durationRange + minDuration
   val r = (duration / 2).toLong()
 
-  return Bar(max(0, impulse.x - r), impulse.x + r, impulse.intensity, impulse.sharpness)
+  return Bar(max(0, impulse.time.toLong() - r), impulse.time.toLong() + r, impulse.amplitude, impulse.frequency)
 }
 
-private fun convertLinesToIntensity(lines: ArrayList<Line>): ArrayList<IntensityPoint> {
-  val points = ArrayList<IntensityPoint>()
+private fun convertLinesToIntensity(lines: List<Line>): List<PatternPoint> {
+  val points = ArrayList<PatternPoint>()
 
   lines.forEach {
     points.add(it.point1)
@@ -464,7 +463,7 @@ private fun convertLinesToIntensity(lines: ArrayList<Line>): ArrayList<Intensity
   return ArrayList(points.distinct())
 }
 
-fun getBarsWithPauses(bars: ArrayList<Bar>): ArrayList<Bar> {
+fun getBarsWithPauses(bars: List<Bar>): List<Bar> {
   val barsWithPauses = ArrayList<Bar>()
   val n = bars.size
 

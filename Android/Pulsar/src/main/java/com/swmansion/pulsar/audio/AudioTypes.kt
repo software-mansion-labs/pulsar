@@ -1,31 +1,60 @@
 package com.swmansion.pulsar.audio
 
+import com.swmansion.pulsar.types.verifyIntensity
+import com.swmansion.pulsar.types.verifyRelativeTime
+import com.swmansion.pulsar.types.verifySharpness
+
 data class PatternPoint(
     val time: Float,
     val value: Float
-)
+) {
+    init {
+        verifyRelativeTime(time.toLong())
+        verifyIntensity(value)
+    }
+}
 
+/**
+ * Represents single vibration impulse.
+ *
+ * @param time relative time.
+ * @param amplitude value from range [0-1].
+ * @param frequency value from range (0-1]. Ignored for devices that do not support envelopes.
+ */
 data class DiscretePoint(
     val time: Float,
     val amplitude: Float,
     val frequency: Float
-)
+) {
+    init {
+        verifyRelativeTime(time.toLong())
+        verifyIntensity(amplitude)
+        verifySharpness(frequency)
+    }
+}
 
 data class ContinuesPattern(
     val amplitude: List<PatternPoint>,
     val frequency: List<PatternPoint>
-)
+) {
+    fun isEmpty(): Boolean {
+        return amplitude.isEmpty() && frequency.isEmpty()
+    }
+    fun isNotEmpty(): Boolean {
+        return !isEmpty()
+    }
+}
 
 data class PatternData(
     val continuesPattern: ContinuesPattern,
     val discretePattern: List<DiscretePoint>
 ) {
-    constructor(line: List<List<List<Double>>>, bar: List<List<Double>>) : this(
+    constructor(rawContinuesPattern: List<List<List<Double>>>, rawDiscretePattern: List<List<Double>>) : this(
         continuesPattern = ContinuesPattern(
-            amplitude = line[0].map { PatternPoint(time = it[0].toFloat(), value = it[1].toFloat()) },
-            frequency = line[1].map { PatternPoint(time = it[0].toFloat(), value = it[1].toFloat()) }
+            amplitude = rawContinuesPattern[0].map { PatternPoint(time = it[0].toFloat(), value = it[1].toFloat()) },
+            frequency = rawContinuesPattern[1].map { PatternPoint(time = it[0].toFloat(), value = it[1].toFloat()) }
         ),
-        discretePattern = bar.map { DiscretePoint(time = it[0].toFloat(), amplitude = it[1].toFloat(), frequency = it[2].toFloat()) }
+        discretePattern = rawDiscretePattern.map { DiscretePoint(time = it[0].toFloat(), amplitude = it[1].toFloat(), frequency = it[2].toFloat()) }
     )
 }
 

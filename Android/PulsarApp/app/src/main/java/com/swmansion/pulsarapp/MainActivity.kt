@@ -150,7 +150,7 @@ class MainActivity : ComponentActivity() {
 //                .build()
 //              )
 
-              val profile = vibrator?.frequencyProfile
+//              val profile = vibrator?.frequencyProfile
 
 //              vibrator.vibrate(VibrationEffect.BasicEnvelopeBuilder()
 //                .setInitialSharpness(0.0f)
@@ -175,28 +175,31 @@ class MainActivity : ComponentActivity() {
 //                .build()
 //              )
 
-              if (composer == null) {
-                composer = pulsar?.PatternComposer()
-              }
-              composer?.parsePattern(PatternData(
-                ContinuesPattern(
-                  listOf(
-                    PatternPoint(0f, 0f),
-                    PatternPoint(100f, 1f),
-                    PatternPoint(200f, 0f),
-                  ),
-                  listOf(
-                    PatternPoint(0f, 0f),
-                    PatternPoint(100f, 1f),
-                    PatternPoint(200f, 0f),
-                  )
-                ),
-                listOf(
-                  DiscretePoint(50f, 1f, 1f),
-                  DiscretePoint(150f, 1f, 1f),
-                )
-              ))
-              composer?.play()
+
+                pulsar?.Presets()?.Earthquake()
+
+//              if (composer == null) {
+//                composer = pulsar?.PatternComposer()
+//              }
+//              composer?.parsePattern(PatternData(
+//                ContinuesPattern(
+//                  listOf(
+//                    PatternPoint(0f, 0f),
+//                    PatternPoint(100f, 1f),
+//                    PatternPoint(200f, 0f),
+//                  ),
+//                  listOf(
+//                    PatternPoint(0f, 0f),
+//                    PatternPoint(100f, 1f),
+//                    PatternPoint(200f, 0f),
+//                  )
+//                ),
+//                listOf(
+//                  DiscretePoint(50f, 1f, 1f),
+//                  DiscretePoint(150f, 1f, 1f),
+//                )
+//              ))
+//              composer?.play()
             },
           ) {
             Text("mleko1")
@@ -278,7 +281,7 @@ class MainActivity : ComponentActivity() {
   private fun VibrationButton(preset: Preset) {
     Button(
       modifier = Modifier.padding(6.dp),
-      onClick = { pulsar?.engine?.playPresetVibration(preset) },
+      onClick = { /*pulsar?.engine?.playPresetVibration(preset)*/ },
     ) {
       Text(preset.name)
     }

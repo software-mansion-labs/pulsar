@@ -13,7 +13,7 @@ fun verifyIntensity(intensity: Float) {
 }
 
 fun verifySharpness(sharpness: Float) {
-  if (!(0 < sharpness && sharpness <= 1)) {
+  if (sharpness !in 0.0..1.0) {
     throw Exception("Sharpness must be from interval (0,1].")
   }
 }

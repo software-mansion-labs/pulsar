@@ -1,19 +1,5 @@
 package com.swmansion.pulsar.types
 
-data class IntensityPoint(val relativeTime: Long, var intensity: Float) {
-  init {
-    verifyRelativeTime(relativeTime)
-    verifyIntensity(intensity)
-  }
-}
-
-class SharpnessPoint(val relativeTime: Long, val sharpness: Float) {
-  init {
-    verifyRelativeTime(relativeTime)
-    verifySharpness(sharpness)
-  }
-}
-
 /**
  * Represents single control point of envelope builder.
  *

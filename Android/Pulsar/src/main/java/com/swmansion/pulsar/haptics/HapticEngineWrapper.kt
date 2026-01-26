@@ -3,12 +3,11 @@ package com.swmansion.pulsar.haptics
 import android.Manifest
 import android.content.Context
 import android.os.Build
+import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
-import com.swmansion.pulsar.types.Preset
 
 class HapticEngineWrapper(context: Context) {
 
@@ -37,17 +36,8 @@ class HapticEngineWrapper(context: Context) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     @RequiresPermission(value = "android.permission.VIBRATE")
-    fun playPresetVibration(preset: Preset) {
-        val vibrationEffect = hapticBuilder.createVibrationEffect(preset)
-
-        vibrationEffect?.let {
-            Log.i(TAG, "Vibrate...")
-            vibrationService.vibrate(it)
-        }
-    }
-
-    fun vibrate() {
-
+    fun vibrate(vibrationEffect: VibrationEffect) {
+        vibrationService.vibrate(vibrationEffect)
     }
 
     @RequiresPermission(Manifest.permission.VIBRATE)
@@ -56,6 +46,10 @@ class HapticEngineWrapper(context: Context) {
             return
         }
         vibrator?.cancel()
+    }
+
+    fun getHapticBuilder(): HapticBuilder {
+        return hapticBuilder
     }
 
     fun isAmplitudeSupported(): Boolean {

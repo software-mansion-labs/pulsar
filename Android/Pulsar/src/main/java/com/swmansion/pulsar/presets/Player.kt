@@ -1,18 +1,27 @@
 package com.swmansion.pulsar.presets
 
+import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import com.swmansion.pulsar.Pulsar
+import com.swmansion.pulsar.audio.PatternData
 import com.swmansion.pulsar.composers.PatternComposerImpl
 
-class Player(
-    private val haptics: Pulsar,
-    private val composer: PatternComposerImpl
+@RequiresApi(Build.VERSION_CODES.O)
+open class Player(
+    haptics: Pulsar,
+    pattern: PatternData,
 ) {
-    fun playPreset(presetName: String) {
-        val preset = haptics.Presets().getByName(presetName)
-        preset?.play()
+    private var composer: PatternComposerImpl = haptics.PatternComposer()
+
+    init {
+        composer.parsePattern(pattern)
     }
 
-    fun stop() {
-        composer.stop()
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    fun play() {
+        composer.play()
     }
+
 }

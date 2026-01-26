@@ -6,6 +6,7 @@ import android.os.Vibrator
 import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.swmansion.pulsar.audio.PatternData
 import com.swmansion.pulsar.types.Bar
 import com.swmansion.pulsar.types.ControlPoint
 import com.swmansion.pulsar.types.Plot
@@ -22,44 +23,35 @@ const val MAX_INT_AMPLITUDE = 255
 const val TAG = "Pulsar"
 
 class HapticBuilder(val vibrationService: Vibrator) {
-  fun createVibrationEffect(preset: Preset): VibrationEffect? {
-    val (_, impulses, plot) = preset
-    val bars = impulses?.let { convertImpulsesToBars(vibrationService, it) }
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun createVibrationEffect(preset: PatternData): VibrationEffect? {
+    val (continuesPattern, discretePattern) = preset
+    val plotPattern = Plot(continuesPattern.amplitude, continuesPattern.frequency)
+    val barsPattern = convertImpulsesToBars(vibrationService, discretePattern)
 
-    if (bars == null && plot == null) {
-      Log.w(TAG, "Vibration creation failed. No data in preset.")
-      return null
-    } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-      Log.w(TAG, "Vibration not supported on version before 26 yet.") // TODO: handle somehow
-      return null
+    if (discretePattern.isNotEmpty() && continuesPattern.isNotEmpty()) {
+      val complexWaveform = createComplexWaveform(plotPattern, barsPattern)
+
+      complexWaveform?.let { Log.i(TAG, "Complex vibration created.") }
+        ?: run { Log.w(TAG, "Complex vibration creation failed.") }
+
+      return complexWaveform
     } else {
-      if (bars != null && plot != null) {
-        val complexWaveform = createComplexWaveform(plot, bars)
-
-        complexWaveform?.let { Log.i(TAG, "Complex vibration created.") }
-          ?: run { Log.w(TAG, "Complex vibration creation failed.") }
-
-        return complexWaveform
+      if (discretePattern.isNotEmpty()) {
+        Log.i(TAG, "Vibration created based on bars.")
+        return createWaveformFromBars(barsPattern)
+      } else if (continuesPattern.isNotEmpty()) {
+        Log.i(TAG, "Vibration created based on points.")
+        return createWaveformFromPlot(plotPattern)
       } else {
-        val barsWaveform = bars?.let { createWaveformFromBars(it) }
-        val plotWaveform = plot?.let { createWaveformFromPlot(it) }
-
-        if (barsWaveform != null) {
-          Log.i(TAG, "Vibration created based on bars.")
-          return barsWaveform
-        } else if (plotWaveform != null) {
-          Log.i(TAG, "Vibration created based on points.")
-          return plotWaveform
-        } else {
-          Log.w(TAG, "Vibration creation failed.")
-          return null
-        }
+        Log.w(TAG, "Vibration creation failed.")
+        return null
       }
     }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createWaveformFromBars(bars: ArrayList<Bar>): VibrationEffect {
+  private fun createWaveformFromBars(bars: List<Bar>): VibrationEffect {
     return if (areEnvelopesSupported()) {
       val plot = generatePlotFromBars(bars)
       createEnvelopeWaveform(plot)
@@ -78,13 +70,13 @@ class HapticBuilder(val vibrationService: Vibrator) {
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createComplexWaveform(plot: Plot, bars: ArrayList<Bar>): VibrationEffect? {
+  private fun createComplexWaveform(plot: Plot, bars: List<Bar>): VibrationEffect? {
     val complexPlot = generateComplexPlot(plot, bars)
     return createWaveformFromPlot(complexPlot)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun createWaveform(bars: ArrayList<Bar>): VibrationEffect {
+  private fun createWaveform(bars: List<Bar>): VibrationEffect {
       printBarsToPlot(bars)
 
     val barsWithPauses = getBarsWithPauses(bars)
@@ -107,11 +99,11 @@ class HapticBuilder(val vibrationService: Vibrator) {
   private fun createEnvelopeWaveform(plot: Plot): VibrationEffect {
     val points = generatePlotPoints(plot)
 
-    val expectedVibrationTime = plot.intensity.last().relativeTime
+    val expectedVibrationTime = plot.intensity.last().time.toLong()
     val controlPoints =
       getShortenControlPoints(expectedVibrationTime, convertPointsToControlPoints(points))
 
-    val initialSharpness = plot.sharpness[0].sharpness
+    val initialSharpness = plot.sharpness[0].value
 
       printPointsToPlot(points)
       printControlPointsToPlot(controlPoints)
@@ -199,7 +191,7 @@ class HapticBuilder(val vibrationService: Vibrator) {
     var leftTime = timeDiff - valuesSum
 
     val nSubtractableItems = subtractableItems.size
-    for (i in 0..nSubtractableItems - 1) {
+    for (i in 0..<nSubtractableItems) {
       if (leftTime == 0L) {
         break
       }
