@@ -24,14 +24,14 @@ class PatternComposer(
     }
 
     fun parsePattern(hapticsData: PatternData) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrationEffect = engine.getHapticBuilder().createVibrationEffect(hapticsData)
         }
-//        audioBuffer = audioSimulator.parsePattern(hapticsData)
+        audioBuffer = audioSimulator.parsePattern(hapticsData)
     }
 
     fun play() {
-//        audioSimulator.play(audioBuffer)
+        audioSimulator.play(audioBuffer)
         vibrationEffect?.let { engine.vibrate(it) }
     }
 

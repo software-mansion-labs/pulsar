@@ -6,6 +6,7 @@ import com.swmansion.pulsar.composers.PatternComposer
 import com.swmansion.pulsar.composers.RealtimeComposer
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
 import com.swmansion.pulsar.presets.PresetsWrapper
+import com.swmansion.pulsar.types.CompatibilityMode
 import com.swmansion.pulsar.types.RealtimeComposerStrategy
 
 class Pulsar(context: Context) {
@@ -49,5 +50,9 @@ class Pulsar(context: Context) {
             realtimeComposer = RealtimeComposer(engine, strategy)
         }
         return realtimeComposer!!
+    }
+
+    fun simulateCompatibilityMode(compatibilityMode: CompatibilityMode) {
+        engine.simulateCompatibilityMode(compatibilityMode)
     }
 }

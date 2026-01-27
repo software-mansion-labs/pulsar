@@ -2,9 +2,7 @@ package com.swmansion.pulsar.audio
 
 import android.media.AudioAttributes
 import android.media.AudioFormat
-import android.media.AudioManager
 import android.media.AudioTrack
-import android.os.Build
 import com.swmansion.pulsar.types.AudioDataConfig
 import com.swmansion.pulsar.types.AudioPatternConfig
 import com.swmansion.pulsar.types.ContinuousAudioConfig
@@ -16,6 +14,11 @@ import com.swmansion.pulsar.types.PatternData
 import com.swmansion.pulsar.types.ValuePoint
 import com.swmansion.pulsar.types.WaveformType
 import kotlin.math.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 class AudioSimulator {
     companion object {
@@ -30,6 +33,8 @@ class AudioSimulator {
     private var audioTrack: AudioTrack? = null
     private var isInitialized = false
     private var playSound: Boolean = true
+    private val audioScope = CoroutineScope(Dispatchers.IO)
+    private val audioMutex = Mutex()
 
     init {
         configureAudioContext()
@@ -53,12 +58,26 @@ class AudioSimulator {
     fun play(buffer: ByteArray?) {
         if (buffer == null || !playSound) return
 
-        if (audioTrack == null) {
-            configureAudioContext()
-        }
+        audioScope.launch {
+            audioMutex.withLock {
+                try {
+                    if (audioTrack == null) {
+                        configureAudioContext()
+                    }
 
-        audioTrack?.write(buffer, 0, buffer.size)
-        audioTrack?.play()
+                    audioTrack?.apply {
+                        if (playState == AudioTrack.PLAYSTATE_PLAYING) {
+                            stop()
+                            flush()
+                        }
+                        write(buffer, 0, buffer.size)
+                        play()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     private fun configureAudioContext() {
@@ -70,7 +89,7 @@ class AudioSimulator {
             AudioFormat.ENCODING_PCM_16BIT
         )
 
-        audioTrack = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        audioTrack =
             AudioTrack.Builder()
                 .setAudioAttributes(
                     AudioAttributes.Builder()
@@ -87,17 +106,6 @@ class AudioSimulator {
                 )
                 .setBufferSizeInBytes(minBufferSize * 2)
                 .build()
-        } else {
-            @Suppress("DEPRECATION")
-            AudioTrack(
-                AudioManager.STREAM_MUSIC,
-                sampleRate.toInt(),
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT,
-                minBufferSize * 2,
-                AudioTrack.MODE_STREAM
-            )
-        }
 
         isInitialized = true
     }

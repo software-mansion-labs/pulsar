@@ -8,6 +8,7 @@ import android.os.Vibrator
 import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.swmansion.pulsar.types.CompatibilityMode
 
 class HapticEngineWrapper(context: Context) {
 
@@ -73,5 +74,9 @@ class HapticEngineWrapper(context: Context) {
         } else {
             return null
         }
+    }
+
+    fun simulateCompatibilityMode(compatibilityMode: CompatibilityMode) {
+        hapticBuilder.simulateCompatibilityMode(compatibilityMode)
     }
 }

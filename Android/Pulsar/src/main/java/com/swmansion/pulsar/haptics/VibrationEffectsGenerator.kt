@@ -4,20 +4,25 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.vibrator.VibratorFrequencyProfile
 import androidx.annotation.RequiresApi
+import com.swmansion.pulsar.types.CompatibilityMode
 import com.swmansion.pulsar.types.ControlPoint
 import kotlin.collections.plus
 import kotlin.math.roundToInt
 
 class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
+
+    private var compatibilityMode = CompatibilityMode.MINIMAL_SUPPORT
+
+    @RequiresApi(Build.VERSION_CODES.O)
     fun convertToVibrationEffect(controlPoints: List<ControlPoint>) : VibrationEffect {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-            if (engine.isFrequencyProfileSupported()) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA && compatibilityMode >= CompatibilityMode.STANDARD_SUPPORT) {
+            if (engine.isFrequencyProfileSupported() && compatibilityMode == CompatibilityMode.ADVANCED_SUPPORT) {
                 convertToAdvanceEnvelope(controlPoints)
             } else {
                 convertToBasicEnvelope(controlPoints)
             }
         } else {
-            if (engine.isAmplitudeSupported()) {
+            if (engine.isAmplitudeSupported() && compatibilityMode >= CompatibilityMode.LIMITED_SUPPORT) {
                 convertToAmplitudeWaveform(controlPoints)
             } else {
                 convertToTimingWaveform(controlPoints)
@@ -37,7 +42,7 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
             builder.addControlPoint(
                     it.intensity,
                     getSharpnessInHz(it.sharpness, frequencyProfile),
-                toMillis(it.duration),
+                    toMillis(it.duration),
                 )
         }
 
@@ -84,10 +89,19 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun convertToTimingWaveform(controlPoints: List<ControlPoint>): VibrationEffect {
-        var timings = longArrayOf()
+        var timings = longArrayOf(0)
+        var isVibrating = false
 
         controlPoints.forEach {
-            timings += toMillis(it.duration)
+            val duration = toMillis(it.duration)
+            val shouldVibrate = it.intensity > 0
+
+            if (shouldVibrate != isVibrating) {
+            timings += duration
+            isVibrating = shouldVibrate
+            } else if (timings.isNotEmpty()) {
+            timings[timings.lastIndex] += duration
+            }
         }
 
         return VibrationEffect.createWaveform(timings, -1)
@@ -95,5 +109,9 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
 
     private fun toMillis(s: Float): Long {
         return (s * 1000).toLong()
+    }
+
+    fun simulateCompatibilityMode(compatibilityMode: CompatibilityMode) {
+        this.compatibilityMode = compatibilityMode
     }
 }
