@@ -77,4 +77,8 @@ public class HapticEngineWrapper {
     return nil
   }
   
+  func isHapticsSupported() -> Bool {
+    return CHHapticEngine.capabilitiesForHardware().supportsHaptics
+  }
+  
 }
