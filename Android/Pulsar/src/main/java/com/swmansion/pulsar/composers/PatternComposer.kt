@@ -14,13 +14,12 @@ class PatternComposer(
     private var audioBuffer: ByteArray? = null
 
     fun parseJSON(jsonData: String): PatternData? {
-        return null
-//        return try {
-////            Json.decodeFromString<PatternData>(jsonData)
-//        } catch (e: Exception) {
-//            Log.e("PatternComposer", "Error parsing JSON: ${e.message}")
-//            null
-//        }
+        return try {
+            Json.decodeFromString<PatternData>(jsonData)
+        } catch (e: Exception) {
+            Log.e("PatternComposer", "Error parsing JSON: ${e.message}")
+            null
+        }
     }
 
     fun parsePattern(hapticsData: PatternData) {
