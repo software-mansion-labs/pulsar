@@ -1,35 +1,29 @@
 package com.swmansion.pulsar.composers
 
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
+import com.swmansion.pulsar.types.RealtimeComposable
+import com.swmansion.pulsar.types.RealtimeComposerStrategy
 
 class RealtimeComposer(
-    private val engine: HapticEngineWrapper
-) {
-    private var isPlaying = false
-    private var initialized = false
+    engine: HapticEngineWrapper,
+    strategy: RealtimeComposerStrategy = RealtimeComposerStrategy.ENVELOPE,
+) : RealtimeComposable {
 
-    fun start(amplitude: Float = 0.5f, frequency: Float = 0.5f) {
-        if (initialized && isPlaying) {
-            stop()
-        }
-        isPlaying = true
-        initialized = true
-
+    var delegate: RealtimeComposable = if (strategy == RealtimeComposerStrategy.ENVELOPE) {
+        RealtimeEnvelopeComposer(engine)
+    } else {
+        RealtimePrimitiveComposer(engine, strategy)
     }
 
-    fun update(amplitude: Float, frequency: Float) {
-        if (!isPlaying) {
-            start(amplitude = amplitude, frequency = frequency)
-        }
-
+    override fun update(amplitude: Float, frequency: Float) {
+        delegate.update(amplitude, frequency)
     }
 
-    fun stop() {
-        if (!isPlaying) return
-
-//        engine.stop()
-        isPlaying = false
+    override fun stop() {
+        delegate.stop()
     }
 
-    fun isActive(): Boolean = isPlaying
+    override fun isActive(): Boolean {
+        return delegate.isActive()
+    }
 }

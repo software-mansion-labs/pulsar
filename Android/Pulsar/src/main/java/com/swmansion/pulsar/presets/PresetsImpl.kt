@@ -61,7 +61,6 @@ class FailPreset(private val haptics: Pulsar) : Preset {
         override val name = "Fail"
     }
 
-    @RequiresPermission(Manifest.permission.VIBRATE)
     override fun play() {
         val hapticData = PatternData(
             rawContinuesPattern = listOf(
@@ -82,7 +81,6 @@ class TapPreset(private val haptics: Pulsar) : Preset {
     companion object: PresetWithName {
         override val name = "Tap"
     }
-    @RequiresPermission(Manifest.permission.VIBRATE)
     override fun play() {
         val hapticData = PatternData(
             rawContinuesPattern = listOf(
@@ -101,7 +99,6 @@ class SystemImpactLightPreset(private val haptics: Pulsar) : Preset {
     companion object: PresetWithName {
         override val name = "SystemImpactLight"
     }
-    @RequiresPermission(Manifest.permission.VIBRATE)
     override fun play() {
         // TODO
         val hapticData = PatternData(

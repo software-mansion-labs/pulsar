@@ -6,12 +6,13 @@ import com.swmansion.pulsar.composers.PatternComposer
 import com.swmansion.pulsar.composers.RealtimeComposer
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
 import com.swmansion.pulsar.presets.PresetsWrapper
+import com.swmansion.pulsar.types.RealtimeComposerStrategy
 
 class Pulsar(context: Context) {
     val engine = HapticEngineWrapper(context)
     private val audioSimulator = AudioSimulator()
     private var presets: PresetsWrapper? = null
-    private val realtimeComposer: RealtimeComposer = RealtimeComposer(engine)
+    private var realtimeComposer: RealtimeComposer? = null
 
     fun getPresets(): PresetsWrapper {
         if (presets == null) {
@@ -43,7 +44,10 @@ class Pulsar(context: Context) {
         return PatternComposer(engine, audioSimulator)
     }
 
-    fun getRealtimeComposer(): RealtimeComposer {
-        return realtimeComposer
+    fun getRealtimeComposer(strategy: RealtimeComposerStrategy = RealtimeComposerStrategy.ENVELOPE): RealtimeComposer {
+        if (realtimeComposer == null) {
+            realtimeComposer = RealtimeComposer(engine, strategy)
+        }
+        return realtimeComposer!!
     }
 }

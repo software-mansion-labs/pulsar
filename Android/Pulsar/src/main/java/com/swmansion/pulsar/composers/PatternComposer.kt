@@ -32,13 +32,11 @@ class PatternComposer(
         audioBuffer = audioSimulator.parsePattern(hapticsData)
     }
 
-    @RequiresPermission(Manifest.permission.VIBRATE)
     fun play() {
         audioSimulator.play(audioBuffer)
         vibrationEffect?.let { engine.vibrate(it) }
     }
 
-    @RequiresPermission(Manifest.permission.VIBRATE)
     fun stop() {
         engine.stop()
     }

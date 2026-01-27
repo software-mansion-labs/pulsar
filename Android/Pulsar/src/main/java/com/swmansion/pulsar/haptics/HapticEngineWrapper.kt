@@ -7,7 +7,6 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.vibrator.VibratorFrequencyProfile
 import android.util.Log
-import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 
 class HapticEngineWrapper(context: Context) {
@@ -35,7 +34,6 @@ class HapticEngineWrapper(context: Context) {
         }
     }
 
-    @RequiresPermission(value = "android.permission.VIBRATE")
     fun vibrate(vibrationEffect: VibrationEffect) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrationService.vibrate(vibrationEffect)
@@ -44,7 +42,6 @@ class HapticEngineWrapper(context: Context) {
         }
     }
 
-    @RequiresPermission(Manifest.permission.VIBRATE)
     fun stop() {
         if (!initialized) {
             return

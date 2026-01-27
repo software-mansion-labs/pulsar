@@ -16,7 +16,6 @@ open class Player(
         composer.parsePattern(pattern)
     }
 
-    @RequiresPermission(Manifest.permission.VIBRATE)
     fun play() {
         composer.play()
     }
