@@ -13,8 +13,8 @@ class EarthquakePreset(haptics: Pulsar) :
         rawContinuesPattern = listOf(
 //            listOf(),
 //            listOf(),
-            listOf(listOf(0.1f, 0.3f), listOf(0.5f, 0.5f)),
-            listOf(listOf(0.1f, 0.3f), listOf(0.5f, 0.5f)),
+            listOf(listOf(0.1f, 0.3f), listOf(1.5f, 0.3f)),
+            listOf(listOf(0.1f, 0.3f), listOf(1.5f, 0.3f)),
 //            listOf(listOf(0.1 * 1000, 0.5), listOf(0.5 * 1000, 0.5))
 //            listOf(listOf(0.0 * 1000, 1.0), listOf(0.5 * 1000, 0.5), listOf(0.6 * 1000, 0.5)),
 //            listOf(listOf(0.0 * 1000, 0.5), listOf(0.5 * 1000, 0.5), listOf(0.6 * 1000, 0.5))
@@ -24,11 +24,11 @@ class EarthquakePreset(haptics: Pulsar) :
 //            listOf(),
 //        ),
         rawDiscretePattern = listOf(
-            listOf(0.1f, 0.9f, 0.5f),
-            listOf(0.2f, 0.8f, 0.5f),
-            listOf(0.8f, 0.8f, 0.5f),
-            listOf(1.0f, 0.8f, 0.5f),
-            listOf(1.5f, 1.0f, 1.0f),
+//            listOf(0.1f, 0.9f, 0.5f),
+//            listOf(0.2f, 0.8f, 0.5f),
+//            listOf(0.8f, 0.8f, 0.5f),
+            listOf(1.0f, 1.0f, 1.0f),
+//            listOf(1.5f, 1.0f, 1.0f),
         )
     )) {
     companion object: PresetWithName {

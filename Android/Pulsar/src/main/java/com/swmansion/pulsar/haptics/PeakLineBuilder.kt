@@ -40,13 +40,13 @@ class PeakLineBuilder() {
     }
 
     private fun peakTiming(time: Float): List<Float> {
-        val slopeDuration = 20
-        val peakDuration = 10
+        val slopeDuration = 15f / 1000
+        val peakDuration = 10f / 1000
         return listOf(
             time - slopeDuration - peakDuration / 2,
             time - peakDuration / 2,
             time + peakDuration / 2,
-            time + peakDuration / 2 + 1,
+            time + peakDuration / 2 + 0.001f,
         )
     }
 }

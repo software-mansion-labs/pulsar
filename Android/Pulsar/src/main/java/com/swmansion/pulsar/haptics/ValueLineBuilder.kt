@@ -25,8 +25,8 @@ class ValueLineBuilder(initialList: List<ValuePoint>? = null) {
         if (points.isEmpty()) return 0f
         if (points.any { it.time == x }) return points.first { it.time == x }.value
         if (points.size == 1) return points[0].value
-        if (x <= points.first().time) return points.first().value
-        if (x >= points.last().time) return points.last().value
+        if (x <= points.first().time) return 0f
+        if (x >= points.last().time) return 0f
 
         val nextPointIndex = points.indexOfFirst { it.time > x }
         val prevPoint = points[nextPointIndex - 1]
