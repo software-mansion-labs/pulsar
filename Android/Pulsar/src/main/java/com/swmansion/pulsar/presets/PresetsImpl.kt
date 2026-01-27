@@ -11,10 +11,10 @@ class EarthquakePreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuesPattern = listOf(
-            listOf(),
-            listOf(),
-//            listOf(listOf(0.1 * 1000, 0.5), listOf(0.5 * 1000, 0.5))
-//            listOf(listOf(0.1 * 1000, 1.0), listOf(0.5 * 1000, 0.5)),
+//            listOf(),
+//            listOf(),
+            listOf(listOf(0.1f, 0.3f), listOf(0.5f, 0.5f)),
+            listOf(listOf(0.1f, 0.3f), listOf(0.5f, 0.5f)),
 //            listOf(listOf(0.1 * 1000, 0.5), listOf(0.5 * 1000, 0.5))
 //            listOf(listOf(0.0 * 1000, 1.0), listOf(0.5 * 1000, 0.5), listOf(0.6 * 1000, 0.5)),
 //            listOf(listOf(0.0 * 1000, 0.5), listOf(0.5 * 1000, 0.5), listOf(0.6 * 1000, 0.5))
@@ -24,11 +24,11 @@ class EarthquakePreset(haptics: Pulsar) :
 //            listOf(),
 //        ),
         rawDiscretePattern = listOf(
-            listOf(0.1 * 1000, 0.9, 0.5),
-            listOf(0.2 * 1000, 0.8, 0.5),
-            listOf(0.8 * 1000, 0.8, 0.5),
-            listOf(1.0 * 1000, 0.8, 0.5),
-            listOf(1.5 * 1000, 1.0, 1.0),
+            listOf(0.1f, 0.9f, 0.5f),
+            listOf(0.2f, 0.8f, 0.5f),
+            listOf(0.8f, 0.8f, 0.5f),
+            listOf(1.0f, 0.8f, 0.5f),
+            listOf(1.5f, 1.0f, 1.0f),
         )
     )) {
     companion object: PresetWithName {
@@ -40,8 +40,8 @@ class SuccessPreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuesPattern = listOf(
-            listOf(listOf(0.1 * 1000, 1.0), listOf(0.5 * 1000, 0.5), listOf(1.6 * 1000, 0.0)),
-            listOf(listOf(0.1 * 1000, 0.5), listOf(0.5 * 1000, 0.5), listOf(1.6 * 1000, 0.0))
+            listOf(listOf(0.1f, 1.0f), listOf(0.5f, 0.5f), listOf(1.6f, 0.0f)),
+            listOf(listOf(0.1f, 0.5f), listOf(0.5f, 0.5f), listOf(1.6f, 0.0f))
         ),
         rawDiscretePattern = listOf(
 //            listOf(0.1 * 2000, 0.9, 0.5),
@@ -64,13 +64,13 @@ class FailPreset(private val haptics: Pulsar) : Preset {
     override fun play() {
         val hapticData = PatternData(
             rawContinuesPattern = listOf(
-                listOf(listOf(0.0, 1.0), listOf(0.5, 1.0)),
-                listOf(listOf(0.0, 0.3), listOf(0.5, 0.3))
+                listOf(listOf(0.0f, 1.0f), listOf(0.5f, 1.0f)),
+                listOf(listOf(0.0f, 0.3f), listOf(0.5f, 0.3f))
             ),
             rawDiscretePattern = listOf(
-                listOf(0.0, 1.0, 0.3),
-                listOf(0.15, 1.0, 0.3),
-                listOf(0.3, 1.0, 0.3)
+                listOf(0.0f, 1.0f, 0.3f),
+                listOf(0.15f, 1.0f, 0.3f),
+                listOf(0.3f, 1.0f, 0.3f)
             )
         )
 //        haptics.PatternComposer().playPattern(hapticData)
@@ -84,10 +84,10 @@ class TapPreset(private val haptics: Pulsar) : Preset {
     override fun play() {
         val hapticData = PatternData(
             rawContinuesPattern = listOf(
-                listOf(listOf(0.0, 1.0)),
-                listOf(listOf(0.0, 0.5))
+                listOf(listOf(0.0f, 1.0f)),
+                listOf(listOf(0.0f, 0.5f))
             ),
-            rawDiscretePattern = listOf(listOf(0.0, 1.0, 0.5))
+            rawDiscretePattern = listOf(listOf(0.0f, 1.0f, 0.5f))
         )
 //        haptics.PatternComposer().playPattern(hapticData)
     }
@@ -103,10 +103,10 @@ class SystemImpactLightPreset(private val haptics: Pulsar) : Preset {
         // TODO
         val hapticData = PatternData(
             rawContinuesPattern = listOf(
-                listOf(listOf(0.0, 0.3), listOf(0.1, 0.0)),
-                listOf(listOf(0.0, 0.5), listOf(0.1, 0.5))
+                listOf(listOf(0.0f, 0.3f), listOf(0.1f, 0.0f)),
+                listOf(listOf(0.0f, 0.5f), listOf(0.1f, 0.5f))
             ),
-            rawDiscretePattern = listOf(listOf(0.0, 0.3, 0.5))
+            rawDiscretePattern = listOf(listOf(0.0f, 0.3f, 0.5f))
         )
 //        haptics.PatternComposer().playPattern(hapticData)
     }

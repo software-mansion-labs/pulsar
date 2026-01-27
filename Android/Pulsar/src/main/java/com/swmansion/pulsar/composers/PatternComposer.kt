@@ -1,9 +1,7 @@
 package com.swmansion.pulsar.composers
 
-import android.Manifest
 import android.os.Build
 import android.os.VibrationEffect
-import androidx.annotation.RequiresPermission
 import com.swmansion.pulsar.audio.AudioSimulator
 import com.swmansion.pulsar.types.PatternData
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
@@ -29,11 +27,11 @@ class PatternComposer(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
             vibrationEffect = engine.getHapticBuilder().createVibrationEffect(hapticsData)
         }
-        audioBuffer = audioSimulator.parsePattern(hapticsData)
+//        audioBuffer = audioSimulator.parsePattern(hapticsData)
     }
 
     fun play() {
-        audioSimulator.play(audioBuffer)
+//        audioSimulator.play(audioBuffer)
         vibrationEffect?.let { engine.vibrate(it) }
     }
 

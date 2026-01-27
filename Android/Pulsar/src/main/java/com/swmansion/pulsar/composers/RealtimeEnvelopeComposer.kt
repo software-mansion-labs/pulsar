@@ -59,7 +59,7 @@ class RealtimeEnvelopeComposer(
         schedulerJob = scope.launch {
             while (isPlaying) {
                 val effect = vibrationEffectsGenerator.convertToVibrationEffect(listOf(
-                    ControlPoint(currentAmplitude, currentFrequency, SEGMENT_DURATION_MS)
+                    ControlPoint(currentAmplitude, currentFrequency, SEGMENT_DURATION_MS.toFloat())
                 ))
                 engine.vibrate(effect)
                 delay(SEGMENT_DURATION_MS)

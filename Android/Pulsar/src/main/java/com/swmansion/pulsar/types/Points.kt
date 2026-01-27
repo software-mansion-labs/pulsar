@@ -5,7 +5,7 @@ package com.swmansion.pulsar.types
  * @param sharpness should be value from [0-1].
  * @param duration transition time in ms.
  */
-data class ControlPoint(val intensity: Float, val sharpness: Float, val duration: Long)
+data class ControlPoint(val intensity: Float, val sharpness: Float, val duration: Float)
 
 /**
  *
@@ -37,11 +37,11 @@ data class PatternData(
   val continuesPattern: ContinuesPattern,
   val discretePattern: List<ConfigPoint>
 ) {
-  constructor(rawContinuesPattern: List<List<List<Double>>>, rawDiscretePattern: List<List<Double>>) : this(
+  constructor(rawContinuesPattern: List<List<List<Float>>>, rawDiscretePattern: List<List<Float>>) : this(
     continuesPattern = ContinuesPattern(
-      amplitude = rawContinuesPattern[0].map { ValuePoint(time = it[0].toFloat(), value = it[1].toFloat()) },
-      frequency = rawContinuesPattern[1].map { ValuePoint(time = it[0].toFloat(), value = it[1].toFloat()) }
+      amplitude = rawContinuesPattern[0].map { ValuePoint(time = it[0], value = it[1]) },
+      frequency = rawContinuesPattern[1].map { ValuePoint(time = it[0], value = it[1]) }
     ),
-    discretePattern = rawDiscretePattern.map { ConfigPoint(time = it[0].toFloat(), amplitude = it[1].toFloat(), frequency = it[2].toFloat()) }
+    discretePattern = rawDiscretePattern.map { ConfigPoint(time = it[0], amplitude = it[1], frequency = it[2]) }
   )
 }

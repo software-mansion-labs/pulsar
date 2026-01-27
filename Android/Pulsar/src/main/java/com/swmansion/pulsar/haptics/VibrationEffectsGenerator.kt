@@ -37,7 +37,7 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
             builder.addControlPoint(
                     it.intensity,
                     getSharpnessInHz(it.sharpness, frequencyProfile),
-                    it.duration,
+                toMillis(it.duration),
                 )
         }
 
@@ -58,12 +58,12 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
     private fun convertToBasicEnvelope(controlPoints: List<ControlPoint>): VibrationEffect {
         val builder = VibrationEffect.BasicEnvelopeBuilder()
 
-        val initialSharpness = controlPoints[0].sharpness
+        val initialSharpness = controlPoints.first().sharpness
 
         controlPoints.forEach {
             builder
                 .setInitialSharpness(initialSharpness)
-                .addControlPoint(it.intensity, it.sharpness, it.duration)
+                .addControlPoint(it.intensity, it.sharpness, toMillis(it.duration))
         }
 
         return builder.build()
@@ -75,7 +75,7 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
         var amplitudes = intArrayOf()
         val maxAmplitude = 255
         controlPoints.forEach {
-            timings += it.duration
+            timings += toMillis(it.duration)
             amplitudes += (it.intensity * maxAmplitude).roundToInt()
         }
 
@@ -87,9 +87,13 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
         var timings = longArrayOf()
 
         controlPoints.forEach {
-            timings += it.duration
+            timings += toMillis(it.duration)
         }
 
         return VibrationEffect.createWaveform(timings, -1)
+    }
+
+    private fun toMillis(s: Float): Long {
+        return (s * 1000).toLong()
     }
 }

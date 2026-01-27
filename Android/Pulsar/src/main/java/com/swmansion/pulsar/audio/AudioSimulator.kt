@@ -43,7 +43,7 @@ class AudioSimulator {
             continuousData = generateContinuousAudioConfig(data)
         )
 
-        return renderPattern(config = currentConfig)
+        return renderPattern(currentConfig)
     }
 
     fun enableSound(value: Boolean) {
@@ -178,7 +178,7 @@ class AudioSimulator {
                         ),
                         waveform = WaveformType.SINE
                     ),
-                    timestamp = discretePoint.time.toDouble() / 1000.0,
+                    timestamp = discretePoint.time.toDouble(),
                     volume = volume
                 )
             )
@@ -203,7 +203,7 @@ class AudioSimulator {
                         ),
                         waveform = WaveformType.SINE
                     ),
-                    timestamp = discretePoint.time.toDouble() / 1000.0,
+                    timestamp = discretePoint.time.toDouble(),
                     volume = volume
                 )
             )
@@ -213,41 +213,35 @@ class AudioSimulator {
     }
 
     private fun generateContinuousAudioConfig(data: PatternData): List<ContinuousAudioConfig> {
-        val amplitudePoints = if (data.continuesPattern.amplitude.isNotEmpty()) {
-            data.continuesPattern.amplitude
-        } else {
+        val amplitudePoints = data.continuesPattern.amplitude.ifEmpty {
+            emptyList()
+        }
+        val frequencyPoints = data.continuesPattern.frequency.ifEmpty {
             emptyList()
         }
 
-        val frequencyPoints = if (data.continuesPattern.frequency.size > 1) {
-            data.continuesPattern.frequency
-        } else {
-            emptyList()
-        }
-
-        fun normalizeFrequencyForContinuous(x: Float): Double {
-            return CONTINUOUS_FREQUENCY_MIN + (CONTINUOUS_FREQUENCY_MAX - CONTINUOUS_FREQUENCY_MIN) * x
+        fun normalizeFrequencyForContinuous(x: Float): Float {
+            return (CONTINUOUS_FREQUENCY_MIN + (CONTINUOUS_FREQUENCY_MAX - CONTINUOUS_FREQUENCY_MIN) * x).toFloat()
         }
 
         fun applyModifiers(
             amplitude: List<ValuePoint>,
             frequency: List<ValuePoint>,
-            ampMod: Double,
-            freqMod: Double
+            ampMod: Float,
+            freqMod: Float
         ): Pair<List<ValuePoint>, List<ValuePoint>> {
             val modifiedAmplitude = amplitude.map { point ->
-                ValuePoint(point.time, (point.value * ampMod).toFloat())
+                ValuePoint(point.time, point.value * ampMod)
             }
             val modifiedFrequency = frequency.map { point ->
-                ValuePoint(point.time, (normalizeFrequencyForContinuous(point.value) * freqMod).toFloat())
+                ValuePoint(point.time, (normalizeFrequencyForContinuous(point.value) * freqMod))
             }
             return Pair(modifiedAmplitude, modifiedFrequency)
         }
 
         val configs = mutableListOf<ContinuousAudioConfig>()
 
-        // Sine wave with 0.6 amplitude mod and 0.8 frequency mod
-        val (amp1, freq1) = applyModifiers(amplitudePoints, frequencyPoints, 0.6, 0.8)
+        val (amp1, freq1) = applyModifiers(amplitudePoints, frequencyPoints, 0.6f, 0.8f)
         configs.add(
             ContinuousAudioConfig(
                 type = "sine",
@@ -255,8 +249,7 @@ class AudioSimulator {
             )
         )
 
-        // Triangle wave with 0.2 amplitude mod and 0.4 frequency mod
-        val (amp2, freq2) = applyModifiers(amplitudePoints, frequencyPoints, 0.2, 0.4)
+        val (amp2, freq2) = applyModifiers(amplitudePoints, frequencyPoints, 0.2f, 0.4f)
         configs.add(
             ContinuousAudioConfig(
                 type = "triangle",
@@ -265,7 +258,7 @@ class AudioSimulator {
         )
 
         // Sine wave with 0.5 amplitude mod and 1.0 frequency mod
-        val (amp3, freq3) = applyModifiers(amplitudePoints, frequencyPoints, 0.5, 1.0)
+        val (amp3, freq3) = applyModifiers(amplitudePoints, frequencyPoints, 0.5f, 1.0f)
         configs.add(
             ContinuousAudioConfig(
                 type = "sine",
@@ -304,7 +297,7 @@ class AudioSimulator {
                     phasesContinuous[waveIdx] += twoPi * freq / sampleRate
                     if (phasesContinuous[waveIdx] > twoPi) phasesContinuous[waveIdx] -= twoPi
 
-                    val waveformType = WaveformType.values().find { it.name.lowercase() == waveConfig.type.lowercase() } ?: WaveformType.SINE
+                    val waveformType = WaveformType.entries.find { it.name.equals(waveConfig.type, ignoreCase = true) } ?: WaveformType.SINE
                     sampleValue += amp * generateWaveform(waveformType, phasesContinuous[waveIdx])
                 }
             }
@@ -379,9 +372,7 @@ class AudioSimulator {
         }
         discreteDuration += 0.1
 
-        val totalDuration = maxOf(continuousDuration, discreteDuration)
-        // Cap duration at 10 seconds to prevent excessive memory allocation
-        return minOf(totalDuration, 10.0)
+        return maxOf(continuousDuration, discreteDuration)
     }
 
     private fun valueForTime(points: List<ValuePoint>, t: Double): Double {
