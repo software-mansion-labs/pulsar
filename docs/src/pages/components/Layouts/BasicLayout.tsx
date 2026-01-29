@@ -1,5 +1,15 @@
 import styles from './BasicLayout.module.scss';
 
-export function BasicLayout({ children }: { children: React.ReactNode }) {
-  return <div className={styles.layout}>{children}</div>;
+export function BasicLayout({ 
+  children,
+  className
+}: { 
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`${styles.layout} ${className || ''}`}>
+      {children}
+    </div>
+  );
 }

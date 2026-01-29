@@ -1,0 +1,59 @@
+.banner {
+  border: solid 2px var(--color-blue-50);
+  background-color: var(--color-blue-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .leftBar {
+    max-width: 480px;
+    padding: 80px 0;
+    .authors {
+      display: flex;
+      align-items: center;
+      img {
+        margin-left: 10px;
+        height: 40px;
+      }
+    }
+    .header {
+      margin-top: 30px;
+      .title {
+        font-size: var(--font-size-3xl);
+        line-height: var(--font-line-height-3xl);
+        font-weight: var(--font-weight-bold);
+      }
+      .subtitle {
+        margin-top: 20px;
+        font-size: var(--font-size-lg);
+        line-height: var(--font-line-height-lg);
+      }
+    }
+    .buttonHolder {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  .rightBar {
+    .circle {}
+    .phoneBackground {
+      .phone {
+        .notch {}
+        .buttonHolder {
+          .row {
+            .buttonBackground {
+              .button {
+                .emoji {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .soundBanner {
+    .text {}
+    .icon {}
+  }
+}

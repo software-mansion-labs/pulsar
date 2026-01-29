@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0px;
+}
+.logoHolder {
+  display: flex;
+  align-items: center;
+  img {
+    height: 40px;
+  }
+  span {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Aeonik', system-ui, sans-serif;
+  }
+}
+.menuItems {
+  a {
+    font-size: 17px;
+    padding: 5px 16px;
+  }
+}
+.gitLogo {
+  width: 32px;
+}

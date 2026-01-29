@@ -3,6 +3,7 @@ import { BasicLayout } from './components/Layouts/BasicLayout';
 import { TopBar } from './components/TopBar/TopBar';
 import { TopBanner } from './components/TopBanner/TopBanner';
 import './index.css';
+import commonStyle from './common.module.scss'
 ---
 
 <!doctype html>
@@ -11,12 +12,18 @@ import './index.css';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>title</title>
+		<style>
+		@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+		</style>
 	</head>
 	<body>
 
-		<BasicLayout>
-			<TopBar />
-		</BasicLayout>
+		<div class={commonStyle.bottomBorder}>
+			<BasicLayout>
+				<TopBar />
+			</BasicLayout>
+		</div>
+
 		<TopBanner />
 	
 	</body>
