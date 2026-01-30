@@ -8,7 +8,7 @@ interface AccordionProps {
   defaultOpen?: boolean;
 }
 
-export function Accordion({ title, children, defaultOpen = true }: AccordionProps) {
+export function Accordion({ title, children, defaultOpen = false }: AccordionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
