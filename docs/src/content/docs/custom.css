@@ -28,6 +28,8 @@
   --sl-color-bg-nav: var(--color-blue-10);
   --sl-color-hairline-shade: var(--color-blue-50);
   --__sl-font: "DM Sans", sans-serif;
+  --sl-text-base: var(--font-size-lg);
+  --sl-text-sm: var(--font-size-lg);
 }
 html {
   /* font-optical-sizing: auto; */
@@ -35,6 +37,7 @@ html {
   /* font-weight: 300; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--color-primary);
   a {
     color: var(--color-primary);
     text-decoration: none;
@@ -55,6 +58,9 @@ html {
 }
 .right-sidebar {
   border-inline: unset;
+}
+#starlight__sidebar {
+  border: none;
 }
 .header {
   site-search {

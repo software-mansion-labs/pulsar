@@ -1,0 +1,46 @@
+.background {
+  background-color: var(--color-blue-50);
+  border-radius: 4px;
+  .content {
+    background-color: white;
+    border-radius: 4px;
+    transform: translateX(3px) translateY(-3px);
+    border: solid 2px var(--color-blue-50);
+    padding: 20px;
+    .title {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xl);
+    }
+    .subtitle {
+      margin-top: 15px;
+      font-size: var(--font-size-lg);
+    }
+    .codebox {
+      background-color: var(--color-blue-10);
+      text-align: center;
+      padding: 20px;
+      margin: 25px 0;
+      .prompt {
+        font-size: var(--font-size-lg);
+      }
+      .code {
+        font-size: var(--font-size-2xl);
+        font-weight: var(--font-weight-bold);
+      }
+      .status {
+        font-size: var(--font-size-xs);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .desc {}
+        .indicator {
+          background-color: black;
+          width: 18px;
+          height: 18px;
+          border-radius: 100%;
+        }
+      }
+    }
+  }
+}

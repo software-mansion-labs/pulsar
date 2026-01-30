@@ -20,7 +20,7 @@ export default defineConfig({
     customCss: [
       './src/pages/index.css',
       './src/content/docs/custom.css',
-      './src/content/docs/legacy-style.css',
+      // './src/content/docs/legacy-style.css',
       '@fontsource/bebas-neue/400.css',
     ],
     pagination: false,
