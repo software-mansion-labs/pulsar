@@ -52,8 +52,8 @@ export function SelectBox({ title, options: initialOptions, onOptionsChange, cla
         aria-expanded={isOpen}
       >
         <span className={styles.headerText}>{title}</span>
-        <img
-          src={arrowIcon.src}
+        <img 
+          src={arrowIcon.src} 
           alt="toggle"
           className={`${styles.arrow} ${isOpen ? styles.open : ''}`}
         />

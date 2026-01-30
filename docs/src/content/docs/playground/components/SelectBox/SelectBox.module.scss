@@ -18,7 +18,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-      border-color: var(--color-blue-100);
+      border-color: var(--color-blue-50);
     }
 
     .headerText {
@@ -30,7 +30,6 @@
       height: 20px;
       transition: transform 0.3s ease;
       transform: rotate(0deg);
-
       &.open {
         transform: rotate(180deg);
       }

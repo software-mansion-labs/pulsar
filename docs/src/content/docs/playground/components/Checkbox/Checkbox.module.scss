@@ -8,7 +8,7 @@
   .checkbox {
     width: 20px;
     height: 20px;
-    border: 2px solid var(--color-blue-50);
+    border: 1px solid var(--color-blue-50);
     border-radius: 4px;
     background-color: white;
     display: flex;
@@ -22,16 +22,14 @@
     }
 
     &.checked {
-      background-color: var(--color-blue-100);
-      border-color: var(--color-blue-100);
+      background-color: var(--color-blue-50);
+      border-color: var(--color-primary);
 
       .checkmark {
-        width: 17px;
+        width: 15px;
       }
     }
   }
-
-  .label {
-    
-  }
+  
+  .label {}
 }
