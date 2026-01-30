@@ -20,6 +20,7 @@ export default defineConfig({
     customCss: [
       './src/pages/index.css',
       './src/content/docs/custom.css',
+      './src/content/docs/legacy-style.css',
       '@fontsource/bebas-neue/400.css',
     ],
     pagination: false,
@@ -28,6 +29,38 @@ export default defineConfig({
       {
         label: 'Getting started',
         slug: 'getting-started'
+      },
+      {
+        label: 'Playground',
+        items: [
+          { label: 'Presets', slug: 'playground/presets' },
+          { label: 'Tags legend', slug: 'playground/tags-legend' },
+          { label: 'Interactive mode', slug: 'playground/interactive-mode' },
+        ],
+      },
+      {
+        label: 'Pulsar studio',
+        slug: 'haptic-studio',
+        badge: { 
+          text: 'Soon',
+          variant: 'note'
+        },
+      },
+      {
+        label: 'SDK',
+        items: [
+          { label: 'iOS', slug: 'sdk/ios' },
+          { label: 'Android', slug: 'sdk/android' },
+          { label: 'React Native', slug: 'sdk/react-native' },
+        ],
+      },
+      {
+        label: 'Blog',
+        items: [
+          { label: 'Table of content', slug: 'blog/table-of-content' },
+          { label: 'Do I need haptics?', slug: 'blog/why-haptics' },
+          { label: 'How does haptics works', slug: 'blog/how-does-haptics-works' },
+        ],
       },
     ],
     logo: {

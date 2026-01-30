@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 :root[data-theme='light'] {
   /* Pulsar custom colors */
   --color-primary: #001A72;
@@ -28,11 +30,9 @@
   --__sl-font: "DM Sans", sans-serif;
 }
 html {
-  /* color: var(--color-primary); */
   /* font-optical-sizing: auto; */
   /* font-style: normal; */
   /* font-weight: 300; */
-  /* letter-spacing: 0.1px; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   a {
@@ -44,7 +44,10 @@ html {
   a {
     font-weight: 400 !important;
     border-radius: 0;
-    letter-spacing: 0.8px;
+    /* letter-spacing: 0px; */
+  }
+  :where(a)[aria-current=page] {
+    border-left: solid 2px var(--color-blue-50);
   }
 }
 .content-panel {
