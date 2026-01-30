@@ -1,4 +1,4 @@
-import Tags from '../components/Tags';
+import Tags from '../components_legacy/Tags';
 
 export default function TagsGroup() {
   return (
