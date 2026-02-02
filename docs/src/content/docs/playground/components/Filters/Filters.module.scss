@@ -1,5 +1,10 @@
 .filters {
+  padding-top: 20px;
   margin-bottom: 20px;
+  position: sticky;
+  top: 55px;
+  background-color: var(--color-blue-10);
+  z-index: 100;
   .optionsBar {
     display: flex;
     gap: 10px;

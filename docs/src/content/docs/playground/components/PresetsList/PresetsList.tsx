@@ -8,7 +8,7 @@ import { Tab, Tabs } from '../Tabs/Tabs';
 import { TagDescription } from '../TagDescription/TagDescription';
 
 export function PresetsList() {
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
   
   return <div className={['not-content', style.presets].join(' ')}>
 

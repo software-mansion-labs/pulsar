@@ -1,5 +1,6 @@
 import style from './Modal.module.scss';
 import xIcon from '../../../assets/new_assets/x.svg';
+import { useEffect } from 'react';
 
 interface Props {
   title: string;
