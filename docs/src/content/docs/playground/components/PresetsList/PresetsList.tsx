@@ -5,6 +5,7 @@ import { Preset } from '../Preset/Preset';
 import { Modal } from '../Modal/Modal';
 import { useState } from 'react';
 import { Tab, Tabs } from '../Tabs/Tabs';
+import { TagDescription } from '../TagDescription/TagDescription';
 
 export function PresetsList() {
   const [showModal, setShowModal] = useState<boolean>(true);
@@ -52,7 +53,13 @@ export function PresetsList() {
       <Modal title="Connection guide" onClose={() => setShowModal(false)}>
         <Tabs defaultTab={0}>
           <Tab name="Swift">
-            <div>Your content here1</div>
+            <div className={style.elementsGap}>
+              <TagDescription 
+                name="Super short"
+                description="Very short haptics pattern with duration less than 100 ms."
+                usage="Good as a reaction for tap events."
+              />
+            </div>
           </Tab>
           <Tab name="React Native">
             <div>Your content here2</div>
