@@ -4,6 +4,7 @@ import { API_SERVER_URL, SOCKET_SERVER_URL } from "../config";
 import style from './Connection.module.scss';
 import commonStyle from '../common.module.scss';
 import refreshIcon from '../../../assets/new_assets/refresh.svg';
+import disconnectIcon from '../../../assets/new_assets/unplug.svg';
 import { Accordion } from "../Accordion/Accordion";
 import { Point } from "../Point/Point";
 
@@ -14,7 +15,8 @@ declare global {
 }
 
 export default function Connection() {
-  const [channel, setChannel] = useState<number | string>('Pulsar App already set up.');
+  const [paired, setPaired] = useState<boolean>(false);
+  const [channel, setChannel] = useState<number | string>('Loading...');
   const [status, setStatus] = useState<boolean>(false);
   const ws = useRef<WebSocket | null>(null);
 
@@ -57,6 +59,7 @@ export default function Connection() {
         case 'connection_established': {
           localStorage.setItem('hapticsToken', data.token);
           setStatus(true);
+          setPaired(true);
         } break;
         case 'connection_restored': {
           setStatus(true);
@@ -71,6 +74,7 @@ export default function Connection() {
   useEffect(() => {
     if (localStorage.getItem('hapticsToken')) {
       webSocketConnection();
+      setPaired(true);
     } else {
       createChannel();
     }
@@ -85,23 +89,37 @@ export default function Connection() {
     localStorage.removeItem('hapticsToken');
     setStatus(false);
     createChannel();
+    setPaired(false);
   }
 
   return <div className={['not-content', style.background].join(' ')}>
     <div className={style.content}>
 
-      <div className={style.title}>Connect device</div>
+      <div className={style.title}>Connect phone</div>
       <div className={style.subtitle}>Connect your haptic device first. Pair it with the app now so you can test the presets.</div>
 
+      {!paired ? 
       <div className={style.codebox}>
+        <img src={refreshIcon.src} alt="Refresh" className={`${style.icon}`} onClick={handleReset} />
         <div className={style.prompt}>Your pairing code:</div>
-        <div className={style.code}>9210</div>
+        <div className={style.code}>{channel}</div>
         <div className={style.status}>
-          <div className={style.desc}>Device not connected</div>
-          <div className={style.indicator}></div>
+          <div className={style.desc}>{status ? 'Phone connected' : 'Phone not connected'}</div>
+          <div className={`${style.indicator} ${status ? style.connected : style.disconnected}`}></div>
         </div>
       </div>
+      :
+      <div className={style.codebox}>
+        <img src={disconnectIcon.src} alt="Disconnect" className={`${style.icon}`} onClick={handleReset} />
+        <div className={style.promptSuccess}>Pulsar is paired with your phone.</div>
+        <div className={style.subPrompt}>Now just open pulsar app.</div>
+        <div className={style.status}>
+          <div className={style.desc}>{status ? 'Phone connected' : 'Phone not connected'}</div>
+          <div className={`${style.indicator} ${status ? style.connected : style.disconnected}`}></div>
+        </div>
+      </div>}
 
+      {!paired &&
       <Accordion title="How to connect a device? 🤔">
         <Point index={1}>
           <div>
@@ -118,7 +136,7 @@ export default function Connection() {
             Type Paring code into PulsarApp and click Connect button.
           </div>
         </Point>
-      </Accordion>
+      </Accordion>}
 
     </div>
   </div>;

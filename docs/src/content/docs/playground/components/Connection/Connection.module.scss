@@ -20,8 +20,27 @@
       text-align: center;
       padding: 20px;
       margin: 25px 0;
+      position: relative;
+      .icon {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 34px;
+        height: 34px;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 4px;
+        padding: 5px;
+      }
       .prompt {
         font-size: var(--font-size-lg);
+      }
+      .promptSuccess {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+      }
+      .subPrompt {
+        font-size: var(--font-size-xs);
       }
       .code {
         font-size: var(--font-size-2xl);
@@ -35,12 +54,29 @@
         gap: 10px;
         .desc {}
         .indicator {
-          background-color: black;
           width: 18px;
           height: 18px;
           border-radius: 100%;
+          &.disconnected {
+            background-color: #ef4444;
+          }
+          &.connected {
+            background-color: #22c55e;
+            animation: pulse 2s ease-in-out infinite;
+          }
         }
       }
     }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
   }
 }
