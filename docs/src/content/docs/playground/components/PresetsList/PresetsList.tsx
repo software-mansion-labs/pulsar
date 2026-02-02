@@ -2,6 +2,7 @@ import style from './PresetsList.module.scss';
 import infoIcon from '../../../assets/new_assets/info.svg'
 import { Filters } from '../Filters/Filters';
 import { Preset } from '../Preset/Preset';
+import { Modal } from '../Modal/Modal';
 
 export function PresetsList() {
   return <div className={['not-content', style.presets].join(' ')}>
@@ -43,6 +44,8 @@ export function PresetsList() {
         { label: "Happy", variant: "blue" }
       ]} 
     />
-    
+    {/* <Modal title="Connection guide" onClose={() => {}}>
+      content
+    </Modal> */}
   </div>
 }
