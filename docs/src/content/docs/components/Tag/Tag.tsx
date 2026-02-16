@@ -1,5 +1,5 @@
 import styles from './Tag.module.scss';
-import xIcon from '../../../assets/new_assets/x.svg';
+import xIcon from '../../assets/new_assets/x.svg';
 
 interface TagProps {
   label: string;

@@ -1,5 +1,5 @@
 import style from './PresetsList.module.scss';
-import infoIcon from '../../../assets/new_assets/info.svg'
+import infoIcon from '../../assets/new_assets/info.svg'
 import { Filters } from '../Filters/Filters';
 import { Preset } from '../Preset/Preset';
 import { useState, useMemo } from 'react';

@@ -1,4 +1,4 @@
-import FallingBricks from '../../../assets/presets/FallingBricks';
+import FallingBricks from '../../assets/presets/FallingBricks';
 import type { PresetProps } from '../Preset/types';
 
 export const PresetsConfig: Array<PresetProps> = [

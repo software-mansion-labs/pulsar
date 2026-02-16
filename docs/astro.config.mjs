@@ -33,8 +33,8 @@ export default defineConfig({
       {
         label: 'Playground',
         items: [
-          { label: 'Presets', slug: 'playground/presets' },
-          { label: 'Interactive mode', slug: 'playground/interactive-mode' },
+          { label: 'Presets', slug: 'presets' },
+          { label: 'Interactive mode', slug: 'interactive-mode' },
         ],
       },
       {

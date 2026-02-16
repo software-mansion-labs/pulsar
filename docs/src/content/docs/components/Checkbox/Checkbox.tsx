@@ -1,5 +1,5 @@
 import styles from './Checkbox.module.scss';
-import checkIcon from '../../../assets/new_assets/check.svg';
+import checkIcon from '../../assets/new_assets/check.svg';
 
 interface CheckboxProps {
   id: string;

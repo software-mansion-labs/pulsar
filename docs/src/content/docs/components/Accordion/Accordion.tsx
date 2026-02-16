@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './Accordion.module.scss';
-import arrowIcon from '../../../assets/new_assets/arrow.svg';
+import arrowIcon from '../../assets/new_assets/arrow.svg';
 
 interface AccordionProps {
   title: string;

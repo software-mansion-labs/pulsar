@@ -3,8 +3,8 @@ import { API_SERVER_URL, SOCKET_SERVER_URL } from "../config";
 
 import style from './Connection.module.scss';
 import commonStyle from '../common.module.scss';
-import refreshIcon from '../../../assets/new_assets/refresh.svg';
-import disconnectIcon from '../../../assets/new_assets/unplug.svg';
+import refreshIcon from '../../assets/new_assets/refresh.svg';
+import disconnectIcon from '../../assets/new_assets/unplug.svg';
 import { Accordion } from "../Accordion/Accordion";
 import { Point } from "../Point/Point";
 

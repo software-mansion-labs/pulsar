@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './SelectBox.module.scss';
-import arrowIcon from '../../../assets/new_assets/arrow.svg';
+import arrowIcon from '../../assets/new_assets/arrow.svg';
 import { Checkbox } from '../Checkbox/Checkbox';
 
 interface SelectOption {
