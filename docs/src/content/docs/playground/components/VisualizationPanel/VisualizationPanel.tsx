@@ -9,7 +9,7 @@ interface VisualizationPanelProps {
   };
   duration?: number; // Duration in milliseconds
   onPlayClick: () => void;
-  onRecordClick: () => void;
+  playOnDevice: () => void;
   className?: string;
 }
 
@@ -17,7 +17,7 @@ export function VisualizationPanel({
   image,
   duration = 1000,
   onPlayClick,
-  onRecordClick,
+  playOnDevice,
   className = '',
 }: VisualizationPanelProps) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -61,7 +61,7 @@ export function VisualizationPanel({
 
         <div
           className={styles.controlButton}
-          onClick={onRecordClick}
+          onClick={playOnDevice}
           title="Record"
           aria-label="Record"
         >

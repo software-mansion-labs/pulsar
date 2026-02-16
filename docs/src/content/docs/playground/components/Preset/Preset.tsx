@@ -6,6 +6,7 @@ import { Accordion } from '../Accordion/Accordion';
 import { Tag } from '../Tag/Tag';
 import type { PresetProps } from './types';
 import { AudioPatternUtility } from './audio-player';
+import { API_SERVER_URL } from '../config';
 
 function getSwiftPresetImport(shortName: string) {
   return `import Pulsar\n\nPulsar.${shortName}.play()`;
@@ -41,6 +42,32 @@ export function Preset({ name, shortName, description, tags, duration = 0, visua
       }
     }
   };
+
+  const handlePlayOnDevice = async () => {
+    const token = localStorage.getItem('hapticsToken');
+    if (!token) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_SERVER_URL}/broadcast`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: visualization.data,
+          token: token,
+        }),
+      });
+
+      const data = await response.json();
+      console.log('Broadcast response:', data);
+    } catch (error) {
+      console.error('Error broadcasting to device:', error);
+    }
+  };
+
   return <div className={style.preset}>
 
     {tags && tags.length > 0 && (
@@ -60,7 +87,7 @@ export function Preset({ name, shortName, description, tags, duration = 0, visua
       image={visualization.image}
       duration={duration}
       onPlayClick={handlePlayClick}
-      onRecordClick={() => console.log('Record')}
+      playOnDevice={handlePlayOnDevice}
     />
     <Accordion title='Usage' className={style.marginTop}>
       <CodeTabs 
