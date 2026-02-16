@@ -8,4 +8,5 @@ export interface PresetProps {
   shortName: string;
   description: string;
   tags: Tag[];
+  duration?: number; // Duration in milliseconds
 }

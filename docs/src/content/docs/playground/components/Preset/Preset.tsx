@@ -14,7 +14,7 @@ function getReactNativePresetImport(shortName: string) {
   return `import { Pulsar } from '@haptics/library';\n\nPulsar.${shortName}.play();`;
 }
 
-export function Preset({ name, shortName, description, tags }: PresetProps) {
+export function Preset({ name, shortName, description, tags, duration = 1000 }: PresetProps) {
   return <div className={style.preset}>
 
     {tags && tags.length > 0 && (
@@ -32,6 +32,7 @@ export function Preset({ name, shortName, description, tags }: PresetProps) {
     
     <VisualizationPanel
       image={placeholderImage}
+      duration={duration}
       onPlayClick={() => console.log('Play')}
       onRecordClick={() => console.log('Record')}
     />

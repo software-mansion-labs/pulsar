@@ -12,11 +12,34 @@
     background-color: var(--color-blue-5);
     border-radius: 4px;
     padding-right: 20px;
+    position: relative;
+    overflow: hidden;
 
     .image {
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+
+    .indicator {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 2px;
+      background-color: var(--color-primary);
+      pointer-events: none;
+      z-index: 10;
+      animation: moveIndicator linear forwards;
+    }
+
+    @keyframes moveIndicator {
+      from {
+        left: 0;
+      }
+      to {
+        left: 100%;
+      }
     }
   }
 

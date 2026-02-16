@@ -15,7 +15,8 @@ const presets: Array<PresetProps> = [
     tags: [
       { label: "Short", variant: "blue" },
       { label: "Happiness", variant: "blue" }
-    ]
+    ],
+    duration: 10000
   },
   {
     name: '🧱 Falling Bricks 2',
@@ -24,25 +25,28 @@ const presets: Array<PresetProps> = [
     tags: [
       { label: "Super short", variant: "blue" },
       { label: "Sadness", variant: "blue" }
-    ]
+    ],
+    duration: 300
   },
   {
-    name: '🧱 Falling Bricks 2',
+    name: '🧱 Falling Bricks 3',
     shortName: 'FallingBricks',
     description: "That feeling when some bricks fall onto your foot!",
     tags: [
       { label: "Super short", variant: "blue" },
       { label: "Happiness", variant: "blue" }
-    ]
+    ],
+    duration: 1000
   },
   {
-    name: '🧱 Falling Bricks 2',
+    name: '🧱 Falling Bricks 4',
     shortName: 'FallingBricks',
     description: "That feeling when some bricks fall onto your foot!",
     tags: [
       { label: "Super short", variant: "blue" },
       { label: "Happiness", variant: "blue" }
-    ]
+    ],
+    duration: 2000
   },
 ];
 
