@@ -4,19 +4,7 @@ import placeholderImage from '../../../assets/new_assets/chart_placeholder.png';
 import { VisualizationPanel } from '../VisualizationPanel/VisualizationPanel';
 import { Accordion } from '../Accordion/Accordion';
 import { Tag } from '../Tag/Tag';
-
-interface Tag {
-  label: string;
-  variant: "white" | "blue";
-}
-
-interface Props {
-  name?: string;
-  shortName?: string;
-  description?: string;
-  index?: number;
-  tags?: Tag[];
-}
+import type { PresetProps } from './types';
 
 function getSwiftPresetImport(shortName: string) {
   return `import Pulsar\n\nPulsar.${shortName}.play()`;
@@ -26,7 +14,7 @@ function getReactNativePresetImport(shortName: string) {
   return `import { Pulsar } from '@haptics/library';\n\nPulsar.${shortName}.play();`;
 }
 
-export function Preset({ name, shortName, description, index, tags }: Props) {
+export function Preset({ name, shortName, description, tags }: PresetProps) {
   return <div className={style.preset}>
 
     {tags && tags.length > 0 && (

@@ -134,19 +134,67 @@ export const TagsInfo = {
       description: 'Festive, party-like haptic feedback designed to enhance celebratory moments and special occasions.',
       usage: 'Perfect for birthdays, anniversaries, victories, party apps, or any celebratory features.'
     },
-    { name: 'Excitement', description: 'Energetic, thrilling haptic patterns that build anticipation and convey high energy.', usage: 'Ideal for sports apps, gaming excitement, countdown timers, or high-energy promotional content.' },
-    { name: 'Surprise', description: 'Sudden, unexpected haptic feedback that creates moments of pleasant shock or amazement.', usage: 'Great for magic tricks in apps, plot twists, surprise reveals, or unexpected delightful moments.' },
-    { name: 'Fear', description: 'Intense, startling haptic patterns designed to create tension or alert users to danger.', usage: 'Suitable for horror games, security alerts, emergency notifications, or thriller app experiences.' },
-    { name: 'Satisfaction', description: 'Fulfilling, content haptic feedback that conveys completion and user satisfaction.', usage: 'Perfect for task completion, successful purchases, goal achievements, or satisfying interactions.' },
-    { name: 'Relief', description: 'Calming, soothing haptic patterns that provide comfort and ease tension or stress.', usage: 'Ideal for stress-relief apps, problem resolution, or calming interactions.' },
-    { name: 'Boredom', description: 'Dull, monotonous haptic feedback reflecting lack of engagement or interest.', usage: 'Useful for representing inactive states, waiting periods, or low-priority background processes.' },
-    { name: 'Anger', description: 'Sharp, aggressive haptic patterns that convey frustration, irritation, or strong negative emotions.', usage: 'Appropriate for representing system errors, user frustration, or intense negative feedback scenarios.' },
+    { 
+      name: 'Excitement',
+      description: 'Energetic, thrilling haptic patterns that build anticipation and convey high energy.',
+      usage: 'Ideal for sports apps, gaming excitement, countdown timers, or high-energy promotional content.'
+    },
+    { 
+      name: 'Surprise',
+      description: 'Sudden, unexpected haptic feedback that creates moments of pleasant shock or amazement.',
+      usage: 'Great for magic tricks in apps, plot twists, surprise reveals, or unexpected delightful moments.'
+    },
+    { 
+      name: 'Fear',
+      description: 'Intense, startling haptic patterns designed to create tension or alert users to danger.',
+      usage: 'Suitable for horror games, security alerts, emergency notifications, or thriller app experiences.'
+    },
+    { 
+      name: 'Satisfaction',
+      description: 'Fulfilling, content haptic feedback that conveys completion and user satisfaction.',
+      usage: 'Perfect for task completion, successful purchases, goal achievements, or satisfying interactions.'
+    },
+    { 
+      name: 'Relief',
+      description: 'Calming, soothing haptic patterns that provide comfort and ease tension or stress.',
+      usage: 'Ideal for stress-relief apps, problem resolution, or calming interactions.'
+    },
+    { 
+      name: 'Boredom',
+      description: 'Dull, monotonous haptic feedback reflecting lack of engagement or interest.',
+      usage: 'Useful for representing inactive states, waiting periods, or low-priority background processes.'
+    },
+    { 
+      name: 'Anger',
+      description: 'Sharp, aggressive haptic patterns that convey frustration, irritation, or strong negative emotions.',
+      usage: 'Appropriate for representing system errors, user frustration, or intense negative feedback scenarios.'
+    },
   ],
   group6: [
-    { name: 'Winning', description: 'Triumphant haptic feedback celebrating victories, competitions won, or successful outcomes.', usage: 'Perfect for game victories, contest wins, successful challenges, or achieving competitive goals.' },
-    { name: 'Beginning', description: 'Fresh, initiating haptic patterns that mark the start of new experiences, journeys, or processes.', usage: 'Ideal for onboarding flows, app launches, new user experiences, or starting new activities.' },
-    { name: 'Task Competed', description: 'Satisfying completion haptic that signals the successful finish of tasks, projects, or goals.', usage: 'Great for productivity apps, project management, task lists, or any completion-based features.' },
-    { name: 'Announcement', description: 'Attention-grabbing haptic patterns designed to broadcast important information or updates.', usage: 'Perfect for news apps, important updates, system announcements, or broadcasting features.' },
-    { name: 'Physical effect', description: 'Tactile haptic feedback that simulates physical sensations or real-world material interactions.', usage: 'Excellent for AR/VR applications, material design feedback, or creating realistic touch sensations.' },
+    {
+      name: 'Winning',
+      description: 'Triumphant haptic feedback celebrating victories, competitions won, or successful outcomes.',
+      usage: 'Perfect for game victories, contest wins, successful challenges, or achieving competitive goals.'
+    },
+    {
+      name: 'Beginning',
+      description: 'Fresh, initiating haptic patterns that mark the start of new experiences, journeys, or processes.',
+      usage: 'Ideal for onboarding flows, app launches, new user experiences, or starting new activities.'
+    },
+    {
+      name: 'Task Competed',
+      description: 'Satisfying completion haptic that signals the successful finish of tasks, projects, or goals.',
+      usage: 'Great for productivity apps, project management, task lists, or any completion-based features.'
+    },
+    {
+      name: 'Announcement',
+      description: 'Attention-grabbing haptic patterns designed to broadcast important information or updates.',
+      usage: 'Perfect for news apps, important updates, system announcements, or broadcasting features.'
+    },
+    {
+      name: 'Physical effect',
+      description: 'Tactile haptic feedback that simulates physical sensations or real-world material interactions.',
+      usage: 'Excellent for AR/VR applications, material design feedback, or creating realistic touch sensations.'
+    },
   ],
 };

@@ -52,4 +52,25 @@
 .content {
   overflow-y: auto;
   flex: 1;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color .3s;
+  &:hover {
+    scrollbar-color: var(--color-blue-30, #b0b0b0) transparent; 
+  }
+  &::-webkit-scrollbar {
+    height: 6px; 
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 3px;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-blue-30, #b0b0b0); 
+  }
 }
