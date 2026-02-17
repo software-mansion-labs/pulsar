@@ -6,6 +6,7 @@ import { useState, useMemo } from 'react';
 import { TagsModal } from '../TagsModal/TagsModal';
 import { TagsInfo } from './Tags';
 import { PresetsConfig } from './PresetsConfig';
+import { NoResult } from '../NoResult/NoResult';
 
 export function PresetsList() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -65,7 +66,13 @@ export function PresetsList() {
       setSelectedTags={setSelectedTags}
     />
 
-    <div className={style.resultCount}>{filteredPresets.length} results</div>
+    {filteredPresets.length > 0 &&
+      <div className={style.resultCount}>{filteredPresets.length} results</div>
+    }
+
+    {filteredPresets.length === 0 &&
+      <NoResult />
+    }
 
     {filteredPresets.map((preset, index) => (
       <Preset key={index} {...preset} />
