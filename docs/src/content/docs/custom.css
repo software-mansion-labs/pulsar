@@ -36,9 +36,6 @@
   --sl-text-sm: var(--font-size-lg);
 }
 html {
-  /* font-optical-sizing: auto; */
-  /* font-style: normal; */
-  /* font-weight: 300; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color-primary);

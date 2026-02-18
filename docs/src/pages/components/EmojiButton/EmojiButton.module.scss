@@ -12,6 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
 
     cursor: pointer;
     transition: transform 0.2s;

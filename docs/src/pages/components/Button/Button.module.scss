@@ -16,6 +16,7 @@
   font-size: var(--font-size-md);
   align-items: center;
   white-space: nowrap;
+  user-select: none;
 
   @media (max-width: 768px) {
     padding: 12px 20px;

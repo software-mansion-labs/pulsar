@@ -74,6 +74,7 @@ html {
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 300;
+  font-size: var(--font-size-md);
   a {
     color: var(--color-primary);
     text-decoration: none;
