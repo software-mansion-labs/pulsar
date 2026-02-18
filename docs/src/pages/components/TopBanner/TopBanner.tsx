@@ -45,8 +45,6 @@ export function TopBanner() {
   
   return(<div className={`${styles.banner} ${colorClass}`}>
 
-    <div>
-
       <div className={styles.leftBar}>
 
         <div className={styles.authors}>
@@ -71,15 +69,6 @@ export function TopBanner() {
       </div>
 
       <div className={styles.rightBar}>
-
-        <svg className={`${styles.svgWave} ${colorClass} ${backgroundAnimation}`} width="1000" height="1000" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle opacity="0.1" cx="600" cy="600" r="500" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
-          <circle opacity="0.1" cx="600" cy="600" r="400" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
-          <circle opacity="0.1" cx="600" cy="600" r="300" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
-          <circle opacity="0.1" cx="600" cy="600" r="200" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
-          <circle opacity="0.1" cx="600" cy="600" r="100" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
-        </svg>
-
 
         <div className={styles.phoneBackground}>
           
@@ -130,9 +119,16 @@ export function TopBanner() {
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
+        <svg className={`${styles.svgWave} ${colorClass} ${backgroundAnimation}`} width="1000" height="1000" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle opacity="0.1" cx="600" cy="600" r="500" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
+          <circle opacity="0.1" cx="600" cy="600" r="400" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
+          <circle opacity="0.1" cx="600" cy="600" r="300" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
+          <circle opacity="0.1" cx="600" cy="600" r="200" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
+          <circle opacity="0.1" cx="600" cy="600" r="100" fill="#87CCE8" stroke="#2B85AB" stroke-miterlimit="16" stroke-dasharray="8 8"/>
+        </svg>
+
+      </div>
 
     <SoundBar />
 

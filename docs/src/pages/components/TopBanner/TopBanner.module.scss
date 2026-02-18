@@ -3,18 +3,22 @@
   background-color: var(--color-blue-10);
   transition: all 0.2s;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   overflow: hidden;
   max-height: 644px;
+  position: relative;
+
+  @media (max-width: 1100px) {
+    // max-height: none;
+  }
+
   .leftBar {
     z-index: 1;
-    position: relative;
     pointer-events: none;
     max-width: 480px;
-    padding: 80px 0;
-    padding-right: 450px;
+    padding: 80px 50px 80px 0px;
+    // padding-right: 450px;
     .authors {
       display: flex;
       align-items: center;
@@ -45,20 +49,21 @@
     }
   } 
   .rightBar {
-    position: relative;
-    transform: translateX(25%) translateY(-43%);
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 380px;
+
     svg {
       pointer-events: none;
-      transform: translateY(-8%);
+      transform: translateX(5%) translateY(-15%);
+      position: absolute;
     }
     .phoneBackground {
+      z-index: 1;
       background-color: var(--color-blue-50);
-      width: fit-content;
       border-radius: 24px;
-      transform: translateY(-750px);
+      transform: translateX(55px) translateY(130px);
       position: relative;
 
       .decorativeIcons {
@@ -95,26 +100,6 @@
         box-sizing: border-box;
         position: relative;
         overflow: hidden;
-        
-        // Shiny sparkle effect
-        // &::before {
-        //   content: '';
-        //   position: absolute;
-        //   inset: 0;
-        //   background: linear-gradient(
-        //     115deg,
-        //     transparent 20%,
-        //     rgba(206, 110, 110, 0) 20%,
-        //     rgba(206, 110, 110, 0.3) 50%,
-        //     rgba(206, 110, 110, 0) 50%,
-        //     transparent 80%
-        //   );
-        //   background-size: 200% 100%;
-        //   background-position: 200% 0;
-        //   animation: shine 3s ease-in-out infinite;
-        //   pointer-events: none;
-        //   border-radius: 24px;
-        // }
         
         .notch {
           background-color: var(--color-blue-50);
