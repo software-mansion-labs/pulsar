@@ -4,12 +4,12 @@
   margin: 20px;
   
   @media (max-width: 768px) {
-    margin: 12px;
+    // margin: 12px;
     // border-radius: 2px;
   }
   
   @media (max-width: 480px) {
-    margin: 6px;
+    // margin: 6px;
     // border-radius: 2px;
   }
 
@@ -22,19 +22,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    @media (max-width: 768px) {
-      padding: 6px;
-      transform: translateX(2px) translateY(-2px);
-      // border-radius: 2px;
-    }
-    
-    @media (max-width: 480px) {
-      padding: 4px;
-      transform: translateX(1px) translateY(-1px);
-      // border-radius: 2px;
-      border: solid 1px var(--color-blue-50);
-    }
 
     cursor: pointer;
     transition: transform 0.2s;

@@ -9,8 +9,29 @@
   max-height: 644px;
   position: relative;
 
-  @media (max-width: 1100px) {
-    // max-height: none;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    max-height: 800px;
+    padding: 40px 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 16px;
+    border: solid 1px var(--color-blue-50);
+    .fullWidth {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      a {
+        justify-content: center;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px 12px;
   }
 
   .leftBar {
@@ -18,10 +39,26 @@
     pointer-events: none;
     max-width: 480px;
     padding: 80px 50px 80px 0px;
-    // padding-right: 450px;
+    
+    @media (max-width: 1000px) {
+      padding: 0;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+    
+    @media (max-width: 768px) {
+      max-width: 100%;
+      margin-bottom: 30px;
+    }
+    
+    @media (max-width: 480px) {
+      margin-bottom: 20px;
+    }
+    
     .authors {
       display: flex;
       align-items: center;
+      
       img {
         margin-left: 10px;
         height: 40px;
@@ -29,6 +66,15 @@
     }
     .header {
       margin-top: 30px;
+      
+      @media (max-width: 768px) {
+        margin-top: 20px;
+      }
+      
+      @media (max-width: 480px) {
+        margin-top: 16px;
+      }
+      
       .title {
         font-size: var(--font-size-3xl);
         line-height: var(--font-line-height-3xl);
@@ -38,6 +84,14 @@
         margin-top: 20px;
         font-size: var(--font-size-lg);
         line-height: var(--font-line-height-lg);
+        
+        @media (max-width: 768px) {
+          margin-top: 16px;
+        }
+        
+        @media (max-width: 480px) {
+          margin-top: 12px;
+        }
       }
     }
     .buttonHolder {
@@ -45,7 +99,12 @@
       margin-top: 80px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
+      
+      @media (max-width: 1000px) {
+        align-items: center;
+        margin-top: 24px;
+      }
     }
   } 
   .rightBar {
@@ -53,18 +112,44 @@
     flex-direction: column;
     align-items: center;
     max-width: 380px;
+    
+    @media (max-width: 1000px) {
+      max-width: 100%;
+    }
 
     svg {
       pointer-events: none;
       transform: translateX(5%) translateY(-15%);
       position: absolute;
+      
+      @media (max-width: 1000px) {
+        transform: translateX(0%) translateY(-50%);
+        width: 1300px;
+      }
     }
+    
     .phoneBackground {
       z-index: 1;
       background-color: var(--color-blue-50);
       border-radius: 24px;
       transform: translateX(55px) translateY(130px);
       position: relative;
+
+      @media (max-width: 1100px) {
+        transform: translateX(10px) translateY(130px);
+      }
+      
+      @media (max-width: 1000px) {
+        transform: translateX(0) translateY(0);
+      }
+      
+      @media (max-width: 768px) {
+        border-radius: 16px;
+      }
+      
+      @media (max-width: 480px) {
+        border-radius: 12px;
+      }
 
       .decorativeIcons {
         position: absolute;
@@ -80,6 +165,10 @@
           height: 80px;
           animation: cursorClick 4s ease-in-out infinite;
           transform-origin: center;
+
+          @media (max-width: 1000px) {
+            width: 50px;
+          }
         }
 
         .starIcon {
@@ -108,15 +197,24 @@
           border-radius: 22px;
           position: absolute;
           transform: translateX(115px) translateY(-22px);
+          
+          @media (max-width: 768px) {
+            width: 90px;
+            height: 32px;
+            border-radius: 16px;
+            transform: translateX(115px) translateY(-16px);
+          }
         }
         .buttonHolder {
           padding: 50px 30px;
+          
           .row {
             display: flex;
             .buttonBackground {
               background-color: var(--color-blue-50);
               border-radius: 4px;
               margin: 20px;
+              
               .button {
                 background-color: white;
                 border: solid 2px var(--color-blue-50);
@@ -126,6 +224,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                
                 .emoji {
                   width: 80px;
                   height: 80px;
