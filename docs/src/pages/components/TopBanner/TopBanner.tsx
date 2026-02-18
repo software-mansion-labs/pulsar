@@ -4,10 +4,11 @@ import swmLogo from '../../../assets/swm-logo.svg';
 import starIcon from '../../../assets/landing-page/star.svg';
 import angelIcon from '../../../assets/landing-page/angel.svg';
 import warningIcon from '../../../assets/landing-page/warning.svg';
+import arrowIcon from '../../../assets/landing-page/arrow.svg';
 import { Button } from '../Button/Button';
 import { EmojiButton } from '../EmojiButton/EmojiButton';
 import { SoundBar } from '../SoundBar/SoundBar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export function TopBanner() {
   const [colorClass, setColorClass] = useState('');
@@ -15,6 +16,7 @@ export function TopBanner() {
   const [showAngels, setShowAngels] = useState(false);
   const [confettiInstances, setConfettiInstances] = useState<number[]>([]);
   const [backgroundAnimation, setBackgroundAnimation] = useState(styles.wave);
+  const [showDecorativeIcons, setShowDecorativeIcons] = useState(true);
 
   function handleAnimationEffect(effect: '' | 'stars' | 'angels' | 'confetti', enable: boolean = true) {
     if (effect === '') {
@@ -34,6 +36,7 @@ export function TopBanner() {
       setShowAngels(false);
       setConfettiInstances(prev => [...prev, Date.now()]);
     }
+    setShowDecorativeIcons(false);
   }
 
   const removeConfettiInstance = (id: number) => {
@@ -87,6 +90,11 @@ export function TopBanner() {
           {confettiInstances.map(id => (
             <ConfettiEffect key={id} onComplete={() => removeConfettiInstance(id)} />
           ))}
+
+          {showDecorativeIcons && <div className={styles.decorativeIcons}>
+            <img className={styles.arrowIcon} src={arrowIcon.src} />
+            <img className={styles.starIcon} src={starIcon.src} />
+          </div>}
           
           <div className={styles.phone}>
             

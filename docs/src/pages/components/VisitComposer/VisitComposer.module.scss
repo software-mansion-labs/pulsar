@@ -14,12 +14,12 @@
       left: -30px;
       top: -30px;
       .star1 {
-        width: 80px;
+        width: 90px;
+        transform: translateX(-10px) translateY(-5px) rotate(195deg);
       }
       .star2 {
-        transform: translateX(-15px) rotate(35deg);
-        margin-top: 15px;
-        width: 80px;
+        transform: translateX(-25px) rotate(230deg);
+        width: 90px;
       }
     }
     .leftBar {

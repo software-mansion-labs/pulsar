@@ -1,6 +1,6 @@
 import styles from './VisitComposer.module.scss';
 
-import star from '../../../assets/landing-page/star1.svg';
+import star from '../../../assets/landing-page/star.svg';
 import screenshot from '../../../assets/landing-page/screenshot.png';
 
 

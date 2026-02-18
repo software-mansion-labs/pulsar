@@ -61,6 +61,31 @@
       transform: translateY(-750px);
       position: relative;
 
+      .decorativeIcons {
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 2;
+
+        .arrowIcon {
+          width: 80px;
+          height: 80px;
+          animation: cursorClick 4s ease-in-out infinite;
+          transform-origin: center;
+        }
+
+        .starIcon {
+          margin-left: 20px;
+          margin-top: -20px;
+          width: 60px;
+          height: 60px;
+          animation: floatIcon 3s ease-in-out infinite;
+        }
+      }
+
       .phone {
         border: solid 2px var(--color-blue-50);
         border-radius: 24px;
@@ -313,8 +338,9 @@
   }
   img:nth-child(2) {
     position: absolute;
-    top: 20px;
-    left: -20px;
+    top: 30px;
+    left: -10px;
+    width: 50px;
     animation-name: appear;
     animation-delay: 0.2s;
   }
@@ -327,8 +353,9 @@
   }
   img:nth-child(4) {
     position: absolute;
-    bottom: 180px;
+    bottom: 230px;
     right: 0px;
+    width: 60px;
     animation-name: appear;
     animation-delay: 0.3s;
   }
@@ -498,10 +525,10 @@
 );
 @include generate-quadratic-path(
   $index: 8,
-  $start-t: 0.28, 
+  $start-t: 0.29, 
   $direction: "left", 
   $max-height: 650px, 
-  $max-width: 500px
+  $max-width: 550px
 );
 
 .confettiContainer {
@@ -556,4 +583,38 @@
     left: 53%;
     animation: confetti-8 1.2s linear 0.1s forwards;
   }
+}
+
+// --------------------------------------------------
+// click animations
+// --------------------------------------------------
+@keyframes cursorClick {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  5% {
+    transform: translate(-10px, 12px) scale(0.92);
+  }
+
+  7.5% {
+    transform: translate(0, 0) scale(1);
+  }
+  12.5% {
+    transform: translate(-10px, 12px) scale(0.92);
+  }
+
+  17.5% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+// --------------------------------------------------
+// float icon animations
+// --------------------------------------------------
+@keyframes floatIcon { 
+  0%, 100% { transform: translateY(0) rotate(230deg); } 
+  50% { transform: translateY(-14px) rotate(230deg); } 
 }

@@ -1,5 +1,5 @@
 import styles from './EmojiButton.module.scss';
-import emoji1 from '../../../assets/landing-page/emoji1.svg';
+import emoji1 from '../../../assets/landing-page/emoji_neutral.svg';
 import emoji2 from '../../../assets/landing-page/emoji2.svg';
 import emoji3 from '../../../assets/landing-page/emoji3.svg';
 import emoji4 from '../../../assets/landing-page/emoji4.svg';
