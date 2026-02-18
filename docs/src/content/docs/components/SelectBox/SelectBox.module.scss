@@ -40,7 +40,6 @@
   .dropdown {
     position: absolute;
     width: 300px;
-    top: 100%;
     left: 0;
     right: 0;
     margin-top: 8px;
@@ -50,6 +49,14 @@
     z-index: 10;
     animation: slideDown 0.2s ease;
     padding: 15px;
+    max-width: 95vw;
+    max-width: calc(100vw - 20px);
+    box-sizing: border-box;
+
+    @media (max-width: 400px) {
+      width: auto;
+      min-width: 200px;
+    }
 
     .title {
       font-size: var(--font-size-xs);

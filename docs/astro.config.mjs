@@ -69,6 +69,7 @@ export default defineConfig({
       alt: 'Pulsar Logo',
       replacesTitle: true,
     },
+    favicon: './src/assets/logo.svg',
     components: {
       ThemeSelect: './src/components/ThemeSelect.astro',
     },

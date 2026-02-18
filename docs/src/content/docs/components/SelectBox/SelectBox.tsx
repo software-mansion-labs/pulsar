@@ -18,11 +18,43 @@ interface SelectBoxProps {
 export function SelectBox({ title, options: initialOptions, onOptionChange: onOptionChange, className = '' }: SelectBoxProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState(initialOptions);
+  const [dropdownPosition, setDropdownPosition] = useState<{ top?: string; bottom?: string; left?: string; right?: string }>({ top: '100%' });
   const selectBoxRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setOptions(initialOptions);
   }, [initialOptions]);
+
+  useEffect(() => {
+    if (isOpen && selectBoxRef.current) {
+      const rect = selectBoxRef.current.getBoundingClientRect();
+      const dropdownWidth = 300;
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const spaceBelow = viewportHeight - rect.bottom;
+
+      const newPosition: { top?: string; bottom?: string; left?: string; right?: string } = {};
+
+      if (rect.left + dropdownWidth > viewportWidth - 10) {
+        newPosition.right = '0';
+        newPosition.left = 'auto';
+      } else {
+        newPosition.left = '0';
+        newPosition.right = 'auto';
+      }
+
+      if (spaceBelow < 300) {
+        newPosition.bottom = '100%';
+        newPosition.top = 'auto';
+      } else {
+        newPosition.top = '100%';
+        newPosition.bottom = 'auto';
+      }
+
+      setDropdownPosition(newPosition);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -89,7 +121,17 @@ export function SelectBox({ title, options: initialOptions, onOptionChange: onOp
       </div>
 
       {isOpen && (
-        <div className={styles.dropdown} onClick={(e) => e.stopPropagation()}>
+        <div 
+          className={styles.dropdown} 
+          onClick={(e) => e.stopPropagation()}
+          ref={dropdownRef}
+          style={{
+            position: 'absolute',
+            ...dropdownPosition,
+            marginTop: dropdownPosition.top === '100%' ? '8px' : '0',
+            marginBottom: dropdownPosition.bottom === '100%' ? '8px' : '0',
+          }}
+        >
 
           <div className={styles.title}>{title}</div>
 

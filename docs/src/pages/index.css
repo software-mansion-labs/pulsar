@@ -86,3 +86,12 @@ body {
 nav {
   z-index: 0;
 }
+
+@media (max-width: 1151px) {
+  mobile-starlight-toc {
+    display: none;
+  }
+  aside {
+    margin-top: -50px;
+  }
+}
