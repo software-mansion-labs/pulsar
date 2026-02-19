@@ -5,17 +5,25 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
+import Preset from '@/components/Preset';
 
 const infoIcon = require('@/assets/images/info.svg');
 const slidersIcon = require('@/assets/images/sliders.svg');
 
+const defaultEdges = {
+  top: 'additive',
+  left: 'additive',
+  bottom: 'off',
+  right: 'additive',
+};
+
 export default function PresetsScreen() {
   
   return (
-    <SafeAreaView>
-      <BasicLayout>
-        <ScrollView>
-
+    <SafeAreaView edges={defaultEdges as any}>
+      <ScrollView>
+        <BasicLayout>
+        
           <ThemedText type="title" style={Margins.marginTop4X}>
             Get to know Pulsar presets
           </ThemedText>
@@ -36,15 +44,48 @@ export default function PresetsScreen() {
             <ThemedText type="subtitle">
               Presets
             </ThemedText>
-            <Link href="/tagsModal">
+            <Link href="/filtersModal">
               <Link.Trigger>
                 <Image source={slidersIcon} style={styles.settingsIcon} />
               </Link.Trigger>
             </Link>
           </View>
 
-        </ScrollView>
-      </BasicLayout>
+          <Preset
+            title="Sparkle"
+            subtitle="Crisp, light feedback for confirmations."
+            tags={[
+              { label: 'Confirmation' },
+              { label: 'Short' },
+              { label: 'Delight', backgroundColor: '#FFE7F2', textColor: '#B8005A' },
+            ]}
+            images={[require('@/assets/images/info.svg')]}
+          />
+
+          <Preset
+            title="Sparkle"
+            subtitle="Crisp, light feedback for confirmations."
+            tags={[
+              { label: 'Confirmation' },
+              { label: 'Short' },
+              { label: 'Delight', backgroundColor: '#FFE7F2', textColor: '#B8005A' },
+            ]}
+            images={[require('@/assets/images/info.svg')]}
+          />
+
+          <Preset
+            title="Sparkle"
+            subtitle="Crisp, light feedback for confirmations."
+            tags={[
+              { label: 'Confirmation' },
+              { label: 'Short' },
+              { label: 'Delight', backgroundColor: '#FFE7F2', textColor: '#B8005A' },
+            ]}
+            images={[require('@/assets/images/info.svg')]}
+          />
+
+        </BasicLayout>
+      </ScrollView>
     </SafeAreaView>
   );
 }
