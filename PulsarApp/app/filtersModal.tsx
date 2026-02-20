@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -7,6 +7,7 @@ import Button from '@/components/Button';
 import { Colors } from '@/constants/theme';
 import { Image } from 'expo-image';
 import { TagsInfo } from '@/constants/Tags';
+import { useFilters } from '@/contexts/FilterContext';
 
 const closeIcon = require('@/assets/images/x.svg');
 const checkIcon = require('@/assets/images/check.svg');
@@ -20,13 +21,15 @@ type FiltersCollection = {
 };
 
 export default function FiltersModal() {
+  const { selectedTags, setSelectedTags } = useFilters();
+  
   const createInitialStates = (): FiltersCollection => {
     const states: FiltersCollection = {};
     
     TagsInfo.forEach(group => {
       const state: FilterState = {};
       group.tags.forEach(tag => {
-        state[tag.name] = false;
+        state[tag.name] = selectedTags.includes(tag.name);
       });
       states[group.groupName] = state;
     });
@@ -61,6 +64,16 @@ export default function FiltersModal() {
   };
 
   const handleShowResults = () => {
+    const selected: string[] = [];
+    Object.keys(filters).forEach(groupName => {
+      Object.keys(filters[groupName]).forEach(tagName => {
+        if (filters[groupName][tagName]) {
+          selected.push(tagName);
+        }
+      });
+    });
+    
+    setSelectedTags(selected);
     router.back();
   };
 
@@ -91,7 +104,7 @@ export default function FiltersModal() {
       <View style={styles.footer}>
         <Button 
           label="Show results"
-          showIcon
+          showIcon="arrow"
           onComplete={handleShowResults}
           style={styles.showResultsButton}
         />
