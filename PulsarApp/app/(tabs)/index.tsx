@@ -1,6 +1,7 @@
 import { Image } from 'expo-image';
 import { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import * as Linking from 'expo-linking';
 
 import { ThemedText } from '@/components/themed-text';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,12 +14,38 @@ import Point from '@/components/Point';
 import { ExternalLink } from '@/components/external-link';
 import ConnectionIndicator from '@/components/ConnectionIndicator';
 import { Margins } from '@/constants/theme';
-import { Link } from 'expo-router';
 
 const logo = require('@/assets/images/logo.png');
 
 export default function HomeScreen() {
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'waiting'>('disconnected');
+  const [connectingCode, setConnectingCode] = useState('');
+
+  useEffect(() => {
+    const subscription = Linking.addEventListener('url', ({ url }) => {
+      handleDeepLink(url);
+    });
+
+    Linking.getInitialURL().then((url) => {
+      if (url) {
+        handleDeepLink(url);
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  const handleDeepLink = (url: string) => {
+    const parsedUrl = Linking.parse(url);
+    
+    if (parsedUrl.queryParams?.code) {
+      const code = parsedUrl.queryParams.code as string;
+      setConnectingCode(code);
+      // handleOnConnect();
+    }
+  };
 
   const handleOnConnect = () => {
     setConnectionStatus('waiting');
@@ -59,7 +86,12 @@ export default function HomeScreen() {
           </>}
 
           {connectionStatus !== 'connected' && <>
-            <Input placeholder='Connecting code' style={Margins.marginTop4X} />
+            <Input 
+              placeholder='Connecting code' 
+              style={Margins.marginTop4X}
+              value={connectingCode}
+              onChangeText={setConnectingCode}
+            />
             <Button
               label='Connect'
               style={Margins.marginTop3X}
