@@ -76,7 +76,7 @@ function Preset({ title, subtitle, tags = [], image, onPress, duration }: Preset
 	});
 
 	return (
-		<Card style={styles.card}>
+		<Card style={styles.card} enableAnimation={false}>
 			<View style={styles.container}>
 				<View style={styles.tagsContainer}>
 					{tags.map((tag, index) => (

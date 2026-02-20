@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import PresetList from '@/components/PresetList';
+import SelectedTags from '@/components/SelectedTags';
 
 const infoIcon = require('@/assets/images/info.svg');
 const slidersIcon = require('@/assets/images/sliders.svg');
@@ -50,6 +51,8 @@ export default function PresetsScreen() {
               </Link.Trigger>
             </Link>
           </View>
+
+          <SelectedTags />
 
           <PresetList />
 

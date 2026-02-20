@@ -4,16 +4,19 @@ import Animated, { LinearTransition } from 'react-native-reanimated';
 
 interface Props {
   children?: React.ReactNode;
+  enableAnimation?: boolean;
 }
 
-function Card({ children, style }: Props & { style?: React.ComponentProps<typeof Animated.View>['style'] }) {
+function Card({ children, style, enableAnimation = true }: Props & { style?: React.ComponentProps<typeof Animated.View>['style'] }) {
   const [applyAnimation, setApplyAnimation] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setApplyAnimation(true);
-    }, 1000);
-  }, []);
+    if (enableAnimation) {
+      setTimeout(() => {
+        setApplyAnimation(true);
+      }, 1000);
+    }
+  }, [enableAnimation]);
 
   return (
     <Animated.View style={[styles.container, style]} layout={applyAnimation ? LinearTransition : undefined}>
