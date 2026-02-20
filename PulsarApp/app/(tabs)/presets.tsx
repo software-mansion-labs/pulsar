@@ -1,11 +1,11 @@
 import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
 import { Margins } from '@/constants/theme';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
-import Preset from '@/components/Preset';
+import PresetList from '@/components/PresetList';
 
 const infoIcon = require('@/assets/images/info.svg');
 const slidersIcon = require('@/assets/images/sliders.svg');
@@ -51,38 +51,7 @@ export default function PresetsScreen() {
             </Link>
           </View>
 
-          <Preset
-            title="Sparkle"
-            subtitle="Crisp, light feedback for confirmations."
-            tags={[
-              { label: 'Confirmation' },
-              { label: 'Short' },
-              { label: 'Delight', backgroundColor: '#FFE7F2', textColor: '#B8005A' },
-            ]}
-            images={[require('@/assets/images/info.svg')]}
-          />
-
-          <Preset
-            title="Sparkle"
-            subtitle="Crisp, light feedback for confirmations."
-            tags={[
-              { label: 'Confirmation' },
-              { label: 'Short' },
-              { label: 'Delight', backgroundColor: '#FFE7F2', textColor: '#B8005A' },
-            ]}
-            images={[require('@/assets/images/info.svg')]}
-          />
-
-          <Preset
-            title="Sparkle"
-            subtitle="Crisp, light feedback for confirmations."
-            tags={[
-              { label: 'Confirmation' },
-              { label: 'Short' },
-              { label: 'Delight', backgroundColor: '#FFE7F2', textColor: '#B8005A' },
-            ]}
-            images={[require('@/assets/images/info.svg')]}
-          />
+          <PresetList />
 
         </BasicLayout>
       </ScrollView>

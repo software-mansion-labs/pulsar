@@ -6,7 +6,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-function Card({ children }: Props) {
+function Card({ children, style }: Props & { style?: React.ComponentProps<typeof Animated.View>['style'] }) {
   const [applyAnimation, setApplyAnimation] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function Card({ children }: Props) {
   }, []);
 
   return (
-    <Animated.View style={styles.container} layout={applyAnimation ? LinearTransition : undefined}>
+    <Animated.View style={[styles.container, style]} layout={applyAnimation ? LinearTransition : undefined}>
       {children}
     </Animated.View>
   );

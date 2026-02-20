@@ -4,78 +4,78 @@ import { Image, ScrollView, StyleSheet, Text, View, type ImageSourcePropType } f
 import Card from './Card';
 import { ThemedText } from './themed-text';
 import { Colors, Fonts } from '@/constants/theme';
+import Button from './Button';
+
+const IMAGE_HEIGHT = 160;
 
 export type PresetTag = {
 	label: string;
-	backgroundColor?: string;
-	textColor?: string;
 };
 
 export interface PresetProps {
 	title: string;
-	subtitle?: string;
-	tags?: PresetTag[];
-	images?: ImageSourcePropType[];
+	subtitle: string;
+	tags: PresetTag[];
+	image: ImageSourcePropType;
+	onPress: () => void;
 }
 
-function Preset({ title, subtitle, tags = [], images = [] }: PresetProps) {
+function Preset({ title, subtitle, tags = [], image, onPress }: PresetProps) {
+	const imageMeta = Image.resolveAssetSource(image);
+	const imageAspectRatio =
+		imageMeta?.width && imageMeta?.height ? imageMeta.width / imageMeta.height : undefined;
+	const imageWidth = imageAspectRatio ? IMAGE_HEIGHT * imageAspectRatio : undefined;
+
 	return (
-		<Card>
+		<Card style={styles.card}>
 			<View style={styles.container}>
-				{tags.length > 0 ? (
-					<View style={styles.tagsContainer}>
-						{tags.map((tag, index) => (
-							<View
-								key={`${tag.label}-${index}`}
-								style={[
-									styles.tag,
-									tag.backgroundColor ? { backgroundColor: tag.backgroundColor } : undefined,
-								]}
-							>
-								<Text
-									style={[
-										styles.tagText,
-										tag.textColor ? { color: tag.textColor } : undefined,
-									]}
-								>
-									{tag.label}
-								</Text>
-							</View>
-						))}
-					</View>
-				) : null}
+				<View style={styles.tagsContainer}>
+					{tags.map((tag, index) => (
+						<View
+							key={`${tag.label}-${index}`}
+							style={styles.tag}
+						>
+							<Text style={styles.tagText}>{tag.label}</Text>
+						</View>
+					))}
+				</View>
 
 				<ThemedText type="subtitle" style={styles.title}>
 					{title}
 				</ThemedText>
-				{subtitle ? (
-					<ThemedText style={styles.subtitle}>{subtitle}</ThemedText>
-				) : null}
+				<ThemedText>{subtitle}</ThemedText>
 
-				<ScrollView
-					horizontal
-					showsHorizontalScrollIndicator={false}
-					contentContainerStyle={styles.imagesContainer}
-					style={styles.imagesScroll}
-				>
-					{images.length > 0 ? (
-						images.map((source, index) => (
-							<Image key={`preset-image-${index}`} source={source} style={styles.image} />
-						))
-					) : (
-						<View style={styles.imagePlaceholder}>
-							<Text style={styles.placeholderText}>No preview</Text>
-						</View>
-					)}
-				</ScrollView>
+				<View style={styles.border}>
+					<ScrollView
+						horizontal
+						bounces={false}
+						style={styles.imagesScroll}
+						contentContainerStyle={styles.imagesContent}
+					>
+						<Image
+							source={image}
+							style={[
+								styles.image,
+								imageWidth ? { width: imageWidth } : undefined,
+							]}
+							resizeMode="contain"
+						/>
+					</ScrollView>
+				</View>
+
+				<Button label='Play' onClick={onPress} />
+
 			</View>
 		</Card>
 	);
 }
 
 const styles = StyleSheet.create({
+	card: {
+		paddingVertical: 15,
+	},
 	container: {
-		gap: 12,
+		gap: 5,
 	},
 	tagsContainer: {
 		flexDirection: 'row',
@@ -84,46 +84,36 @@ const styles = StyleSheet.create({
 	},
 	tag: {
 		borderRadius: 999,
-		borderWidth: 1,
-		borderColor: Colors.light.borderColor,
-		backgroundColor: '#E8F6FB',
+		backgroundColor: '#B5E1F1',
 		paddingHorizontal: 10,
-		paddingVertical: 4,
+		paddingVertical: 5,
 	},
 	tagText: {
-		fontFamily: Fonts.sans,
-		fontSize: 12,
-		color: Colors.light.text,
+		fontSize: 14,
+		color: '#001A72',
+		fontWeight: '500',
 	},
 	title: {
 		marginTop: 6,
 	},
-	subtitle: {
-		color: '#2B85AB',
-	},
-	imagesScroll: {
+	border: {
+		borderWidth: 1,
+		borderColor: '#E1F3FA',
 		marginTop: 8,
 	},
-	imagesContainer: {
-		gap: 12,
-		paddingBottom: 2,
+	imagesScroll: {
+		height: IMAGE_HEIGHT + 20,
+	},
+	imagesContent: {
+		height: IMAGE_HEIGHT + 20,
+		alignItems: 'center',
 	},
 	image: {
-		width: 240,
-		height: 120,
-		borderRadius: 10,
-		borderWidth: 1,
-		borderColor: Colors.light.borderColor,
-	},
-	imagePlaceholder: {
-		width: 240,
-		height: 120,
-		borderRadius: 10,
-		borderWidth: 1,
-		borderColor: Colors.light.borderColor,
-		backgroundColor: '#F3FAFD',
-		alignItems: 'center',
-		justifyContent: 'center',
+		height: IMAGE_HEIGHT,
+		alignSelf: 'center',
+		paddingTop: 5,
+		paddingBottom: 5,
+		paddingHorizontal: 5,
 	},
 	placeholderText: {
 		fontFamily: Fonts.sans,

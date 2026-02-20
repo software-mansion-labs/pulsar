@@ -13,10 +13,10 @@ interface Props {
   onClick?: () => void;
   onComplete?: () => void;
   state?: 'loading' | 'default';
-  showIcon?: boolean;
+  showIcon?: 'arrow' | 'none';
 }
 
-function Button({ label, style, onClick, onComplete, state = 'default', showIcon = false, ...props }: Props & ViewProps) {
+function Button({ label, style, onClick, onComplete, state = 'default', showIcon = 'none', ...props }: Props & ViewProps) {
   const [pressed, setPressed] = useState(false);
   const isLoading = state === 'loading';
 
@@ -59,7 +59,7 @@ function Button({ label, style, onClick, onComplete, state = 'default', showIcon
         ) : (
           <View style={styles.row}>
             <Text style={styles.text}>{label}</Text>
-            {showIcon && <Image source={arrowIcon} style={styles.arrowIcon} />}
+            {showIcon === 'arrow' && <Image source={arrowIcon} style={styles.arrowIcon} />}
           </View>
         )}
       </Animated.View>
