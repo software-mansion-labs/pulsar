@@ -5,66 +5,62 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import Button from '@/components/Button';
 import { Colors } from '@/constants/theme';
+import { Image } from 'expo-image';
+import { TagsInfo } from '@/constants/Tags';
+
+const closeIcon = require('@/assets/images/x.svg');
+const checkIcon = require('@/assets/images/check.svg');
 
 type FilterState = {
   [key: string]: boolean;
 };
 
+type FiltersCollection = {
+  [groupName: string]: FilterState;
+};
+
 export default function FiltersModal() {
-  const [length, setLength] = useState<FilterState>({
-    '1': true,
-    '2': false,
-    '3': true,
-    '4': true,
-    '5': true,
-  });
+  const createInitialStates = (): FiltersCollection => {
+    const states: FiltersCollection = {};
+    
+    TagsInfo.forEach(group => {
+      const state: FilterState = {};
+      group.tags.forEach(tag => {
+        state[tag.name] = false;
+      });
+      states[group.groupName] = state;
+    });
+    
+    return states;
+  };
 
-  const [complexity, setComplexity] = useState<FilterState>({
-    '1': true,
-    '2': false,
-    '3': true,
-    '4': true,
-  });
+  const [filters, setFilters] = useState<FiltersCollection>(createInitialStates);
 
-  const [intensity, setIntensity] = useState<FilterState>({
-    '1': false,
-    '2': false,
-    '3': false,
-    '4': true,
-    '5': false,
-  });
-
-  const [feedback, setFeedback] = useState<FilterState>({
-    '1': false,
-    '2': false,
-    '3': false,
-    '4': true,
-  });
-
-  const toggleFilter = (
-    category: 'length' | 'complexity' | 'intensity' | 'feedback',
-    value: string
-  ) => {
-    const setters = {
-      length: setLength,
-      complexity: setComplexity,
-      intensity: setIntensity,
-      feedback: setFeedback,
-    };
-
-    const setter = setters[category];
-    setter((prev) => ({ ...prev, [value]: !prev[value] }));
+  const toggleFilter = (groupName: string, tagName: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [groupName]: {
+        ...prev[groupName],
+        [tagName]: !prev[groupName][tagName],
+      },
+    }));
   };
 
   const clearAll = () => {
-    setLength({ '1': false, '2': false, '3': false, '4': false, '5': false });
-    setComplexity({ '1': false, '2': false, '3': false, '4': false });
-    setIntensity({ '1': false, '2': false, '3': false, '4': false, '5': false });
-    setFeedback({ '1': false, '2': false, '3': false, '4': false });
+    const clearedStates: FiltersCollection = {};
+    
+    TagsInfo.forEach(group => {
+      const state: FilterState = {};
+      group.tags.forEach(tag => {
+        state[tag.name] = false;
+      });
+      clearedStates[group.groupName] = state;
+    });
+    
+    setFilters(clearedStates);
   };
 
   const handleShowResults = () => {
-    // Handle showing results with selected filters
     router.back();
   };
 
@@ -72,7 +68,7 @@ export default function FiltersModal() {
     <ThemedView style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.closeButton}>
-          <Text style={styles.closeIcon}>✕</Text>
+          <Image source={closeIcon} style={styles.closeIcon} />
         </Pressable>
         <ThemedText style={styles.title}>Filters</ThemedText>
         <Pressable onPress={clearAll}>
@@ -81,39 +77,22 @@ export default function FiltersModal() {
       </View>
 
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={true}>
-        <FilterSection
-          title="Length"
-          filters={length}
-          onToggle={(value) => toggleFilter('length', value)}
-          options={['1', '2', '3', '4', '5']}
-        />
-
-        <FilterSection
-          title="Complexity"
-          filters={complexity}
-          onToggle={(value) => toggleFilter('complexity', value)}
-          options={['1', '2', '3', '4']}
-        />
-
-        <FilterSection
-          title="Intensity"
-          filters={intensity}
-          onToggle={(value) => toggleFilter('intensity', value)}
-          options={['1', '2', '3', '4', '5']}
-        />
-
-        <FilterSection
-          title="Feedback"
-          filters={feedback}
-          onToggle={(value) => toggleFilter('feedback', value)}
-          options={['1', '2', '3', '4']}
-        />
+        {TagsInfo.map(group => (
+          <FilterSection
+            key={group.groupName}
+            title={group.groupName}
+            filters={filters[group.groupName]}
+            onToggle={(tagName) => toggleFilter(group.groupName, tagName)}
+            options={group.tags.map(tag => tag.name)}
+          />
+        ))}
       </ScrollView>
 
       <View style={styles.footer}>
         <Button 
-          label="Show results" 
-          onPress={handleShowResults}
+          label="Show results"
+          showIcon
+          onComplete={handleShowResults}
           style={styles.showResultsButton}
         />
       </View>
@@ -136,7 +115,7 @@ function FilterSection({ title, filters, onToggle, options }: FilterSectionProps
         {options.map((option) => (
           <CheckboxItem
             key={option}
-            label={`${title} ${option}`}
+            label={option}
             checked={filters[option]}
             onToggle={() => onToggle(option)}
           />
@@ -156,7 +135,7 @@ function CheckboxItem({ label, checked, onToggle }: CheckboxItemProps) {
   return (
     <Pressable style={styles.checkboxContainer} onPress={onToggle}>
       <View style={[styles.checkbox, checked && styles.checkboxChecked]}>
-        {checked && <Text style={styles.checkmark}>✓</Text>}
+        {checked && <Image source={checkIcon} style={styles.checkmark} />}
       </View>
       <Text style={styles.checkboxLabel}>{label}</Text>
     </Pressable>
@@ -166,15 +145,15 @@ function CheckboxItem({ label, checked, onToggle }: CheckboxItemProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
     backgroundColor: 'white',
   },
   closeButton: {
@@ -184,9 +163,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   closeIcon: {
-    fontSize: 24,
-    color: Colors.light.text,
-    fontWeight: '300',
+    width: 30,
+    height: 30,
   },
   title: {
     fontSize: 20,
@@ -194,16 +172,16 @@ const styles = StyleSheet.create({
     color: Colors.light.text,
   },
   clearAll: {
-    fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '400',
+    fontSize: 18,
+    color: '#001A72',
   },
   scrollView: {
     flex: 1,
     paddingHorizontal: 20,
   },
   section: {
-    marginTop: 30,
+    marginTop: 10,
+    marginBottom: 20,
   },
   sectionTitle: {
     fontSize: 18,
@@ -225,22 +203,21 @@ const styles = StyleSheet.create({
   checkbox: {
     width: 24,
     height: 24,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: Colors.light.borderColor,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#001A72',
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
   },
   checkboxChecked: {
-    backgroundColor: Colors.light.borderColor,
-    borderColor: Colors.light.borderColor,
+    backgroundColor: '#87CCE8',
+    borderColor: '#001A72',
   },
   checkmark: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+    height: 16,
+    width: 16,
   },
   checkboxLabel: {
     fontSize: 16,
@@ -250,6 +227,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 40,
     backgroundColor: 'white',
+    boxShadow: '0px 20px 45px #5BB9E0',
   },
   showResultsButton: {
     width: '100%',

@@ -96,7 +96,7 @@ export default function HomeScreen() {
               label='Connect'
               style={Margins.marginTop3X}
               state={connectionStatus === 'waiting' ? 'loading' : 'default'}
-              onPress={handleOnConnect}
+              onClick={handleOnConnect}
             />
             <Collapsible title="How to connect a device? 🤔" style={Margins.marginTop4X}>
               <Point index={1}>

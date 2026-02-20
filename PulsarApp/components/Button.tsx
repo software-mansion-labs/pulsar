@@ -5,14 +5,18 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 const loaderIcon = require('../assets/images/loader.svg');
 import { Image } from 'expo-image';
 
+const arrowIcon = require('@/assets/images/arrow.svg');
+
 interface Props {
   label: string;
   style?: ViewProps['style'];
-  onPress?: () => void;
+  onClick?: () => void;
+  onComplete?: () => void;
   state?: 'loading' | 'default';
+  showIcon?: boolean;
 }
 
-function Button({ label, style, onPress, state = 'default', ...props }: Props & ViewProps) {
+function Button({ label, style, onClick, onComplete, state = 'default', showIcon = false, ...props }: Props & ViewProps) {
   const [pressed, setPressed] = useState(false);
   const isLoading = state === 'loading';
 
@@ -20,7 +24,7 @@ function Button({ label, style, onPress, state = 'default', ...props }: Props & 
     .onStart(() => {
       setPressed(true);
       if (!isLoading) {
-        onPress?.();
+        onClick?.();
       }
     })
     .runOnJS(true);
@@ -28,6 +32,9 @@ function Button({ label, style, onPress, state = 'default', ...props }: Props & 
   useEffect(() => {
     const timer = setTimeout(() => {
       setPressed(false);
+      if (pressed && !isLoading) {
+        onComplete?.();
+      }
     }, 200);
     return () => clearTimeout(timer);
   }, [pressed]);
@@ -50,7 +57,10 @@ function Button({ label, style, onPress, state = 'default', ...props }: Props & 
             />
           </Animated.View>
         ) : (
-          <Text style={styles.text}>{label}</Text>
+          <View style={styles.row}>
+            <Text style={styles.text}>{label}</Text>
+            {showIcon && <Image source={arrowIcon} style={styles.arrowIcon} />}
+          </View>
         )}
       </Animated.View>
     </GestureDetector>
@@ -79,10 +89,21 @@ const styles = StyleSheet.create({
     height: 24,
     alignSelf: 'center',
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   text: {
     textAlign: 'center',
     fontSize: 16,
     color: '#001A72',
+  },
+  arrowIcon: {
+    width: 18,
+    height: 18,
+    marginLeft: 5,
+    alignSelf: 'center',
   },
   pressAnimation: {
     animationDuration: 200,
