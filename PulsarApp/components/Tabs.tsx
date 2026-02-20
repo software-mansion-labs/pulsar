@@ -19,9 +19,6 @@ interface TabsProps {
 
 export function Tabs({ children, defaultTab = 0 }: TabsProps) {
   const [activeTab, setActiveTab] = useState<number>(defaultTab);
-  const borderColor = useThemeColor({}, 'borderColor');
-  const activeBackgroundColor = useThemeColor({ light: '#E8F5FB', dark: '#1a2a3a' }, 'background');
-  const inactiveBackgroundColor = useThemeColor({ light: '#fff', dark: '#0a0a0a' }, 'background');
 
   const tabs = Children.toArray(children).filter(
     (child) => isValidElement(child) && child.type === Tab
@@ -43,16 +40,13 @@ export function Tabs({ children, defaultTab = 0 }: TabsProps) {
               style={[
                 styles.tab,
                 {
-                  backgroundColor: isActive ? activeBackgroundColor : inactiveBackgroundColor,
-                  borderBottomWidth: isActive ? 3 : 0,
-                  borderBottomColor: borderColor,
+                  backgroundColor: isActive ? '#E8F5FB' : '#fff',
+                  borderBottomColor: isActive ? '#38ACDD' : '#B5E1F1',
                 },
               ]}
               onPress={() => setActiveTab(index)}
             >
-              <ThemedText style={[styles.tabText, isActive && styles.activeTabText]}>
-                {tab.props.name}
-              </ThemedText>
+              <ThemedText style={[styles.tabText]}>{tab.props.name}</ThemedText>
             </TouchableOpacity>
           );
         })}
@@ -80,25 +74,20 @@ const styles = StyleSheet.create({
   },
   tabsHeader: {
     flexGrow: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   tabsHeaderContent: {
     paddingHorizontal: 0,
   },
   tab: {
-    paddingHorizontal: 24,
-    paddingVertical: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     minWidth: 120,
     alignItems: 'center',
     justifyContent: 'center',
+    borderBottomWidth: 2,
   },
   tabText: {
     fontSize: 16,
-    fontWeight: '500',
-  },
-  activeTabText: {
-    fontWeight: '600',
   },
   contentArea: {
     flex: 1,

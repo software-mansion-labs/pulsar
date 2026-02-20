@@ -9,16 +9,15 @@ interface Props {
 }
 
 export function TagDescription({ name, description, usage }: Props) {
-  const borderColor = useThemeColor({}, 'borderColor');
   const backgroundColor = useThemeColor({ light: '#E8F5FB', dark: '#1a2a3a' }, 'background');
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      <View style={[styles.tag, { borderColor }]}>
+      <View style={styles.tag}>
         <ThemedText style={styles.tagText}>{name}</ThemedText>
       </View>
       <ThemedText style={styles.description}>{description}</ThemedText>
-      <ThemedText style={styles.usage}>{usage}</ThemedText>
+      <ThemedText style={styles.usage}>Usage: {usage}</ThemedText>
     </View>
   );
 }
@@ -26,12 +25,14 @@ export function TagDescription({ name, description, usage }: Props) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    borderRadius: 8,
+    borderRadius: 4,
     marginBottom: 16,
   },
   tag: {
     borderWidth: 2,
-    borderRadius: 8,
+    borderRadius: 4,
+    borderColor: '#38ACDD',
+    boxShadow: '-2px 2px 0px #38ACDD',
     paddingHorizontal: 16,
     paddingVertical: 8,
     alignSelf: 'flex-start',
@@ -39,15 +40,15 @@ const styles = StyleSheet.create({
   },
   tagText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '500',
   },
   description: {
     fontSize: 16,
-    lineHeight: 24,
+    lineHeight: 28,
     marginBottom: 12,
+    fontWeight: '500',
   },
   usage: {
-    fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 28,
   },
 });
