@@ -16,8 +16,10 @@ import ConnectionIndicator from '@/components/ConnectionIndicator';
 import { Margins } from '@/constants/theme';
 import { SOCKET_SERVER_URL } from '@/constants/Connection';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Presets, ImperativePatternComposer, Pattern } from 'react-native-pulsar';
 
 const logo = require('@/assets/images/logo.png');
+const patternComposer = new ImperativePatternComposer();
 
 export default function HomeScreen() {
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'waiting'>('disconnected');
@@ -98,7 +100,7 @@ export default function HomeScreen() {
         socket.onmessage = (event) => {
           const payload = typeof event.data === 'string' ? event.data : '';
           try {
-            const json = JSON.parse(payload) as { type?: string; token?: string };
+            const json = JSON.parse(payload) as { type?: string; token?: string, message?: Pattern };
             if (json.type === 'connection_established' && json.token) {
               AsyncStorage.setItem('connectionToken', json.token).then(() => {
                 setConnectionStatus('connected');
@@ -112,6 +114,10 @@ export default function HomeScreen() {
             } else if (json.type === 'peer_disconnected') {
               closureConnectionStatus.current = 'disconnected';
               setConnectionStatus('disconnected');
+            } else if (json.type === 'broadcast') {
+              if (json.message) {
+                playPattern(json.message);
+              }
             }
           } catch {
             Alert.alert('Connection Error', 'Received invalid response from server. Please try again.');
@@ -138,6 +144,13 @@ export default function HomeScreen() {
     setConnectingCode('');
     setIsPaired(false);
     AsyncStorage.removeItem('connectionToken');
+  };
+
+  const playPattern = (pattern: Pattern) => {
+    if (!patternComposer.isParsed()) {
+      patternComposer.parse(pattern);
+    }
+    patternComposer.play();
   };
 
   return <SafeAreaView>
@@ -209,6 +222,14 @@ export default function HomeScreen() {
               </Point>
             </Collapsible>
           </>}
+
+          <Button
+            label='mleko'
+            style={Margins.marginTop3X}
+            onClick={() => {
+              Presets.Success();
+            }}
+          />
 
         </Card>
       </View>

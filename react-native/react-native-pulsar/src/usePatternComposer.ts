@@ -1,21 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 import Pulsar from './NativeRNPulsar';
+import type { Pattern, PatternComposer } from './types';
 
 // workaround for RN prototype caching issue 
 Pulsar.PatternComposer_play;
-
-type Pattern = {
-  discretePattern: { time: number, amplitude: number, frequency: number }[],
-  continuesPattern: {
-    amplitude: { time: number, value: number }[],
-    frequency: { time: number, value: number }[],
-  }
-}
-
-export type PatternComposer = {
-  play: () => void;
-  parse: (pattern: Pattern) => void;
-};
 
 export default function usePatternComposer(pattern: Pattern): PatternComposer {
   const patternIdRef = useRef<number>(-1);
