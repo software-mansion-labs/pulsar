@@ -2,7 +2,6 @@ import { router } from 'expo-router';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import Button from '@/components/Button';
 import { Colors } from '@/constants/theme';
 import { Image } from 'expo-image';
@@ -78,7 +77,7 @@ export default function FiltersModal() {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.closeButton}>
           <Image source={closeIcon} style={styles.closeIcon} />
@@ -109,7 +108,7 @@ export default function FiltersModal() {
           style={styles.showResultsButton}
         />
       </View>
-    </ThemedView>
+    </View>
   );
 }
 

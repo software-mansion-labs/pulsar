@@ -1,12 +1,12 @@
 import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity, ViewProps, View } from 'react-native';
+import { StyleSheet, ViewProps, View } from 'react-native';
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
 
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import {  BaseButton } from 'react-native-gesture-handler';
 
 export function Collapsible({ children, title, style }: PropsWithChildren & { title: string; style?: ViewProps['style'] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +14,10 @@ export function Collapsible({ children, title, style }: PropsWithChildren & { ti
 
   return (
     <View style={style}>
-      <TouchableOpacity
+      <BaseButton
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
-        activeOpacity={0.8}>
+        rippleColor="transparent">
         <IconSymbol
           name="chevron.right"
           size={18}
@@ -27,7 +27,7 @@ export function Collapsible({ children, title, style }: PropsWithChildren & { ti
         />
 
         <ThemedText>{title}</ThemedText>
-      </TouchableOpacity>
+      </BaseButton>
       {isOpen && <Animated.View entering={FadeInUp.delay(50)} exiting={FadeOutUp} style={styles.content}>{children}</Animated.View>}
     </View>
   );
