@@ -11,9 +11,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { FilterProvider } from '@/contexts/FilterContext';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
-// Configure splash screen animation
 SplashScreen.setOptions({
-  duration: 500,
+  duration: 300,
   fade: true,
 });
 
@@ -27,7 +26,6 @@ export default function RootLayout() {
   // SplashScreen.preventAutoHideAsync();
   
   useEffect(() => {
-    // Hide splash screen after app is ready
     SplashScreen.hideAsync();
   }, []);
 
