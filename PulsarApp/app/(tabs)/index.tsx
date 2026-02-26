@@ -1,13 +1,12 @@
 import { Image } from 'expo-image';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import * as Linking from 'expo-linking';
 
 import { ThemedText } from '@/components/themed-text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Card from '@/components/Card';
 import BasicLayout from '@/components/BasicLayout';
-import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { Collapsible } from '@/components/ui/collapsible';
 import Point from '@/components/Point';
@@ -17,6 +16,8 @@ import { Margins } from '@/constants/theme';
 import { SOCKET_SERVER_URL } from '@/constants/Connection';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Presets, ImperativePatternComposer, Pattern } from 'react-native-pulsar';
+import { BaseButton } from 'react-native-gesture-handler';
+import Button from '@/components/Button';
 
 const logo = require('@/assets/images/logo.png');
 const patternComposer = new ImperativePatternComposer();
@@ -67,7 +68,7 @@ export default function HomeScreen() {
         setConnectionStatus('disconnected');
         Alert.alert('Connection Timeout', 'Unable to connect within the expected time. Please check your code and try again.');
       }
-    }, 1000);
+    }, 10000);
 
     AsyncStorage.getItem('connectionToken')
       .then((token) => {
@@ -154,7 +155,8 @@ export default function HomeScreen() {
   };
 
   return <SafeAreaView>
-    <BasicLayout>
+    <BaseButton onPress={Keyboard.dismiss} accessible={false}>
+      <BasicLayout>
 
       <View style={styles.titleContainer}>
         <ThemedText type="title">
@@ -182,14 +184,14 @@ export default function HomeScreen() {
               )}
             </View>
 
-            <TouchableOpacity
+            <BaseButton
               style={Margins.marginTop2X}
               onPress={handleDisconnect}
             >
               <ThemedText style={styles.disconnect}>
                 Disconnect
               </ThemedText>
-            </TouchableOpacity>
+            </BaseButton>
           </>}
 
           {!isPaired && connectionStatus !== 'connected' && <>
@@ -223,17 +225,10 @@ export default function HomeScreen() {
             </Collapsible>
           </>}
 
-          <Button
-            label='mleko'
-            style={Margins.marginTop3X}
-            onClick={() => {
-              Presets.Success();
-            }}
-          />
-
         </Card>
       </View>
-    </BasicLayout>
+      </BasicLayout>
+    </BaseButton>
   </SafeAreaView>
 }
 

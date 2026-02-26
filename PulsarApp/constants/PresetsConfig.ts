@@ -1,3 +1,4 @@
+import { Presets } from "react-native-pulsar";
 export interface Tag {
   label: string;
   variant: "white" | "blue";
@@ -24,9 +25,9 @@ export const PresetsConfig: Array<PresetProps> = [
       { label: "Short", variant: "blue" },
       { label: "Happiness", variant: "blue" }
     ],
-    duration: 10000,
+    duration: 1500,
     image: placeholder,
-    play: () => { console.log('Playing preset'); }
+    play: Presets.Earthquake,
   },
   {
     name: '🧱 Falling Bricks 2',
@@ -38,7 +39,7 @@ export const PresetsConfig: Array<PresetProps> = [
     ],
     duration: 300,
     image: placeholder,
-    play: () => { console.log('Playing preset'); }
+    play: Presets.Earthquake
   },
   {
     name: '🧱 Falling Bricks 3',
@@ -50,7 +51,7 @@ export const PresetsConfig: Array<PresetProps> = [
     ],
     duration: 1000,
     image: placeholder,
-    play: () => { console.log('Playing preset'); }
+    play: Presets.Earthquake
   },
   {
     name: '🧱 Falling Bricks 4',
@@ -62,6 +63,6 @@ export const PresetsConfig: Array<PresetProps> = [
     ],
     duration: 2000,
     image: placeholder,
-    play: () => { console.log('Playing preset'); }
+    play: Presets.Earthquake
   },
 ];
