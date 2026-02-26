@@ -3,10 +3,18 @@ import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Image } from 'expo-image';
+import { useOnboarding } from '@/contexts/OnboardingContext';
+import Button from '@/components/Button';
 
 const closeIcon = require('@/assets/images/x.svg');
 
 export default function PlaygroundModal() {
+  const { resetOnboarding } = useOnboarding();
+
+  const handleRestart = () => {
+    resetOnboarding();
+    router.back();
+  };
 
   return (
     <ThemedView style={styles.container}>
@@ -58,6 +66,14 @@ export default function PlaygroundModal() {
               Slide left or right to shift the Frequency (vibration speed/pitch).
             </ThemedText>
           </ThemedText>
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <Button 
+            label="Show Onboarding Again" 
+            onClick={handleRestart} 
+            fullWidth={true}
+          />
         </View>
       </ScrollView>
     </ThemedView>
@@ -121,6 +137,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
     lineHeight: 24,
+    marginBottom: 16,
+  },
+  buttonContainer: {
+    marginTop: 24,
     marginBottom: 16,
   },
 });

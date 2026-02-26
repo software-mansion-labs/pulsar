@@ -3,8 +3,9 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Image } from 'expo-image';
 import OnboardingOverlay from './OnboardingOverlay';
-import { useState } from 'react';
 import { useRealtimeComposer } from 'react-native-pulsar';
+import { scheduleOnRN } from 'react-native-worklets';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 
 const gridImage = require('@/assets/images/grid.svg');
 
@@ -13,7 +14,7 @@ declare global {
 }
 
 export default function GesturePlayground() {
-  const [showOnboarding, setShowOnboarding] = useState(true);
+  const { onboardingState, setOnboardingState } = useOnboarding();
   const composer = useRealtimeComposer();
   const containerSize = useSharedValue({ width: 0, height: 0 });
   const tapIndicatorPosition = useSharedValue({ x: -100, y: -100 });
@@ -91,18 +92,49 @@ export default function GesturePlayground() {
 
   const composedGesture = Gesture.Simultaneous(tapGesture, panGesture);
 
+
+
+  const updateOnboardingState = (newState: number) => {
+    if (onboardingState >= newState) {
+      return;
+    }
+    setOnboardingState(newState);
+  }
+  const onboardingTapGesture = Gesture.Tap().onStart((e) => {
+    scheduleOnRN(updateOnboardingState, 2);
+    const normalized = normalizePosition(e.x, e.y);
+    composer.playDiscrete(normalized.y, normalized.x);
+
+    tapIndicatorPosition.value = clampIndicatorPosition(e.x, e.y);;
+    global.tapTimer = setTimeout(() => {
+      tapIndicatorPosition.value = { x: -100, y: -100 };
+    }, 100);
+  });
+  const onboardingPanGesture = Gesture.Pan()
+    .onUpdate((e) => {
+      const normalized = normalizePosition(e.x, e.y);
+      composer.update(normalized.y, normalized.x);
+      panIndicatorPosition.value = clampIndicatorPosition(e.x, e.y);
+    })
+    .onEnd(() => {
+      scheduleOnRN(updateOnboardingState, 3);
+      composer.stop();
+      panIndicatorPosition.value = { x: -100, y: -100 };
+    });
+  const onboardingComposedGesture = Gesture.Simultaneous(onboardingTapGesture, onboardingPanGesture);
+
   return (
-    <OnboardingOverlay>
-      <GestureDetector gesture={composedGesture}>
-          <Animated.View  style={styles.gridContainer} onLayout={handleLayout}>
-            <Animated.View style={[styles.tapIndicator, tapIndicatorStyle]} />
-            <Animated.View style={[styles.panIndicator, panIndicatorStyle]} />
-            <Image
-              source={gridImage}
-              style={styles.grid}
-              contentFit="contain"
-            />
-          </Animated.View>
+    <OnboardingOverlay state={onboardingState}>
+      <GestureDetector gesture={onboardingState === 3 ? composedGesture : onboardingComposedGesture}>
+        <Animated.View  style={styles.gridContainer} onLayout={handleLayout}>
+          <Animated.View style={[styles.tapIndicator, tapIndicatorStyle]} />
+          <Animated.View style={[styles.panIndicator, panIndicatorStyle]} />
+          <Image
+            source={gridImage}
+            style={styles.grid}
+            contentFit="contain"
+          />
+        </Animated.View>
       </GestureDetector>
     </OnboardingOverlay>
   );

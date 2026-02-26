@@ -155,7 +155,7 @@ export default function HomeScreen() {
   };
 
   return <SafeAreaView>
-    <BaseButton onPress={Keyboard.dismiss} accessible={false}>
+    <BaseButton onPress={Keyboard.dismiss} accessible={false} rippleColor={'transparent'}>
       <BasicLayout>
 
       <View style={styles.titleContainer}>
