@@ -45,7 +45,7 @@ import UIKit
     return realtimeComposer
   }
   
-  @objc public func hapticSupport() -> Bool {
+  @objc public func isHapticsSupported() -> Bool {
     return engine.isHapticsSupported()
   }
   

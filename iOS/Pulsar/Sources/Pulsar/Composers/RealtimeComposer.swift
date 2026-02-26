@@ -5,7 +5,6 @@ public class RealtimeComposer: NSObject {
   private var engine: HapticEngineWrapper!
   private var continuousPlayer: CHHapticAdvancedPatternPlayer?
   private var isPlaying = false
-  private var initialized = false
   
   public init(engine: HapticEngineWrapper) {
     self.engine = engine
@@ -13,18 +12,16 @@ public class RealtimeComposer: NSObject {
   
   deinit {
     stop()
-    initialized = false
   }
 
   public func start(amplitude: Float = 0.5, frequency: Float = 0.5) {
-    guard initialized, !isPlaying else { return }
+    guard !isPlaying else { return }
     stop()
     do {
       continuousPlayer = engine?.getRealtimePlayer()
       isPlaying = true
       update(amplitude: amplitude, frequency: frequency)
       try continuousPlayer?.start(atTime: 0)
-      isPlaying = true
     } catch {
       print("Failed to start continuous haptic: \(error)")
     }

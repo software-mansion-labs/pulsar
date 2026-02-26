@@ -122,7 +122,7 @@ static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) 
 }
 
 - (nonnull NSNumber *)Pulsar_hapticSupport { 
-  return [pulsar_ hapticSupport] ? @(4) : @(0);
+  return [pulsar_ isHapticsSupported] ? @(4) : @(0);
 }
 
 
