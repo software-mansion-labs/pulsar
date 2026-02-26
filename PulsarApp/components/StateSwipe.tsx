@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { Image } from 'expo-image';
 
@@ -12,6 +12,8 @@ export function StateSwipe({ children }: { children?: React.ReactNode }) {
   return (
     <Animated.View style={[styles.container]} entering={FadeIn} exiting={FadeOut}>
       {children}
+
+      <Text style={styles.label}>Swipe to play continuous haptics</Text>
 
       <View style={styles.circlesContainer} pointerEvents="none">
         <Animated.View style={[styles.circleAnimation]}>
@@ -42,6 +44,21 @@ export function StateSwipe({ children }: { children?: React.ReactNode }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  label: {
+    position: 'absolute',
+    top: 60,
+    alignSelf: 'center',
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#001A72',
+    backgroundColor: 'white',
+    borderRadius: 4,
+    paddingVertical: 18,
+    paddingHorizontal: 10,
+    borderColor: '#38ACDD',
+    borderWidth: 2,
+    boxShadow: '-3px 3px 0px #38ACDD',
   },
   circlesContainer: {
     position: 'absolute',

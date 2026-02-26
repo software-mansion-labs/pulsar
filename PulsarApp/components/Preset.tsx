@@ -105,7 +105,7 @@ function Preset({ title, subtitle, tags = [], image, onPress, duration }: Preset
 						ref={scrollViewRef}
 						horizontal
 						bounces={false}
-						scrollEnabled={false}
+						scrollEnabled={true}
 						style={styles.imagesScroll}
 						contentContainerStyle={styles.imagesContent}
 					>

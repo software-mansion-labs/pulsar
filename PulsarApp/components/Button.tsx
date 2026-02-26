@@ -39,13 +39,12 @@ function Button({
   const isLoading = state === 'loading';
 
   const tap = Gesture.Tap()
-    .onStart(() => {
+    .onBegin(() => {
       setPressed(true);
       if (!isLoading) {
         onClick?.();
       }
-    })
-    .runOnJS(true);
+    }).runOnJS(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
