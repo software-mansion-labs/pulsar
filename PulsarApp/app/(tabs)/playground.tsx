@@ -4,7 +4,8 @@ import { ThemedText } from '@/components/themed-text';
 import { Image } from 'expo-image';
 import Button from '@/components/Button';
 import { Link } from 'expo-router';
-import GesturePlayground from '../../components/GesturePlayground';
+import GesturePlayground, { type GesturePlaygroundHandle } from '../../components/GesturePlayground';
+import { useRef, useState } from 'react';
 
 const infoIcon = require('@/assets/images/info.svg');
 
@@ -15,13 +16,23 @@ const defaultEdges = {
   right: 'additive',
 };
 
-const stringToShare = "Example preset content";
+
 
 export default function PlaygroundScreen() {
+  const playgroundRef = useRef<GesturePlaygroundHandle | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isRecorded, setIsRecorded] = useState(false);
+
   const handleShare = async () => {
     try {
+      const patternJson = playgroundRef.current?.getPatternAsJson();
+      if (!patternJson) {
+        console.log('No recorded pattern to share');
+        return;
+      }
       await Share.share({
-        message: stringToShare,
+        message: patternJson,
       });
     } catch (error) {
       console.error('Error sharing:', error);
@@ -44,12 +55,37 @@ export default function PlaygroundScreen() {
           </Link>
         </View>
 
-        <GesturePlayground />
+        <GesturePlayground
+          ref={playgroundRef}
+          onRecordingChange={setIsRecording}
+          onPlayingChange={setIsPlaying}
+          onRecordedChange={setIsRecorded}
+        />
 
         <View style={styles.controlsContainer}>
-          <Button onClick={() => {}} showIcon="play" largeIcon={true} />
-          <Button label="Record" onClick={() => {}} showIcon="record" fullWidth={true} />
-          <Button onClick={handleShare} showIcon="download" largeIcon={true} />
+          <Button
+            enabled={isRecorded}
+            onClick={() => {
+              if (isRecorded) {
+                playgroundRef.current?.playRecordedPattern();
+              }
+            }}
+            showIcon={isPlaying ? 'stop' : 'play'}
+            largeIcon={true}
+          />
+          <Button
+            label={isRecording ? 'Stop' : 'Record'}
+            onClick={() => {
+              if (isRecording) {
+                playgroundRef.current?.stopRecording();
+              } else {
+                playgroundRef.current?.startRecording();
+              }
+            }}
+            showIcon={isRecording ? 'square' : 'record'}
+            fullWidth={true}
+          />
+          <Button enabled={isRecorded} onClick={handleShare} showIcon="download" largeIcon={true} />
         </View>
         
       </View>

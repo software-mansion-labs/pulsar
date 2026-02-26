@@ -15,6 +15,9 @@ export default class ImperativePatternComposer implements PatternComposer {
   }
 
   parse(pattern: Pattern) {
+    if (this.patternId !== -1) {
+      Pulsar.PatternComposer_release(this.patternId);
+    }
     const patternId = Pulsar.PatternComposer_parsePattern(pattern);
     this.patternId = patternId;
   };

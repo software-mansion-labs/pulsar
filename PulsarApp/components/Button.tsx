@@ -23,6 +23,7 @@ interface Props {
   showIcon?: 'arrow' | 'play' | 'stop' | 'download' | 'record' | 'square' | 'none';
   largeIcon?: boolean;
   fullWidth?: boolean;
+  enabled?: boolean;
 }
 
 function Button({ 
@@ -34,6 +35,7 @@ function Button({
   showIcon = 'none', 
   largeIcon = false, 
   fullWidth = false,
+  enabled = true,
   ...props }: Props & ViewProps) {
   const [pressed, setPressed] = useState(false);
   const isLoading = state === 'loading';
@@ -41,7 +43,7 @@ function Button({
   const tap = Gesture.Tap()
     .onBegin(() => {
       setPressed(true);
-      if (!isLoading) {
+      if (!isLoading && enabled) {
         onClick?.();
       }
     }).runOnJS(true);
@@ -49,7 +51,7 @@ function Button({
   useEffect(() => {
     const timer = setTimeout(() => {
       setPressed(false);
-      if (pressed && !isLoading) {
+      if (pressed && !isLoading && enabled) {
         onComplete?.();
       }
     }, 200);
@@ -60,8 +62,8 @@ function Button({
     styles.container,
     isLoading ? styles.loadingContainer : null,
     style,
-    pressed ? showIcon === 'record' ? styles.pressAnimationRecord : styles.pressAnimation : null,
-    showIcon === 'record' ? { width: width - 200, borderColor: '#FF6259', boxShadow: '-3px 3px 0px #FF6259' } : null,
+    enabled && (pressed ? showIcon === 'record' ? styles.pressAnimationRecord : styles.pressAnimation : null),
+    showIcon === 'record' || showIcon === 'square' ? { width: width - 200, borderColor: '#FF6259', boxShadow: '-3px 3px 0px #FF6259' } : null,
   ];
 
   return (
@@ -75,7 +77,7 @@ function Button({
             />
           </Animated.View>
         ) : (
-          <View style={largeIcon ? styles.largeIconRow : styles.row}>
+          <View style={[largeIcon ? styles.largeIconRow : styles.row, !enabled && styles.disabled]}>
             {label && <Text style={styles.text}>{label}</Text>}
             {showIcon === 'arrow' && <Image source={arrowIcon} style={largeIcon ? styles.largeArrowIcon : styles.arrowIcon} />}
             {showIcon === 'play' && <Image source={playIcon} style={largeIcon ? styles.largeArrowIcon : styles.arrowIcon} />}
@@ -210,6 +212,9 @@ const styles = StyleSheet.create({
         ],
        },
     },
+  },
+  disabled: {
+    opacity: 0.5,
   },
 });
 
