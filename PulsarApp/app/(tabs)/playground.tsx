@@ -6,7 +6,6 @@ import Button from '@/components/Button';
 import { Link } from 'expo-router';
 import GesturePlayground from '../../components/GesturePlayground';
 
-const handImage = require('@/assets/images/hand.png');
 const infoIcon = require('@/assets/images/info.svg');
 
 const defaultEdges = {
@@ -44,12 +43,6 @@ export default function PlaygroundScreen() {
             </Link.Trigger>
           </Link>
         </View>
-
-        {/* <Image
-            source={handImage}
-            style={styles.handPointer}
-            contentFit="contain"
-          /> */}
 
         <GesturePlayground />
 

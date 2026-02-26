@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Image } from 'expo-image';
+import OnboardingOverlay from './OnboardingOverlay';
+import { useState } from 'react';
+import { useRealtimeComposer } from 'react-native-pulsar';
 
 const gridImage = require('@/assets/images/grid.svg');
 
@@ -10,6 +13,8 @@ declare global {
 }
 
 export default function GesturePlayground() {
+  const [showOnboarding, setShowOnboarding] = useState(true);
+  const composer = useRealtimeComposer();
   const containerSize = useSharedValue({ width: 0, height: 0 });
   const tapIndicatorPosition = useSharedValue({ x: -100, y: -100 });
   const panIndicatorPosition = useSharedValue({ x: -100, y: -100 });
@@ -32,8 +37,8 @@ export default function GesturePlayground() {
   const normalizePosition = (x: number, y: number) => {
     'worklet';
     return {
-      x: containerSize.value.width > 0 ? x / containerSize.value.width : 0,
-      y: containerSize.value.height > 0 ? y / containerSize.value.height : 0,
+      x: (containerSize.value.width > 0 ? x / containerSize.value.width : 0),
+      y: 1 - (containerSize.value.height > 0 ? y / containerSize.value.height : 0),
     };
   };
 
@@ -51,6 +56,7 @@ export default function GesturePlayground() {
 
   const tapGesture = Gesture.Tap().onStart((e) => {
     const normalized = normalizePosition(e.x, e.y);
+    composer.playDiscrete(normalized.y, normalized.x);
     console.log('Grid tapped', { absolute: { x: e.x, y: e.y }, normalized });
 
     const clamped = clampIndicatorPosition(e.x, e.y);
@@ -71,11 +77,13 @@ export default function GesturePlayground() {
     })
     .onUpdate((e) => {
       const normalized = normalizePosition(e.x, e.y);
-      console.log('Pan update', { absolute: { x: e.x, y: e.y }, normalized });
+      composer.update(normalized.y, normalized.x);
+      // console.log('Pan update', { absolute: { x: e.x, y: e.y }, normalized });
       const clamped = clampIndicatorPosition(e.x, e.y);
       panIndicatorPosition.value = clamped;
     })
     .onEnd((e) => {
+      composer.stop();
       // const normalized = normalizePosition(e.x, e.y);
       // console.log('Pan end', { absolute: { x: e.x, y: e.y }, normalized });
       panIndicatorPosition.value = { x: -100, y: -100 };
@@ -84,17 +92,19 @@ export default function GesturePlayground() {
   const composedGesture = Gesture.Simultaneous(tapGesture, panGesture);
 
   return (
-    <GestureDetector gesture={composedGesture}>
-      <Animated.View  style={styles.gridContainer} onLayout={handleLayout}>
-        <Animated.View style={[styles.tapIndicator, tapIndicatorStyle]} />
-        <Animated.View style={[styles.panIndicator, panIndicatorStyle]} />
-        <Image
-          source={gridImage}
-          style={styles.grid}
-          contentFit="contain"
-        />
-      </Animated.View>
-    </GestureDetector>
+    <OnboardingOverlay>
+      <GestureDetector gesture={composedGesture}>
+          <Animated.View  style={styles.gridContainer} onLayout={handleLayout}>
+            <Animated.View style={[styles.tapIndicator, tapIndicatorStyle]} />
+            <Animated.View style={[styles.panIndicator, panIndicatorStyle]} />
+            <Image
+              source={gridImage}
+              style={styles.grid}
+              contentFit="contain"
+            />
+          </Animated.View>
+      </GestureDetector>
+    </OnboardingOverlay>
   );
 }
 
