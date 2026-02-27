@@ -6,12 +6,12 @@ interface Props {
   style?: TextInputProps['style'];
 }
 
-function Input({ placeholder, style, ...props }: Props & TextInputProps) {
+function Input({ placeholder, style, value, ...props }: Props & TextInputProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   const dynamicStyle = {
-    fontSize: isFocused ? 25 : 16,
-    paddingVertical: isFocused ? 13 : 18,
+    fontSize: isFocused || value != '' ? 25 : 16,
+    paddingVertical: isFocused || value != '' ? 12.5 : 18,
   };
 
   return (
@@ -21,6 +21,7 @@ function Input({ placeholder, style, ...props }: Props & TextInputProps) {
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       keyboardType="decimal-pad"
+      value={value}
       {...props}
     />
   );

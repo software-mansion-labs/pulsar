@@ -82,6 +82,7 @@ export default function PlaygroundModal() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   header: {
     flexDirection: 'row',

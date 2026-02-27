@@ -289,7 +289,15 @@ function ConnectionForm({
   connectionState: ConnectionState;
   hasToken: boolean;
 }) {
-  return (<Animated.View layout={LinearTransition}>
+  const [applyAnimation, setApplyAnimation] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setApplyAnimation(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+  return (<Animated.View layout={applyAnimation ? LinearTransition : undefined}>
     <Input 
       placeholder='Connecting code' 
       style={Margins.marginTop4X}
