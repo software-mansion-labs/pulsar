@@ -19,7 +19,7 @@ import AVFAudio
     "SystemImpactHeavy": SystemImpactHeavyPreset.self,
     "SystemImpactSoft": SystemImpactSoftPreset.self,
     "SystemImpactRigid": SystemImpactRigidPreset.self,
-    "SystemImpactSuccess": SystemNotificationSuccessPreset.self,
+    "SystemNotificationSuccess": SystemNotificationSuccessPreset.self,
     "SystemNotificationWarning": SystemNotificationWarningPreset.self,
     "SystemNotificationError": SystemNotificationErrorPreset.self,
     "SystemSelection": SystemSelectionPreset.self,
