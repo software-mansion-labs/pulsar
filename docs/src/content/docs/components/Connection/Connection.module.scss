@@ -42,9 +42,41 @@
       .subPrompt {
         font-size: var(--font-size-xs);
       }
-      .code {
-        font-size: var(--font-size-2xl);
-        font-weight: var(--font-weight-bold);
+      .connectionData {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+
+        @media (max-width: 500px) {
+          flex-direction: column;
+        }
+
+        .code {
+          font-size: var(--font-size-2xl);
+          font-weight: var(--font-weight-bold);
+        }
+        
+        .alternative {
+          font-size: var(--font-size-xl);
+          color: var(--color-blue-900);
+          padding: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .qrWrap {
+          margin-bottom: 20px;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+        .qrLabel {
+          font-size: var(--font-size-xs);
+          color: var(--color-blue-900);
+        }
       }
       .status {
         font-size: var(--font-size-xs);

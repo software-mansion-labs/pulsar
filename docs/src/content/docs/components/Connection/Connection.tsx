@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { QRCodeCanvas } from "qrcode.react";
 import { API_SERVER_URL, SOCKET_SERVER_URL } from "../config";
 
 import style from './Connection.module.scss';
@@ -18,6 +19,7 @@ export default function Connection() {
   const [paired, setPaired] = useState<boolean>(false);
   const [channel, setChannel] = useState<number | string>('Loading...');
   const [status, setStatus] = useState<boolean>(false);
+  const [deepLinkUrl, setDeepLinkUrl] = useState<string>('');
   const ws = useRef<WebSocket | null>(null);
 
   function createChannel() {
@@ -72,6 +74,14 @@ export default function Connection() {
   }
   
   useEffect(() => {
+    if (channel !== 'Loading...') {
+      setDeepLinkUrl(`pulsarapp://connect?code=${channel}`);
+    } else {
+      setDeepLinkUrl('');
+    }
+  }, [channel]);
+
+  useEffect(() => {
     if (localStorage.getItem('hapticsToken')) {
       webSocketConnection();
       setPaired(true);
@@ -101,8 +111,26 @@ export default function Connection() {
       {!paired ? 
       <div className={style.codebox}>
         <img src={refreshIcon.src} alt="Refresh" className={`${style.icon}`} onClick={handleReset} />
-        <div className={style.prompt}>Your pairing code:</div>
-        <div className={style.code}>{channel}</div>
+
+        <div className={style.connectionData}>
+
+          <div className={style.codeSection}>
+            <div className={style.prompt}>Your pairing code:</div>
+            <div className={style.code}>{channel}</div>
+          </div>
+
+          {deepLinkUrl && <div className={style.alternative}>or</div>}
+
+          <div className={style.qrSection}>
+            {deepLinkUrl &&
+            <div className={style.qrWrap}>
+              <div className={style.prompt}>Scan to open PulsarApp</div>
+              <QRCodeCanvas value={deepLinkUrl} size={200} bgColor="#e1f3fa" fgColor="#001a72" />
+            </div>}
+          </div>
+
+        </div>
+
         <div className={style.status}>
           <div className={style.desc}>{status ? 'Phone connected' : 'Phone not connected'}</div>
           <div className={`${style.indicator} ${status ? style.connected : style.disconnected}`}></div>
@@ -133,7 +161,7 @@ export default function Connection() {
         </Point>
         <Point index={3}>
           <div>
-            Type Paring code into PulsarApp and click Connect button.
+            Type Paring code into PulsarApp and click Connect button or scan the QR code.
           </div>
         </Point>
       </Accordion>}
