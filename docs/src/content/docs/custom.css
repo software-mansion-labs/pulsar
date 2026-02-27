@@ -30,6 +30,7 @@
   --sl-color-text-accent: var(--color-blue-20);
   --sl-color-bg: var(--color-blue-10);
   --sl-color-bg-nav: var(--color-blue-10);
+  --sl-color-bg-inline-code: white;
   --sl-color-hairline-shade: var(--color-blue-50);
   --__sl-font: 'DM Sans', sans-serif;
   --sl-text-base: var(--font-size-md);
@@ -43,6 +44,9 @@ html {
     color: var(--color-primary);
     text-decoration: none;
   }
+}
+.sl-markdown-content code:not(pre code):not(:where(.not-content *)) {
+  border: 1px solid var(--sl-color-gray-5);
 }
 .sidebar-content {
   a {
