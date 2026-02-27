@@ -64,6 +64,10 @@ html {
 }
 .right-sidebar {
   border-inline: unset;
+  a[aria-current='true'] {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
 }
 #starlight__sidebar {
   border: none;
