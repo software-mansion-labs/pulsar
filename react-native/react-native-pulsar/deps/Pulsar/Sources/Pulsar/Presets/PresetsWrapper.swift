@@ -70,55 +70,55 @@ import AVFAudio
     return type.getInstance(haptics: haptics!)
   }
   
-  @objc public func Earthquake() {
+  public func earthquake() {
     getCacheablePreset(EarthquakePreset.self).play()
   }
 
-  @objc public func Success() {
+  public func success() {
     getCacheablePreset(SuccessPreset.self).play()
   }
 
-  @objc public func Fail() {
+  public func fail() {
     getCacheablePreset(FailPreset.self).play()
   }
   
-  @objc public func Tap() {
+  public func tap() {
     getCacheablePreset(TapPreset.self).play()
   }
   
-  @objc public func SystemImpactLight() {
+  public func systemImpactLight() {
     getCacheablePreset(SystemImpactLightPreset.self).play()
   }
   
-  @objc public func SystemImpactMedium() {
+  public func systemImpactMedium() {
     getCacheablePreset(SystemImpactMediumPreset.self).play()
   }
   
-  @objc public func SystemImpactHeavy() {
+  public func systemImpactHeavy() {
     getCacheablePreset(SystemImpactHeavyPreset.self).play()
   }
   
-  @objc public func SystemImpactSoft() {
+  public func systemImpactSoft() {
     getCacheablePreset(SystemImpactSoftPreset.self).play()
   }
   
-  @objc public func SystemImpactRigid() {
+  public func systemImpactRigid() {
     getCacheablePreset(SystemImpactRigidPreset.self).play()
   }
   
-  @objc public func SystemNotificationSuccess() {
+  public func systemNotificationSuccess() {
     getCacheablePreset(SystemNotificationSuccessPreset.self).play()
   }
   
-  @objc public func SystemNotificationWarning() {
+  public func systemNotificationWarning() {
     getCacheablePreset(SystemNotificationWarningPreset.self).play()
   }
   
-  @objc public func SystemNotificationError() {
+  public func systemNotificationError() {
     getCacheablePreset(SystemNotificationErrorPreset.self).play()
   }
   
-  @objc public func SystemSelection() {
+  public func systemSelection() {
     getCacheablePreset(SystemSelectionPreset.self).play()
   }
 }

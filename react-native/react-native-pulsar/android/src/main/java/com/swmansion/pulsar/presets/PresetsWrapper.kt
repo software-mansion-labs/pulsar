@@ -94,21 +94,20 @@ class PresetsWrapper(
         }
     }
 
-    fun Earthquake() {
+    fun earthquake() {
         getCacheablePreset(EarthquakePreset.name)!!.play()
     }
 
-    fun Success() {
+    fun success() {
         getCacheablePreset(SuccessPreset.name)!!.play()
     }
 
-    fun Fail() {
+    fun fail() {
         getCacheablePreset(FailPreset.name)!!.play()
     }
 
-    fun Tap() {
+    fun tap() {
         getCacheablePreset(TapPreset.name)!!.play()
     }
-
     
 }

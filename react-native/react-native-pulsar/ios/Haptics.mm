@@ -103,7 +103,7 @@ static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) 
 
 // RealtimeComposer -----------------------------------------------------------------
 
-- (void)RealtimeComposer_update:(double)amplitude frequency:(double)frequency {
+- (void)RealtimeComposer_set:(double)amplitude frequency:(double)frequency {
   [realtimeComposer_ setWithAmplitude:amplitude frequency:frequency];
 }
 
@@ -124,6 +124,5 @@ static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) 
 - (nonnull NSNumber *)Pulsar_hapticSupport { 
   return [pulsar_ isHapticsSupported] ? @(4) : @(0);
 }
-
 
 @end
