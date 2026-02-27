@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .banner {
   border: solid 2px var(--color-blue-50);
   background-color: var(--color-blue-10);
@@ -692,7 +694,7 @@
 
   @keyframes confetti-#{$index} {
     @for $i from 0 through $steps {
-      $progress: $i / $steps;
+      $progress: math.div($i, $steps);
       $t: $start-t + ($progress * ($end-t - $start-t));
       $percent: $progress * 100%;
 
