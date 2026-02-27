@@ -23,11 +23,11 @@ export default {
   System: {
     ImpactLight: () => {
       'worklet';
-      Pulsar.Pulsar_play('SystemImpactSuccess');
+      Pulsar.Pulsar_play('SystemImpactLight');
     },
     ImpactMedium: () => {
       'worklet';
-      Pulsar.Pulsar_play('SystemImpactSuccess');
+      Pulsar.Pulsar_play('SystemImpactMedium');
     },
     ImpactHeavy: () => {
       'worklet';
