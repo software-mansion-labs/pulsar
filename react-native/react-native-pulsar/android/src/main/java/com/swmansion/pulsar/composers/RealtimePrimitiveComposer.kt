@@ -14,8 +14,8 @@ class RealtimePrimitiveComposer(
     private val strategy: RealtimeComposerStrategy
 ) : RealtimeComposable {
     companion object {
-        private const val MIN_INTERVAL_MS = 20L
-        private const val MAX_INTERVAL_MS = 200L
+        private const val MIN_INTERVAL_MS = 10L
+        private const val MAX_INTERVAL_MS = 100L
     }
 
     private var isPlaying = false
@@ -43,7 +43,7 @@ class RealtimePrimitiveComposer(
         }
         currentAmplitude = amplitude.coerceIn(0f, 1f)
         currentFrequency = frequency.coerceIn(0f, 1f)
-        currentIntervalMs = (MIN_INTERVAL_MS + frequency * (MAX_INTERVAL_MS - MIN_INTERVAL_MS)).toLong()
+        currentIntervalMs = (MIN_INTERVAL_MS + (1 - frequency) * (MAX_INTERVAL_MS - MIN_INTERVAL_MS)).toLong()
 
         if (!isPlaying) {
             start(currentAmplitude, currentFrequency)
