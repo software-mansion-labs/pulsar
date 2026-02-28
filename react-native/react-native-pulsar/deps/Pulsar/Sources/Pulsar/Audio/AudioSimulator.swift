@@ -122,7 +122,7 @@ public class AudioSimulator: NSObject {
 					envelope: (attack: 0.002, decay: 0, sustainLevel: 1, sustainDuration: 0, release: 0.014),
 					waveform: .sine
 				),
-				timestamp: Double(discretePoint.time) * 1000,
+				timestamp: Double(discretePoint.time),
 				volume: volume
 			))
 			
@@ -135,7 +135,7 @@ public class AudioSimulator: NSObject {
 					envelope: (attack: 0, decay: 0, sustainLevel: 1, sustainDuration: 0, release: 0.015),
 					waveform: .sine
 				),
-				timestamp: Double(discretePoint.time) * 1000,
+				timestamp: Double(discretePoint.time),
 				volume: volume
 			))
 			
@@ -148,7 +148,7 @@ public class AudioSimulator: NSObject {
 					envelope: (attack: 0.005, decay: 0, sustainLevel: 1, sustainDuration: 0, release: 0.018),
 					waveform: .sine
 				),
-				timestamp: Double(discretePoint.time) * 1000,
+				timestamp: Double(discretePoint.time),
 				volume: volume
 			))
 		}

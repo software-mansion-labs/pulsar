@@ -72,7 +72,7 @@ class RealtimeEnvelopeComposer(
         schedulerJob = scope.launch {
             while (isPlaying) {
                 val effect = vibrationEffectsGenerator.convertToVibrationEffect(listOf(
-                    ControlPoint(currentAmplitude, currentFrequency, SEGMENT_DURATION_MS.toFloat() / 1000)
+                    ControlPoint(currentAmplitude, currentFrequency, SEGMENT_DURATION_MS.toFloat())
                 ))
                 if (isDiscreteScheduled) {
                     isDiscreteScheduled = false

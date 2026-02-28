@@ -9,11 +9,11 @@ class EarthquakePreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuousPattern = listOf(
-            listOf(listOf(0.1f, 0.3f), listOf(1.5f, 0.3f)),
-            listOf(listOf(0.1f, 0.3f), listOf(1.5f, 0.3f)),
+            listOf(listOf(100f, 0.3f), listOf(1500f, 0.3f)),
+            listOf(listOf(100f, 0.3f), listOf(1500f, 0.3f)),
         ),
         rawDiscretePattern = listOf(
-            listOf(1.0f, 1.0f, 1.0f),
+            listOf(1000f, 1.0f, 1.0f),
         )
     )) {
     companion object: PresetWithName {
@@ -25,8 +25,8 @@ class SuccessPreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuousPattern = listOf(
-            listOf(listOf(0.1f, 1.0f), listOf(0.5f, 0.5f), listOf(1.6f, 0.0f)),
-            listOf(listOf(0.1f, 0.5f), listOf(0.5f, 0.5f), listOf(1.6f, 0.0f))
+            listOf(listOf(100f, 1.0f), listOf(500f, 0.5f), listOf(1600f, 0.0f)),
+            listOf(listOf(100f, 0.5f), listOf(500f, 0.5f), listOf(1600f, 0.0f))
         ),
         rawDiscretePattern = listOf()
     )) {
@@ -39,13 +39,13 @@ class FailPreset(private val haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuousPattern = listOf(
-            listOf(listOf(0.0f, 1.0f), listOf(0.5f, 1.0f)),
-            listOf(listOf(0.0f, 0.3f), listOf(0.5f, 0.3f))
+            listOf(listOf(0f, 1.0f), listOf(500f, 1.0f)),
+            listOf(listOf(0f, 0.3f), listOf(500f, 0.3f))
         ),
         rawDiscretePattern = listOf(
-            listOf(0.0f, 1.0f, 0.3f),
-            listOf(0.15f, 1.0f, 0.3f),
-            listOf(0.3f, 1.0f, 0.3f)
+            listOf(0f, 1.0f, 0.3f),
+            listOf(150f, 1.0f, 0.3f),
+            listOf(300f, 1.0f, 0.3f)
         )
     )) {
     companion object: PresetWithName {
@@ -57,10 +57,10 @@ class TapPreset(private val haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuousPattern = listOf(
-            listOf(listOf(0.0f, 1.0f)),
-            listOf(listOf(0.0f, 0.5f))
+            listOf(listOf(0f, 1.0f)),
+            listOf(listOf(0f, 0.5f))
         ),
-        rawDiscretePattern = listOf(listOf(0.0f, 1.0f, 0.5f))
+        rawDiscretePattern = listOf(listOf(0f, 1.0f, 0.5f))
     )) {
     companion object: PresetWithName {
         override val name = "Tap"
