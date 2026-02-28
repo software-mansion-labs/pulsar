@@ -5,7 +5,7 @@ export interface Position {
 
 export interface Composer {
   playDiscrete(amplitude: number, frequency: number): void;
-  update(amplitude: number, frequency: number): void;
+  set(amplitude: number, frequency: number): void;
   stop(): void;
 }
 
