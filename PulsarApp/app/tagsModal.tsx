@@ -5,43 +5,50 @@ import { Tabs, Tab } from '@/components/Tabs';
 import { TagDescription } from '@/components/TagDescription';
 import { TagsInfo } from '@/constants/Tags';
 import { Image } from 'expo-image';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const closeIcon = require('@/assets/images/x.svg');
 
 export default function TagsModal() {
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <ThemedText type="subtitle">Preset tags</ThemedText>
-        <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
-          <Image source={closeIcon} style={styles.closeIcon} />
-        </TouchableOpacity>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <ThemedText type="subtitle">Preset tags</ThemedText>
+          <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
+            <Image source={closeIcon} style={styles.closeIcon} />
+          </TouchableOpacity>
+        </View>
+        
+        <View style={styles.tabsContainer}>
+          <Tabs defaultTab={0}>
+            {TagsInfo.map((group, groupIndex) => (
+              <Tab key={groupIndex} name={group.groupName}>
+                <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+                  {group.tags.map((tag, tagIndex) => (
+                    <TagDescription
+                      key={tagIndex}
+                      name={tag.name}
+                      description={tag.description}
+                      usage={tag.usage}
+                    />
+                  ))}
+                </ScrollView>
+              </Tab>
+            ))}
+          </Tabs>
+        </View>
       </View>
-      
-      <View style={styles.tabsContainer}>
-        <Tabs defaultTab={0}>
-          {TagsInfo.map((group, groupIndex) => (
-            <Tab key={groupIndex} name={group.groupName}>
-              <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
-                {group.tags.map((tag, tagIndex) => (
-                  <TagDescription
-                    key={tagIndex}
-                    name={tag.name}
-                    description={tag.description}
-                    usage={tag.usage}
-                  />
-                ))}
-              </ScrollView>
-            </Tab>
-          ))}
-        </Tabs>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1,
     paddingTop: 10,

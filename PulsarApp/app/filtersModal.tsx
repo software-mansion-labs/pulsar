@@ -8,6 +8,7 @@ import { Image } from 'expo-image';
 import { TagsInfo } from '@/constants/Tags';
 import { useFilters } from '@/contexts/FilterContext';
 import { usePostHog } from 'posthog-react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const closeIcon = require('@/assets/images/x.svg');
 const checkIcon = require('@/assets/images/check.svg');
@@ -87,38 +88,40 @@ export default function FiltersModal() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.closeButton}>
-          <Image source={closeIcon} style={styles.closeIcon} />
-        </Pressable>
-        <ThemedText style={styles.title}>Filters</ThemedText>
-        <Pressable onPress={clearAll}>
-          <Text style={styles.clearAll}>Clear all</Text>
-        </Pressable>
-      </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Pressable onPress={() => router.back()} style={styles.closeButton}>
+            <Image source={closeIcon} style={styles.closeIcon} />
+          </Pressable>
+          <ThemedText style={styles.title}>Filters</ThemedText>
+          <Pressable onPress={clearAll}>
+            <Text style={styles.clearAll}>Clear all</Text>
+          </Pressable>
+        </View>
 
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={true}>
-        {TagsInfo.map(group => (
-          <FilterSection
-            key={group.groupName}
-            title={group.groupName}
-            filters={filters[group.groupName]}
-            onToggle={(tagName) => toggleFilter(group.groupName, tagName)}
-            options={group.tags.map(tag => tag.name)}
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={true}>
+          {TagsInfo.map(group => (
+            <FilterSection
+              key={group.groupName}
+              title={group.groupName}
+              filters={filters[group.groupName]}
+              onToggle={(tagName) => toggleFilter(group.groupName, tagName)}
+              options={group.tags.map(tag => tag.name)}
+            />
+          ))}
+        </ScrollView>
+
+        <View style={styles.footer}>
+          <Button 
+            label="Show results"
+            showIcon="arrow"
+            onComplete={handleShowResults}
+            style={styles.showResultsButton}
           />
-        ))}
-      </ScrollView>
-
-      <View style={styles.footer}>
-        <Button 
-          label="Show results"
-          showIcon="arrow"
-          onComplete={handleShowResults}
-          style={styles.showResultsButton}
-        />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -165,6 +168,10 @@ function CheckboxItem({ label, checked, onToggle }: CheckboxItemProps) {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

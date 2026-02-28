@@ -4,6 +4,7 @@ import { ThemedText } from '@/components/themed-text';
 import { Image } from 'expo-image';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import Button from '@/components/Button';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const closeIcon = require('@/assets/images/x.svg');
 
@@ -16,70 +17,76 @@ export default function PlaygroundModal() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <ThemedText type="subtitle">How does it work?</ThemedText>
-        <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
-          <Image source={closeIcon} style={styles.closeIcon} />
-        </TouchableOpacity>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <ThemedText type="subtitle">How does it work?</ThemedText>
+          <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
+            <Image source={closeIcon} style={styles.closeIcon} />
+          </TouchableOpacity>
+        </View>
+        
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <ThemedText type="defaultSemiBold">
+            Experience and shape vibrations in real-time by interacting with the grid.
+          </ThemedText>
+
+          <View style={styles.infoBox}>
+            <ThemedText type="subtitle" style={styles.sectionTitle}>How to Use:</ThemedText>
+            
+            <ThemedText style={styles.instruction}>
+              <ThemedText style={styles.instructionLabel}>Tap the Grid: </ThemedText>
+              <ThemedText style={styles.instructionText}>
+                Perform a single tap to trigger a short, precise haptic pulse.
+              </ThemedText>
+            </ThemedText>
+
+            <ThemedText style={styles.instruction}>
+              <ThemedText style={styles.instructionLabel}>Touch & Drag: </ThemedText>
+              <ThemedText style={styles.instructionText}>
+                Long-press and move your finger across the board to generate a continuous vibration that follows your movement.
+              </ThemedText>
+            </ThemedText>
+
+            <ThemedText type="subtitle" style={[styles.sectionTitle, styles.controlsTitle]}>Controls:</ThemedText>
+            
+            <ThemedText style={styles.controlsIntro}>
+              The haptic feedback changes dynamically based on your finger's position:
+            </ThemedText>
+
+            <ThemedText style={styles.instruction}>
+              <ThemedText style={styles.instructionLabel}>Vertical Axis (Y): </ThemedText>
+              <ThemedText style={styles.instructionText}>
+                Slide up or down to increase or decrease the Amplitude (vibration strength).
+              </ThemedText>
+            </ThemedText>
+
+            <ThemedText style={styles.instruction}>
+              <ThemedText style={styles.instructionLabel}>Horizontal Axis (X): </ThemedText>
+              <ThemedText style={styles.instructionText}>
+                Slide left or right to shift the Frequency (vibration speed/pitch).
+              </ThemedText>
+            </ThemedText>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Button 
+              label="Show Onboarding Again" 
+              onClick={handleRestart} 
+              fullWidth={true}
+            />
+          </View>
+        </ScrollView>
       </View>
-      
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <ThemedText type="defaultSemiBold">
-          Experience and shape vibrations in real-time by interacting with the grid.
-        </ThemedText>
-
-        <View style={styles.infoBox}>
-          <ThemedText type="subtitle" style={styles.sectionTitle}>How to Use:</ThemedText>
-          
-          <ThemedText style={styles.instruction}>
-            <ThemedText style={styles.instructionLabel}>Tap the Grid: </ThemedText>
-            <ThemedText style={styles.instructionText}>
-              Perform a single tap to trigger a short, precise haptic pulse.
-            </ThemedText>
-          </ThemedText>
-
-          <ThemedText style={styles.instruction}>
-            <ThemedText style={styles.instructionLabel}>Touch & Drag: </ThemedText>
-            <ThemedText style={styles.instructionText}>
-              Long-press and move your finger across the board to generate a continuous vibration that follows your movement.
-            </ThemedText>
-          </ThemedText>
-
-          <ThemedText type="subtitle" style={[styles.sectionTitle, styles.controlsTitle]}>Controls:</ThemedText>
-          
-          <ThemedText style={styles.controlsIntro}>
-            The haptic feedback changes dynamically based on your finger's position:
-          </ThemedText>
-
-          <ThemedText style={styles.instruction}>
-            <ThemedText style={styles.instructionLabel}>Vertical Axis (Y): </ThemedText>
-            <ThemedText style={styles.instructionText}>
-              Slide up or down to increase or decrease the Amplitude (vibration strength).
-            </ThemedText>
-          </ThemedText>
-
-          <ThemedText style={styles.instruction}>
-            <ThemedText style={styles.instructionLabel}>Horizontal Axis (X): </ThemedText>
-            <ThemedText style={styles.instructionText}>
-              Slide left or right to shift the Frequency (vibration speed/pitch).
-            </ThemedText>
-          </ThemedText>
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Button 
-            label="Show Onboarding Again" 
-            onClick={handleRestart} 
-            fullWidth={true}
-          />
-        </View>
-      </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

@@ -1,5 +1,5 @@
 import { Gesture, type SimultaneousGesture } from 'react-native-gesture-handler';
-import Animated, { SharedValue } from 'react-native-reanimated';
+import { SharedValue } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 import { Position, Composer, PositionTransform, UpdateStateCallback } from './gestureTypes';
 
@@ -32,7 +32,7 @@ export const useOnboardingComposedGesture = (
   const onboardingPanGesture = Gesture.Pan()
     .onUpdate((e) => {
       const normalized = normalizePosition(e.x, e.y);
-      composer.update(normalized.y, normalized.x);
+      composer.set(normalized.y, normalized.x);
       panIndicatorPosition.value = clampIndicatorPosition(e.x, e.y);
     })
     .onEnd(() => {
