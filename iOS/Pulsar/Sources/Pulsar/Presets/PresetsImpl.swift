@@ -8,11 +8,11 @@ import Foundation
     super.init(
       haptics, 
       rawContinuousPattern: [
-        [[0.0, 0.0], [0.3, 0.8], [0.3, 0.0], [0.4, 0.0], [0.6, 0.8], [0.6, 0.0]],
-        [[0.0, 0.8], [0.6, 0.8]],
+        [[0, 0.0], [300, 0.8], [300, 0.0], [400, 0.0], [600, 0.8], [600, 0.0]],
+        [[0, 0.8], [600, 0.8]],
       ], 
       rawDiscretePattern: [
-        [0.0, 1.0, 1.0]
+        [0, 1.0, 1.0]
       ]
     )
   }
@@ -31,8 +31,8 @@ import Foundation
       rawContinuousPattern: [[], []], 
       rawDiscretePattern: [
         [0, 0.5, 0.5],
-        [0.127, 0.5, 0.5],
-        [0.31, 1, 1],
+        [127, 0.5, 0.5],
+        [310, 1, 1],
       ]
     )
   }
@@ -51,8 +51,8 @@ import Foundation
       rawContinuousPattern: [[], []], 
       rawDiscretePattern: [
         [0, 0.5, 0.5],
-        [0.127, 0.5, 0.5],
-        [0.31, 1, 0.2],
+        [127, 0.5, 0.5],
+        [310, 1, 0.2],
       ]
     )
   }

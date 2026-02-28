@@ -1,5 +1,8 @@
 import Foundation
 
+/// Represents a point in a haptic pattern's continuous curve
+/// - time: Time in milliseconds (ms)
+/// - value: Normalized value between 0.0 and 1.0
 @objc public class ValuePoint: NSObject, Codable {
   let time: Double
   let value: Float
@@ -9,7 +12,11 @@ import Foundation
   }
 }
  
-@objc public class ConfigPoint: NSObject, Codable {
+/// Represents a discrete haptic event
+/// - time: Time in milliseconds (ms)
+/// - amplitude: Intensity of the haptic (0.0 - 1.0)
+/// - frequency: Sharpness of the haptic (0.0 - 1.0)
+@objc public class DiscdetePoint: NSObject, Codable {
   let time: Double
   let amplitude: Float
   let frequency: Float
@@ -31,8 +38,8 @@ import Foundation
 
 @objc public class PatternData: NSObject, Codable {
   let continuousPattern: ContinuousPattern
-  let discretePattern: [ConfigPoint]
-  @objc public init(continuousPattern: ContinuousPattern, discretePattern: [ConfigPoint]) {
+  let discretePattern: [DiscdetePoint]
+  @objc public init(continuousPattern: ContinuousPattern, discretePattern: [DiscdetePoint]) {
     self.continuousPattern = continuousPattern
     self.discretePattern = discretePattern
   }
@@ -41,7 +48,7 @@ import Foundation
       amplitude: line[0].map { ValuePoint(time: Double($0[0]), value: Float($0[1])) },
       frequency: line[1].map { ValuePoint(time: Double($0[0]), value: Float($0[1])) }
     )
-    self.discretePattern = bar.map { ConfigPoint(time: Double($0[0]), amplitude: Float($0[1]), frequency: Float($0[2])) }
+    self.discretePattern = bar.map { DiscdetePoint(time: Double($0[0]), amplitude: Float($0[1]), frequency: Float($0[2])) }
   }
 }
 

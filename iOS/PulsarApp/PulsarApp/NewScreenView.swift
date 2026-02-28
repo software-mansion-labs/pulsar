@@ -77,7 +77,7 @@ struct MultiTouchPad: UIViewRepresentable {
 
 struct NewScreenView: View {
     @State private var pulsar = Pulsar()
-    @State private var composer: RealtimeComposerImpl?
+    @State private var composer: RealtimeComposer?
     @State private var pointerLocation: CGPoint = .zero
     @State private var isDragging = false
     @State private var tapLocation: CGPoint = .zero
@@ -147,7 +147,7 @@ struct NewScreenView: View {
         }
         .padding()
         .onAppear {
-             composer = pulsar.RealtimeComposer()
+             composer = pulsar.getRealtimeComposer()
         }
     }
     
@@ -179,7 +179,7 @@ struct NewScreenView: View {
         if !isDragging {
             isDragging = true
         }
-        composer?.update(amplitude: getIntensity(), frequency: getSharpness())
+        composer?.set(amplitude: getIntensity(), frequency: getSharpness())
     }
     
     func handleDragEnd() {

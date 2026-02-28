@@ -9,7 +9,7 @@ class WebSocketManager: ObservableObject, WebSocketDelegate {
   @Published var message: String = ""
   @Published var statusInfo: String = "You are not connected 😕"
   let pulsar: Pulsar = Pulsar()
-  var composer: PatternComposerImpl? = nil
+  var composer: PatternComposer? = nil
   var channel: String = ""
   var isConnected: Bool = false
   var playAnimation: Bool = false
@@ -46,7 +46,7 @@ class WebSocketManager: ObservableObject, WebSocketDelegate {
     }
     
 //    connectToPlayground()
-    composer = pulsar.PatternComposer()
+    composer = pulsar.getPatternComposer()
   }
   
   func connectToPlayground() {
