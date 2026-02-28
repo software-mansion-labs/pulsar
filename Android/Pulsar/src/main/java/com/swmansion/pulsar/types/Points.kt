@@ -3,7 +3,7 @@ package com.swmansion.pulsar.types
 /**
  * @param intensity should be value from [0-1].
  * @param sharpness should be value from [0-1].
- * @param duration transition time in s.
+ * @param duration transition time in ms.
  */
 data class ControlPoint(
   val intensity: Float,
@@ -22,7 +22,7 @@ data class ValuePoint(
 )
 
 /**
- * @param time relative time.
+ * @param time relative time in ms.
  * @param amplitude value from range [0-1].
  * @param frequency value from range [0-1]. Ignored for devices that do not support envelopes.
  */

@@ -48,11 +48,11 @@ import AVFAudio
     return ContinuousPattern(amplitude: amplitudePoints, frequency: frequencyPoints)
   }
   
-  private func convertDiscretePattern(_ barPattern: [[Double]]) -> [ConfigPoint] {
-    var points: [ConfigPoint] = []
+  private func convertDiscretePattern(_ barPattern: [[Double]]) -> [DiscretePoint] {
+    var points: [DiscretePoint] = []
     for bar in barPattern {
       if bar.count >= 3 {
-        points.append(ConfigPoint(time: bar[0], amplitude: Float(bar[1]), frequency: Float(bar[2])))
+        points.append(DiscretePoint(time: bar[0], amplitude: Float(bar[1]), frequency: Float(bar[2])))
       }
     }
     return points

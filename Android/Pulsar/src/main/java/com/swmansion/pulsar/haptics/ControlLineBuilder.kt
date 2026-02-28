@@ -9,14 +9,14 @@ class ControlLineBuilder(configLine: ConfigLineBuilder) {
     init {
         val stepsPerSecond = 200
 
-        val stepDurationMs = 1f / stepsPerSecond
+        val stepDurationMs = 1000f / stepsPerSecond
 
         val maxTime = if (configLine.points.isEmpty()) { 0f } else configLine.points.maxOf { it.time }
 
         var currentTime = 0f
         while (currentTime < maxTime) {
             val nextTime = minOf(currentTime + stepDurationMs, maxTime)
-            val duration = maxOf(0.001f, (nextTime - currentTime))
+            val duration = maxOf(1f, (nextTime - currentTime))
 
             val configPoint = interpolateConfigPoint(currentTime, configLine)
             points.add(ControlPoint(configPoint.amplitude, configPoint.frequency, duration))

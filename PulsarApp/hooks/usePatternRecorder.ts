@@ -149,7 +149,7 @@ export function usePatternRecorder({ onRecordingChange, onPlayingChange, onRecor
 
     // Estimate duration and reset playing state
     const lastEvent = recordedEvents[recordedEvents.length - 1];
-    const duration = lastEvent?.time * 1000;
+    const duration = lastEvent?.time;
     setTimeout(() => {
       setIsPlaying(false);
     }, duration + 100);
@@ -157,7 +157,7 @@ export function usePatternRecorder({ onRecordingChange, onPlayingChange, onRecor
 
   const recordEvent = (type: 'tap' | 'pan', x: number, y: number) => {
     'worklet';
-    const time = (Date.now() - global.PatternRecorderStartTime) / 1000;
+    const time = Date.now() - global.PatternRecorderStartTime;
     const event: RecordedEvent = { type, time, x, y };
     if (!global.PatternRecorder) {
       global.PatternRecorder = [];

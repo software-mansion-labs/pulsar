@@ -193,7 +193,7 @@ class MainActivity : ComponentActivity() {
           Button(
             modifier = Modifier.padding(6.dp),
             onClick = {
-              pulsar?.getPresets()?.Success()
+              pulsar?.getPresets()?.success()
 //              vibrator.vibrate(VibrationEffect.WaveformEnvelopeBuilder()
 //                .setInitialFrequencyHz(50f)
 //                .addControlPoint(1.0f, 109f, 100)

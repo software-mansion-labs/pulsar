@@ -120,8 +120,8 @@ class VibrationEffectsGenerator(val engine: HapticEngineWrapper) {
         return VibrationEffect.createWaveform(timings, -1)
     }
 
-    private fun toMillis(s: Float): Long {
-        return (s * 1000).toLong()
+    private fun toMillis(ms: Float): Long {
+        return ms.toLong()
     }
 
     fun simulateCompatibilityMode(mode: CompatibilityMode) {

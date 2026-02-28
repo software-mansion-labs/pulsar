@@ -41,7 +41,7 @@ export const useComposedGesture = (
     })
     .onUpdate((e) => {
       const normalized = normalizePosition(e.x, e.y);
-      composer.update(normalized.y, normalized.x);
+      composer.set(normalized.y, normalized.x);
       recordEvent('pan', normalized.x, normalized.y);
       // console.log('Pan update', { absolute: { x: e.x, y: e.y }, normalized });
       const clamped = clampIndicatorPosition(e.x, e.y);
