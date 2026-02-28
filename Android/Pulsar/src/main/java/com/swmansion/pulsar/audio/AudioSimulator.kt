@@ -189,7 +189,7 @@ class AudioSimulator(
                         ),
                         waveform = WaveformType.SINE
                     ),
-                    timestamp = discretePoint.time.toDouble(),
+                    timestamp = discretePoint.time.toDouble() / 1000.0,
                     volume = volume
                 )
             )
@@ -214,7 +214,7 @@ class AudioSimulator(
                         ),
                         waveform = WaveformType.SINE
                     ),
-                    timestamp = discretePoint.time.toDouble(),
+                    timestamp = discretePoint.time.toDouble() / 1000.0,
                     volume = volume
                 )
             )
@@ -368,7 +368,7 @@ class AudioSimulator(
         var continuousDuration = 0.0
         for (wave in config.continuousData) {
             if (wave.data.amplitude.isNotEmpty()) {
-                continuousDuration = maxOf(continuousDuration, wave.data.amplitude.last().time.toDouble())
+                continuousDuration = maxOf(continuousDuration, wave.data.amplitude.last().time.toDouble() / 1000.0)
             }
         }
         continuousDuration += 0.01
@@ -388,13 +388,14 @@ class AudioSimulator(
 
     private fun valueForTime(points: List<ValuePoint>, t: Double): Double {
         if (points.isEmpty()) return 0.0
-        if (t <= points[0].time) return points[0].value.toDouble()
-        if (t >= points.last().time) return points.last().value.toDouble()
+        val tMs = t * 1000.0
+        if (tMs <= points[0].time) return points[0].value.toDouble()
+        if (tMs >= points.last().time) return points.last().value.toDouble()
 
         for (i in 1 until points.size) {
             val p1 = points[i - 1]
             val p2 = points[i]
-            if (t <= p2.time) {
+            if (tMs <= p2.time) {
                 val t0 = p1.time.toDouble()
                 val t1 = p2.time.toDouble()
                 val v0 = p1.value.toDouble()
@@ -403,7 +404,7 @@ class AudioSimulator(
                 // Prevent division by zero
                 if (t1 <= t0) return v0
                 
-                val ratio = (t - t0) / (t1 - t0)
+                val ratio = (tMs - t0) / (t1 - t0)
                 return v0 + (v1 - v0) * ratio
             }
         }
