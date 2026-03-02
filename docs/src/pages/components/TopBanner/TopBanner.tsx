@@ -62,7 +62,11 @@ export function TopBanner() {
         </div>
 
         <div className={styles.buttonHolder}>
-          <Button label="Preset playground" url={'/presets'} className={styles.fullWidth} />
+          <Button
+            label="Preset playground"
+            url={'/presets-playground'}
+            className={styles.fullWidth}
+          />
           <Button
             label="Read the docs"
             variant="filled"
