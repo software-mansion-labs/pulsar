@@ -3,7 +3,6 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { API_SERVER_URL, SOCKET_SERVER_URL } from '../config';
 
 import style from './Connection.module.scss';
-import commonStyle from '../common.module.scss';
 import refreshIcon from '../../assets/new_assets/refresh.svg';
 import disconnectIcon from '../../assets/new_assets/unplug.svg';
 import { Accordion } from '../Accordion/Accordion';
@@ -19,8 +18,10 @@ export default function Connection() {
   const [paired, setPaired] = useState<boolean>(false);
   const [channel, setChannel] = useState<number | string>('Loading...');
   const [status, setStatus] = useState<boolean>(false);
-  const [deepLinkUrl, setDeepLinkUrl] = useState<string>('');
   const ws = useRef<WebSocket | null>(null);
+
+  const deepLinkUrl =
+    channel !== 'Loading...' ? `pulsarapp://connect?code=${channel}` : '';
 
   function createChannel() {
     setChannel('Loading...');
@@ -80,14 +81,6 @@ export default function Connection() {
   }
 
   useEffect(() => {
-    if (channel !== 'Loading...') {
-      setDeepLinkUrl(`pulsarapp://connect?code=${channel}`);
-    } else {
-      setDeepLinkUrl('');
-    }
-  }, [channel]);
-
-  useEffect(() => {
     if (localStorage.getItem('hapticsToken')) {
       webSocketConnection();
       setPaired(true);
@@ -111,10 +104,8 @@ export default function Connection() {
   return (
     <div className={['not-content', style.background].join(' ')}>
       <div className={style.content}>
-        <div className={style.title}>Connect phone</div>
-        <div className={style.subtitle}>
-          Connect your haptic device first. Pair it with the app now so you can test the presets.
-        </div>
+        <div className={style.title}>Connect your phone</div>
+        <div className={style.subtitle}>Pair your phone to feel the presets on your device.</div>
 
         {!paired ? (
           <div className={style.codebox}>
@@ -125,27 +116,16 @@ export default function Connection() {
               onClick={handleReset}
             />
 
-            <div className={style.connectionData}>
-              <div className={style.codeSection}>
-                <div className={style.prompt}>Your pairing code:</div>
-                <div className={style.code}>{channel}</div>
+            {deepLinkUrl && (
+              <div className={style.qrWrap}>
+                <div className={style.prompt}>Scan with your phone to connect</div>
+                <QRCodeCanvas value={deepLinkUrl} size={200} bgColor="#e1f3fa" fgColor="#001a72" />
               </div>
+            )}
 
-              {deepLinkUrl && <div className={style.alternative}>or</div>}
-
-              <div className={style.qrSection}>
-                {deepLinkUrl && (
-                  <div className={style.qrWrap}>
-                    <div className={style.prompt}>Scan to open PulsarApp</div>
-                    <QRCodeCanvas
-                      value={deepLinkUrl}
-                      size={200}
-                      bgColor="#e1f3fa"
-                      fgColor="#001a72"
-                    />
-                  </div>
-                )}
-              </div>
+            <div className={style.fallback}>
+              <span className={style.fallbackLabel}>or enter code manually:</span>
+              <span className={style.code}>{channel}</span>
             </div>
 
             <div className={style.status}>
@@ -163,8 +143,8 @@ export default function Connection() {
               className={`${style.icon}`}
               onClick={handleReset}
             />
-            <div className={style.promptSuccess}>Pulsar is paired with your phone.</div>
-            <div className={style.subPrompt}>Now just open pulsar app.</div>
+            <div className={style.promptSuccess}>Your phone is paired.</div>
+            <div className={style.subPrompt}>Open PulsarApp to feel the presets.</div>
             <div className={style.status}>
               <div className={style.desc}>{status ? 'Phone connected' : 'Phone not connected'}</div>
               <div
@@ -177,15 +157,13 @@ export default function Connection() {
         {!paired && (
           <Accordion title="How to connect a device? 🤔">
             <Point index={1}>
-              <div>Download the PulsarApp for App Store or Play Store.</div>
+              <div>Download PulsarApp from the App Store or Google Play.</div>
             </Point>
             <Point index={2}>
-              <div>Open Playground and find Device Connection section.</div>
+              <div>Open the app and go to the Device Connection section.</div>
             </Point>
             <Point index={3}>
-              <div>
-                Type Paring code into PulsarApp and click Connect button or scan the QR code.
-              </div>
+              <div>Scan the QR code above or type the pairing code into PulsarApp.</div>
             </Point>
           </Accordion>
         )}
