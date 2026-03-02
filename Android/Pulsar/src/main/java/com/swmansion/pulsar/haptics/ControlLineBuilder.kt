@@ -7,16 +7,16 @@ class ControlLineBuilder(val configLine: ConfigLineBuilder) {
 
     fun getStepsPoints(): ArrayList<ControlPoint> {
         val points = ArrayList<ControlPoint>()
-        val stepsPerSecond = 200
+        val stepsPerSecond = 200L
 
-        val stepDurationMs = 1000f / stepsPerSecond
+        val stepDurationMs = 1000L / stepsPerSecond
 
-        val maxTime = if (configLine.points.isEmpty()) { 0f } else configLine.points.maxOf { it.time }
+        val maxTime = if (configLine.points.isEmpty()) { 0L } else configLine.points.maxOf { it.time }
 
-        var currentTime = 0f
+        var currentTime = 0L
         while (currentTime < maxTime) {
             val nextTime = minOf(currentTime + stepDurationMs, maxTime)
-            val duration = maxOf(1f, (nextTime - currentTime))
+            val duration = maxOf(1L, (nextTime - currentTime))
 
             val configPoint = interpolateConfigPoint(currentTime, configLine)
             points.add(ControlPoint(configPoint.amplitude, configPoint.frequency, duration))
@@ -29,7 +29,7 @@ class ControlLineBuilder(val configLine: ConfigLineBuilder) {
         val points = ArrayList<ControlPoint>()
         for (i in 0..<configLine.points.size) {
             val point = configLine.points[i]
-            var duration = maxOf(1f, point.time)
+            var duration = maxOf(1L, point.time)
             if (i > 0) {
                 duration = point.time - configLine.points[i - 1].time
             }
@@ -38,7 +38,7 @@ class ControlLineBuilder(val configLine: ConfigLineBuilder) {
         return points
     }
 
-    private fun interpolateConfigPoint(time: Float, configLine: ConfigLineBuilder): ConfigPoint {
+    private fun interpolateConfigPoint(time: Long, configLine: ConfigLineBuilder): ConfigPoint {
         if (configLine.points.isEmpty()) return ConfigPoint(time, 0f, 0f)
         if (configLine.points.any { it.time == time }) return configLine.points.first { it.time == time }
         if (configLine.points.size == 1) return configLine.points[0]

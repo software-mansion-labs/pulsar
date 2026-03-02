@@ -21,7 +21,7 @@ class ValueLineBuilder(initialList: List<ValuePoint>? = null) {
         points.add(insertIndex, point)
     }
 
-    fun valueForX(x: Float): Float {
+    fun valueForX(x: Long): Float {
         if (points.isEmpty()) return 0f
         if (points.any { it.time == x }) return points.first { it.time == x }.value
         if (points.size == 1) return points[0].value

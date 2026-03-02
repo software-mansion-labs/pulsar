@@ -77,7 +77,7 @@ class PulsarModule(reactContext: ReactApplicationContext) :
         amplitudeArray.getMap(i)?.let { point ->
           amplitudePoints.add(
             ValuePoint(
-              time = point.getDouble("time").toFloat(),
+              time = point.getDouble("time").toLong(),
               value = point.getDouble("value").toFloat()
             )
           )
@@ -92,7 +92,7 @@ class PulsarModule(reactContext: ReactApplicationContext) :
         frequencyArray.getMap(i)?.let { point ->
           frequencyPoints.add(
             ValuePoint(
-              time = point.getDouble("time").toFloat(),
+              time = point.getDouble("time").toLong(),
               value = point.getDouble("value").toFloat()
             )
           )
@@ -112,7 +112,7 @@ class PulsarModule(reactContext: ReactApplicationContext) :
         array.getMap(i)?.let { point ->
           discretePoints.add(
             ConfigPoint(
-              time = point.getDouble("time").toFloat(),
+              time = point.getDouble("time").toLong(),
               amplitude = point.getDouble("amplitude").toFloat(),
               frequency = point.getDouble("frequency").toFloat()
             )

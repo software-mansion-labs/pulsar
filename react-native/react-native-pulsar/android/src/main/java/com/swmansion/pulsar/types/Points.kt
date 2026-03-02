@@ -8,7 +8,7 @@ package com.swmansion.pulsar.types
 data class ControlPoint(
   val intensity: Float,
   val sharpness: Float,
-  val duration: Float,
+  val duration: Long,
 )
 
 /**
@@ -17,7 +17,7 @@ data class ControlPoint(
  * @param value should be value from [0-1].
  */
 data class ValuePoint(
-  val time: Float,
+  val time: Long,
   val value: Float,
 )
 
@@ -27,7 +27,7 @@ data class ValuePoint(
  * @param frequency value from range [0-1]. Ignored for devices that do not support envelopes.
  */
 data class ConfigPoint(
-  val time: Float,
+  val time: Long,
   val amplitude: Float,
   val frequency: Float,
 )
@@ -43,9 +43,9 @@ data class PatternData(
 ) {
   constructor(rawContinuousPattern: List<List<List<Float>>> = listOf(listOf(), listOf()), rawDiscretePattern: List<List<Float>> = listOf()) : this(
     continuousPattern = ContinuousPattern(
-      amplitude = rawContinuousPattern[0].map { ValuePoint(time = it[0], value = it[1]) },
-      frequency = rawContinuousPattern[1].map { ValuePoint(time = it[0], value = it[1]) }
+      amplitude = rawContinuousPattern[0].map { ValuePoint(time = it[0].toLong(), value = it[1]) },
+      frequency = rawContinuousPattern[1].map { ValuePoint(time = it[0].toLong(), value = it[1]) }
     ),
-    discretePattern = rawDiscretePattern.map { ConfigPoint(time = it[0], amplitude = it[1], frequency = it[2]) }
+    discretePattern = rawDiscretePattern.map { ConfigPoint(time = it[0].toLong(), amplitude = it[1], frequency = it[2]) }
   )
 }
