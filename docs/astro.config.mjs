@@ -32,14 +32,11 @@ export default defineConfig({
           slug: 'getting-started',
         },
         {
-          label: 'Playground',
-          items: [
-            { label: 'Presets', slug: 'presets' },
-            { label: 'Interactive mode', slug: 'interactive-mode' },
-          ],
+          label: 'Presets playground',
+          slug: 'presets-playground',
         },
         {
-          label: 'Pulsar studio',
+          label: 'Pulsar Studio',
           slug: 'pulsar-studio',
           badge: {
             text: 'Soon',
