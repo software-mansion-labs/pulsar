@@ -46,6 +46,10 @@ html {
     text-decoration: none;
   }
 }
+.sl-markdown-content
+  a:not(:where(.not-content *)):not(:where(h1, h2, h3, h4, h5, h6) a):not(:where(.card) a) {
+  text-decoration: underline;
+}
 .sl-markdown-content code:not(pre code):not(:where(.not-content *)) {
   border: 1px solid var(--sl-color-gray-5);
 }
@@ -72,6 +76,32 @@ html {
 #starlight__sidebar {
   border: none;
 }
+.sl-link-card {
+  background-color: white;
+  border: 2px solid var(--color-blue-50) !important;
+  border-radius: 4px !important;
+  box-shadow: -3px 3px 0 var(--color-blue-50) !important;
+  padding: 20px !important;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.sl-link-card a {
+  text-decoration: none !important;
+}
+
+.sl-link-card:hover {
+  background-color: white !important;
+  border-color: var(--color-blue-50) !important;
+  box-shadow: -4px 4px 0 var(--color-blue-50) !important;
+  transform: translate(1px, -1px) !important;
+}
+
+.sl-link-card:active {
+  transform: translate(-3px, 3px) !important;
+  box-shadow: none !important;
+}
+
 .header {
   site-search {
     button {

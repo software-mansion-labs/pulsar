@@ -1,46 +1,62 @@
 ---
-title: Presets playground
+title: Getting started
 description: Pulsar quick start guide.
 ---
 
-import { Card, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
-### Hello! 👋
+Pulsar gives you ready-made haptic presets, custom pattern composition, and real-time haptic control for iOS, Android, and React Native. Pick up where your platform left off.
 
-Haptics isn't just about phone vibration. Haptics convey **feelings** and **emotions**. Proper haptics in your app can increase immersion and significantly improve the user experience. Your app can transform from a regular app into a **premium experience** for your users.  
-Your app deserves to be ✨**special**✨ !
-
-We know that designing custom haptic patterns is time-consuming and not easy. That's why Pulsar is a platform that helps your app provide the best user experience by using the **right** haptics. So if you want to find the perfect one, visit our interactive playground.
-
-<LinkCard
-  title="🧪 Interactive Playground"
-  href="/playground/presets"
-  description="Go to creative mode. <b>Connect a phone</b> to feel the haptics in your hand, and use the <b>Compositor</b> to make your choice easier."
-/>
-
-### Who are you?
-
-Choose you class and start your adventure! 🧙‍♂️
+## Start building
 
 <CardGrid>
   <LinkCard
-    title="🎨 App designer"
-    href="/playground/presets"
-    description="Go to interactive playground"
+    title="React Native SDK"
+    href="/sdk/react-native"
+    description="Presets, pattern composer, and real-time haptics via a Turbo Module. Works with Reanimated worklets."
   />
   <LinkCard
-    title="⚛️ React Native developer"
-    href="/sdk/react-native"
-    description="Go to React Native SDK"
+    title="iOS SDK"
+    href="/sdk/ios"
+    description="Swift Package built on Core Haptics. Supports transient events, continuous envelopes, and audio simulation."
   />
-  <LinkCard title="🍎 iOS developer" href="/sdk/ios" description="Go to iOS SDK" />
-  <LinkCard title="🤖 Android developer" href="/sdk/android" description="Go to Android SDK" />
+  <LinkCard
+    title="Android SDK"
+    href="/sdk/android"
+    description="Kotlin library with VibrationEffect support and graceful fallbacks for older devices."
+  />
 </CardGrid>
 
-### Haptics tutorials and articles
+New to haptics? Read the [SDK overview](/sdk) first. It covers discrete vs. continuous haptics, preloading, and caching.
 
-<LinkCard
-  title="📖 Blog"
-  href="/blog/table-of-content"
-  description="Do you want to know more about Haptics Psychology?"
-/>
+## Feel it before you build it
+
+These docs double as an interactive playground. Pair your phone with the browser, then tap any preset to feel it on a real device as you browse.
+
+<CardGrid>
+  <LinkCard
+    title="Connect your device"
+    href="/interactive-mode"
+    description="Pair PulsarApp with your browser in under a minute."
+  />
+  <LinkCard
+    title="Browse presets"
+    href="/presets"
+    description="Explore the full preset library with live haptic previews."
+  />
+</CardGrid>
+
+## Go deeper
+
+<CardGrid>
+  <LinkCard
+    title="SDK overview"
+    href="/sdk"
+    description="Core concepts: types of haptics, preloading, and caching."
+  />
+  <LinkCard
+    title="Blog"
+    href="/blog/table-of-content"
+    description="Why haptics matter, how they work, and when to use them."
+  />
+</CardGrid>
