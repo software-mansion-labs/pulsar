@@ -11,3 +11,5 @@ export {
 };
 
 export type { Pattern, PatternComposer } from './types';
+export { HapticSupport } from './NativeRNPulsar';
+export type { RealtimeComposer } from './useRealtimeComposer';
