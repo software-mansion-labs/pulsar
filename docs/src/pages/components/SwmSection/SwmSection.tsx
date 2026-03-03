@@ -34,7 +34,7 @@ export function SwmSection({ className }: { className?: string }) {
             <div className={styles.text}>
               Do you have a software project that we can help you with?
             </div>
-            <Button label="Learn more about us" url="https://swmansion.com/contact" />
+            <Button label="Learn more about us" url="https://swmansion.com/" />
           </div>
         </Card>
 
