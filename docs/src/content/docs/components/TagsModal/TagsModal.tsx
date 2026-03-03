@@ -10,7 +10,7 @@ interface Props {
 
 export function TagsModal({ onClose }: Props) {
   return (
-    <Modal title="Connection guide" onClose={onClose}>
+    <Modal title="Tags guide" onClose={onClose}>
       <Tabs defaultTab={0}>
         {TagsInfo.map((group, index) => (
           <Tab key={index} name={group.groupName}>
