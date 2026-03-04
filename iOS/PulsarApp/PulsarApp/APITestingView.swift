@@ -170,7 +170,7 @@ struct APITestingView: View {
                                     let amplitude: [ValuePoint] = [
                                         ValuePoint(time: 0.0, value: 0.5),
                                         ValuePoint(time: 500, value: 1.0),
-                                        ValuePoint(time: 1000, value: 0.0),
+                                        ValuePoint(time: 1000, value: 0.8),
                                     ]
                                     let frequency: [ValuePoint] = [
                                         ValuePoint(time: 0, value: 0.6),

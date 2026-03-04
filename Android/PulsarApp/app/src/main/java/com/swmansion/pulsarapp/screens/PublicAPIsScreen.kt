@@ -170,18 +170,18 @@ fun PublicAPIsScreen(pulsar: Pulsar?) {
                             continuousPattern = ContinuousPattern(
                                 amplitude = listOf(
                                     ValuePoint(time = 0L, value = 0f),
-                                    ValuePoint(time = 100L, value = 1f),
-                                    ValuePoint(time = 200L, value = 0f),
+                                    ValuePoint(time = 500L, value = 1f),
+                                    ValuePoint(time = 1000L, value = 0f),
                                 ),
                                 frequency = listOf(
                                     ValuePoint(time = 0L, value = 0.4f),
-                                    ValuePoint(time = 100L, value = 1f),
-                                    ValuePoint(time = 200L, value = 0.4f),
+                                    ValuePoint(time = 500L, value = 1f),
+                                    ValuePoint(time = 1000L, value = 0.4f),
                                 ),
                             ),
                             discretePattern = listOf(
-                                ConfigPoint(time = 50L, amplitude = 1f, frequency = 1f),
-                                ConfigPoint(time = 150L, amplitude = 1f, frequency = 1f),
+                                ConfigPoint(time = 1500L, amplitude = 1f, frequency = 1f),
+                                ConfigPoint(time = 1700L, amplitude = 1f, frequency = 1f),
                             ),
                         )
                         composer?.parsePattern(pattern)
