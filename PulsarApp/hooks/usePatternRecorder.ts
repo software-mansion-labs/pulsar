@@ -99,12 +99,15 @@ type UsePatternRecorderReturn = {
   getPatternAsJson: () => string | null;
 };
 
+export const MAX_RECORDING_DURATION_MS = 20_000;
+
 export function usePatternRecorder({ onRecordingChange, onPlayingChange, onRecordedChange }: UsePatternRecorderProps): UsePatternRecorderReturn {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const recordedPattern = useSharedValue<any[]>([]);
   const patternComposer = usePatternComposer();
   const isNewRecording = useRef(false);
+  const maxDurationTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     onRecordingChange?.(isRecording);
@@ -122,9 +125,16 @@ export function usePatternRecorder({ onRecordingChange, onPlayingChange, onRecor
       global.PatternRecorderStartTime = Date.now();
       global.PatternRecorder = [];
     });
+    maxDurationTimer.current = setTimeout(() => {
+      stopRecording();
+    }, MAX_RECORDING_DURATION_MS);
   };
 
   const stopRecording = () => {
+    if (maxDurationTimer.current) {
+      clearTimeout(maxDurationTimer.current);
+      maxDurationTimer.current = null;
+    }
     setIsRecording(false);
     runOnUISync(() => {
       recordedPattern.value = global.PatternRecorder;
@@ -158,6 +168,9 @@ export function usePatternRecorder({ onRecordingChange, onPlayingChange, onRecor
   const recordEvent = (type: 'tap' | 'pan', x: number, y: number) => {
     'worklet';
     const time = Date.now() - global.PatternRecorderStartTime;
+    if (time > MAX_RECORDING_DURATION_MS) {
+      return;
+    }
     const event: RecordedEvent = { type, time, x, y };
     if (!global.PatternRecorder) {
       global.PatternRecorder = [];
