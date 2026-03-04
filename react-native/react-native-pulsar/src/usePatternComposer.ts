@@ -15,6 +15,13 @@ export default function usePatternComposer(pattern?: Pattern): PatternComposer {
     }
   }, []);
 
+  const stop = useCallback(() => {
+    'worklet';
+    if (patternIdRef.current !== -1) {
+      Pulsar.PatternComposer_stop(patternIdRef.current);
+    }
+  }, []);
+
   const parse = useCallback((pattern: Pattern) => {
     const patternId = Pulsar.PatternComposer_parsePattern(pattern);
     patternIdRef.current = patternId;
@@ -35,6 +42,6 @@ export default function usePatternComposer(pattern?: Pattern): PatternComposer {
     };
   }, [pattern]);
 
-  return { play, parse, isParsed };
+  return { play, stop, parse, isParsed };
 }
 

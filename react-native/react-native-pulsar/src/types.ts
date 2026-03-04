@@ -8,6 +8,7 @@ export type Pattern = {
 
 export type PatternComposer = {
   play: () => void;
+  stop: () => void;
   parse: (pattern: Pattern) => void;
   isParsed: () => boolean;
 };

@@ -150,6 +150,7 @@ export function usePatternRecorder({ onRecordingChange, onPlayingChange, onRecor
       playbackTimer.current = null;
     }
     setIsPlaying(false);
+    patternComposer.stop();
   };
 
   const playRecordedPattern = (durationMs: number) => {

@@ -115,6 +115,10 @@ static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) 
   [patternComposersRegistry_[@(patternId)] play];
 }
 
+- (void)PatternComposer_stop:(double)patternId {
+  [patternComposersRegistry_[@(patternId)] stop];
+}
+
 - (void)PatternComposer_release:(double)patternId {
   [patternComposersRegistry_ removeObjectForKey:@(patternId)];
 }

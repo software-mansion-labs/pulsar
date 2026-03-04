@@ -104,7 +104,7 @@ public class PatternComposer: NSObject {
     }
   }
   
-  public func stop() {
+  @objc public func stop() {
     do {
       audioSimulator.stop()
       try continuousPlayer?.stop(atTime: 0)

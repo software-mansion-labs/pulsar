@@ -35,6 +35,7 @@ export interface Spec extends TurboModule {
 
   PatternComposer_parsePattern(data: Pattern): number;
   PatternComposer_play(patternId: number): void;
+  PatternComposer_stop(patternId: number): void;
   PatternComposer_release(patternId: number): void;
 }
 

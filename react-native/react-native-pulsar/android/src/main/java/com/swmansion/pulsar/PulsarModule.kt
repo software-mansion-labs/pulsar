@@ -167,6 +167,10 @@ class PulsarModule(reactContext: ReactApplicationContext) :
     patternComposersRegistry[patternId.toInt()]?.play()
   }
 
+  override fun PatternComposer_stop(patternId: Double) {
+    patternComposersRegistry[patternId.toInt()]?.stop()
+  }
+
   override fun PatternComposer_release(patternId: Double) {
     patternComposersRegistry.remove(patternId.toInt())
   }
