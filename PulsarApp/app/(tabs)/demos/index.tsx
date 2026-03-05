@@ -33,8 +33,8 @@ const demos = [
   },
 
   {
-    slug: 'camera-shutter',
-    title: 'Camera shutter',
+    slug: 'balloon-demo',
+    title: 'Balloon demo',
     description: 'Todo todo todo todo todo todo todo todo todo todo todo.',
   },
   {

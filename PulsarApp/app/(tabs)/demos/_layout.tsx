@@ -7,8 +7,8 @@ export default function DemosLayout() {
       <Stack.Screen name="slider-demo" options={{ headerShown: true, title: 'Slider Demo' }} />
       <Stack.Screen name="buttons-demo" options={{ headerShown: true, title: 'Buttons Demo' }} />
       <Stack.Screen name="countdown-timer-demo" options={{ headerShown: true, title: 'Countdown Timer' }} />
+      <Stack.Screen name="balloon-demo" options={{ headerShown: true, title: 'Balloon Demo' }} />
 
-      <Stack.Screen name="camera-shutter" options={{ headerShown: true, title: 'Camera shutter' }} />
       <Stack.Screen name="workout-interval" options={{ headerShown: true, title: 'Workout interval' }} />
     </Stack>
   );
