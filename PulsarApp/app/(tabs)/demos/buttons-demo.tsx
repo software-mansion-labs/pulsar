@@ -1,18 +1,10 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pattern, useHapticsComposer } from 'react-native-pulsar';
 
 import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
 import { Margins } from '@/constants/theme';
 import HapticDemoButton from '@/components/demo/HapticDemoButton';
-
-const defaultEdges = {
-  top: 'additive',
-  left: 'additive',
-  bottom: 'off',
-  right: 'additive',
-};
 
 export default function ButtonsDemo() {
   const tapPattern: Pattern = {
@@ -77,27 +69,25 @@ export default function ButtonsDemo() {
   const rippleComposer = useHapticsComposer(ripplePattern);
 
   return (
-    <SafeAreaView edges={defaultEdges as any} style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <BasicLayout>
-          <ThemedText type="title" style={Margins.marginTop4X}>
-            Buttons haptics grid
-          </ThemedText>
-          <ThemedText style={Margins.marginTop2X}>
-            Tap each button to feel a different haptic pattern.
-          </ThemedText>
+    <ScrollView contentContainerStyle={styles.scrollContent}>
+      <BasicLayout>
+        <ThemedText type="title" style={Margins.marginTop4X}>
+          Buttons haptics grid
+        </ThemedText>
+        <ThemedText style={Margins.marginTop2X}>
+          Tap each button to feel a different haptic pattern.
+        </ThemedText>
 
-          <View style={styles.grid}>
-            <HapticDemoButton label="Tap" onPress={() => tapComposer.play()} style={styles.gridButton} />
-            <HapticDemoButton label="Soft" onPress={() => softComposer.play()} style={styles.gridButton} />
-            <HapticDemoButton label="Deep" onPress={() => deepComposer.play()} style={styles.gridButton} />
-            <HapticDemoButton label="Double" onPress={() => doubleComposer.play()} style={styles.gridButton} />
-            <HapticDemoButton label="Knock" onPress={() => knockComposer.play()} style={styles.gridButton} />
-            <HapticDemoButton label="Ripple" onPress={() => rippleComposer.play()} style={styles.gridButton} />
-          </View>
-        </BasicLayout>
-      </ScrollView>
-    </SafeAreaView>
+        <View style={styles.grid}>
+          <HapticDemoButton label="Tap" onPress={() => tapComposer.play()} style={styles.gridButton} />
+          <HapticDemoButton label="Soft" onPress={() => softComposer.play()} style={styles.gridButton} />
+          <HapticDemoButton label="Deep" onPress={() => deepComposer.play()} style={styles.gridButton} />
+          <HapticDemoButton label="Double" onPress={() => doubleComposer.play()} style={styles.gridButton} />
+          <HapticDemoButton label="Knock" onPress={() => knockComposer.play()} style={styles.gridButton} />
+          <HapticDemoButton label="Ripple" onPress={() => rippleComposer.play()} style={styles.gridButton} />
+        </View>
+      </BasicLayout>
+    </ScrollView>
   );
 }
 

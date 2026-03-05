@@ -1,5 +1,4 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useCallback } from 'react';
 import { useHapticsComposer, Pattern } from 'react-native-pulsar';
 
@@ -7,13 +6,6 @@ import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
 import { Margins } from '@/constants/theme';
 import HapticSlider from '@/components/demo/HapticSlider';
-
-const defaultEdges = {
-  top: 'additive',
-  left: 'additive',
-  bottom: 'off',
-  right: 'additive',
-};
 
 // Pattern 1: Quick short tick (sharp click sound)
 const quickTickPattern: Pattern = {
@@ -91,71 +83,69 @@ export default function SliderDemo() {
   }, [value3, deepTickComposer]);
 
   return (
-    <SafeAreaView edges={defaultEdges as any} style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <BasicLayout>
-          <ThemedText type="title" style={Margins.marginTop4X}>
-            Slider haptics
-          </ThemedText>
-          <ThemedText style={Margins.marginTop2X}>
-            Move each slider to feel different haptic characteristics. Each slider plays a unique haptic feedback when crossing ticks.
-          </ThemedText>
+    <ScrollView contentContainerStyle={styles.scrollContent}>
+      <BasicLayout>
+        <ThemedText type="title" style={Margins.marginTop4X}>
+          Slider haptics
+        </ThemedText>
+        <ThemedText style={Margins.marginTop2X}>
+          Move each slider to feel different haptic characteristics. Each slider plays a unique haptic feedback when crossing ticks.
+        </ThemedText>
 
-          <View style={styles.sliderContainer}>
-            <View style={styles.sliderCard}>
-              <ThemedText type="subtitle" style={styles.sliderTitle}>
-                Quick Tick
-              </ThemedText>
-              <ThemedText style={styles.sliderDescription}>
-                Sharp, fast feedback (High frequency)
-              </ThemedText>
-              <HapticSlider
-                value={value1}
-                onValueChange={handleSlider1Change}
-                style={styles.slider}
-              />
-              <ThemedText style={styles.sliderValue}>
-                Value: {Math.round(value1)}
-              </ThemedText>
-            </View>
-
-            <View style={styles.sliderCard}>
-              <ThemedText type="subtitle" style={styles.sliderTitle}>
-                Soft Tick
-              </ThemedText>
-              <ThemedText style={styles.sliderDescription}>
-                Gentle, subtle feedback (Medium frequency)
-              </ThemedText>
-              <HapticSlider
-                value={value2}
-                onValueChange={handleSlider2Change}
-                style={styles.slider}
-              />
-              <ThemedText style={styles.sliderValue}>
-                Value: {Math.round(value2)}
-              </ThemedText>
-            </View>
-
-            <View style={styles.sliderCard}>
-              <ThemedText type="subtitle" style={styles.sliderTitle}>
-                Deep Tick
-              </ThemedText>
-              <ThemedText style={styles.sliderDescription}>
-                Resonant, powerful feedback (Low frequency)
-              </ThemedText>
-              <HapticSlider
-                value={value3}
-                onValueChange={handleSlider3Change}
-                style={styles.slider}
-              />
-              <ThemedText style={styles.sliderValue}>
-                Value: {Math.round(value3)}
-              </ThemedText>
-            </View>
+        <View style={styles.sliderContainer}>
+          <View style={styles.sliderCard}>
+            <ThemedText type="subtitle" style={styles.sliderTitle}>
+              Quick Tick
+            </ThemedText>
+            <ThemedText style={styles.sliderDescription}>
+              Sharp, fast feedback (High frequency)
+            </ThemedText>
+            <HapticSlider
+              value={value1}
+              onValueChange={handleSlider1Change}
+              style={styles.slider}
+            />
+            <ThemedText style={styles.sliderValue}>
+              Value: {Math.round(value1)}
+            </ThemedText>
           </View>
-        </BasicLayout>
-      </ScrollView>
-    </SafeAreaView>
+
+          <View style={styles.sliderCard}>
+            <ThemedText type="subtitle" style={styles.sliderTitle}>
+              Soft Tick
+            </ThemedText>
+            <ThemedText style={styles.sliderDescription}>
+              Gentle, subtle feedback (Medium frequency)
+            </ThemedText>
+            <HapticSlider
+              value={value2}
+              onValueChange={handleSlider2Change}
+              style={styles.slider}
+            />
+            <ThemedText style={styles.sliderValue}>
+              Value: {Math.round(value2)}
+            </ThemedText>
+          </View>
+
+          <View style={styles.sliderCard}>
+            <ThemedText type="subtitle" style={styles.sliderTitle}>
+              Deep Tick
+            </ThemedText>
+            <ThemedText style={styles.sliderDescription}>
+              Resonant, powerful feedback (Low frequency)
+            </ThemedText>
+            <HapticSlider
+              value={value3}
+              onValueChange={handleSlider3Change}
+              style={styles.slider}
+            />
+            <ThemedText style={styles.sliderValue}>
+              Value: {Math.round(value3)}
+            </ThemedText>
+          </View>
+        </View>
+      </BasicLayout>
+    </ScrollView>
   );
 }
 
