@@ -19,28 +19,28 @@ const demos = [
   {
     slug: 'slider-demo',
     title: 'Slider demo',
-    description: 'Subtle ticks to confirm step-by-step navigation or onboarding progress.',
+    description: 'Todo todo todo todo todo todo todo todo todo todo todo.',
   },
-
   {
     slug: 'buttons-demo',
     title: 'Buttons demo',
-    description: 'Micro taps on key presses to confirm input without sound.',
+    description: 'Todo todo todo todo todo todo todo todo todo todo todo.',
   },
   {
-    slug: 'payment-success',
-    title: 'Payment success',
-    description: 'A short celebratory pulse when a payment completes successfully.',
+    slug: 'countdown-timer-demo',
+    title: 'Countdown timer',
+    description: 'Todo todo todo todo todo todo todo todo todo todo todo.',
   },
+
   {
     slug: 'camera-shutter',
     title: 'Camera shutter',
-    description: 'A crisp click when capturing a photo to reinforce the shutter action.',
+    description: 'Todo todo todo todo todo todo todo todo todo todo todo.',
   },
   {
     slug: 'workout-interval',
     title: 'Workout interval',
-    description: 'Guided pulses for interval changes without looking at the screen.',
+    description: 'Todo todo todo todo todo todo todo todo todo todo todo.',
   },
 ];
 
