@@ -1,7 +1,7 @@
 ---
 deploy_production:
   stage: deploy
-  image: registry.swmansion.com/devops/internal-infrastructure/ansible/ci-helper:latest
+  image: registry.swmansion.com/infra/ansible-ci-helper:latest
   variables:
     ENV: "production"
   before_script: []
