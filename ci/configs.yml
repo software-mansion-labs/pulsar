@@ -3,6 +3,7 @@ services:
   - docker:24-dind
 stages:
   - build
+  - deploy
 default:
   image: docker:24
   before_script:
