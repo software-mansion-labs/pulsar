@@ -17,10 +17,6 @@ interface PresetItem {
 }
 
 const PRESETS: PresetItem[] = [
-  { name: 'Earthquake', displayName: '🌍 Earthquake', play: Presets.Earthquake },
-  { name: 'Success', displayName: '✅ Success', play: Presets.Success },
-  { name: 'Fail', displayName: '❌ Fail', play: Presets.Fail },
-  { name: 'Tap', displayName: '👆 Tap', play: Presets.Tap },
   { name: 'SystemImpactLight', displayName: '💫 Impact Light', play: Presets.System.ImpactLight },
   { name: 'SystemImpactMedium', displayName: '⚡ Impact Medium', play: Presets.System.ImpactMedium },
   { name: 'SystemImpactHeavy', displayName: '💥 Impact Heavy', play: Presets.System.ImpactHeavy },
@@ -30,6 +26,9 @@ const PRESETS: PresetItem[] = [
   { name: 'SystemNotificationWarning', displayName: '⚠️ Notification Warning', play: Presets.System.NotificationWarning },
   { name: 'SystemNotificationError', displayName: '🚨 Notification Error', play: Presets.System.NotificationError },
   { name: 'SystemSelection', displayName: '🎯 Selection', play: Presets.System.Selection },
+// CODEGEN_BEGIN_{example_app_preset_list}
+  { name: 'Earthquake', displayName: '🌍 Earthquake', play: Presets.Earthquake },
+// CODEGEN_END_{example_app_preset_list}
 ];
 
 export default function PresetsScreen() {

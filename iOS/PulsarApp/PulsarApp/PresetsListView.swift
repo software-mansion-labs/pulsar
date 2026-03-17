@@ -13,10 +13,9 @@ struct PresetsListView: View {
     
     // Define all available presets - easy to extend by adding to this array
     private let presets: [PresetItem] = [
+// CODEGEN_BEGIN_{example_app_preset_list}
         PresetItem(name: "Earthquake", displayName: "🌍 Earthquake"),
-        PresetItem(name: "Success", displayName: "✅ Success"),
-        PresetItem(name: "Fail", displayName: "❌ Fail"),
-        PresetItem(name: "Tap", displayName: "👆 Tap"),
+// CODEGEN_END_{example_app_preset_list}
         PresetItem(name: "SystemImpactLight", displayName: "💫 System Impact Light"),
         PresetItem(name: "SystemImpactMedium", displayName: "⚡ System Impact Medium"),
         PresetItem(name: "SystemImpactHeavy", displayName: "💥 System Impact Heavy"),

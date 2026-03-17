@@ -3,6 +3,7 @@ package com.swmansion.pulsar.presets
 import android.content.Context
 import com.swmansion.pulsar.Pulsar
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
+import com.swmansion.pulsar.presets.generated.EarthquakePreset
 import com.swmansion.pulsar.types.Preset
 
 class PresetsWrapper(
@@ -16,11 +17,6 @@ class PresetsWrapper(
     private val systemViewBasedPresets = SystemViewBasedPresets(context)
 
     private val mapper: Map<String, (Pulsar) -> Preset> = mapOf(
-        EarthquakePreset.name to { haptics -> EarthquakePreset(haptics) },
-        SuccessPreset.name to { haptics -> SuccessPreset(haptics) },
-        FailPreset.name to { haptics -> FailPreset(haptics) },
-        TapPreset.name to { haptics -> TapPreset(haptics) },
-
         SystemImpactLightPreset.name to { haptics -> SystemImpactLightPreset(haptics) },
         SystemImpactMediumPreset.name to { haptics -> SystemImpactMediumPreset(haptics) },
         SystemImpactHeavyPreset.name to { haptics -> SystemImpactHeavyPreset(haptics) },
@@ -60,6 +56,9 @@ class PresetsWrapper(
         SystemDragStartPreset.name to { haptics -> SystemDragStartPreset(haptics, systemViewBasedPresets) },
         SystemSegmentTickPreset.name to { haptics -> SystemSegmentTickPreset(haptics, systemViewBasedPresets) },
         SystemSegmentFrequentTickPreset.name to { haptics -> SystemSegmentFrequentTickPreset(haptics, systemViewBasedPresets) },
+// CODEGEN_BEGIN_{mappers}
+        EarthquakePreset.name to { haptics -> EarthquakePreset(haptics) },
+// CODEGEN_END_{mappers}
     )
 
     fun enableCache(state: Boolean) {
@@ -100,20 +99,9 @@ class PresetsWrapper(
         }
     }
 
+// CODEGEN_BEGIN_{getters}
     fun earthquake() {
         getCacheablePreset(EarthquakePreset.name)!!.play()
     }
-
-    fun success() {
-        getCacheablePreset(SuccessPreset.name)!!.play()
-    }
-
-    fun fail() {
-        getCacheablePreset(FailPreset.name)!!.play()
-    }
-
-    fun tap() {
-        getCacheablePreset(TapPreset.name)!!.play()
-    }
-    
+// CODEGEN_END_{getters}
 }

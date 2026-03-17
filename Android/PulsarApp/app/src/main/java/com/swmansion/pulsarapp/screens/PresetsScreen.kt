@@ -28,16 +28,9 @@ data class PresetItem(
 fun PresetsScreen(pulsar: Pulsar?) {
     val presets = androidx.compose.runtime.remember {
         listOf(
-            PresetItem("Success") { pulsar?.getPresets()?.success() },
-//            PresetItem("Failure") { pulsar?.getPresets()?.failure() },
-//            PresetItem("Selection") { pulsar?.getPresets()?.selection() },
-//            PresetItem("Impact") { pulsar?.getPresets()?.impact() },
-//            PresetItem("Warning") { pulsar?.getPresets()?.warning() },
-//            PresetItem("Notification") { pulsar?.getPresets()?.notification() },
-//            PresetItem("Light") { pulsar?.getPresets()?.light() },
-//            PresetItem("Medium") { pulsar?.getPresets()?.medium() },
-//            PresetItem("Heavy") { pulsar?.getPresets()?.heavy() },
+// CODEGEN_BEGIN_{example_app_preset_list}
             PresetItem("Earthquake") { pulsar?.getPresets()?.earthquake() },
+// CODEGEN_BEGIN_{example_app_preset_list}
         )
     }
 

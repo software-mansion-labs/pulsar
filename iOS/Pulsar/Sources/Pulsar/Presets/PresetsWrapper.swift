@@ -10,10 +10,6 @@ import AVFAudio
   private var haptics: Pulsar!
   
   private var mapper: [String: Preset.Type] = [
-    "Earthquake": EarthquakePreset.self,
-    "Success": SuccessPreset.self,
-    "Fail": FailPreset.self,
-    "Tap": TapPreset.self,
     "SystemImpactLight": SystemImpactLightPreset.self,
     "SystemImpactMedium": SystemImpactMediumPreset.self,
     "SystemImpactHeavy": SystemImpactHeavyPreset.self,
@@ -23,6 +19,10 @@ import AVFAudio
     "SystemNotificationWarning": SystemNotificationWarningPreset.self,
     "SystemNotificationError": SystemNotificationErrorPreset.self,
     "SystemSelection": SystemSelectionPreset.self,
+    
+// CODEGEN_BEGIN_{mappers}
+    "Earthquake": EarthquakePreset.self,
+// CODEGEN_END_{mappers}
   ]
   
   public init(haptics: Pulsar) {
@@ -76,22 +76,6 @@ import AVFAudio
     return type.getInstance(haptics: haptics!)
   }
   
-  public func earthquake() {
-    getCacheablePreset(EarthquakePreset.self).play()
-  }
-
-  public func success() {
-    getCacheablePreset(SuccessPreset.self).play()
-  }
-
-  public func fail() {
-    getCacheablePreset(FailPreset.self).play()
-  }
-  
-  public func tap() {
-    getCacheablePreset(TapPreset.self).play()
-  }
-  
   public func systemImpactLight() {
     getCacheablePreset(SystemImpactLightPreset.self).play()
   }
@@ -127,4 +111,10 @@ import AVFAudio
   public func systemSelection() {
     getCacheablePreset(SystemSelectionPreset.self).play()
   }
+  
+// CODEGEN_BEGIN_{getters}
+  public func earthquake() {
+    getCacheablePreset(EarthquakePreset.self).play()
+  }
+// CODEGEN_END_{getters}
 }

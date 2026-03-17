@@ -4,22 +4,6 @@ import Pulsar from './NativeRNPulsar';
 Pulsar.Pulsar_play;
 
 export default {
-  Earthquake: () => { 
-    'worklet';
-    Pulsar.Pulsar_play('Earthquake');
-  },
-  Success: () => {
-    'worklet';
-    Pulsar.Pulsar_play('Success');
-  },
-  Fail: () => {
-    'worklet';
-    Pulsar.Pulsar_play('Fail');
-  },
-  Tap: () => {
-    'worklet';
-    Pulsar.Pulsar_play('Tap');
-  },
   System: {
     ImpactLight: () => {
       'worklet';
@@ -57,5 +41,11 @@ export default {
       'worklet';
       Pulsar.Pulsar_play('SystemSelection');
     },
-  }
+  },
+// CODEGEN_BEGIN_{getters}
+  Earthquake: () => { 
+    'worklet';
+    Pulsar.Pulsar_play('Earthquake');
+  },
+// CODEGEN_END_{getters}
 }
