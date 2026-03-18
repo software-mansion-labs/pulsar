@@ -12,7 +12,6 @@
     background-color: var(--color-blue-5);
     border-radius: 4px;
     padding-right: 20px;
-    position: relative;
     overflow-x: auto;
     overflow-y: hidden;
 
@@ -37,6 +36,12 @@
       background-color: var(--color-blue-30, #b0b0b0);
     }
 
+    .visualizationInner {
+      position: relative;
+      display: inline-block;
+      height: 100%;
+    }
+
     .image {
       height: 100%;
       width: auto;
@@ -53,16 +58,6 @@
       background-color: var(--color-primary);
       pointer-events: none;
       z-index: 10;
-      animation: moveIndicator linear forwards;
-    }
-
-    @keyframes moveIndicator {
-      from {
-        left: 0;
-      }
-      to {
-        left: 100%;
-      }
     }
   }
 

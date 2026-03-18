@@ -1,11 +1,10 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { CodeTabs } from '../CodeTabs/CodeTabs';
 import style from './Preset.module.scss';
 import { VisualizationPanel } from '../VisualizationPanel/VisualizationPanel';
 import { Accordion } from '../Accordion/Accordion';
 import { Tag } from '../Tag/Tag';
 import type { PresetConfig } from './types';
-import { API_SERVER_URL } from '../config';
 
 declare global {
   interface Window {
@@ -49,7 +48,7 @@ export function Preset(preset: PresetConfig) {
         <div className={style.description}>{data.description}</div>
       </div>
 
-      <VisualizationPanel visualization={preset} duration={data.duration} presetName={data.name} />
+      <VisualizationPanel visualization={preset} presetName={data.name} />
 
       <div onClick={handleUsageToggle}>
         <Accordion title="Usage" className={style.marginTop}>

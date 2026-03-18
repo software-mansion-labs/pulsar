@@ -26,7 +26,6 @@ export function Preset(preset: PresetConfig) {
 
       <VisualizationPanel
         visualization={preset}
-        duration={data.duration}
         playOnDevice={() => setIsModalOpen(true)}
         presetName={data.name}
       />
