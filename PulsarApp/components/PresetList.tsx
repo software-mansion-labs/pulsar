@@ -60,7 +60,7 @@ export default function PresetList() {
       ) : (
         filteredPresets.map((preset, index) => (
           <Preset
-            key={`${preset.shortName}-${index}`}
+            key={`${preset.name}-${index}`}
             title={preset.name}
             subtitle={preset.description}
             tags={preset.tags}
