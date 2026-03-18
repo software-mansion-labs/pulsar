@@ -1,49 +1,14 @@
-import FallingBricks from '../../../content/docs/assets/presets/FallingBricks';
-import type { PresetProps } from '../../../content/docs/components/Preset/types';
+import AimingFirePreset from '../../../content/docs/assets/presets/AimingFire.json';
+import AimingFireImage from '../../../content/docs/assets/presets/AimingFire.png';
+import type { PresetConfig } from '../../../content/docs/components/Preset/types';
 
-export const PresetsConfig: Array<PresetProps> = [
+export const PresetsConfig: Array<PresetConfig> = [
   {
-    name: '🧱 Falling Bricks',
-    shortName: 'FallingBricks',
-    description: 'That feeling when some bricks fall onto your foot!',
-    tags: [
-      { label: 'Short', variant: 'blue' },
-      { label: 'Happiness', variant: 'blue' },
-    ],
-    duration: 1000,
-    visualization: FallingBricks,
+    data: AimingFirePreset,
+    image: AimingFireImage,
   },
   {
-    name: '🧱 Falling Bricks 2',
-    shortName: 'FallingBricks',
-    description: 'That feeling when some bricks fall onto your foot!',
-    tags: [
-      { label: 'Super short', variant: 'blue' },
-      { label: 'Sadness', variant: 'blue' },
-    ],
-    duration: 300,
-    visualization: FallingBricks,
-  },
-  {
-    name: '🧱 Falling Bricks 3',
-    shortName: 'FallingBricks',
-    description: 'That feeling when some bricks fall onto your foot!',
-    tags: [
-      { label: 'Super short', variant: 'blue' },
-      { label: 'Happiness', variant: 'blue' },
-    ],
-    duration: 1000,
-    visualization: FallingBricks,
-  },
-  {
-    name: '🧱 Falling Bricks 4',
-    shortName: 'FallingBricks',
-    description: 'That feeling when some bricks fall onto your foot!',
-    tags: [
-      { label: 'Super short', variant: 'blue' },
-      { label: 'Happiness', variant: 'blue' },
-    ],
-    duration: 2000,
-    visualization: FallingBricks,
+    data: AimingFirePreset,
+    image: AimingFireImage,
   },
 ];

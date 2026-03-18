@@ -4,7 +4,7 @@ import style from './Preset.module.scss';
 import { VisualizationPanel } from '../VisualizationPanel/VisualizationPanel';
 import { Accordion } from '../Accordion/Accordion';
 import { Tag } from '../Tag/Tag';
-import type { PresetProps } from './types';
+import type { PresetConfig } from './types';
 import { API_SERVER_URL } from '../config';
 
 declare global {
@@ -23,45 +23,39 @@ function getReactNativePresetImport(shortName: string) {
   return `import { Pulsar } from '@haptics/library';\n\nPulsar.${shortName}.play();`;
 }
 
-export function Preset({
-  name,
-  shortName,
-  description,
-  tags,
-  duration = 0,
-  visualization,
-}: PresetProps) {
+export function Preset(preset: PresetConfig) {
+  const { data } = preset;
   const [usageViewed, setUsageViewed] = useState(false);
 
   function handleUsageToggle() {
     if (!usageViewed) {
-      window.posthog?.capture('preset_code_copied', { preset_name: name });
+      window.posthog?.capture('preset_code_copied', { preset_name: data.name });
       setUsageViewed(true);
     }
   }
 
   return (
     <div className={style.preset}>
-      {tags && tags.length > 0 && (
+      {data.tags && data.tags.length > 0 && (
         <div className={style.tagsBar}>
-          {tags.map((tag, idx) => (
-            <Tag key={idx} label={tag.label} variant={tag.variant} />
+          {data.tags.map((tag, idx) => (
+            <Tag key={idx} label={tag} variant='blue' />
           ))}
         </div>
       )}
 
       <div className={style.header}>
-        <div className={style.name}>{name}</div>
-        <div className={style.description}>{description}</div>
+        <div className={style.name}>{data.name}</div>
+        <div className={style.description}>{data.description}</div>
       </div>
 
-      <VisualizationPanel visualization={visualization} duration={duration} presetName={name} />
+      <VisualizationPanel visualization={preset} duration={data.duration} presetName={data.name} />
 
       <div onClick={handleUsageToggle}>
         <Accordion title="Usage" className={style.marginTop}>
           <CodeTabs
-            swift={getSwiftPresetImport(shortName || '')}
-            reactNative={getReactNativePresetImport(shortName || '')}
+            swift={getSwiftPresetImport(data.name)}
+            reactNative={getReactNativePresetImport(data.name)}
           />
         </Accordion>
       </div>

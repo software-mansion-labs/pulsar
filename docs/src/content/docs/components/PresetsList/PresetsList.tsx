@@ -5,7 +5,7 @@ import { Preset } from '../Preset/Preset';
 import { useState, useMemo } from 'react';
 import { TagsModal } from '../TagsModal/TagsModal';
 import { TagsInfo } from './Tags';
-import { PresetsConfig } from './PresetsConfig';
+import { PresetsConfig } from '../../assets/presets/PresetsConfig';
 import { NoResult } from '../NoResult/NoResult';
 
 declare global {
@@ -53,7 +53,7 @@ export function PresetsList() {
     }
 
     return PresetsConfig.filter((preset) => {
-      const presetTagLabels = preset.tags.map((tag) => tag.label);
+      const presetTagLabels = preset.data.tags;
 
       for (const groupName in selectedTagsByGroup) {
         const selectedTagsInGroup = selectedTagsByGroup[groupName];
