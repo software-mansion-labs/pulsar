@@ -121,6 +121,7 @@ export function VisualizationPanel({
       stopAnimation();
     } else {
       setIsPlaying(true);
+      handlePlayOnDevice();
       window.posthog?.capture('preset_played', { preset_name: presetName });
       try {
         if (!isParsed.current) {
@@ -154,15 +155,6 @@ export function VisualizationPanel({
           ) : (
             <img src={playIcon.src} alt="Play" />
           )}
-        </div>
-
-        <div
-          className={styles.controlButton}
-          onClick={handlePlayOnDevice}
-          title="Record"
-          aria-label="Record"
-        >
-          <img src={phoneIcon.src} alt="Play vibration on device" />
         </div>
       </div>
     </div>
