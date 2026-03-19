@@ -4,6 +4,7 @@
   padding: 20px;
   margin-bottom: 16px;
   background-color: white;
+  position: relative;
   .tagsBar {
     display: flex;
     gap: 8px;
@@ -18,6 +19,77 @@
     .description {
       font-size: var(--font-size-md);
     }
+  }
+}
+
+.definitionButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  border-width: 0;
+  background: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-blue-10);
+  transition: all 0.2s ease;
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background-color: var(--color-blue-50);
+  }
+}
+
+.jsonContainer {
+  position: relative;
+}
+
+.jsonBlock {
+  font-size: var(--font-size-sm);
+  background-color: var(--color-blue-10);
+  border-radius: 4px;
+  padding: 16px;
+  overflow: auto;
+  white-space: pre;
+  margin-top: 15px;
+}
+
+.copyButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  border-width: 0;
+  border-radius: 4px;
+  background: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-blue-10);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background-color: var(--color-blue-50);
+  }
+
+  &:active {
+    transform: scale(0.88);
   }
 }
 .marginTop {

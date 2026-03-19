@@ -1,5 +1,4 @@
 import styles from './VisualizationPanel.module.scss';
-import phoneIcon from '../../assets/new_assets/phone.svg';
 import playIcon from '../../assets/new_assets/play.svg';
 import pauseIcon from '../../assets/new_assets/pause.svg';
 import { useState, useRef } from 'react';

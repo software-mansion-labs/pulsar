@@ -4,7 +4,10 @@ import style from './Preset.module.scss';
 import { VisualizationPanel } from '../VisualizationPanel/VisualizationPanel';
 import { Accordion } from '../Accordion/Accordion';
 import { Tag } from '../Tag/Tag';
+import { Modal } from '../Modal/Modal';
 import type { PresetConfig } from './types';
+import codeIcon from '../../assets/new_assets/code.svg';
+import copyIcon from '../../assets/new_assets/copy.svg';
 
 declare global {
   interface Window {
@@ -25,12 +28,23 @@ function getReactNativePresetImport(shortName: string) {
 export function Preset(preset: PresetConfig) {
   const { data } = preset;
   const [usageViewed, setUsageViewed] = useState(false);
+  const [definitionOpen, setDefinitionOpen] = useState(false);
 
   function handleUsageToggle() {
     if (!usageViewed) {
       window.posthog?.capture('preset_code_copied', { preset_name: data.name });
       setUsageViewed(true);
     }
+  }
+
+  const definitionJson = JSON.stringify(
+    { continuousPattern: data.continuousPattern, discretePattern: data.discretePattern },
+    null,
+    2
+  );
+
+  function handleCopy() {
+    navigator.clipboard.writeText(definitionJson);
   }
 
   return (
@@ -43,10 +57,25 @@ export function Preset(preset: PresetConfig) {
         </div>
       )}
 
+      <button className={style.definitionButton} onClick={() => setDefinitionOpen(true)}>
+        <img src={codeIcon.src} alt="Definition" />
+      </button>
+
       <div className={style.header}>
         <div className={style.name}>{data.name}</div>
         <div className={style.description}>{data.description}</div>
       </div>
+
+      {definitionOpen && (
+        <Modal title="Preset Definition" onClose={() => setDefinitionOpen(false)}>
+          <div className={style.jsonContainer}>
+            <pre className={style.jsonBlock}>{definitionJson}</pre>
+            <button className={style.copyButton} onClick={handleCopy}>
+              <img src={copyIcon.src} alt="Copy" />
+            </button>
+          </div>
+        </Modal>
+      )}
 
       <VisualizationPanel visualization={preset} presetName={data.name} />
 
