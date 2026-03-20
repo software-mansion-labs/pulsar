@@ -2,12 +2,29 @@ import style from './Preset.module.scss';
 import { VisualizationPanel } from '../../../content/docs/components/VisualizationPanel/VisualizationPanel';
 import { Tag } from '../../../content/docs/components/Tag/Tag';
 import type { PresetConfig } from '../../../content/docs/components/Preset/types';
-import { Modal } from '../../../content/docs/components/Modal/Modal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+
+const TOAST_EXIT_DURATION = 300;
 
 export function Preset(preset: PresetConfig) {
   const { data } = preset;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+
+  function dismissToast() {
+    setIsExiting(true);
+    setTimeout(() => {
+      setIsToastVisible(false);
+      setIsExiting(false);
+    }, TOAST_EXIT_DURATION);
+  }
+
+  useEffect(() => {
+    if (!isToastVisible) return;
+    const timer = setTimeout(dismissToast, 6000);
+    return () => clearTimeout(timer);
+  }, [isToastVisible]);
 
   return (
     <div className={style.preset}>
@@ -26,14 +43,26 @@ export function Preset(preset: PresetConfig) {
 
       <VisualizationPanel
         visualization={preset}
-        playOnDevice={() => setIsModalOpen(true)}
+        playOnDevice={() => { setIsToastVisible(true); setIsExiting(false); }}
         presetName={data.name}
       />
 
-      {isModalOpen && (
-        <Modal title="Play on device" onClose={() => setIsModalOpen(false)}>
-          // TODO
-        </Modal>
+      {isToastVisible && createPortal(
+        <div className={`${style.toast} ${isExiting ? style.toastExit : style.toastEnter}`} role="status">
+          <span>
+            To play haptics on your phone, visit the{' '}
+            <a href="/presets-playground">Presets Playground</a>
+            {' '}where you can connect your device.
+          </span>
+          <button
+            className={style.toastClose}
+            onClick={dismissToast}
+            aria-label="Dismiss"
+          >
+            ✕
+          </button>
+        </div>,
+        document.body
       )}
     </div>
   );
