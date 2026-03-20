@@ -236,9 +236,7 @@ export default function HomeScreen() {
   };
 
   const playPattern = (pattern: Pattern) => {
-    if (!patternComposer.isParsed()) {
-      patternComposer.parse(pattern);
-    }
+    patternComposer.parse(pattern);
     patternComposer.play();
   };
 
