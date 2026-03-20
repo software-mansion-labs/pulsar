@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Alert, Keyboard } from 'react-native';
 import * as Linking from 'expo-linking';
 import { usePostHog } from 'posthog-react-native';
 
@@ -15,7 +15,7 @@ import ConnectionIndicator from '@/components/ConnectionIndicator';
 import { Margins } from '@/constants/theme';
 import { SOCKET_SERVER_URL } from '@/constants/Connection';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Pattern, usePatternComposer } from 'react-native-pulsar';
+import { type Pattern, usePatternComposer, Settings } from 'react-native-pulsar';
 import { BaseButton } from 'react-native-gesture-handler';
 import Button from '@/components/Button';
 import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
@@ -47,6 +47,8 @@ export default function HomeScreen() {
   const patternNotificationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    Settings.enableSound(true);
+    
     const subscription = Linking.addEventListener('url', ({ url }) => {
       handleDeepLink(url);
     });
