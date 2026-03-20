@@ -7,12 +7,12 @@ import Preset from './Preset';
 import Card from './Card';
 import { ThemedText } from './themed-text';
 
-export default function PresetList() {
+export function useFilteredPresets() {
   const { selectedTags } = useFilters();
 
   const selectedTagsByGroup = useMemo(() => {
     const grouped: Record<string, string[]> = {};
-    
+
     selectedTags.forEach(tagName => {
       TagsInfo.forEach(group => {
         const tagExists = group.tags.some(tag => tag.name === tagName);
@@ -24,7 +24,7 @@ export default function PresetList() {
         }
       });
     });
-    
+
     return grouped;
   }, [selectedTags]);
 
@@ -32,23 +32,29 @@ export default function PresetList() {
     if (selectedTags.length === 0) {
       return PresetsConfig;
     }
-    
+
     return PresetsConfig.filter(preset => {
       const presetTagLabels = preset.tags;
-      
+
       for (const groupName in selectedTagsByGroup) {
         const selectedTagsInGroup = selectedTagsByGroup[groupName];
-        const hasTagFromGroup = selectedTagsInGroup.some(tagName => 
+        const hasTagFromGroup = selectedTagsInGroup.some(tagName =>
           presetTagLabels.includes(tagName)
         );
         if (!hasTagFromGroup) {
           return false;
         }
       }
-      
+
       return true;
     });
   }, [selectedTags, selectedTagsByGroup]);
+
+  return { filteredPresets, selectedTags };
+}
+
+export default function PresetList() {
+  const { filteredPresets, selectedTags } = useFilteredPresets();
 
   return (
     <View style={styles.container}>

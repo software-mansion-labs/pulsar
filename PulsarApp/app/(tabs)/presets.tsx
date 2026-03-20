@@ -1,12 +1,14 @@
-import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
 import { Margins } from '@/constants/theme';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
-import PresetList from '@/components/PresetList';
+import { useFilteredPresets } from '@/components/PresetList';
+import Preset from '@/components/Preset';
+import Card from '@/components/Card';
 import SelectedTags from '@/components/SelectedTags';
+import { useMemo } from 'react';
 
 const infoIcon = require('@/assets/images/info.svg');
 const slidersIcon = require('@/assets/images/sliders.svg');
@@ -19,50 +21,83 @@ const defaultEdges = {
 };
 
 export default function PresetsScreen() {
-  
-  return (
-    <SafeAreaView edges={defaultEdges as any}>
-      <ScrollView>
-        <BasicLayout>
-        
-          <ThemedText type="title" style={Margins.marginTop4X}>
-            Get to know Pulsar presets
-          </ThemedText>
-          <ThemedText style={Margins.marginTop2X}>
-            Don't spend time creating your own patterns. Just use ours and enjoy the benefits of having haptics in your app by using presets.
-          </ThemedText>
+  const { filteredPresets, selectedTags } = useFilteredPresets();
 
-          <Link href="/tagsModal" style={Margins.marginTop4X}>
-            <Link.Trigger>
-              <View style={styles.learnMoreContainer}>
-                <Text style={styles.learnMore}>Learn more about tags</Text>
-                <Image source={infoIcon} style={styles.infoIcon} />
-              </View>
-            </Link.Trigger>
-          </Link>
+  const listHeader = useMemo(() => (
+    <>
+      <ThemedText type="title" style={Margins.marginTop4X}>
+        Get to know Pulsar presets
+      </ThemedText>
+      <ThemedText style={Margins.marginTop2X}>
+        Don't spend time creating your own patterns. Just use ours and enjoy the benefits of having haptics in your app by using presets.
+      </ThemedText>
 
-          <View style={[styles.presetsTitleContainer, Margins.marginTop4X]}>
-            <ThemedText type="subtitle">
-              Presets
-            </ThemedText>
-            <Link href="/filtersModal">
-              <Link.Trigger>
-                <Image source={slidersIcon} style={styles.settingsIcon} />
-              </Link.Trigger>
-            </Link>
+      <Link href="/tagsModal" style={Margins.marginTop4X}>
+        <Link.Trigger>
+          <View style={styles.learnMoreContainer}>
+            <Text style={styles.learnMore}>Learn more about tags</Text>
+            <Image source={infoIcon} style={styles.infoIcon} />
           </View>
+        </Link.Trigger>
+      </Link>
 
-          <SelectedTags />
+      <View style={[styles.presetsTitleContainer, Margins.marginTop4X]}>
+        <ThemedText type="subtitle">
+          Presets
+        </ThemedText>
+        <Link href="/filtersModal">
+          <Link.Trigger>
+            <Image source={slidersIcon} style={styles.settingsIcon} />
+          </Link.Trigger>
+        </Link>
+      </View>
 
-          <PresetList />
+      <SelectedTags />
+    </>
+  ), []);
 
-        </BasicLayout>
-      </ScrollView>
+  const listEmpty = useMemo(() => selectedTags.length > 0 ? (
+    <Card>
+      <ThemedText type='subtitle'>No presets for selected tags 😕</ThemedText>
+      <ThemedText>Try adjusting your filters to see more presets.</ThemedText>
+    </Card>
+  ) : null, [selectedTags.length]);
+
+  return (
+    <SafeAreaView edges={defaultEdges as any} style={styles.safeArea}>
+      <FlatList
+        data={filteredPresets}
+        keyExtractor={(item, index) => `${item.name}-${index}`}
+        contentContainerStyle={styles.contentContainer}
+        ListHeaderComponent={listHeader}
+        ListEmptyComponent={listEmpty}
+        renderItem={({ item }) => (
+          <Preset
+            title={item.name}
+            subtitle={item.description}
+            tags={item.tags}
+            image={item.image}
+            onPress={item.play}
+            duration={item.duration}
+          />
+        )}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  contentContainer: {
+    paddingHorizontal: 15,
+    paddingBottom: 50,
+  },
+  separator: {
+    height: 30,
+  },
   learnMore: {
     color: '#001A72',
     fontSize: 16,
@@ -80,6 +115,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: 15,
   },
   settingsIcon: {
     width: 25,
