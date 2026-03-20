@@ -7,11 +7,12 @@ interface CodeTabsProps {
   className?: string;
 }
 
-export function CodeTabs({ swift, reactNative, className = '' }: CodeTabsProps) {
-  const [activeTab, setActiveTab] = useState<'swift' | 'reactNative'>('swift');
+export function CodeTabs({ swift, reactNative, kotlin, className = '' }: CodeTabsProps) {
+  const [activeTab, setActiveTab] = useState<'swift' | 'kotlin' | 'reactNative'>('swift');
 
   const content = {
     swift,
+    kotlin,
     reactNative,
   };
 
@@ -23,6 +24,12 @@ export function CodeTabs({ swift, reactNative, className = '' }: CodeTabsProps) 
           onClick={() => setActiveTab('swift')}
         >
           Swift
+        </div>
+        <div
+          className={`${styles.tab} ${activeTab === 'kotlin' ? styles.active : ''}`}
+          onClick={() => setActiveTab('kotlin')}
+        >
+          Kotlin
         </div>
         <div
           className={`${styles.tab} ${activeTab === 'reactNative' ? styles.active : ''}`}

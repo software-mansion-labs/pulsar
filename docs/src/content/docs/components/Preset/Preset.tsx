@@ -18,12 +18,16 @@ declare global {
 }
 
 function getSwiftPresetImport(shortName: string) {
-  return `import Pulsar\n\nPulsar.${shortName}.play()`;
+  return `import Pulsar\n\nlet pulsar = Pulsar()\npulsar.getPresets().${shortName}()`;
 }
 
 function getReactNativePresetImport(shortName: string) {
-  return `import { Pulsar } from '@haptics/library';\n\nPulsar.${shortName}.play();`;
+  return `import { Presets } from 'react-native-pulsar';\n\nPresets.${shortName}()`;
 }
+
+function getKotlinPresetImport(shortName: string) {
+    return `import com.swmansion.pulsar\n\nlet pulsar = Pulsar()\npulsar.getPresets().${shortName}()`;
+  }
 
 export function Preset(preset: PresetConfig) {
   const { data } = preset;
@@ -83,6 +87,7 @@ export function Preset(preset: PresetConfig) {
         <Accordion title="Usage" className={style.marginTop}>
           <CodeTabs
             swift={getSwiftPresetImport(data.name)}
+            kotlin={getKotlinPresetImport(data.name)}
             reactNative={getReactNativePresetImport(data.name)}
           />
         </Accordion>
