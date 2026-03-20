@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, ViewProps, Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { Presets } from 'react-native-pulsar';
 const loaderIcon = require('../assets/images/loader.svg');
 import { Image } from 'expo-image';
 
@@ -44,6 +45,7 @@ function Button({
     .onBegin(() => {
       setPressed(true);
       if (!isLoading && enabled) {
+        Presets.BtnPrimary();
         onClick?.();
       }
     }).runOnJS(true);

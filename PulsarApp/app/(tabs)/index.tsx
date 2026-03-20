@@ -15,7 +15,7 @@ import ConnectionIndicator from '@/components/ConnectionIndicator';
 import { Margins } from '@/constants/theme';
 import { SOCKET_SERVER_URL } from '@/constants/Connection';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { type Pattern, usePatternComposer, Settings } from 'react-native-pulsar';
+import { type Pattern, usePatternComposer, Settings, Presets } from 'react-native-pulsar';
 import { BaseButton } from 'react-native-gesture-handler';
 import Button from '@/components/Button';
 import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
@@ -143,11 +143,13 @@ export default function HomeScreen() {
             setHasToken(true);
           });
           setConnectionState('FULLY_CONNECTED');
+          Presets.Confirm();
           posthog.capture('device_connected', {
             connection_type: 'new',
           });
         } else if (json.type === 'connection_restored') {
           setConnectionState('FULLY_CONNECTED');
+          Presets.Confirm();
           posthog.capture('device_connected', {
             connection_type: 'restored',
           });
@@ -192,6 +194,7 @@ export default function HomeScreen() {
     socket.onerror = () => {
       setConnectionState('ERROR');
       setErrorType('CONNECTION_FAILED');
+      Presets.ErrorBuzz();
       posthog.capture('device_connection_failed', {
         error_type: 'CONNECTION_FAILED',
         connection_action: action,
@@ -207,6 +210,7 @@ export default function HomeScreen() {
       if (e.code !== 1000) {
         setConnectionState('ERROR');
         setErrorType('INVALID_DATA');
+        Presets.ErrorBuzz();
         posthog.capture('device_connection_failed', {
           error_type: 'INVALID_DATA',
           close_code: e.code,
@@ -219,6 +223,7 @@ export default function HomeScreen() {
   }
 
   const handleDisconnect = () => {
+    Presets.PowerDown();
     posthog.capture('device_disconnected', {
       previous_state: connectionState,
     });
