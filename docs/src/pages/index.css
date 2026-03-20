@@ -84,9 +84,6 @@ body {
   padding: 0px;
   margin: 0px;
 }
-nav {
-  z-index: 0;
-}
 
 @media (max-width: 1151px) {
   mobile-starlight-toc {

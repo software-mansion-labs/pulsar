@@ -688,7 +688,7 @@
   $max-width: 400px,
   $steps: 20
 ) {
-  $dir-multiplier: if($direction == 'right', 1, -1);
+  $dir-multiplier: if(sass($direction == 'right'): 1; else: -1);
   $initial-x: $start-t * $max-width * $dir-multiplier;
   $initial-y: 4 * $max-height * $start-t * ($start-t - 1);
 

@@ -178,8 +178,8 @@ export function TopBanner() {
             r="500"
             fill="#87CCE8"
             stroke="#2B85AB"
-            stroke-miterlimit="16"
-            stroke-dasharray="8 8"
+            strokeMiterlimit="16"
+            strokeDasharray="8 8"
           />
           <circle
             opacity="0.1"
@@ -188,8 +188,8 @@ export function TopBanner() {
             r="400"
             fill="#87CCE8"
             stroke="#2B85AB"
-            stroke-miterlimit="16"
-            stroke-dasharray="8 8"
+            strokeMiterlimit="16"
+            strokeDasharray="8 8"
           />
           <circle
             opacity="0.1"
@@ -198,8 +198,8 @@ export function TopBanner() {
             r="300"
             fill="#87CCE8"
             stroke="#2B85AB"
-            stroke-miterlimit="16"
-            stroke-dasharray="8 8"
+            strokeMiterlimit="16"
+            strokeDasharray="8 8"
           />
           <circle
             opacity="0.1"
@@ -208,8 +208,8 @@ export function TopBanner() {
             r="200"
             fill="#87CCE8"
             stroke="#2B85AB"
-            stroke-miterlimit="16"
-            stroke-dasharray="8 8"
+            strokeMiterlimit="16"
+            strokeDasharray="8 8"
           />
           <circle
             opacity="0.1"
@@ -218,8 +218,8 @@ export function TopBanner() {
             r="100"
             fill="#87CCE8"
             stroke="#2B85AB"
-            stroke-miterlimit="16"
-            stroke-dasharray="8 8"
+            strokeMiterlimit="16"
+            strokeDasharray="8 8"
           />
         </svg>
       </div>
