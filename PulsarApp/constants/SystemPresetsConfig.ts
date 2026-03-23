@@ -59,7 +59,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Selection","Gentle"],
     duration: 50,
     image: AndroidSystemCalendarDatePresetImage,
-    play: Presets.System.Android.SystemCalendarDatePreset,
+    play: Presets.System.Android.CalendarDatePreset,
   },
   {
     name: 'SystemClockTickPreset',
@@ -67,7 +67,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Tick","Gentle"],
     duration: 50,
     image: AndroidSystemClockTickPresetImage,
-    play: Presets.System.Android.SystemClockTickPreset,
+    play: Presets.System.Android.ClockTickPreset,
   },
   {
     name: 'SystemConfirmPreset',
@@ -75,7 +75,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Confirm","Bumps"],
     duration: 170,
     image: AndroidSystemConfirmPresetImage,
-    play: Presets.System.Android.SystemConfirmPreset,
+    play: Presets.System.Android.ConfirmPreset,
   },
   {
     name: 'SystemContextClickPreset',
@@ -83,7 +83,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Click","Context"],
     duration: 50,
     image: AndroidSystemContextClickPresetImage,
-    play: Presets.System.Android.SystemContextClickPreset,
+    play: Presets.System.Android.ContextClickPreset,
   },
   {
     name: 'SystemDoubleClickPreset',
@@ -91,7 +91,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Click","Double","Bumps"],
     duration: 170,
     image: AndroidSystemDoubleClickPresetImage,
-    play: Presets.System.Android.SystemDoubleClickPreset,
+    play: Presets.System.Android.DoubleClickPreset,
   },
   {
     name: 'SystemDragCrossingPreset',
@@ -99,7 +99,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Drag","Click"],
     duration: 50,
     image: AndroidSystemDragCrossingPresetImage,
-    play: Presets.System.Android.SystemDragCrossingPreset,
+    play: Presets.System.Android.DragCrossingPreset,
   },
   {
     name: 'SystemDragStartPreset',
@@ -107,7 +107,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Drag","Impact"],
     duration: 50,
     image: AndroidSystemDragStartPresetImage,
-    play: Presets.System.Android.SystemDragStartPreset,
+    play: Presets.System.Android.DragStartPreset,
   },
   {
     name: 'SystemEdgeReleasePreset',
@@ -115,7 +115,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Edge","Release"],
     duration: 50,
     image: AndroidSystemEdgeReleasePresetImage,
-    play: Presets.System.Android.SystemEdgeReleasePreset,
+    play: Presets.System.Android.EdgeReleasePreset,
   },
   {
     name: 'SystemEdgeSqueezePreset',
@@ -123,7 +123,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Edge","Impact","Bold"],
     duration: 50,
     image: AndroidSystemEdgeSqueezePresetImage,
-    play: Presets.System.Android.SystemEdgeSqueezePreset,
+    play: Presets.System.Android.EdgeSqueezePreset,
   },
   {
     name: 'SystemEffectClickPreset',
@@ -131,7 +131,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Click","Impact"],
     duration: 50,
     image: AndroidSystemEffectClickPresetImage,
-    play: Presets.System.Android.SystemEffectClickPreset,
+    play: Presets.System.Android.EffectClickPreset,
   },
   {
     name: 'SystemGestureEndPreset',
@@ -139,7 +139,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Gesture","Impact"],
     duration: 50,
     image: AndroidSystemGestureEndPresetImage,
-    play: Presets.System.Android.SystemGestureEndPreset,
+    play: Presets.System.Android.GestureEndPreset,
   },
   {
     name: 'SystemGestureStartPreset',
@@ -147,7 +147,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Gesture","Impact"],
     duration: 50,
     image: AndroidSystemGestureStartPresetImage,
-    play: Presets.System.Android.SystemGestureStartPreset,
+    play: Presets.System.Android.GestureStartPreset,
   },
   {
     name: 'SystemHeavyClickPreset',
@@ -155,7 +155,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Click","Heavy","Bold"],
     duration: 50,
     image: AndroidSystemHeavyClickPresetImage,
-    play: Presets.System.Android.SystemHeavyClickPreset,
+    play: Presets.System.Android.HeavyClickPreset,
   },
   {
     name: 'SystemImpactHeavy',
@@ -163,7 +163,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Heavy","Bold","Fallback"],
     duration: 50,
     image: AndroidSystemImpactHeavyImage,
-    play: Presets.System.SystemImpactHeavy,
+    play: Presets.System.ImpactHeavy,
   },
   {
     name: 'SystemImpactLight',
@@ -171,7 +171,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Light","Fallback"],
     duration: 50,
     image: AndroidSystemImpactLightImage,
-    play: Presets.System.SystemImpactLight,
+    play: Presets.System.ImpactLight,
   },
   {
     name: 'SystemImpactMedium',
@@ -179,7 +179,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Medium","Fallback"],
     duration: 50,
     image: AndroidSystemImpactMediumImage,
-    play: Presets.System.SystemImpactMedium,
+    play: Presets.System.ImpactMedium,
   },
   {
     name: 'SystemImpactRigid',
@@ -187,7 +187,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Rigid","Sharp","Fallback"],
     duration: 50,
     image: AndroidSystemImpactRigidImage,
-    play: Presets.System.SystemImpactRigid,
+    play: Presets.System.ImpactRigid,
   },
   {
     name: 'SystemImpactSoft',
@@ -195,7 +195,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Soft","Gentle","Fallback"],
     duration: 50,
     image: AndroidSystemImpactSoftImage,
-    play: Presets.System.SystemImpactSoft,
+    play: Presets.System.ImpactSoft,
   },
   {
     name: 'SystemKeyboardPressPreset',
@@ -203,7 +203,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Keyboard","Press"],
     duration: 50,
     image: AndroidSystemKeyboardPressPresetImage,
-    play: Presets.System.Android.SystemKeyboardPressPreset,
+    play: Presets.System.Android.KeyboardPressPreset,
   },
   {
     name: 'SystemKeyboardReleasePreset',
@@ -211,7 +211,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Keyboard","Release"],
     duration: 50,
     image: AndroidSystemKeyboardReleasePresetImage,
-    play: Presets.System.Android.SystemKeyboardReleasePreset,
+    play: Presets.System.Android.KeyboardReleasePreset,
   },
   {
     name: 'SystemKeyboardTapPreset',
@@ -219,7 +219,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Keyboard","Tap"],
     duration: 50,
     image: AndroidSystemKeyboardTapPresetImage,
-    play: Presets.System.Android.SystemKeyboardTapPreset,
+    play: Presets.System.Android.KeyboardTapPreset,
   },
   {
     name: 'SystemLongPressPreset',
@@ -227,7 +227,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","LongPress","Impact"],
     duration: 50,
     image: AndroidSystemLongPressPresetImage,
-    play: Presets.System.Android.SystemLongPressPreset,
+    play: Presets.System.Android.LongPressPreset,
   },
   {
     name: 'SystemNotificationError',
@@ -235,7 +235,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Notification","Error","Bumps","Bold","Fallback"],
     duration: 250,
     image: AndroidSystemNotificationErrorImage,
-    play: Presets.System.SystemNotificationError,
+    play: Presets.System.NotificationError,
   },
   {
     name: 'SystemNotificationSuccess',
@@ -243,7 +243,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Notification","Success","Bumps","Fallback"],
     duration: 160,
     image: AndroidSystemNotificationSuccessImage,
-    play: Presets.System.SystemNotificationSuccess,
+    play: Presets.System.NotificationSuccess,
   },
   {
     name: 'SystemNotificationWarning',
@@ -251,7 +251,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Notification","Warning","Bumps","Fallback"],
     duration: 290,
     image: AndroidSystemNotificationWarningImage,
-    play: Presets.System.SystemNotificationWarning,
+    play: Presets.System.NotificationWarning,
   },
   {
     name: 'SystemReleasePreset',
@@ -259,7 +259,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Reject","Bumps","Bold"],
     duration: 180,
     image: AndroidSystemReleasePresetImage,
-    play: Presets.System.Android.SystemReleasePreset,
+    play: Presets.System.Android.ReleasePreset,
   },
   {
     name: 'SystemScrollItemFocusPreset',
@@ -267,7 +267,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Scroll","Selection"],
     duration: 50,
     image: AndroidSystemScrollItemFocusPresetImage,
-    play: Presets.System.Android.SystemScrollItemFocusPreset,
+    play: Presets.System.Android.ScrollItemFocusPreset,
   },
   {
     name: 'SystemScrollLimitPreset',
@@ -275,7 +275,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Scroll","Limit","Impact"],
     duration: 50,
     image: AndroidSystemScrollLimitPresetImage,
-    play: Presets.System.Android.SystemScrollLimitPreset,
+    play: Presets.System.Android.ScrollLimitPreset,
   },
   {
     name: 'SystemScrollTickPreset',
@@ -283,7 +283,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Scroll","Tick","Gentle"],
     duration: 50,
     image: AndroidSystemScrollTickPresetImage,
-    play: Presets.System.Android.SystemScrollTickPreset,
+    play: Presets.System.Android.ScrollTickPreset,
   },
   {
     name: 'SystemSegmentFrequentTickPreset',
@@ -291,7 +291,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Segment","Tick","Gentle"],
     duration: 50,
     image: AndroidSystemSegmentFrequentTickPresetImage,
-    play: Presets.System.Android.SystemSegmentFrequentTickPreset,
+    play: Presets.System.Android.SegmentFrequentTickPreset,
   },
   {
     name: 'SystemSegmentTickPreset',
@@ -299,7 +299,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Segment","Tick","Gentle"],
     duration: 50,
     image: AndroidSystemSegmentTickPresetImage,
-    play: Presets.System.Android.SystemSegmentTickPreset,
+    play: Presets.System.Android.SegmentTickPreset,
   },
   {
     name: 'SystemSelection',
@@ -307,7 +307,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Selection","Gentle","Fallback"],
     duration: 50,
     image: AndroidSystemSelectionImage,
-    play: Presets.System.SystemSelection,
+    play: Presets.System.Selection,
   },
   {
     name: 'SystemTextHandleMovePreset',
@@ -315,7 +315,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Text","Gentle"],
     duration: 50,
     image: AndroidSystemTextHandleMovePresetImage,
-    play: Presets.System.Android.SystemTextHandleMovePreset,
+    play: Presets.System.Android.TextHandleMovePreset,
   },
   {
     name: 'SystemTickPreset',
@@ -323,7 +323,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Tick","Gentle"],
     duration: 50,
     image: AndroidSystemTickPresetImage,
-    play: Presets.System.Android.SystemTickPreset,
+    play: Presets.System.Android.TickPreset,
   },
   {
     name: 'SystemToggleOffPreset',
@@ -331,7 +331,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Toggle","Click"],
     duration: 50,
     image: AndroidSystemToggleOffPresetImage,
-    play: Presets.System.Android.SystemToggleOffPreset,
+    play: Presets.System.Android.ToggleOffPreset,
   },
   {
     name: 'SystemToggleOnPreset',
@@ -339,7 +339,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","Toggle","Click"],
     duration: 50,
     image: AndroidSystemToggleOnPresetImage,
-    play: Presets.System.Android.SystemToggleOnPreset,
+    play: Presets.System.Android.ToggleOnPreset,
   },
   {
     name: 'SystemVirtualKeyPreset',
@@ -347,7 +347,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","VirtualKey","Click"],
     duration: 50,
     image: AndroidSystemVirtualKeyPresetImage,
-    play: Presets.System.Android.SystemVirtualKeyPreset,
+    play: Presets.System.Android.VirtualKeyPreset,
   },
   {
     name: 'SystemVirtualKeyReleasePreset',
@@ -355,7 +355,7 @@ export const AndroidPresetsConfig: Array<PresetProps> = [
     tags: ["System","VirtualKey","Release"],
     duration: 50,
     image: AndroidSystemVirtualKeyReleasePresetImage,
-    play: Presets.System.Android.SystemVirtualKeyReleasePreset,
+    play: Presets.System.Android.VirtualKeyReleasePreset,
   },
 // CODEGEN_END_{android_presets}
 ];
@@ -368,7 +368,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Heavy","Bold"],
     duration: 50,
     image: IosSystemImpactHeavyImage,
-    play: Presets.System.SystemImpactHeavy,
+    play: Presets.System.ImpactHeavy,
   },
   {
     name: 'SystemImpactLight',
@@ -376,7 +376,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Light"],
     duration: 50,
     image: IosSystemImpactLightImage,
-    play: Presets.System.SystemImpactLight,
+    play: Presets.System.ImpactLight,
   },
   {
     name: 'SystemImpactMedium',
@@ -384,7 +384,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Medium"],
     duration: 50,
     image: IosSystemImpactMediumImage,
-    play: Presets.System.SystemImpactMedium,
+    play: Presets.System.ImpactMedium,
   },
   {
     name: 'SystemImpactRigid',
@@ -392,7 +392,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Rigid","Sharp"],
     duration: 50,
     image: IosSystemImpactRigidImage,
-    play: Presets.System.SystemImpactRigid,
+    play: Presets.System.ImpactRigid,
   },
   {
     name: 'SystemImpactSoft',
@@ -400,7 +400,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Impact","Soft","Gentle"],
     duration: 50,
     image: IosSystemImpactSoftImage,
-    play: Presets.System.SystemImpactSoft,
+    play: Presets.System.ImpactSoft,
   },
   {
     name: 'SystemNotificationError',
@@ -408,7 +408,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Notification","Error","Bumps","Bold"],
     duration: 250,
     image: IosSystemNotificationErrorImage,
-    play: Presets.System.SystemNotificationError,
+    play: Presets.System.NotificationError,
   },
   {
     name: 'SystemNotificationSuccess',
@@ -416,7 +416,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Notification","Success","Bumps"],
     duration: 160,
     image: IosSystemNotificationSuccessImage,
-    play: Presets.System.SystemNotificationSuccess,
+    play: Presets.System.NotificationSuccess,
   },
   {
     name: 'SystemNotificationWarning',
@@ -424,7 +424,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Notification","Warning","Bumps"],
     duration: 290,
     image: IosSystemNotificationWarningImage,
-    play: Presets.System.SystemNotificationWarning,
+    play: Presets.System.NotificationWarning,
   },
   {
     name: 'SystemSelection',
@@ -432,7 +432,7 @@ export const IOSPresetsConfig: Array<PresetProps> = [
     tags: ["System","Selection","Gentle"],
     duration: 50,
     image: IosSystemSelectionImage,
-    play: Presets.System.SystemSelection,
+    play: Presets.System.Selection,
   },
 // CODEGEN_END_{ios_presets}
 ];
