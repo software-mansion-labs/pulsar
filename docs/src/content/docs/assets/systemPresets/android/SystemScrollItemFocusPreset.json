@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.22,
+      "frequency": 0.8
+    }
+  ],
+  "name": "SystemScrollItemFocusPreset",
+  "description": "A scroll item focus feedback using HapticFeedbackConstants.SCROLL_ITEM_FOCUS. Subtle feedback when a scroll item snaps into the focused position.",
+  "tags": [
+    "System",
+    "Scroll",
+    "Selection"
+  ],
+  "duration": 50
+}

@@ -1,0 +1,29 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.8,
+      "frequency": 0.3
+    },
+    {
+      "time": 100,
+      "amplitude": 0.5,
+      "frequency": 0.3
+    },
+    {
+      "time": 200,
+      "amplitude": 0.8,
+      "frequency": 0.3
+    }
+  ],
+  "name": "SystemNotificationError",
+  "description": "A three-pulse error notification feedback using UINotificationFeedbackGenerator. Signals a failed action or error state to the user.",
+  "tags": [
+    "System",
+    "Notification",
+    "Error",
+    "Bumps",
+    "Bold"
+  ],
+  "duration": 250
+}

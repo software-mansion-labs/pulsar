@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.55,
+      "frequency": 0.35
+    }
+  ],
+  "name": "SystemLongPressPreset",
+  "description": "A long press feedback using HapticFeedbackConstants.LONG_PRESS. Confirms a long-press gesture has been recognized.",
+  "tags": [
+    "System",
+    "LongPress",
+    "Impact"
+  ],
+  "duration": 50
+}

@@ -1,0 +1,18 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.25,
+      "frequency": 0.1
+    }
+  ],
+  "name": "SystemImpactSoft",
+  "description": "A very soft, low-frequency impact feedback using UIImpactFeedbackGenerator with .soft style. Great for gentle, non-intrusive interactions.",
+  "tags": [
+    "System",
+    "Impact",
+    "Soft",
+    "Gentle"
+  ],
+  "duration": 50
+}

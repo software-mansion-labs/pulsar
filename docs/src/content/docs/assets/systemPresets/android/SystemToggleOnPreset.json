@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.4,
+      "frequency": 0.65
+    }
+  ],
+  "name": "SystemToggleOnPreset",
+  "description": "A toggle-on feedback using HapticFeedbackConstants.TOGGLE_ON (API 34+). Confirms a toggle switch has been turned on.",
+  "tags": [
+    "System",
+    "Toggle",
+    "Click"
+  ],
+  "duration": 50
+}

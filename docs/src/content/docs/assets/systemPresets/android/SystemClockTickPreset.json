@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.18,
+      "frequency": 0.9
+    }
+  ],
+  "name": "SystemClockTickPreset",
+  "description": "A clock tick feedback using HapticFeedbackConstants.CLOCK_TICK. Very light, precise tick for time pickers or other rhythmic interactions.",
+  "tags": [
+    "System",
+    "Tick",
+    "Gentle"
+  ],
+  "duration": 50
+}

@@ -1,0 +1,25 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.4,
+      "frequency": 0.5
+    },
+    {
+      "time": 110,
+      "amplitude": 0.8,
+      "frequency": 0.5
+    }
+  ],
+  "name": "SystemNotificationSuccess",
+  "description": "A two-pulse success notification feedback using UINotificationFeedbackGenerator. Communicates successful completion of an action. This is a compatibility fallback implementation based on the iOS preset, used on Android when no native equivalent is available.",
+  "tags": [
+    "System",
+    "Notification",
+    "Success",
+    "Bumps",
+    "Fallback"
+  ],
+  "fallback": true,
+  "duration": 160
+}

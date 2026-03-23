@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.4,
+      "frequency": 0.7
+    }
+  ],
+  "name": "SystemVirtualKeyPreset",
+  "description": "A virtual key press feedback using HapticFeedbackConstants.VIRTUAL_KEY. Simulates pressing a virtual on-screen key.",
+  "tags": [
+    "System",
+    "VirtualKey",
+    "Click"
+  ],
+  "duration": 50
+}

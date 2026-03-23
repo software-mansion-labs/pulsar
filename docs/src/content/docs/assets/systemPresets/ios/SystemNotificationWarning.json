@@ -1,0 +1,28 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.5,
+      "frequency": 0.5
+    },
+    {
+      "time": 120,
+      "amplitude": 0.5,
+      "frequency": 0.5
+    },
+    {
+      "time": 240,
+      "amplitude": 0.5,
+      "frequency": 0.5
+    }
+  ],
+  "name": "SystemNotificationWarning",
+  "description": "A three-pulse warning notification feedback using UINotificationFeedbackGenerator. Alerts the user to a situation requiring attention.",
+  "tags": [
+    "System",
+    "Notification",
+    "Warning",
+    "Bumps"
+  ],
+  "duration": 290
+}

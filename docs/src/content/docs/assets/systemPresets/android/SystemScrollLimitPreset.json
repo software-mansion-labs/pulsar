@@ -1,0 +1,18 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.55,
+      "frequency": 0.3
+    }
+  ],
+  "name": "SystemScrollLimitPreset",
+  "description": "A scroll limit feedback using HapticFeedbackConstants.SCROLL_LIMIT. Notifies the user they have reached the end of a scrollable content area.",
+  "tags": [
+    "System",
+    "Scroll",
+    "Limit",
+    "Impact"
+  ],
+  "duration": 50
+}

@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.3,
+      "frequency": 0.6
+    }
+  ],
+  "name": "SystemDragCrossingPreset",
+  "description": "A drag crossing feedback using HapticFeedbackConstants.DRAG_CROSSING. Feedback when a dragged item crosses over another element.",
+  "tags": [
+    "System",
+    "Drag",
+    "Click"
+  ],
+  "duration": 50
+}

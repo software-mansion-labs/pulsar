@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.3,
+      "frequency": 0.78
+    }
+  ],
+  "name": "SystemContextClickPreset",
+  "description": "A context click feedback using HapticFeedbackConstants.CONTEXT_CLICK. Feedback for mouse-like secondary button interactions on compatible devices.",
+  "tags": [
+    "System",
+    "Click",
+    "Context"
+  ],
+  "duration": 50
+}

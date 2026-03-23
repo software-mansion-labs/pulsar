@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.3,
+      "frequency": 0.8
+    }
+  ],
+  "name": "SystemKeyboardTapPreset",
+  "description": "A keyboard tap feedback using HapticFeedbackConstants.KEYBOARD_TAP. Light, crisp feedback for each key tap on a virtual keyboard.",
+  "tags": [
+    "System",
+    "Keyboard",
+    "Tap"
+  ],
+  "duration": 50
+}

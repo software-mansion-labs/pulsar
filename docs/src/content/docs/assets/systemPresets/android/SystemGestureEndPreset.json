@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.3,
+      "frequency": 0.5
+    }
+  ],
+  "name": "SystemGestureEndPreset",
+  "description": "A gesture end feedback using HapticFeedbackConstants.GESTURE_END (API 30+). Signals the completion of a gesture interaction.",
+  "tags": [
+    "System",
+    "Gesture",
+    "Impact"
+  ],
+  "duration": 50
+}

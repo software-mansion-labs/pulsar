@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.65,
+      "frequency": 0.85
+    }
+  ],
+  "name": "SystemEffectClickPreset",
+  "description": "A standard click effect using VibrationEffect.EFFECT_CLICK. Represents a typical UI tap or button press feedback.",
+  "tags": [
+    "System",
+    "Click",
+    "Impact"
+  ],
+  "duration": 50
+}

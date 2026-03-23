@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.12,
+      "frequency": 0.85
+    }
+  ],
+  "name": "SystemTextHandleMovePreset",
+  "description": "A text handle move feedback using HapticFeedbackConstants.TEXT_HANDLE_MOVE (API 27+). Very subtle feedback when dragging text selection handles.",
+  "tags": [
+    "System",
+    "Text",
+    "Gentle"
+  ],
+  "duration": 50
+}

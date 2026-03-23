@@ -1,0 +1,18 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.65,
+      "frequency": 0.3
+    }
+  ],
+  "name": "SystemEdgeSqueezePreset",
+  "description": "An edge squeeze feedback using HapticFeedbackConstants.EDGE_SQUEEZE. Strong, low-frequency feedback when squeezing the device edge.",
+  "tags": [
+    "System",
+    "Edge",
+    "Impact",
+    "Bold"
+  ],
+  "duration": 50
+}

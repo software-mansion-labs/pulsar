@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.6,
+      "frequency": 0.5
+    }
+  ],
+  "name": "SystemImpactMedium",
+  "description": "A medium-strength impact feedback using UIImpactFeedbackGenerator with .medium style. Suitable for standard taps and button presses.",
+  "tags": [
+    "System",
+    "Impact",
+    "Medium"
+  ],
+  "duration": 50
+}

@@ -1,0 +1,18 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.7,
+      "frequency": 1.0
+    }
+  ],
+  "name": "SystemImpactRigid",
+  "description": "A sharp, high-frequency impact feedback using UIImpactFeedbackGenerator with .rigid style. Ideal for snappy, precise interactions like toggling or locking.",
+  "tags": [
+    "System",
+    "Impact",
+    "Rigid",
+    "Sharp"
+  ],
+  "duration": 50
+}

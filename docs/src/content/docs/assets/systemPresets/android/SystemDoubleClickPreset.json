@@ -1,0 +1,23 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.65,
+      "frequency": 0.85
+    },
+    {
+      "time": 120,
+      "amplitude": 0.55,
+      "frequency": 0.8
+    }
+  ],
+  "name": "SystemDoubleClickPreset",
+  "description": "A double-click effect using VibrationEffect.EFFECT_DOUBLE_CLICK. Two rapid pulses indicating a double-tap or confirmation action.",
+  "tags": [
+    "System",
+    "Click",
+    "Double",
+    "Bumps"
+  ],
+  "duration": 170
+}

@@ -1,0 +1,18 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 1.0,
+      "frequency": 0.2
+    }
+  ],
+  "name": "SystemImpactHeavy",
+  "description": "A strong, low-frequency impact feedback using UIImpactFeedbackGenerator with .heavy style. Best for significant actions requiring bold confirmation.",
+  "tags": [
+    "System",
+    "Impact",
+    "Heavy",
+    "Bold"
+  ],
+  "duration": 50
+}

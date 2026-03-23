@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.35,
+      "frequency": 0.65
+    }
+  ],
+  "name": "SystemKeyboardPressPreset",
+  "description": "A keyboard key press feedback using HapticFeedbackConstants.KEYBOARD_PRESS (API 27+). Feedback for pressing down on a virtual key.",
+  "tags": [
+    "System",
+    "Keyboard",
+    "Press"
+  ],
+  "duration": 50
+}

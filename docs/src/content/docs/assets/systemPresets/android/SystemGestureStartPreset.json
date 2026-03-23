@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.42,
+      "frequency": 0.55
+    }
+  ],
+  "name": "SystemGestureStartPreset",
+  "description": "A gesture start feedback using HapticFeedbackConstants.GESTURE_START (API 30+). Signals the beginning of a gesture interaction.",
+  "tags": [
+    "System",
+    "Gesture",
+    "Impact"
+  ],
+  "duration": 50
+}

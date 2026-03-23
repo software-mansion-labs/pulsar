@@ -1,0 +1,23 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.4,
+      "frequency": 0.5
+    },
+    {
+      "time": 110,
+      "amplitude": 0.8,
+      "frequency": 0.5
+    }
+  ],
+  "name": "SystemNotificationSuccess",
+  "description": "A two-pulse success notification feedback using UINotificationFeedbackGenerator. Communicates successful completion of an action.",
+  "tags": [
+    "System",
+    "Notification",
+    "Success",
+    "Bumps"
+  ],
+  "duration": 160
+}

@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.28,
+      "frequency": 0.75
+    }
+  ],
+  "name": "SystemCalendarDatePreset",
+  "description": "A calendar date selection feedback using HapticFeedbackConstants.CALENDAR_DATE. Gentle feedback when scrolling through or selecting calendar dates.",
+  "tags": [
+    "System",
+    "Selection",
+    "Gentle"
+  ],
+  "duration": 50
+}

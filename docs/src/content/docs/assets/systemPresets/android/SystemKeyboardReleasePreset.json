@@ -1,0 +1,17 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.22,
+      "frequency": 0.7
+    }
+  ],
+  "name": "SystemKeyboardReleasePreset",
+  "description": "A keyboard key release feedback using HapticFeedbackConstants.KEYBOARD_RELEASE (API 27+). Softer feedback for releasing a virtual key.",
+  "tags": [
+    "System",
+    "Keyboard",
+    "Release"
+  ],
+  "duration": 50
+}

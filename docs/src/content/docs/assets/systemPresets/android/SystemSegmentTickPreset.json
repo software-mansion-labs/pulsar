@@ -1,0 +1,18 @@
+{
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.18,
+      "frequency": 0.85
+    }
+  ],
+  "name": "SystemSegmentTickPreset",
+  "description": "A segment tick feedback using HapticFeedbackConstants.SEGMENT_TICK (API 34+). Subtle high-frequency tick for stepping through segmented control values.",
+  "tags": [
+    "System",
+    "Segment",
+    "Tick",
+    "Gentle"
+  ],
+  "duration": 50
+}
