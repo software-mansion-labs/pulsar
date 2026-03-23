@@ -14,7 +14,7 @@ export const useComposedGesture = (
     'worklet';
     return {
       x: (containerSize.value.width > 0 ? x / containerSize.value.width : 0),
-      y: 1 - (containerSize.value.height > 0 ? y / containerSize.value.height : 0),
+      y: 0.2 + 0.8 * (1 - (containerSize.value.height > 0 ? y / containerSize.value.height : 0)),
     };
   };
   const tapGesture = Gesture.Tap()
