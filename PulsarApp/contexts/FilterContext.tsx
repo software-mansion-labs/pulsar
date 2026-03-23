@@ -5,6 +5,8 @@ interface FilterContextType {
   setSelectedTags: (tags: string[]) => void;
   soundEnabled: boolean;
   setSoundEnabled: (enabled: boolean) => void;
+  showSystemPresets: boolean;
+  setShowSystemPresets: (enabled: boolean) => void;
 }
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
@@ -12,9 +14,10 @@ const FilterContext = createContext<FilterContextType | undefined>(undefined);
 export function FilterProvider({ children }: { children: ReactNode }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [showSystemPresets, setShowSystemPresets] = useState(false);
 
   return (
-    <FilterContext.Provider value={{ selectedTags, setSelectedTags, soundEnabled, setSoundEnabled }}>
+    <FilterContext.Provider value={{ selectedTags, setSelectedTags, soundEnabled, setSoundEnabled, showSystemPresets, setShowSystemPresets }}>
       {children}
     </FilterContext.Provider>
   );

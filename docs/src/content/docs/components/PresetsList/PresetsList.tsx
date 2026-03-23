@@ -6,6 +6,7 @@ import { useState, useMemo } from 'react';
 import { TagsModal } from '../TagsModal/TagsModal';
 import { TagsInfo } from './Tags';
 import { PresetsConfig } from '../../assets/presets/PresetsConfig';
+import { AndroidPresetsConfig, IOSPresetsConfig } from '../../assets/systemPresets/SystemPresetsConfig';
 import { NoResult } from '../NoResult/NoResult';
 import { ChartModal } from '../ChartModal/ChartModal';
 
@@ -20,14 +21,23 @@ declare global {
 export function PresetsList() {
   const [showModal, setShowModal] = useState<'no' | 'tags' | 'chart'>('no');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [showSystemPresets, setShowSystemPresets] = useState(false);
 
-  function handleSetSelectedTags(tags: string[]) {
-    setSelectedTags(tags);
-    if (tags.length > 0) {
-      window.posthog?.capture('preset_filter_applied', {
-        selected_tags: tags,
-        tag_count: tags.length,
-      });
+  const activePresets = showSystemPresets
+    ? [...IOSPresetsConfig, ...AndroidPresetsConfig]
+    : PresetsConfig;
+
+  function handleSetSelectedTags(tags: string[] | ((tags: string[]) => string[])) {
+    if (typeof tags === 'function') {
+      setSelectedTags(tags);
+    } else {
+      setSelectedTags(tags);
+      if (tags.length > 0) {
+        window.posthog?.capture('preset_filter_applied', {
+          selected_tags: tags,
+          tag_count: tags.length,
+        });
+      }
     }
   }
   const selectedTagsByGroup = useMemo(() => {
@@ -50,10 +60,10 @@ export function PresetsList() {
 
   const filteredPresets = useMemo(() => {
     if (selectedTags.length === 0) {
-      return PresetsConfig;
+      return activePresets;
     }
 
-    return PresetsConfig.filter((preset) => {
+    return activePresets.filter((preset) => {
       const presetTagLabels = preset.data.tags;
 
       for (const groupName in selectedTagsByGroup) {
@@ -68,7 +78,7 @@ export function PresetsList() {
 
       return true;
     });
-  }, [selectedTags, selectedTagsByGroup]);
+  }, [selectedTags, selectedTagsByGroup, activePresets]);
 
   return (
     <div className={['not-content', style.presets].join(' ')}>
@@ -86,7 +96,12 @@ export function PresetsList() {
         </div>
       </div>
 
-      <Filters selectedTags={selectedTags} setSelectedTags={handleSetSelectedTags} />
+      <Filters
+        selectedTags={selectedTags}
+        setSelectedTags={handleSetSelectedTags}
+        showSystemPresets={showSystemPresets}
+        setShowSystemPresets={setShowSystemPresets}
+      />
 
       {filteredPresets.length > 0 && (
         <div className={style.resultCount}>{filteredPresets.length} results</div>

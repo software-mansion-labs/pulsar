@@ -1,5 +1,6 @@
 import { SelectBox } from '../SelectBox/SelectBox';
 import { Tag } from '../Tag/Tag';
+import { Checkbox } from '../Checkbox/Checkbox';
 import style from './Filters.module.scss';
 import { TagsInfo } from '../PresetsList/Tags';
 import { useCallback, useMemo } from 'react';
@@ -7,9 +8,11 @@ import { useCallback, useMemo } from 'react';
 interface Props {
   selectedTags: string[];
   setSelectedTags: (tags: string[] | ((tags: string[]) => string[])) => void;
+  showSystemPresets: boolean;
+  setShowSystemPresets: (value: boolean) => void;
 }
 
-export function Filters({ selectedTags, setSelectedTags }: Props) {
+export function Filters({ selectedTags, setSelectedTags, showSystemPresets, setShowSystemPresets }: Props) {
   const onOptionChange = useCallback(
     (options: { label: string; checked: boolean }[]) => {
       setSelectedTags((current) => {
@@ -44,6 +47,12 @@ export function Filters({ selectedTags, setSelectedTags }: Props) {
             onOptionChange={onOptionChange}
           />
         ))}
+        <Checkbox
+          id="system-presets"
+          label="System presets"
+          checked={showSystemPresets}
+          onChange={(_, checked) => setShowSystemPresets(checked)}
+        />
       </div>
 
       <div className={style.tagsBar}>

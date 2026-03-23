@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { PresetsConfig } from '@/constants/PresetsConfig';
+import { AndroidPresetsConfig, IOSPresetsConfig } from '@/constants/SystemPresetsConfig';
 import { TagsInfo } from '@/constants/Tags';
 import { useFilters } from '@/contexts/FilterContext';
 import Preset from './Preset';
@@ -8,7 +9,11 @@ import Card from './Card';
 import { ThemedText } from './themed-text';
 
 export function useFilteredPresets() {
-  const { selectedTags } = useFilters();
+  const { selectedTags, showSystemPresets } = useFilters();
+
+  const activePresets = showSystemPresets
+    ? (Platform.OS === 'ios' ? IOSPresetsConfig : AndroidPresetsConfig)
+    : PresetsConfig;
 
   const selectedTagsByGroup = useMemo(() => {
     const grouped: Record<string, string[]> = {};
@@ -30,10 +35,10 @@ export function useFilteredPresets() {
 
   const filteredPresets = useMemo(() => {
     if (selectedTags.length === 0) {
-      return PresetsConfig;
+      return activePresets;
     }
 
-    return PresetsConfig.filter(preset => {
+    return activePresets.filter(preset => {
       const presetTagLabels = preset.tags;
 
       for (const groupName in selectedTagsByGroup) {
@@ -48,7 +53,7 @@ export function useFilteredPresets() {
 
       return true;
     });
-  }, [selectedTags, selectedTagsByGroup]);
+  }, [selectedTags, selectedTagsByGroup, activePresets]);
 
   return { filteredPresets, selectedTags };
 }

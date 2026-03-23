@@ -31,7 +31,7 @@ const defaultEdges = {
 
 export default function FiltersModal() {
   const posthog = usePostHog();
-  const { selectedTags, setSelectedTags, soundEnabled, setSoundEnabled } = useFilters();
+  const { selectedTags, setSelectedTags, soundEnabled, setSoundEnabled, showSystemPresets, setShowSystemPresets } = useFilters();
 
   const createInitialStates = (): FiltersCollection => {
     const states: FiltersCollection = {};
@@ -123,6 +123,15 @@ export default function FiltersModal() {
                 onValueChange={handleSoundToggle}
                 trackColor={{ false: '#D8EEF7', true: '#87CCE8' }}
                 thumbColor={soundEnabled ? '#2B85AB' : '#f0f0f0'}
+              />
+            </View>
+            <View style={[styles.soundToggleRow, styles.marginTop]}>
+              <Text style={styles.checkboxLabel}>System presets</Text>
+              <Switch
+                value={showSystemPresets}
+                onValueChange={setShowSystemPresets}
+                trackColor={{ false: '#D8EEF7', true: '#87CCE8' }}
+                thumbColor={showSystemPresets ? '#2B85AB' : '#f0f0f0'}
               />
             </View>
           </View>
@@ -296,5 +305,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  marginTop: {
+    marginTop: 12,
   },
 });
