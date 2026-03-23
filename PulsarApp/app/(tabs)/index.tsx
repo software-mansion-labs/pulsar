@@ -15,7 +15,7 @@ import ConnectionIndicator from '@/components/ConnectionIndicator';
 import { Margins } from '@/constants/theme';
 import { SOCKET_SERVER_URL } from '@/constants/Connection';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { type Pattern, usePatternComposer, Settings, Presets } from 'react-native-pulsar';
+import { Settings, Presets } from 'react-native-pulsar';
 import { BaseButton } from 'react-native-gesture-handler';
 import Button from '@/components/Button';
 import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
@@ -34,11 +34,11 @@ type ErrorType = 'INVALID_DATA' | 'CONNECTION_FAILED' | null;
 
 export default function HomeScreen() {
   const posthog = usePostHog();
-  const patternComposer = usePatternComposer();
   const [connectionState, setConnectionState] = useState<ConnectionState>('INITIAL');
   const [errorType, setErrorType] = useState<ErrorType>(null);
   const [hasToken, setHasToken] = useState(false);
   const [showPatternNotification, setShowPatternNotification] = useState(false);
+  const [patternFound, setPatternFound] = useState(false);
 
   const [connectingCode, setConnectingCode] = useState('');
   const tokenRef = useRef('');
@@ -136,7 +136,7 @@ export default function HomeScreen() {
     socket.onmessage = (event) => {
       const payload = typeof event.data === 'string' ? event.data : '';
       try {
-        const json = JSON.parse(payload) as { type?: string; token?: string, message?: Pattern };
+        const json = JSON.parse(payload) as { type?: string; token?: string, message?: string };
         if (json.type === 'connection_established' && json.token) {
           AsyncStorage.setItem('connectionToken', json.token).then(() => {
             tokenRef.current = json.token ?? '';
@@ -159,8 +159,8 @@ export default function HomeScreen() {
           // keepalive response, no-op
         } else if (json.type === 'broadcast') {
           if (json.message) {
-            playPattern(json.message);
-            showPatternReceivedNotification();
+            const found = playPattern(json.message);
+            showPatternReceivedNotification(found);
           }
         }
       } catch (err) {
@@ -240,18 +240,37 @@ export default function HomeScreen() {
     AsyncStorage.removeItem('connectionToken');
   };
 
-  const playPattern = (pattern: Pattern) => {
-    patternComposer.parse(pattern);
-    patternComposer.play();
+  const playPattern = (patternName: string): boolean => {
+    if (patternName.includes('System')) {
+      const key = patternName.replace('System', '');
+      const systemPreset = (Presets.System as any)[key];
+      if (typeof systemPreset === 'function') {
+        systemPreset();
+        return true;
+      }
+      const androidPreset = (Presets.System.Android as any)[key];
+      if (typeof androidPreset === 'function') {
+        androidPreset();
+        return true;
+      }
+      return false;
+    }
+    const preset = (Presets as any)[patternName];
+    if (typeof preset === 'function') {
+      preset();
+      return true;
+    }
+    return false;
   };
 
-  const showPatternReceivedNotification = () => {
+  const showPatternReceivedNotification = (found: boolean) => {
     if (patternNotificationTimeoutRef.current) {
       clearTimeout(patternNotificationTimeoutRef.current);
     }
-    
+
+    setPatternFound(found);
     setShowPatternNotification(true);
-    
+
     patternNotificationTimeoutRef.current = setTimeout(() => {
       setShowPatternNotification(false);
       patternNotificationTimeoutRef.current = null;
@@ -316,7 +335,7 @@ export default function HomeScreen() {
           </Card>
         </View>
 
-        {showPatternNotification && <PatternIsPlaying />}
+        {showPatternNotification && <PatternIsPlaying found={patternFound} />}
 
       </BasicLayout>
     </BaseButton>
@@ -421,10 +440,12 @@ function InfoBox({ connectionState, errorType }: { connectionState: ConnectionSt
   );
 }
 
-function PatternIsPlaying() {
+function PatternIsPlaying({ found }: { found: boolean }) {
   return (
     <Card style={Margins.marginTop4X} enableAnimation={true}>
-      <ThemedText type="defaultSemiBold">New pattern received!</ThemedText>
+      <ThemedText type="defaultSemiBold">
+        {found ? 'New pattern received!' : 'Preset not found!'}
+      </ThemedText>
     </Card>
   );
 }

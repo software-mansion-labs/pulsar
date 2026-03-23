@@ -97,7 +97,7 @@ export function VisualizationPanel({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: visualization.data,
+          message: presetName,
           token: token,
         }),
       });
