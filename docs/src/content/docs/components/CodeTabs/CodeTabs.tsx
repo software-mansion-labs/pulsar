@@ -3,6 +3,7 @@ import styles from './CodeTabs.module.scss';
 
 interface CodeTabsProps {
   swift: string;
+  kotlin: string;
   reactNative: string;
   className?: string;
 }
