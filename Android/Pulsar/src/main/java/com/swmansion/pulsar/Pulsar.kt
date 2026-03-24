@@ -26,9 +26,18 @@ class Pulsar(private var context: Context) {
         return PatternComposer(engine, audioSimulator)
     }
 
-    fun getRealtimeComposer(strategy: RealtimeComposerStrategy = RealtimeComposerStrategy.ENVELOPE): RealtimeComposer {
+    fun getRealtimeComposer(strategy: RealtimeComposerStrategy? = null): RealtimeComposer {
         if (realtimeComposer == null) {
-            realtimeComposer = RealtimeComposer(engine, strategy)
+            var composerStrategy = strategy
+            val compatibility = engine.getRealCompatibilityMode()
+            if (composerStrategy == null) {
+                composerStrategy = if (compatibility >= CompatibilityMode.STANDARD_SUPPORT) {
+                    RealtimeComposerStrategy.ENVELOPE
+                } else {
+                    RealtimeComposerStrategy.PRIMITIVE_TICK
+                }
+            }
+            realtimeComposer = RealtimeComposer(engine, composerStrategy, compatibility)
         }
         return realtimeComposer!!
     }

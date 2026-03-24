@@ -6,20 +6,26 @@ import android.os.Looper
 import android.os.VibrationEffect
 import androidx.annotation.RequiresApi
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
+import com.swmansion.pulsar.types.CompatibilityMode
 import com.swmansion.pulsar.types.RealtimeComposable
 import com.swmansion.pulsar.types.RealtimeComposerStrategy
 
 class RealtimePrimitiveComposer(
     private val engine: HapticEngineWrapper,
-    private val strategy: RealtimeComposerStrategy
+    private val strategy: RealtimeComposerStrategy,
+    compatibilityMode: CompatibilityMode,
 ) : RealtimeComposable {
-    companion object {
-        private const val MIN_INTERVAL_MS = 10L
-        private const val MAX_INTERVAL_MS = 100L
+    private var minIntervalMs = 10L
+    private var maxIntervalMs = 100L
+
+    init {
+        if (compatibilityMode == CompatibilityMode.MINIMAL_SUPPORT) {
+            minIntervalMs = 60L
+            maxIntervalMs = 200L
+        }
     }
 
     private var isPlaying = false
-    private var isDiscreteScheduled = false
     private var currentAmplitude = 0.0f
     private var currentFrequency = 0.0f
     private var currentIntervalMs: Long = 50L
@@ -38,12 +44,9 @@ class RealtimePrimitiveComposer(
     }
 
     override fun set(amplitude: Float, frequency: Float) {
-        if (isDiscreteScheduled) {
-            return
-        }
         currentAmplitude = amplitude.coerceIn(0f, 1f)
         currentFrequency = frequency.coerceIn(0f, 1f)
-        currentIntervalMs = (MIN_INTERVAL_MS + (1 - frequency) * (MAX_INTERVAL_MS - MIN_INTERVAL_MS)).toLong()
+        currentIntervalMs = (minIntervalMs + (1 - frequency) * (maxIntervalMs - minIntervalMs)).toLong()
 
         if (!isPlaying) {
             start(currentAmplitude, currentFrequency)
@@ -51,8 +54,11 @@ class RealtimePrimitiveComposer(
     }
 
     override fun playDiscrete(amplitude: Float, frequency: Float) {
-        set(amplitude, frequency)
-        isDiscreteScheduled = true
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return
+        }
+        val effect = createCompositionEffect(amplitude, frequency)
+        engine.vibrate(effect)
     }
 
     override fun stop() {
@@ -71,13 +77,7 @@ class RealtimePrimitiveComposer(
         }
 
         val effect = createCompositionEffect(currentAmplitude, currentFrequency)
-
-        if (isDiscreteScheduled) {
-            isDiscreteScheduled = false
-        }
-
         engine.vibrate(effect)
-
         handler.postDelayed(loopRunnable, currentIntervalMs)
     }
 
@@ -91,7 +91,7 @@ class RealtimePrimitiveComposer(
                     0
                 ).compose()
         } else {
-            VibrationEffect.createOneShot(currentIntervalMs, (amplitude * 255).toInt().coerceIn(0, 255))
+            VibrationEffect.createOneShot(10, (amplitude * 255).toInt().coerceIn(0, 255))
         }
     }
 
