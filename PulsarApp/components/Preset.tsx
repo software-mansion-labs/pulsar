@@ -20,6 +20,7 @@ export interface PresetProps {
 }
 
 function Preset({ title, subtitle, tags = [], image, onPress, duration }: PresetProps) {
+	duration = duration ? duration : 20;
 	const posthog = usePostHog();
 	const imageMeta = Image.resolveAssetSource(image);
 	const imageAspectRatio =
