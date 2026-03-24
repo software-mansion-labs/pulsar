@@ -1,7 +1,7 @@
 {
-  "emoji": "\ud83e\udd2c",
+  "emoji": "🤬",
   "name": "Cursing",
-  "description": "An explosive burst of five rapid maximum-intensity impacts with a mid-range frequency that conveys unrestrained rage, suited for critical failure or violent error states.",
+  "description": "An unrestrained explosion of rage, suited for catastrophic errors or total loss of control.",
   "discretePattern": [
     {
       "time": 0,
@@ -94,7 +94,7 @@
   "tags": [
     "Bold",
     "Flexible",
-    "Pattern",
+    "Saw",
     "Extended"
   ],
   "duration": 380

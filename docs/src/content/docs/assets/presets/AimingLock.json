@@ -54,11 +54,11 @@
     }
   ],
   "name": "AimingLock",
-  "description": "Two rapid sharp snaps in quick succession with the second slightly stronger, ideal for targeting lock-on or radar acquisition feedback.",
+  "description": "The satisfying snap of acquiring a target, ideal for lock-on, cursor snap-to, or radar acquisition.",
   "tags": [
     "Bold",
     "Rigid",
-    "Bumps",
+    "Impulses",
     "Short"
   ],
   "duration": 220

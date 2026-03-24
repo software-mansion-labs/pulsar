@@ -1,6 +1,6 @@
 {
   "name": "NotificationKnock",
-  "description": "A discrete two-tap notification using only impulse events, delivering a clean double-knock that announces an alert with minimal continuous vibration.",
+  "description": "A clean double-knock that announces an alert quietly, ideal for non-urgent in-app notifications.",
   "discretePattern": [
     {
       "time": 0,

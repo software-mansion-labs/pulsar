@@ -1,6 +1,6 @@
 {
   "name": "Tada",
-  "description": "A crescendo of six quickening taps that climax in a bold triumphant strike with a held resonance, ideal for celebrations, completions, or fanfare moments.",
+  "description": "A joyful flourish that peaks in triumph, ideal for celebrations or milestone completions.",
   "discretePattern": [
     {
       "time": 0,
@@ -110,7 +110,7 @@
   "tags": [
     "Bold",
     "Flexible",
-    "Pattern",
+    "Saw",
     "Extended"
   ],
   "duration": 460

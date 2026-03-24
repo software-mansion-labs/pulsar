@@ -63,11 +63,11 @@
   },
   "discretePattern": [],
   "name": "PassingCar",
-  "description": "A smooth Doppler-like swell that rises from silence to a peak then gradually fades, ideal for vehicle pass-by or motion-blur effects.",
+  "description": "The whoosh of something passing at speed, ideal for vehicle pass-by or motion-blur effects.",
   "tags": [
     "Bold",
     "Flexible",
-    "Bump",
+    "Peak",
     "Long"
   ],
   "duration": 1100

@@ -26,7 +26,7 @@
     }
   ],
   "name": "TickTock",
-  "description": "An alternating strong-weak double tick pattern that mimics a clock's tick-tock rhythm, suitable for timing feedback or metronome-style interactions.",
+  "description": "The steady pulse of time, ideal for timing feedback, countdowns, or metronome-style interactions.",
   "tags": [
     "Bold",
     "Flexible",

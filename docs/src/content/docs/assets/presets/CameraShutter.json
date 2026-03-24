@@ -1,6 +1,6 @@
 {
   "name": "CameraShutter",
-  "description": "Two distinct high-frequency clicks in quick succession that mimic a camera's mirror lift and shutter release, ideal for photo capture confirmation.",
+  "description": "The satisfying click of capturing a moment, ideal for photo capture or scan confirmation.",
   "discretePattern": [
     {
       "time": 0,
@@ -60,9 +60,9 @@
     ]
   },
   "tags": [
-    "Bold",
+    "Substantial",
     "Rigid",
-    "Bumps",
+    "Impulses",
     "Short"
   ],
   "duration": 150

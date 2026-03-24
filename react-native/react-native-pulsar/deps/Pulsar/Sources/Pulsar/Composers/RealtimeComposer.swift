@@ -5,11 +5,11 @@ public class RealtimeComposer: NSObject {
   private var engine: HapticEngineWrapper!
   private var continuousPlayerId: Int?
   private var isPlaying = false
-  
+
   public init(engine: HapticEngineWrapper) {
     self.engine = engine
   }
-  
+
   deinit {
     stop()
   }
@@ -22,7 +22,7 @@ public class RealtimeComposer: NSObject {
     set(amplitude: amplitude, frequency: frequency)
     if let id = continuousPlayerId { engine?.playPlayer(id: id) }
   }
-  
+
   @objc public func set(amplitude: Float, frequency: Float) {
     if (!isPlaying) {
       start(amplitude: amplitude, frequency: frequency)
@@ -40,7 +40,7 @@ public class RealtimeComposer: NSObject {
       print("Failed to update haptic parameters: \(error)")
     }
   }
-  
+
   @objc public func stop() {
     guard isPlaying else { return }
     if let id = continuousPlayerId {
@@ -50,11 +50,11 @@ public class RealtimeComposer: NSObject {
     continuousPlayerId = nil
     isPlaying = false
   }
-  
+
   @objc public var isActive: Bool {
     return isPlaying
   }
-  
+
   @objc public func playDiscrete(amplitude: Float = 1.0, frequency: Float = 0.5) {
     guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
 
@@ -72,4 +72,3 @@ public class RealtimeComposer: NSObject {
     }
   }
 }
-

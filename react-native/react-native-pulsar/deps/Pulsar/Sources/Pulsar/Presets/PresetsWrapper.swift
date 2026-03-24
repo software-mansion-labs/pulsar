@@ -21,30 +21,37 @@ import AVFAudio
     "SystemSelection": SystemSelectionPreset.self,
     
 // CODEGEN_BEGIN_{mappers}
+    "Afterglow": AfterglowPreset.self,
+    "Aftershock": AftershockPreset.self,
     "AimingFire": AimingFirePreset.self,
     "AimingLock": AimingLockPreset.self,
     "Alarm": AlarmPreset.self,
     "AngerFrustration": AngerFrustrationPreset.self,
+    "Anvil": AnvilPreset.self,
     "Applause": ApplausePreset.self,
     "Attention": AttentionPreset.self,
     "BalloonPop": BalloonPopPreset.self,
     "BangDoor": BangDoorPreset.self,
     "Barrage": BarragePreset.self,
-    "BoredomFlat": BoredomFlatPreset.self,
+    "BassDrop": BassDropPreset.self,
+    "BellToll": BellTollPreset.self,
+    "Blip": BlipPreset.self,
+    "Bloom": BloomPreset.self,
+    "Bongo": BongoPreset.self,
+    "Boulder": BoulderPreset.self,
+    "BreakingWave": BreakingWavePreset.self,
     "Breath": BreathPreset.self,
-    "BtnChip": BtnChipPreset.self,
-    "BtnDestructive": BtnDestructivePreset.self,
-    "BtnGhost": BtnGhostPreset.self,
-    "BtnIcon": BtnIconPreset.self,
-    "BtnMenu": BtnMenuPreset.self,
-    "BtnPrimary": BtnPrimaryPreset.self,
-    "BtnSecondary": BtnSecondaryPreset.self,
-    "BtnSubmit": BtnSubmitPreset.self,
-    "BtnToggleOff": BtnToggleOffPreset.self,
     "Buildup": BuildupPreset.self,
+    "Cadence": CadencePreset.self,
     "CameraShutter": CameraShutterPreset.self,
+    "Canter": CanterPreset.self,
     "Cascade": CascadePreset.self,
-    "CleanStrike": CleanStrikePreset.self,
+    "Castanets": CastanetsPreset.self,
+    "CatPaw": CatPawPreset.self,
+    "Chip": ChipPreset.self,
+    "Chirp": ChirpPreset.self,
+    "Cleave": CleavePreset.self,
+    "Click": ClickPreset.self,
     "CoinDrop": CoinDropPreset.self,
     "CombinationLock": CombinationLockPreset.self,
     "Confirm": ConfirmPreset.self,
@@ -52,48 +59,45 @@ import AVFAudio
     "Crescendo": CrescendoPreset.self,
     "CrossedEyes": CrossedEyesPreset.self,
     "Cursing": CursingPreset.self,
-    "DeepRumble": DeepRumblePreset.self,
-    "DeepThud": DeepThudPreset.self,
+    "Dewdrop": DewdropPreset.self,
+    "Dirge": DirgePreset.self,
+    "Dissolve": DissolvePreset.self,
     "DogBark": DogBarkPreset.self,
-    "DoubleBeat": DoubleBeatPreset.self,
-    "DoubleBlast": DoubleBlastPreset.self,
-    "DoubleBurst": DoubleBurstPreset.self,
-    "DoubleClick": DoubleClickPreset.self,
-    "DoubleGentleTap": DoubleGentleTapPreset.self,
-    "DoublePat": DoublePatPreset.self,
-    "DoublePulse": DoublePulsePreset.self,
-    "DoublePunch": DoublePunchPreset.self,
-    "DoubleStrike": DoubleStrikePreset.self,
-    "DoubleTap": DoubleTapPreset.self,
-    "DoubleThud": DoubleThudPreset.self,
-    "DoubleTriplet": DoubleTripletPreset.self,
+    "Drone": DronePreset.self,
     "EngineRev": EngineRevPreset.self,
     "ErrorBuzz": ErrorBuzzPreset.self,
-    "ErrorSoft": ErrorSoftPreset.self,
     "ExplodingHead": ExplodingHeadPreset.self,
     "Explosion": ExplosionPreset.self,
     "EyeRolling": EyeRollingPreset.self,
     "FadeOut": FadeOutPreset.self,
-    "FanfareShort": FanfareShortPreset.self,
-    "FirmImpact": FirmImpactPreset.self,
+    "Fanfare": FanfarePreset.self,
+    "Feather": FeatherPreset.self,
+    "FingerDrum": FingerDrumPreset.self,
+    "Firecracker": FirecrackerPreset.self,
+    "Fizz": FizzPreset.self,
+    "Flick": FlickPreset.self,
+    "Gallop": GallopPreset.self,
     "GameCombo": GameComboPreset.self,
     "GameHit": GameHitPreset.self,
     "GameLevelUp": GameLevelUpPreset.self,
     "GamePickup": GamePickupPreset.self,
+    "Gavel": GavelPreset.self,
     "Glitch": GlitchPreset.self,
     "GravityFreefall": GravityFreefallPreset.self,
     "GrinningSquinting": GrinningSquintingPreset.self,
     "GuitarStrum": GuitarStrumPreset.self,
     "Hail": HailPreset.self,
-    "HappinessJoyful": HappinessJoyfulPreset.self,
-    "HappinessLight": HappinessLightPreset.self,
     "Heartbeat": HeartbeatPreset.self,
-    "HeavyImpact": HeavyImpactPreset.self,
+    "Herald": HeraldPreset.self,
+    "HoofBeat": HoofBeatPreset.self,
+    "Ignition": IgnitionPreset.self,
+    "Jolt": JoltPreset.self,
     "KeyboardMechanical": KeyboardMechanicalPreset.self,
     "KeyboardMembrane": KeyboardMembranePreset.self,
-    "KeyboardTypewriterOld": KeyboardTypewriterOldPreset.self,
     "KnockDoor": KnockDoorPreset.self,
+    "Latch": LatchPreset.self,
     "LevelUp": LevelUpPreset.self,
+    "Lighthouse": LighthousePreset.self,
     "LoaderBreathing": LoaderBreathingPreset.self,
     "LoaderPulse": LoaderPulsePreset.self,
     "LoaderRadar": LoaderRadarPreset.self,
@@ -101,11 +105,10 @@ import AVFAudio
     "LoaderWave": LoaderWavePreset.self,
     "Lock": LockPreset.self,
     "LongPress": LongPressPreset.self,
+    "March": MarchPreset.self,
     "MarioGameOver": MarioGameOverPreset.self,
-    "MaxImpact": MaxImpactPreset.self,
-    "MutedImpact": MutedImpactPreset.self,
-    "NeutralClear": NeutralClearPreset.self,
-    "NeutralSteady": NeutralSteadyPreset.self,
+    "Metronome": MetronomePreset.self,
+    "Murmur": MurmurPreset.self,
     "NewMessage": NewMessagePreset.self,
     "Notification": NotificationPreset.self,
     "NotificationKnock": NotificationKnockPreset.self,
@@ -113,63 +116,60 @@ import AVFAudio
     "NotifyInfoStandard": NotifyInfoStandardPreset.self,
     "NotifyReminderFinal": NotifyReminderFinalPreset.self,
     "NotifyReminderNudge": NotifyReminderNudgePreset.self,
-    "NotifyReminderSoft": NotifyReminderSoftPreset.self,
     "NotifySocialMention": NotifySocialMentionPreset.self,
     "NotifySocialMessage": NotifySocialMessagePreset.self,
-    "NotifySuccessSubtle": NotifySuccessSubtlePreset.self,
     "NotifyTimerDone": NotifyTimerDonePreset.self,
-    "NotifyWarnMild": NotifyWarnMildPreset.self,
-    "NotifyWarnModerate": NotifyWarnModeratePreset.self,
     "PassingCar": PassingCarPreset.self,
+    "Patter": PatterPreset.self,
+    "Peal": PealPreset.self,
+    "Peck": PeckPreset.self,
     "Pendulum": PendulumPreset.self,
+    "Ping": PingPreset.self,
+    "Piston": PistonPreset.self,
+    "Plunk": PlunkPreset.self,
     "PowerDown": PowerDownPreset.self,
-    "QuadBeat": QuadBeatPreset.self,
-    "QuadRamp": QuadRampPreset.self,
-    "QuadThud": QuadThudPreset.self,
+    "Propel": PropelPreset.self,
     "Rain": RainPreset.self,
+    "Ratchet": RatchetPreset.self,
     "ReadySteadyGo": ReadySteadyGoPreset.self,
+    "Rebound": ReboundPreset.self,
     "ReliefSigh": ReliefSighPreset.self,
-    "ReliefSoft": ReliefSoftPreset.self,
     "Ripple": RipplePreset.self,
-    "SadnessMelancholic": SadnessMelancholicPreset.self,
+    "Rivet": RivetPreset.self,
+    "Rustle": RustlePreset.self,
     "Searching": SearchingPreset.self,
     "SearchSuccess": SearchSuccessPreset.self,
-    "SelectionCrisp": SelectionCrispPreset.self,
     "SelectionSnap": SelectionSnapPreset.self,
     "Shockwave": ShockwavePreset.self,
     "Sneezing": SneezingPreset.self,
     "Spark": SparkPreset.self,
+    "Stampede": StampedePreset.self,
+    "Stomp": StompPreset.self,
+    "StoneSkip": StoneSkipPreset.self,
+    "Strike": StrikePreset.self,
     "SuccessFlourish": SuccessFlourishPreset.self,
-    "SuccessGentle": SuccessGentlePreset.self,
-    "SupportSteady": SupportSteadyPreset.self,
-    "SupportStrong": SupportStrongPreset.self,
     "SurpriseGasp": SurpriseGaspPreset.self,
+    "Sway": SwayPreset.self,
+    "Syncopate": SyncopatePreset.self,
     "Tada": TadaPreset.self,
+    "Thud": ThudPreset.self,
+    "Thump": ThumpPreset.self,
     "Thunder": ThunderPreset.self,
     "ThunderRoll": ThunderRollPreset.self,
     "TickTock": TickTockPreset.self,
+    "TidalSurge": TidalSurgePreset.self,
     "TideSwell": TideSwellPreset.self,
-    "TripleBeat": TripleBeatPreset.self,
-    "TripleClick": TripleClickPreset.self,
-    "TripleDecay": TripleDecayPreset.self,
-    "TripleDrum": TripleDrumPreset.self,
-    "TripleEscalation": TripleEscalationPreset.self,
-    "TripleFade": TripleFadePreset.self,
-    "TripleGentleTap": TripleGentleTapPreset.self,
-    "TripleKnock": TripleKnockPreset.self,
-    "TriplePat": TriplePatPreset.self,
-    "TriplePulse": TriplePulsePreset.self,
-    "TripleStrike": TripleStrikePreset.self,
-    "TripleSurge": TripleSurgePreset.self,
-    "TripleTap": TripleTapPreset.self,
-    "TripleThud": TripleThudPreset.self,
+    "Tremor": TremorPreset.self,
+    "Typewriter": TypewriterPreset.self,
     "Victory": VictoryPreset.self,
     "Vomiting": VomitingPreset.self,
     "Vortex": VortexPreset.self,
+    "WarDrum": WarDrumPreset.self,
     "WarningPulse": WarningPulsePreset.self,
-    "WarningSoft": WarningSoftPreset.self,
     "WarningUrgent": WarningUrgentPreset.self,
     "Waterfall": WaterfallPreset.self,
+    "Wisp": WispPreset.self,
+    "Wobble": WobblePreset.self,
     "Woodpecker": WoodpeckerPreset.self,
     "ZeldaChest": ZeldaChestPreset.self,
     "Zipper": ZipperPreset.self,
@@ -264,6 +264,14 @@ import AVFAudio
   }
   
 // CODEGEN_BEGIN_{getters}
+  public func afterglow() {
+    getCacheablePreset(AfterglowPreset.self).play()
+  }
+
+  public func aftershock() {
+    getCacheablePreset(AftershockPreset.self).play()
+  }
+
   public func aimingFire() {
     getCacheablePreset(AimingFirePreset.self).play()
   }
@@ -278,6 +286,10 @@ import AVFAudio
 
   public func angerFrustration() {
     getCacheablePreset(AngerFrustrationPreset.self).play()
+  }
+
+  public func anvil() {
+    getCacheablePreset(AnvilPreset.self).play()
   }
 
   public func applause() {
@@ -300,64 +312,80 @@ import AVFAudio
     getCacheablePreset(BarragePreset.self).play()
   }
 
-  public func boredomFlat() {
-    getCacheablePreset(BoredomFlatPreset.self).play()
+  public func bassDrop() {
+    getCacheablePreset(BassDropPreset.self).play()
+  }
+
+  public func bellToll() {
+    getCacheablePreset(BellTollPreset.self).play()
+  }
+
+  public func blip() {
+    getCacheablePreset(BlipPreset.self).play()
+  }
+
+  public func bloom() {
+    getCacheablePreset(BloomPreset.self).play()
+  }
+
+  public func bongo() {
+    getCacheablePreset(BongoPreset.self).play()
+  }
+
+  public func boulder() {
+    getCacheablePreset(BoulderPreset.self).play()
+  }
+
+  public func breakingWave() {
+    getCacheablePreset(BreakingWavePreset.self).play()
   }
 
   public func breath() {
     getCacheablePreset(BreathPreset.self).play()
   }
 
-  public func btnChip() {
-    getCacheablePreset(BtnChipPreset.self).play()
-  }
-
-  public func btnDestructive() {
-    getCacheablePreset(BtnDestructivePreset.self).play()
-  }
-
-  public func btnGhost() {
-    getCacheablePreset(BtnGhostPreset.self).play()
-  }
-
-  public func btnIcon() {
-    getCacheablePreset(BtnIconPreset.self).play()
-  }
-
-  public func btnMenu() {
-    getCacheablePreset(BtnMenuPreset.self).play()
-  }
-
-  public func btnPrimary() {
-    getCacheablePreset(BtnPrimaryPreset.self).play()
-  }
-
-  public func btnSecondary() {
-    getCacheablePreset(BtnSecondaryPreset.self).play()
-  }
-
-  public func btnSubmit() {
-    getCacheablePreset(BtnSubmitPreset.self).play()
-  }
-
-  public func btnToggleOff() {
-    getCacheablePreset(BtnToggleOffPreset.self).play()
-  }
-
   public func buildup() {
     getCacheablePreset(BuildupPreset.self).play()
+  }
+
+  public func cadence() {
+    getCacheablePreset(CadencePreset.self).play()
   }
 
   public func cameraShutter() {
     getCacheablePreset(CameraShutterPreset.self).play()
   }
 
+  public func canter() {
+    getCacheablePreset(CanterPreset.self).play()
+  }
+
   public func cascade() {
     getCacheablePreset(CascadePreset.self).play()
   }
 
-  public func cleanStrike() {
-    getCacheablePreset(CleanStrikePreset.self).play()
+  public func castanets() {
+    getCacheablePreset(CastanetsPreset.self).play()
+  }
+
+  public func catPaw() {
+    getCacheablePreset(CatPawPreset.self).play()
+  }
+
+  public func chip() {
+    getCacheablePreset(ChipPreset.self).play()
+  }
+
+  public func chirp() {
+    getCacheablePreset(ChirpPreset.self).play()
+  }
+
+  public func cleave() {
+    getCacheablePreset(CleavePreset.self).play()
+  }
+
+  public func click() {
+    getCacheablePreset(ClickPreset.self).play()
   }
 
   public func coinDrop() {
@@ -388,64 +416,24 @@ import AVFAudio
     getCacheablePreset(CursingPreset.self).play()
   }
 
-  public func deepRumble() {
-    getCacheablePreset(DeepRumblePreset.self).play()
+  public func dewdrop() {
+    getCacheablePreset(DewdropPreset.self).play()
   }
 
-  public func deepThud() {
-    getCacheablePreset(DeepThudPreset.self).play()
+  public func dirge() {
+    getCacheablePreset(DirgePreset.self).play()
+  }
+
+  public func dissolve() {
+    getCacheablePreset(DissolvePreset.self).play()
   }
 
   public func dogBark() {
     getCacheablePreset(DogBarkPreset.self).play()
   }
 
-  public func doubleBeat() {
-    getCacheablePreset(DoubleBeatPreset.self).play()
-  }
-
-  public func doubleBlast() {
-    getCacheablePreset(DoubleBlastPreset.self).play()
-  }
-
-  public func doubleBurst() {
-    getCacheablePreset(DoubleBurstPreset.self).play()
-  }
-
-  public func doubleClick() {
-    getCacheablePreset(DoubleClickPreset.self).play()
-  }
-
-  public func doubleGentleTap() {
-    getCacheablePreset(DoubleGentleTapPreset.self).play()
-  }
-
-  public func doublePat() {
-    getCacheablePreset(DoublePatPreset.self).play()
-  }
-
-  public func doublePulse() {
-    getCacheablePreset(DoublePulsePreset.self).play()
-  }
-
-  public func doublePunch() {
-    getCacheablePreset(DoublePunchPreset.self).play()
-  }
-
-  public func doubleStrike() {
-    getCacheablePreset(DoubleStrikePreset.self).play()
-  }
-
-  public func doubleTap() {
-    getCacheablePreset(DoubleTapPreset.self).play()
-  }
-
-  public func doubleThud() {
-    getCacheablePreset(DoubleThudPreset.self).play()
-  }
-
-  public func doubleTriplet() {
-    getCacheablePreset(DoubleTripletPreset.self).play()
+  public func drone() {
+    getCacheablePreset(DronePreset.self).play()
   }
 
   public func engineRev() {
@@ -454,10 +442,6 @@ import AVFAudio
 
   public func errorBuzz() {
     getCacheablePreset(ErrorBuzzPreset.self).play()
-  }
-
-  public func errorSoft() {
-    getCacheablePreset(ErrorSoftPreset.self).play()
   }
 
   public func explodingHead() {
@@ -476,12 +460,32 @@ import AVFAudio
     getCacheablePreset(FadeOutPreset.self).play()
   }
 
-  public func fanfareShort() {
-    getCacheablePreset(FanfareShortPreset.self).play()
+  public func fanfare() {
+    getCacheablePreset(FanfarePreset.self).play()
   }
 
-  public func firmImpact() {
-    getCacheablePreset(FirmImpactPreset.self).play()
+  public func feather() {
+    getCacheablePreset(FeatherPreset.self).play()
+  }
+
+  public func fingerDrum() {
+    getCacheablePreset(FingerDrumPreset.self).play()
+  }
+
+  public func firecracker() {
+    getCacheablePreset(FirecrackerPreset.self).play()
+  }
+
+  public func fizz() {
+    getCacheablePreset(FizzPreset.self).play()
+  }
+
+  public func flick() {
+    getCacheablePreset(FlickPreset.self).play()
+  }
+
+  public func gallop() {
+    getCacheablePreset(GallopPreset.self).play()
   }
 
   public func gameCombo() {
@@ -498,6 +502,10 @@ import AVFAudio
 
   public func gamePickup() {
     getCacheablePreset(GamePickupPreset.self).play()
+  }
+
+  public func gavel() {
+    getCacheablePreset(GavelPreset.self).play()
   }
 
   public func glitch() {
@@ -520,20 +528,24 @@ import AVFAudio
     getCacheablePreset(HailPreset.self).play()
   }
 
-  public func happinessJoyful() {
-    getCacheablePreset(HappinessJoyfulPreset.self).play()
-  }
-
-  public func happinessLight() {
-    getCacheablePreset(HappinessLightPreset.self).play()
-  }
-
   public func heartbeat() {
     getCacheablePreset(HeartbeatPreset.self).play()
   }
 
-  public func heavyImpact() {
-    getCacheablePreset(HeavyImpactPreset.self).play()
+  public func herald() {
+    getCacheablePreset(HeraldPreset.self).play()
+  }
+
+  public func hoofBeat() {
+    getCacheablePreset(HoofBeatPreset.self).play()
+  }
+
+  public func ignition() {
+    getCacheablePreset(IgnitionPreset.self).play()
+  }
+
+  public func jolt() {
+    getCacheablePreset(JoltPreset.self).play()
   }
 
   public func keyboardMechanical() {
@@ -544,16 +556,20 @@ import AVFAudio
     getCacheablePreset(KeyboardMembranePreset.self).play()
   }
 
-  public func keyboardTypewriterOld() {
-    getCacheablePreset(KeyboardTypewriterOldPreset.self).play()
-  }
-
   public func knockDoor() {
     getCacheablePreset(KnockDoorPreset.self).play()
   }
 
+  public func latch() {
+    getCacheablePreset(LatchPreset.self).play()
+  }
+
   public func levelUp() {
     getCacheablePreset(LevelUpPreset.self).play()
+  }
+
+  public func lighthouse() {
+    getCacheablePreset(LighthousePreset.self).play()
   }
 
   public func loaderBreathing() {
@@ -584,24 +600,20 @@ import AVFAudio
     getCacheablePreset(LongPressPreset.self).play()
   }
 
+  public func march() {
+    getCacheablePreset(MarchPreset.self).play()
+  }
+
   public func marioGameOver() {
     getCacheablePreset(MarioGameOverPreset.self).play()
   }
 
-  public func maxImpact() {
-    getCacheablePreset(MaxImpactPreset.self).play()
+  public func metronome() {
+    getCacheablePreset(MetronomePreset.self).play()
   }
 
-  public func mutedImpact() {
-    getCacheablePreset(MutedImpactPreset.self).play()
-  }
-
-  public func neutralClear() {
-    getCacheablePreset(NeutralClearPreset.self).play()
-  }
-
-  public func neutralSteady() {
-    getCacheablePreset(NeutralSteadyPreset.self).play()
+  public func murmur() {
+    getCacheablePreset(MurmurPreset.self).play()
   }
 
   public func newMessage() {
@@ -632,10 +644,6 @@ import AVFAudio
     getCacheablePreset(NotifyReminderNudgePreset.self).play()
   }
 
-  public func notifyReminderSoft() {
-    getCacheablePreset(NotifyReminderSoftPreset.self).play()
-  }
-
   public func notifySocialMention() {
     getCacheablePreset(NotifySocialMentionPreset.self).play()
   }
@@ -644,68 +652,80 @@ import AVFAudio
     getCacheablePreset(NotifySocialMessagePreset.self).play()
   }
 
-  public func notifySuccessSubtle() {
-    getCacheablePreset(NotifySuccessSubtlePreset.self).play()
-  }
-
   public func notifyTimerDone() {
     getCacheablePreset(NotifyTimerDonePreset.self).play()
-  }
-
-  public func notifyWarnMild() {
-    getCacheablePreset(NotifyWarnMildPreset.self).play()
-  }
-
-  public func notifyWarnModerate() {
-    getCacheablePreset(NotifyWarnModeratePreset.self).play()
   }
 
   public func passingCar() {
     getCacheablePreset(PassingCarPreset.self).play()
   }
 
+  public func patter() {
+    getCacheablePreset(PatterPreset.self).play()
+  }
+
+  public func peal() {
+    getCacheablePreset(PealPreset.self).play()
+  }
+
+  public func peck() {
+    getCacheablePreset(PeckPreset.self).play()
+  }
+
   public func pendulum() {
     getCacheablePreset(PendulumPreset.self).play()
+  }
+
+  public func ping() {
+    getCacheablePreset(PingPreset.self).play()
+  }
+
+  public func piston() {
+    getCacheablePreset(PistonPreset.self).play()
+  }
+
+  public func plunk() {
+    getCacheablePreset(PlunkPreset.self).play()
   }
 
   public func powerDown() {
     getCacheablePreset(PowerDownPreset.self).play()
   }
 
-  public func quadBeat() {
-    getCacheablePreset(QuadBeatPreset.self).play()
-  }
-
-  public func quadRamp() {
-    getCacheablePreset(QuadRampPreset.self).play()
-  }
-
-  public func quadThud() {
-    getCacheablePreset(QuadThudPreset.self).play()
+  public func propel() {
+    getCacheablePreset(PropelPreset.self).play()
   }
 
   public func rain() {
     getCacheablePreset(RainPreset.self).play()
   }
 
+  public func ratchet() {
+    getCacheablePreset(RatchetPreset.self).play()
+  }
+
   public func readySteadyGo() {
     getCacheablePreset(ReadySteadyGoPreset.self).play()
+  }
+
+  public func rebound() {
+    getCacheablePreset(ReboundPreset.self).play()
   }
 
   public func reliefSigh() {
     getCacheablePreset(ReliefSighPreset.self).play()
   }
 
-  public func reliefSoft() {
-    getCacheablePreset(ReliefSoftPreset.self).play()
-  }
-
   public func ripple() {
     getCacheablePreset(RipplePreset.self).play()
   }
 
-  public func sadnessMelancholic() {
-    getCacheablePreset(SadnessMelancholicPreset.self).play()
+  public func rivet() {
+    getCacheablePreset(RivetPreset.self).play()
+  }
+
+  public func rustle() {
+    getCacheablePreset(RustlePreset.self).play()
   }
 
   public func searching() {
@@ -714,10 +734,6 @@ import AVFAudio
 
   public func searchSuccess() {
     getCacheablePreset(SearchSuccessPreset.self).play()
-  }
-
-  public func selectionCrisp() {
-    getCacheablePreset(SelectionCrispPreset.self).play()
   }
 
   public func selectionSnap() {
@@ -736,28 +752,48 @@ import AVFAudio
     getCacheablePreset(SparkPreset.self).play()
   }
 
+  public func stampede() {
+    getCacheablePreset(StampedePreset.self).play()
+  }
+
+  public func stomp() {
+    getCacheablePreset(StompPreset.self).play()
+  }
+
+  public func stoneSkip() {
+    getCacheablePreset(StoneSkipPreset.self).play()
+  }
+
+  public func strike() {
+    getCacheablePreset(StrikePreset.self).play()
+  }
+
   public func successFlourish() {
     getCacheablePreset(SuccessFlourishPreset.self).play()
-  }
-
-  public func successGentle() {
-    getCacheablePreset(SuccessGentlePreset.self).play()
-  }
-
-  public func supportSteady() {
-    getCacheablePreset(SupportSteadyPreset.self).play()
-  }
-
-  public func supportStrong() {
-    getCacheablePreset(SupportStrongPreset.self).play()
   }
 
   public func surpriseGasp() {
     getCacheablePreset(SurpriseGaspPreset.self).play()
   }
 
+  public func sway() {
+    getCacheablePreset(SwayPreset.self).play()
+  }
+
+  public func syncopate() {
+    getCacheablePreset(SyncopatePreset.self).play()
+  }
+
   public func tada() {
     getCacheablePreset(TadaPreset.self).play()
+  }
+
+  public func thud() {
+    getCacheablePreset(ThudPreset.self).play()
+  }
+
+  public func thump() {
+    getCacheablePreset(ThumpPreset.self).play()
   }
 
   public func thunder() {
@@ -772,64 +808,20 @@ import AVFAudio
     getCacheablePreset(TickTockPreset.self).play()
   }
 
+  public func tidalSurge() {
+    getCacheablePreset(TidalSurgePreset.self).play()
+  }
+
   public func tideSwell() {
     getCacheablePreset(TideSwellPreset.self).play()
   }
 
-  public func tripleBeat() {
-    getCacheablePreset(TripleBeatPreset.self).play()
+  public func tremor() {
+    getCacheablePreset(TremorPreset.self).play()
   }
 
-  public func tripleClick() {
-    getCacheablePreset(TripleClickPreset.self).play()
-  }
-
-  public func tripleDecay() {
-    getCacheablePreset(TripleDecayPreset.self).play()
-  }
-
-  public func tripleDrum() {
-    getCacheablePreset(TripleDrumPreset.self).play()
-  }
-
-  public func tripleEscalation() {
-    getCacheablePreset(TripleEscalationPreset.self).play()
-  }
-
-  public func tripleFade() {
-    getCacheablePreset(TripleFadePreset.self).play()
-  }
-
-  public func tripleGentleTap() {
-    getCacheablePreset(TripleGentleTapPreset.self).play()
-  }
-
-  public func tripleKnock() {
-    getCacheablePreset(TripleKnockPreset.self).play()
-  }
-
-  public func triplePat() {
-    getCacheablePreset(TriplePatPreset.self).play()
-  }
-
-  public func triplePulse() {
-    getCacheablePreset(TriplePulsePreset.self).play()
-  }
-
-  public func tripleStrike() {
-    getCacheablePreset(TripleStrikePreset.self).play()
-  }
-
-  public func tripleSurge() {
-    getCacheablePreset(TripleSurgePreset.self).play()
-  }
-
-  public func tripleTap() {
-    getCacheablePreset(TripleTapPreset.self).play()
-  }
-
-  public func tripleThud() {
-    getCacheablePreset(TripleThudPreset.self).play()
+  public func typewriter() {
+    getCacheablePreset(TypewriterPreset.self).play()
   }
 
   public func victory() {
@@ -844,12 +836,12 @@ import AVFAudio
     getCacheablePreset(VortexPreset.self).play()
   }
 
-  public func warningPulse() {
-    getCacheablePreset(WarningPulsePreset.self).play()
+  public func warDrum() {
+    getCacheablePreset(WarDrumPreset.self).play()
   }
 
-  public func warningSoft() {
-    getCacheablePreset(WarningSoftPreset.self).play()
+  public func warningPulse() {
+    getCacheablePreset(WarningPulsePreset.self).play()
   }
 
   public func warningUrgent() {
@@ -858,6 +850,14 @@ import AVFAudio
 
   public func waterfall() {
     getCacheablePreset(WaterfallPreset.self).play()
+  }
+
+  public func wisp() {
+    getCacheablePreset(WispPreset.self).play()
+  }
+
+  public func wobble() {
+    getCacheablePreset(WobblePreset.self).play()
   }
 
   public func woodpecker() {

@@ -76,7 +76,7 @@
     }
   ],
   "name": "TideSwell",
-  "description": "Fourteen medium-amplitude taps with frequency rising then falling, creating a smooth long arc of impulses.",
+  "description": "A long wave-like arc that rises and falls, ideal for extended ambient effects or fluid UI transitions.",
   "tags": [
     "Substantial",
     "Flexible",

@@ -2,30 +2,37 @@ import { Presets } from "react-native-pulsar";
 import { PresetProps } from "./types";
 
 // CODEGEN_BEGIN_{imports}
+const AfterglowImage = require('@/assets/presets/Afterglow.png');
+const AftershockImage = require('@/assets/presets/Aftershock.png');
 const AimingFireImage = require('@/assets/presets/AimingFire.png');
 const AimingLockImage = require('@/assets/presets/AimingLock.png');
 const AlarmImage = require('@/assets/presets/Alarm.png');
 const AngerFrustrationImage = require('@/assets/presets/AngerFrustration.png');
+const AnvilImage = require('@/assets/presets/Anvil.png');
 const ApplauseImage = require('@/assets/presets/Applause.png');
 const AttentionImage = require('@/assets/presets/Attention.png');
 const BalloonPopImage = require('@/assets/presets/BalloonPop.png');
 const BangDoorImage = require('@/assets/presets/BangDoor.png');
 const BarrageImage = require('@/assets/presets/Barrage.png');
-const BoredomFlatImage = require('@/assets/presets/BoredomFlat.png');
+const BassDropImage = require('@/assets/presets/BassDrop.png');
+const BellTollImage = require('@/assets/presets/BellToll.png');
+const BlipImage = require('@/assets/presets/Blip.png');
+const BloomImage = require('@/assets/presets/Bloom.png');
+const BongoImage = require('@/assets/presets/Bongo.png');
+const BoulderImage = require('@/assets/presets/Boulder.png');
+const BreakingWaveImage = require('@/assets/presets/BreakingWave.png');
 const BreathImage = require('@/assets/presets/Breath.png');
-const BtnChipImage = require('@/assets/presets/BtnChip.png');
-const BtnDestructiveImage = require('@/assets/presets/BtnDestructive.png');
-const BtnGhostImage = require('@/assets/presets/BtnGhost.png');
-const BtnIconImage = require('@/assets/presets/BtnIcon.png');
-const BtnMenuImage = require('@/assets/presets/BtnMenu.png');
-const BtnPrimaryImage = require('@/assets/presets/BtnPrimary.png');
-const BtnSecondaryImage = require('@/assets/presets/BtnSecondary.png');
-const BtnSubmitImage = require('@/assets/presets/BtnSubmit.png');
-const BtnToggleOffImage = require('@/assets/presets/BtnToggleOff.png');
 const BuildupImage = require('@/assets/presets/Buildup.png');
+const CadenceImage = require('@/assets/presets/Cadence.png');
 const CameraShutterImage = require('@/assets/presets/CameraShutter.png');
+const CanterImage = require('@/assets/presets/Canter.png');
 const CascadeImage = require('@/assets/presets/Cascade.png');
-const CleanStrikeImage = require('@/assets/presets/CleanStrike.png');
+const CastanetsImage = require('@/assets/presets/Castanets.png');
+const CatPawImage = require('@/assets/presets/CatPaw.png');
+const ChipImage = require('@/assets/presets/Chip.png');
+const ChirpImage = require('@/assets/presets/Chirp.png');
+const CleaveImage = require('@/assets/presets/Cleave.png');
+const ClickImage = require('@/assets/presets/Click.png');
 const CoinDropImage = require('@/assets/presets/CoinDrop.png');
 const CombinationLockImage = require('@/assets/presets/CombinationLock.png');
 const ConfirmImage = require('@/assets/presets/Confirm.png');
@@ -33,48 +40,45 @@ const CowboyImage = require('@/assets/presets/Cowboy.png');
 const CrescendoImage = require('@/assets/presets/Crescendo.png');
 const CrossedEyesImage = require('@/assets/presets/CrossedEyes.png');
 const CursingImage = require('@/assets/presets/Cursing.png');
-const DeepRumbleImage = require('@/assets/presets/DeepRumble.png');
-const DeepThudImage = require('@/assets/presets/DeepThud.png');
+const DewdropImage = require('@/assets/presets/Dewdrop.png');
+const DirgeImage = require('@/assets/presets/Dirge.png');
+const DissolveImage = require('@/assets/presets/Dissolve.png');
 const DogBarkImage = require('@/assets/presets/DogBark.png');
-const DoubleBeatImage = require('@/assets/presets/DoubleBeat.png');
-const DoubleBlastImage = require('@/assets/presets/DoubleBlast.png');
-const DoubleBurstImage = require('@/assets/presets/DoubleBurst.png');
-const DoubleClickImage = require('@/assets/presets/DoubleClick.png');
-const DoubleGentleTapImage = require('@/assets/presets/DoubleGentleTap.png');
-const DoublePatImage = require('@/assets/presets/DoublePat.png');
-const DoublePulseImage = require('@/assets/presets/DoublePulse.png');
-const DoublePunchImage = require('@/assets/presets/DoublePunch.png');
-const DoubleStrikeImage = require('@/assets/presets/DoubleStrike.png');
-const DoubleTapImage = require('@/assets/presets/DoubleTap.png');
-const DoubleThudImage = require('@/assets/presets/DoubleThud.png');
-const DoubleTripletImage = require('@/assets/presets/DoubleTriplet.png');
+const DroneImage = require('@/assets/presets/Drone.png');
 const EngineRevImage = require('@/assets/presets/EngineRev.png');
 const ErrorBuzzImage = require('@/assets/presets/ErrorBuzz.png');
-const ErrorSoftImage = require('@/assets/presets/ErrorSoft.png');
 const ExplodingHeadImage = require('@/assets/presets/ExplodingHead.png');
 const ExplosionImage = require('@/assets/presets/Explosion.png');
 const EyeRollingImage = require('@/assets/presets/EyeRolling.png');
 const FadeOutImage = require('@/assets/presets/FadeOut.png');
-const FanfareShortImage = require('@/assets/presets/FanfareShort.png');
-const FirmImpactImage = require('@/assets/presets/FirmImpact.png');
+const FanfareImage = require('@/assets/presets/Fanfare.png');
+const FeatherImage = require('@/assets/presets/Feather.png');
+const FingerDrumImage = require('@/assets/presets/FingerDrum.png');
+const FirecrackerImage = require('@/assets/presets/Firecracker.png');
+const FizzImage = require('@/assets/presets/Fizz.png');
+const FlickImage = require('@/assets/presets/Flick.png');
+const GallopImage = require('@/assets/presets/Gallop.png');
 const GameComboImage = require('@/assets/presets/GameCombo.png');
 const GameHitImage = require('@/assets/presets/GameHit.png');
 const GameLevelUpImage = require('@/assets/presets/GameLevelUp.png');
 const GamePickupImage = require('@/assets/presets/GamePickup.png');
+const GavelImage = require('@/assets/presets/Gavel.png');
 const GlitchImage = require('@/assets/presets/Glitch.png');
 const GravityFreefallImage = require('@/assets/presets/GravityFreefall.png');
 const GrinningSquintingImage = require('@/assets/presets/GrinningSquinting.png');
 const GuitarStrumImage = require('@/assets/presets/GuitarStrum.png');
 const HailImage = require('@/assets/presets/Hail.png');
-const HappinessJoyfulImage = require('@/assets/presets/HappinessJoyful.png');
-const HappinessLightImage = require('@/assets/presets/HappinessLight.png');
 const HeartbeatImage = require('@/assets/presets/Heartbeat.png');
-const HeavyImpactImage = require('@/assets/presets/HeavyImpact.png');
+const HeraldImage = require('@/assets/presets/Herald.png');
+const HoofBeatImage = require('@/assets/presets/HoofBeat.png');
+const IgnitionImage = require('@/assets/presets/Ignition.png');
+const JoltImage = require('@/assets/presets/Jolt.png');
 const KeyboardMechanicalImage = require('@/assets/presets/KeyboardMechanical.png');
 const KeyboardMembraneImage = require('@/assets/presets/KeyboardMembrane.png');
-const KeyboardTypewriterOldImage = require('@/assets/presets/KeyboardTypewriterOld.png');
 const KnockDoorImage = require('@/assets/presets/KnockDoor.png');
+const LatchImage = require('@/assets/presets/Latch.png');
 const LevelUpImage = require('@/assets/presets/LevelUp.png');
+const LighthouseImage = require('@/assets/presets/Lighthouse.png');
 const LoaderBreathingImage = require('@/assets/presets/LoaderBreathing.png');
 const LoaderPulseImage = require('@/assets/presets/LoaderPulse.png');
 const LoaderRadarImage = require('@/assets/presets/LoaderRadar.png');
@@ -82,11 +86,10 @@ const LoaderSpinImage = require('@/assets/presets/LoaderSpin.png');
 const LoaderWaveImage = require('@/assets/presets/LoaderWave.png');
 const LockImage = require('@/assets/presets/Lock.png');
 const LongPressImage = require('@/assets/presets/LongPress.png');
+const MarchImage = require('@/assets/presets/March.png');
 const MarioGameOverImage = require('@/assets/presets/MarioGameOver.png');
-const MaxImpactImage = require('@/assets/presets/MaxImpact.png');
-const MutedImpactImage = require('@/assets/presets/MutedImpact.png');
-const NeutralClearImage = require('@/assets/presets/NeutralClear.png');
-const NeutralSteadyImage = require('@/assets/presets/NeutralSteady.png');
+const MetronomeImage = require('@/assets/presets/Metronome.png');
+const MurmurImage = require('@/assets/presets/Murmur.png');
 const NewMessageImage = require('@/assets/presets/NewMessage.png');
 const NotificationImage = require('@/assets/presets/Notification.png');
 const NotificationKnockImage = require('@/assets/presets/NotificationKnock.png');
@@ -94,63 +97,60 @@ const NotificationUrgentImage = require('@/assets/presets/NotificationUrgent.png
 const NotifyInfoStandardImage = require('@/assets/presets/NotifyInfoStandard.png');
 const NotifyReminderFinalImage = require('@/assets/presets/NotifyReminderFinal.png');
 const NotifyReminderNudgeImage = require('@/assets/presets/NotifyReminderNudge.png');
-const NotifyReminderSoftImage = require('@/assets/presets/NotifyReminderSoft.png');
 const NotifySocialMentionImage = require('@/assets/presets/NotifySocialMention.png');
 const NotifySocialMessageImage = require('@/assets/presets/NotifySocialMessage.png');
-const NotifySuccessSubtleImage = require('@/assets/presets/NotifySuccessSubtle.png');
 const NotifyTimerDoneImage = require('@/assets/presets/NotifyTimerDone.png');
-const NotifyWarnMildImage = require('@/assets/presets/NotifyWarnMild.png');
-const NotifyWarnModerateImage = require('@/assets/presets/NotifyWarnModerate.png');
 const PassingCarImage = require('@/assets/presets/PassingCar.png');
+const PatterImage = require('@/assets/presets/Patter.png');
+const PealImage = require('@/assets/presets/Peal.png');
+const PeckImage = require('@/assets/presets/Peck.png');
 const PendulumImage = require('@/assets/presets/Pendulum.png');
+const PingImage = require('@/assets/presets/Ping.png');
+const PistonImage = require('@/assets/presets/Piston.png');
+const PlunkImage = require('@/assets/presets/Plunk.png');
 const PowerDownImage = require('@/assets/presets/PowerDown.png');
-const QuadBeatImage = require('@/assets/presets/QuadBeat.png');
-const QuadRampImage = require('@/assets/presets/QuadRamp.png');
-const QuadThudImage = require('@/assets/presets/QuadThud.png');
+const PropelImage = require('@/assets/presets/Propel.png');
 const RainImage = require('@/assets/presets/Rain.png');
+const RatchetImage = require('@/assets/presets/Ratchet.png');
 const ReadySteadyGoImage = require('@/assets/presets/ReadySteadyGo.png');
+const ReboundImage = require('@/assets/presets/Rebound.png');
 const ReliefSighImage = require('@/assets/presets/ReliefSigh.png');
-const ReliefSoftImage = require('@/assets/presets/ReliefSoft.png');
 const RippleImage = require('@/assets/presets/Ripple.png');
-const SadnessMelancholicImage = require('@/assets/presets/SadnessMelancholic.png');
+const RivetImage = require('@/assets/presets/Rivet.png');
+const RustleImage = require('@/assets/presets/Rustle.png');
 const SearchingImage = require('@/assets/presets/Searching.png');
 const SearchSuccessImage = require('@/assets/presets/SearchSuccess.png');
-const SelectionCrispImage = require('@/assets/presets/SelectionCrisp.png');
 const SelectionSnapImage = require('@/assets/presets/SelectionSnap.png');
 const ShockwaveImage = require('@/assets/presets/Shockwave.png');
 const SneezingImage = require('@/assets/presets/Sneezing.png');
 const SparkImage = require('@/assets/presets/Spark.png');
+const StampedeImage = require('@/assets/presets/Stampede.png');
+const StompImage = require('@/assets/presets/Stomp.png');
+const StoneSkipImage = require('@/assets/presets/StoneSkip.png');
+const StrikeImage = require('@/assets/presets/Strike.png');
 const SuccessFlourishImage = require('@/assets/presets/SuccessFlourish.png');
-const SuccessGentleImage = require('@/assets/presets/SuccessGentle.png');
-const SupportSteadyImage = require('@/assets/presets/SupportSteady.png');
-const SupportStrongImage = require('@/assets/presets/SupportStrong.png');
 const SurpriseGaspImage = require('@/assets/presets/SurpriseGasp.png');
+const SwayImage = require('@/assets/presets/Sway.png');
+const SyncopateImage = require('@/assets/presets/Syncopate.png');
 const TadaImage = require('@/assets/presets/Tada.png');
+const ThudImage = require('@/assets/presets/Thud.png');
+const ThumpImage = require('@/assets/presets/Thump.png');
 const ThunderImage = require('@/assets/presets/Thunder.png');
 const ThunderRollImage = require('@/assets/presets/ThunderRoll.png');
 const TickTockImage = require('@/assets/presets/TickTock.png');
+const TidalSurgeImage = require('@/assets/presets/TidalSurge.png');
 const TideSwellImage = require('@/assets/presets/TideSwell.png');
-const TripleBeatImage = require('@/assets/presets/TripleBeat.png');
-const TripleClickImage = require('@/assets/presets/TripleClick.png');
-const TripleDecayImage = require('@/assets/presets/TripleDecay.png');
-const TripleDrumImage = require('@/assets/presets/TripleDrum.png');
-const TripleEscalationImage = require('@/assets/presets/TripleEscalation.png');
-const TripleFadeImage = require('@/assets/presets/TripleFade.png');
-const TripleGentleTapImage = require('@/assets/presets/TripleGentleTap.png');
-const TripleKnockImage = require('@/assets/presets/TripleKnock.png');
-const TriplePatImage = require('@/assets/presets/TriplePat.png');
-const TriplePulseImage = require('@/assets/presets/TriplePulse.png');
-const TripleStrikeImage = require('@/assets/presets/TripleStrike.png');
-const TripleSurgeImage = require('@/assets/presets/TripleSurge.png');
-const TripleTapImage = require('@/assets/presets/TripleTap.png');
-const TripleThudImage = require('@/assets/presets/TripleThud.png');
+const TremorImage = require('@/assets/presets/Tremor.png');
+const TypewriterImage = require('@/assets/presets/Typewriter.png');
 const VictoryImage = require('@/assets/presets/Victory.png');
 const VomitingImage = require('@/assets/presets/Vomiting.png');
 const VortexImage = require('@/assets/presets/Vortex.png');
+const WarDrumImage = require('@/assets/presets/WarDrum.png');
 const WarningPulseImage = require('@/assets/presets/WarningPulse.png');
-const WarningSoftImage = require('@/assets/presets/WarningSoft.png');
 const WarningUrgentImage = require('@/assets/presets/WarningUrgent.png');
 const WaterfallImage = require('@/assets/presets/Waterfall.png');
+const WispImage = require('@/assets/presets/Wisp.png');
+const WobbleImage = require('@/assets/presets/Wobble.png');
 const WoodpeckerImage = require('@/assets/presets/Woodpecker.png');
 const ZeldaChestImage = require('@/assets/presets/ZeldaChest.png');
 const ZipperImage = require('@/assets/presets/Zipper.png');
@@ -159,48 +159,72 @@ const ZipperImage = require('@/assets/presets/Zipper.png');
 export const PresetsConfig: Array<PresetProps> = [
 // CODEGEN_BEGIN_{presets}
   {
+    name: 'Afterglow',
+    description: 'A three-beat phrase that dissolves gently, ideal for soft endings or gradually quieting feedback.',
+    tags: ["Bold","Soft","Impulses","Short"],
+    duration: 150,
+    image: AfterglowImage,
+    play: Presets.Afterglow,
+  },
+  {
+    name: 'Aftershock',
+    description: 'A firm opening that settles calmly, ideal for transitions needing a strong start and a gentle finish.',
+    tags: ["Substantial","Flexible","Impulses","Extended"],
+    duration: 500,
+    image: AftershockImage,
+    play: Presets.Aftershock,
+  },
+  {
     name: 'AimingFire',
-    description: 'A sharp, powerful strike followed by a decaying echo, ideal for confirming a triggered action like firing a weapon or releasing a charged gesture.',
-    tags: ["Bold","Flexible","Bumps","Extended"],
+    description: 'The decisive moment of release, ideal for weapon discharge, trigger confirmation, or releasing a charged gesture.',
+    tags: ["Bold","Flexible","Peak","Extended"],
     duration: 280,
     image: AimingFireImage,
     play: Presets.AimingFire,
   },
   {
     name: 'AimingLock',
-    description: 'Two rapid sharp snaps in quick succession with the second slightly stronger, ideal for targeting lock-on or radar acquisition feedback.',
-    tags: ["Bold","Rigid","Bumps","Short"],
+    description: 'The satisfying snap of acquiring a target, ideal for lock-on, cursor snap-to, or radar acquisition.',
+    tags: ["Bold","Rigid","Impulses","Short"],
     duration: 220,
     image: AimingLockImage,
     play: Presets.AimingLock,
   },
   {
     name: 'Alarm',
-    description: 'A relentless alternating high-low pulse pattern that mimics a ringing alarm bell, best used for urgent alerts or critical error states.',
-    tags: ["Bold","Flexible","Pattern","Extended"],
+    description: 'Relentless and urgent, best for critical errors or emergencies that require immediate attention.',
+    tags: ["Bold","Rigid","Pattern","Extended"],
     duration: 1130,
     image: AlarmImage,
     play: Presets.Alarm,
   },
   {
     name: 'AngerFrustration',
-    description: 'An escalating burst of sharp, high-frequency impacts that builds to a maximum strike, conveying intense frustration or a forceful block event.',
-    tags: ["Bold","Rigid","Pattern","Extended"],
+    description: 'Escalating rage that peaks at full force, suited for blocked actions, critical failures, or frustrated moments.',
+    tags: ["Bold","Rigid","Saw","Extended"],
     duration: 450,
     image: AngerFrustrationImage,
     play: Presets.AngerFrustration,
   },
   {
+    name: 'Anvil',
+    description: 'The full weight of a massive collision, conveys sheer physical force and momentum.',
+    tags: ["Bold","Soft","Ramp","Extended"],
+    duration: 500,
+    image: AnvilImage,
+    play: Presets.Anvil,
+  },
+  {
     name: 'Applause',
-    description: 'A slowly building wave of discrete taps that gradually increases in intensity and sharpness, ideal for celebratory or crowd-approval moments.',
-    tags: ["Bold","Rigid","Bump","Long"],
+    description: 'A growing wave of appreciation, ideal for celebratory moments or social approval.',
+    tags: ["Substantial","Flexible","Solid","Long"],
     duration: 1564,
     image: ApplauseImage,
     play: Presets.Applause,
   },
   {
     name: 'Attention',
-    description: 'One long strong pulse followed by two shorter firm taps in a long-short-short pattern, ideal for attention-grabbing signals or incoming-call alerts.',
+    description: 'A commanding signal that refuses to be ignored, ideal for incoming calls or urgent attention-demand moments.',
     tags: ["Bold","Flexible","Bumps","Extended"],
     duration: 500,
     image: AttentionImage,
@@ -208,175 +232,207 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'BalloonPop',
-    description: 'Escalating bumps of increasing intensity build tension before culminating in a full-force burst, perfect for countdown completions or suspenseful reveals.',
-    tags: ["Bold","Flexible","Bumps","Long"],
+    description: 'Mounting suspense that bursts into release, perfect for countdowns or suspenseful reveals.',
+    tags: ["Substantial","Flexible","Bumps","Long"],
     duration: 1700,
     image: BalloonPopImage,
     play: Presets.BalloonPop,
   },
   {
     name: 'BangDoor',
-    description: 'A series of progressively louder and faster thuds with a deep, low frequency that feels like an insistent fist banging on a door, suitable for urgent or forceful interaction feedback.',
-    tags: ["Bold","Soft","Pattern","Long"],
+    description: 'The insistent urgency of a fist on a door, ideal for forceful alerts or escalating persistent notifications.',
+    tags: ["Bold","Soft","Saw","Long"],
     duration: 1050,
     image: BangDoorImage,
     play: Presets.BangDoor,
   },
   {
     name: 'Barrage',
-    description: 'Seven bold, sharp high-frequency taps in rapid succession, delivering an intense extended impulse pattern.',
+    description: 'An overwhelming storm of rapid impacts, suited for maxing out a meter or total sensory overload moments.',
     tags: ["Bold","Rigid","Impulses","Extended"],
     duration: 309,
     image: BarrageImage,
     play: Presets.Barrage,
   },
   {
-    name: 'BoredomFlat',
-    description: 'A monotonous, low-intensity repeating tap with no variation in amplitude or frequency, ideal for representing idle waiting or disengagement.',
-    tags: ["Gentle","Flexible","Pattern","Long"],
-    duration: 1780,
-    image: BoredomFlatImage,
-    play: Presets.BoredomFlat,
+    name: 'BassDrop',
+    description: 'Two grounded thumps with a tonal descent, suited for distinct double-confirmation feedback.',
+    tags: ["Bold","Soft","Impulses","Impulse"],
+    duration: 71,
+    image: BassDropImage,
+    play: Presets.BassDrop,
+  },
+  {
+    name: 'BellToll',
+    description: 'Three notes that soften as they land, suited for closing interactions or softening after a strong start.',
+    tags: ["Bold","Flexible","Impulses","Extended"],
+    duration: 399,
+    image: BellTollImage,
+    play: Presets.BellToll,
+  },
+  {
+    name: 'Blip',
+    description: 'A composed, subtle heads-up, ideal for non-critical warnings that should not interrupt the user.',
+    tags: ["Gentle","Flexible","Peak","Short"],
+    duration: 200,
+    image: BlipImage,
+    play: Presets.Blip,
+  },
+  {
+    name: 'Bloom',
+    description: 'A quiet confirmation of completion, ideal for subtle task completions or non-intrusive positive reinforcement.',
+    tags: ["Gentle","Flexible","Bumps","Extended"],
+    duration: 300,
+    image: BloomImage,
+    play: Presets.Bloom,
+  },
+  {
+    name: 'Bongo',
+    description: 'Two balanced bursts of three, suited for structured multi-step or paired sequence feedback.',
+    tags: ["Substantial","Flexible","Impulses","Extended"],
+    duration: 451,
+    image: BongoImage,
+    play: Presets.Bongo,
+  },
+  {
+    name: 'Boulder',
+    description: 'Deep and weighty without sharpness, great for heavy object impacts or grounded confirmation feedback.',
+    tags: ["Bold","Soft","Impulses","Impulse"],
+    duration: 0,
+    image: BoulderImage,
+    play: Presets.Boulder,
+  },
+  {
+    name: 'BreakingWave',
+    description: 'Two measured steps leading into a stronger landing, ideal for escalating confirmations or staged actions.',
+    tags: ["Substantial","Flexible","Impulses","Short"],
+    duration: 202,
+    image: BreakingWaveImage,
+    play: Presets.BreakingWave,
   },
   {
     name: 'Breath',
-    description: 'A smooth low-frequency inhale-exhale cycle that swells and subsides twice, ideal for meditation, breathing exercises, or calm ambient feedback.',
+    description: 'Slow, calming in-and-out rhythm, ideal for meditation guides or breathing exercises.',
     tags: ["Substantial","Soft","Bumps","Long"],
     duration: 3200,
     image: BreathImage,
     play: Presets.Breath,
   },
   {
-    name: 'BtnChip',
-    description: 'A light, quick tap with minimal presence — ideal for small selection elements like chips, tags, and filters.',
-    tags: ["Substantial","Flexible","Impulses","Impulse"],
-    duration: 80,
-    image: BtnChipImage,
-    play: Presets.BtnChip,
-  },
-  {
-    name: 'BtnDestructive',
-    description: 'Two sharp, high-frequency warning strikes that haptically signal an irreversible action such as delete or remove.',
-    tags: ["Bold","Rigid","Bumps","Short"],
-    duration: 250,
-    image: BtnDestructiveImage,
-    play: Presets.BtnDestructive,
-  },
-  {
-    name: 'BtnGhost',
-    description: 'A very delicate, barely-there touch — best suited for ghost or outline buttons that should feel subtle and unobtrusive.',
-    tags: ["Gentle","Flexible","Impulses","Impulse"],
-    duration: 60,
-    image: BtnGhostImage,
-    play: Presets.BtnGhost,
-  },
-  {
-    name: 'BtnIcon',
-    description: 'An ultra-short, precise tap — perfect for small icon buttons where a quick, clean response is needed without label text.',
-    tags: ["Substantial","Flexible","Impulses","Impulse"],
-    duration: 28,
-    image: BtnIconImage,
-    play: Presets.BtnIcon,
-  },
-  {
-    name: 'BtnMenu',
-    description: 'A single soft, warm tap that gently acknowledges opening a menu or drawer without disrupting the user\'s flow.',
-    tags: ["Substantial","Flexible","Bump","Short"],
-    duration: 160,
-    image: BtnMenuImage,
-    play: Presets.BtnMenu,
-  },
-  {
-    name: 'BtnPrimary',
-    description: 'A confident, decisive strike with a short echo — delivers a clear and satisfying response for the main call-to-action button.',
-    tags: ["Substantial","Flexible","Impulses","Impulse"],
-    duration: 80,
-    image: BtnPrimaryImage,
-    play: Presets.BtnPrimary,
-  },
-  {
-    name: 'BtnSecondary',
-    description: 'A softer, quieter click that is less dominant than a primary CTA but still clearly perceptible — ideal for secondary actions.',
-    tags: ["Substantial","Flexible","Impulses","Impulse"],
-    duration: 90,
-    image: BtnSecondaryImage,
-    play: Presets.BtnSecondary,
-  },
-  {
-    name: 'BtnSubmit',
-    description: 'Two escalating strikes that feel like a confident forward push, communicating that a form or action has been decisively submitted.',
-    tags: ["Bold","Flexible","Bumps","Extended"],
-    duration: 300,
-    image: BtnSubmitImage,
-    play: Presets.BtnSubmit,
-  },
-  {
-    name: 'BtnToggleOff',
-    description: 'A firm initial tap followed by a lighter secondary bump that descends in both amplitude and frequency, clearly communicating deactivation or turning something off.',
-    tags: ["Substantial","Flexible","Bumps","Short"],
-    duration: 230,
-    image: BtnToggleOffImage,
-    play: Presets.BtnToggleOff,
-  },
-  {
     name: 'Buildup',
-    description: 'Seven bold taps with steadily increasing frequency, building from soft to sharp across an extended impulse pattern.',
+    description: 'An energizing crescendo of rising intensity, ideal for charging actions or building anticipation.',
     tags: ["Bold","Flexible","Impulses","Extended"],
     duration: 309,
     image: BuildupImage,
     play: Presets.Buildup,
   },
   {
+    name: 'Cadence',
+    description: 'A natural two-beat rhythm with a subtle textural shift, suitable for double-tap confirmations.',
+    tags: ["Bold","Rigid","Impulses","Short"],
+    duration: 199,
+    image: CadenceImage,
+    play: Presets.Cadence,
+  },
+  {
     name: 'CameraShutter',
-    description: 'Two distinct high-frequency clicks in quick succession that mimic a camera\'s mirror lift and shutter release, ideal for photo capture confirmation.',
-    tags: ["Bold","Rigid","Bumps","Short"],
+    description: 'The satisfying click of capturing a moment, ideal for photo capture or scan confirmation.',
+    tags: ["Substantial","Rigid","Impulses","Short"],
     duration: 150,
     image: CameraShutterImage,
     play: Presets.CameraShutter,
   },
   {
+    name: 'Canter',
+    description: 'A three-beat rhythm with natural variation, suited for multi-step feedback where each step has character.',
+    tags: ["Bold","Soft","Impulses","Short"],
+    duration: 173,
+    image: CanterImage,
+    play: Presets.Canter,
+  },
+  {
     name: 'Cascade',
-    description: 'Twelve discrete taps across four intensity groups descending from bold to soft, suited for complex multi-phase feedback.',
+    description: 'A long sequence that unwinds from intensity to calm, ideal for complex multi-phase transitions or step-by-step completions.',
     tags: ["Substantial","Flexible","Impulses","Long"],
     duration: 1863,
     image: CascadeImage,
     play: Presets.Cascade,
   },
   {
-    name: 'CleanStrike',
-    description: 'A strong impulse at maximum sharpness that delivers a clean, precise, and firm tap — well-suited for crisp confirmations that need both authority and definition.',
+    name: 'Castanets',
+    description: 'A crisp, decisive pair of sharp taps, ideal for double-confirmation or back-to-back interaction feedback.',
+    tags: ["Bold","Rigid","Impulses","Short"],
+    duration: 199,
+    image: CastanetsImage,
+    play: Presets.Castanets,
+  },
+  {
+    name: 'CatPaw',
+    description: 'A calm, warm pair of taps, ideal for gentle confirmations or soft paired acknowledgements.',
+    tags: ["Substantial","Soft","Impulses","Impulse"],
+    duration: 75,
+    image: CatPawImage,
+    play: Presets.CatPaw,
+  },
+  {
+    name: 'Chip',
+    description: 'Sharp, authoritative, and precise, suited for confirmations that demand clarity and definition.',
     tags: ["Substantial","Rigid","Impulses","Impulse"],
     duration: 0,
-    image: CleanStrikeImage,
-    play: Presets.CleanStrike,
+    image: ChipImage,
+    play: Presets.Chip,
+  },
+  {
+    name: 'Chirp',
+    description: 'Light-hearted and cheerful, ideal for positive micro-interactions or small wins.',
+    tags: ["Gentle","Flexible","Saw","Extended"],
+    duration: 360,
+    image: ChirpImage,
+    play: Presets.Chirp,
+  },
+  {
+    name: 'Cleave',
+    description: 'Signals an irreversible, high-stakes action for deletes, removes, or anything the user cannot undo.',
+    tags: ["Bold","Rigid","Impulses","Bumps","Short"],
+    duration: 250,
+    image: CleaveImage,
+    play: Presets.Cleave,
+  },
+  {
+    name: 'Click',
+    description: 'A quieter click that supports without competing, ideal for secondary actions.',
+    tags: ["Gentle","Flexible","Peak","Impulse"],
+    duration: 90,
+    image: ClickImage,
+    play: Presets.Click,
   },
   {
     name: 'CoinDrop',
-    description: 'A rapid sequence of irregular high-frequency taps of varying strength that mimics coins falling one by one, ideal for reward or payment confirmation feedback.',
-    tags: ["Bold","Rigid","Pattern","Extended"],
+    description: 'A playful cascade of coins, ideal for reward moments, payment confirmations, or in-app purchases.',
+    tags: ["Bold","Rigid","Saw","Extended"],
     duration: 675,
     image: CoinDropImage,
     play: Presets.CoinDrop,
   },
   {
     name: 'CombinationLock',
-    description: 'Five evenly spaced crisp metallic clicks followed by one strong final strike, simulating the turning of a combination lock dial with the last click confirming the correct code.',
-    tags: ["Bold","Rigid","Pattern","Long"],
+    description: 'The ritual of cracking a code, ideal for combination inputs or multi-step secure unlocking.',
+    tags: ["Bold","Rigid","Saw","Long"],
     duration: 980,
     image: CombinationLockImage,
     play: Presets.CombinationLock,
   },
   {
     name: 'Confirm',
-    description: 'Two equal, clean taps spaced 150ms apart that feel calm and decisive, suitable for dialog confirmations or acknowledgement interactions.',
-    tags: ["Substantial","Flexible","Bumps","Short"],
+    description: 'Calm and decisive, communicates acceptance without drama, suited for dialog confirmations.',
+    tags: ["Substantial","Soft","Impulses","Short"],
     duration: 205,
     image: ConfirmImage,
     play: Presets.Confirm,
   },
   {
     name: 'Cowboy',
-    description: 'A bouncy strong-weak alternating pattern with high sharpness that evokes a galloping horse rhythm, perfect for adventurous or playful UI moments.',
+    description: 'A galloping bounce with swagger, ideal for adventurous or playful UI moments.',
     tags: ["Substantial","Rigid","Pattern","Extended"],
     duration: 450,
     image: CowboyImage,
@@ -384,151 +440,71 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'Crescendo',
-    description: 'Seven taps with steadily increasing amplitude and frequency, building to a peak in a long escalating pattern.',
-    tags: ["Substantial","Flexible","Impulses","Long"],
+    description: 'A rising build that peaks with energy, ideal for charge-up moments or building anticipation.',
+    tags: ["Substantial","Rigid","Impulses","Long"],
     duration: 601,
     image: CrescendoImage,
     play: Presets.Crescendo,
   },
   {
     name: 'CrossedEyes',
-    description: 'A disorienting sequence of impacts with rapidly shifting frequency that fades out, simulating the woozy dizziness of being stunned or hit.',
-    tags: ["Substantial","Flexible","Pattern","Extended"],
+    description: 'Woozy and disorienting, ideal for confusion, error overload, or hit-stun effects.',
+    tags: ["Substantial","Flexible","Saw","Extended"],
     duration: 320,
     image: CrossedEyesImage,
     play: Presets.CrossedEyes,
   },
   {
     name: 'Cursing',
-    description: 'An explosive burst of five rapid maximum-intensity impacts with a mid-range frequency that conveys unrestrained rage, suited for critical failure or violent error states.',
-    tags: ["Bold","Flexible","Pattern","Extended"],
+    description: 'An unrestrained explosion of rage, suited for catastrophic errors or total loss of control.',
+    tags: ["Bold","Flexible","Saw","Extended"],
     duration: 380,
     image: CursingImage,
     play: Presets.Cursing,
   },
   {
-    name: 'DeepRumble',
-    description: 'Maximum amplitude with zero sharpness, producing the deepest and most rumbling single burst possible — ideal for heavy physical impact simulations.',
-    tags: ["Bold","Soft","Impulses","Impulse"],
-    duration: 0,
-    image: DeepRumbleImage,
-    play: Presets.DeepRumble,
+    name: 'Dewdrop',
+    description: 'A quiet confirmation of success, ideal for operations that completed without needing attention.',
+    tags: ["Substantial","Flexible","Bumps","Short"],
+    duration: 210,
+    image: DewdropImage,
+    play: Presets.Dewdrop,
   },
   {
-    name: 'DeepThud',
-    description: 'A full-strength impulse with very low sharpness that produces a deep, thuddy sensation — great for heavy impacts that feel weighty rather than sharp.',
-    tags: ["Bold","Soft","Impulses","Impulse"],
-    duration: 0,
-    image: DeepThudImage,
-    play: Presets.DeepThud,
+    name: 'Dirge',
+    description: 'Heavy and fading like a dying heartache, best for conveying grief, loss, or deep sorrow.',
+    tags: ["Substantial","Soft","Pattern","Long"],
+    duration: 2600,
+    image: DirgeImage,
+    play: Presets.Dirge,
+  },
+  {
+    name: 'Dissolve',
+    description: 'A gentle, soothing fade, ideal for calm relief after a mild challenge or successful low-stakes action.',
+    tags: ["Gentle","Soft","Ramp","Long"],
+    duration: 1200,
+    image: DissolveImage,
+    play: Presets.Dissolve,
   },
   {
     name: 'DogBark',
-    description: 'Two strong low-frequency bursts with a short pause between them, ideal for alert barks or sharp double-knock sound effects.',
+    description: 'Two forceful low bursts like a sharp bark, ideal for alert sounds or short punchy notification moments.',
     tags: ["Bold","Soft","Bumps","Extended"],
     duration: 500,
     image: DogBarkImage,
     play: Presets.DogBark,
   },
   {
-    name: 'DoubleBeat',
-    description: 'Two bold, consistently low-frequency taps forming a firm soft double impulse pattern.',
-    tags: ["Bold","Soft","Impulses","Short"],
-    duration: 201,
-    image: DoubleBeatImage,
-    play: Presets.DoubleBeat,
-  },
-  {
-    name: 'DoubleBlast',
-    description: 'Two maximum-intensity, maximum-sharpness impulses fired in rapid succession — ideal for urgent double-confirmation or high-impact alert feedback.',
-    tags: ["Bold","Rigid","Impulses","Impulse"],
-    duration: 75,
-    image: DoubleBlastImage,
-    play: Presets.DoubleBlast,
-  },
-  {
-    name: 'DoubleBurst',
-    description: 'Six taps in two groups escalating from medium to bold amplitude with decreasing frequency, for a strong double-burst pattern.',
-    tags: ["Bold","Flexible","Impulses","Extended"],
-    duration: 455,
-    image: DoubleBurstImage,
-    play: Presets.DoubleBurst,
-  },
-  {
-    name: 'DoubleClick',
-    description: 'Two bold, consistently high-frequency sharp taps delivering a crisp double impulse.',
-    tags: ["Bold","Rigid","Impulses","Short"],
-    duration: 199,
-    image: DoubleClickImage,
-    play: Presets.DoubleClick,
-  },
-  {
-    name: 'DoubleGentleTap',
-    description: 'Two medium-strength, consistent low-frequency taps forming a gentle double impulse.',
-    tags: ["Substantial","Soft","Impulses","Impulse"],
-    duration: 80,
-    image: DoubleGentleTapImage,
-    play: Presets.DoubleGentleTap,
-  },
-  {
-    name: 'DoublePat',
-    description: 'Two medium-amplitude, low-frequency taps forming a soft double impulse pattern.',
-    tags: ["Substantial","Soft","Impulses","Impulse"],
-    duration: 75,
-    image: DoublePatImage,
-    play: Presets.DoublePat,
-  },
-  {
-    name: 'DoublePulse',
-    description: 'Two bold taps with descending frequency from sharp to mid, forming a varied double impulse.',
-    tags: ["Bold","Rigid","Impulses","Short"],
-    duration: 199,
-    image: DoublePulseImage,
-    play: Presets.DoublePulse,
-  },
-  {
-    name: 'DoublePunch',
-    description: 'Two full-strength impulses in quick succession with a flexible texture — useful for double-tap confirmations or paired action feedback.',
-    tags: ["Bold","Flexible","Impulses","Impulse"],
-    duration: 73,
-    image: DoublePunchImage,
-    play: Presets.DoublePunch,
-  },
-  {
-    name: 'DoubleStrike',
-    description: 'Two bold taps with low-to-mid frequency range, creating a strong double impulse with varied sharpness.',
-    tags: ["Bold","Flexible","Impulses","Short"],
-    duration: 201,
-    image: DoubleStrikeImage,
-    play: Presets.DoubleStrike,
-  },
-  {
-    name: 'DoubleTap',
-    description: 'Two bold taps with high-to-soft frequency transition, suitable for strong double-tap confirmation.',
-    tags: ["Bold","Rigid","Impulses","Impulse"],
-    duration: 80,
-    image: DoubleTapImage,
-    play: Presets.DoubleTap,
-  },
-  {
-    name: 'DoubleThud',
-    description: 'Two bold discrete taps with decreasing frequency, ideal for distinct double-confirmation feedback.',
-    tags: ["Bold","Soft","Impulses","Impulse"],
-    duration: 71,
-    image: DoubleThudImage,
-    play: Presets.DoubleThud,
-  },
-  {
-    name: 'DoubleTriplet',
-    description: 'Six medium taps in two groups with consistent mid-range amplitude and frequency, creating a double-triple rhythm.',
-    tags: ["Substantial","Flexible","Impulses","Extended"],
-    duration: 451,
-    image: DoubleTripletImage,
-    play: Presets.DoubleTriplet,
+    name: 'Drone',
+    description: 'Flat and going nowhere, communicates idle waiting, disengagement, or nothing happening.',
+    tags: ["Gentle","Flexible","Pattern","Long"],
+    duration: 1780,
+    image: DroneImage,
+    play: Presets.Drone,
   },
   {
     name: 'EngineRev',
-    description: 'Two revving surges separated by a gear-shift dip, building from idle to full throttle, ideal for racing games or mechanical acceleration feedback.',
+    description: 'The thrill of revving to full throttle, ideal for racing games or mechanical acceleration feedback.',
     tags: ["Bold","Flexible","Bumps","Long"],
     duration: 1800,
     image: EngineRevImage,
@@ -536,31 +512,23 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'ErrorBuzz',
-    description: 'A sharp, high-frequency buzz that ramps down quickly, delivering an unmistakable rejection signal suited for critical errors or denied actions.',
+    description: 'An unmistakable hard rejection, suited for critical errors, access denied, or blocked actions.',
     tags: ["Bold","Rigid","Ramp","Extended"],
     duration: 350,
     image: ErrorBuzzImage,
     play: Presets.ErrorBuzz,
   },
   {
-    name: 'ErrorSoft',
-    description: 'A single, crisp tap with a high-frequency character that fades swiftly, providing a non-intrusive rejection cue for minor validation errors.',
-    tags: ["Substantial","Rigid","Ramp","Short"],
-    duration: 180,
-    image: ErrorSoftImage,
-    play: Presets.ErrorSoft,
-  },
-  {
     name: 'ExplodingHead',
-    description: 'A rapid ramp to full-peak intensity followed by a sharp decay, ideal for overwhelming surprise or mind-blowing reveal moments.',
-    tags: ["Bold","Rigid","Bump","Extended"],
+    description: 'A mind-blowing jolt, ideal for overwhelming surprise or impossible-to-believe reveals.',
+    tags: ["Bold","Rigid","Peak","Extended"],
     duration: 380,
     image: ExplodingHeadImage,
     play: Presets.ExplodingHead,
   },
   {
     name: 'Explosion',
-    description: 'A maximum-force detonation impact that decays into a long, deep rumble, ideal for game explosions or dramatic destructive events.',
+    description: 'A catastrophic detonation that echoes into rumble, ideal for game destruction events or dramatic impacts.',
     tags: ["Bold","Soft","Ramp","Long"],
     duration: 1000,
     image: ExplosionImage,
@@ -568,39 +536,79 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'EyeRolling',
-    description: 'A slow, lazy ramp-down that languidly fades away, evoking a dismissive eye-roll and fitting for sarcastic or indifferent UI moments.',
-    tags: ["Substantial","Flexible","Ramp","Extended"],
+    description: 'A lazy, dismissive fade, fitting for sarcastic or indifferent UI moments.',
+    tags: ["Gentle","Flexible","Ramp","Extended"],
     duration: 450,
     image: EyeRollingImage,
     play: Presets.EyeRolling,
   },
   {
     name: 'FadeOut',
-    description: 'Six taps with steadily decreasing amplitude and frequency, forming a long fading impulse sequence.',
+    description: 'A graceful drift toward silence, ideal for dismissals or transitions that should feel calm and natural.',
     tags: ["Substantial","Flexible","Impulses","Extended"],
     duration: 506,
     image: FadeOutImage,
     play: Presets.FadeOut,
   },
   {
-    name: 'FanfareShort',
-    description: 'Four ascending pulses with growing intensity and sharpness like a triumphant musical fanfare, ideal for achievement unlocked or victory moments.',
+    name: 'Fanfare',
+    description: 'A short burst of triumph, ideal for achievement unlocked, rank-ups, or moments that deserve a cheer.',
     tags: ["Bold","Rigid","Bumps","Extended"],
     duration: 580,
-    image: FanfareShortImage,
-    play: Presets.FanfareShort,
+    image: FanfareImage,
+    play: Presets.Fanfare,
   },
   {
-    name: 'FirmImpact',
-    description: 'A full-strength impulse at moderate frequency that blends power with a slightly rounded edge — useful for bold but not overly sharp feedback.',
-    tags: ["Bold","Flexible","Impulses","Impulse"],
-    duration: 0,
-    image: FirmImpactImage,
-    play: Presets.FirmImpact,
+    name: 'Feather',
+    description: 'A gentle, non-disruptive nudge, ideal for low-priority reminders.',
+    tags: ["Substantial","Flexible","Ramp","Short"],
+    duration: 180,
+    image: FeatherImage,
+    play: Presets.Feather,
+  },
+  {
+    name: 'FingerDrum',
+    description: 'Three casual, even taps, ideal for low-key acknowledgements or non-urgent rhythm patterns.',
+    tags: ["Substantial","Flexible","Impulses","Extended"],
+    duration: 231,
+    image: FingerDrumImage,
+    play: Presets.FingerDrum,
+  },
+  {
+    name: 'Firecracker',
+    description: 'Two maximum-force strikes demanding immediate response, suited for urgent double-confirmations or critical alerts.',
+    tags: ["Bold","Rigid","Impulses","Impulse"],
+    duration: 75,
+    image: FirecrackerImage,
+    play: Presets.Firecracker,
+  },
+  {
+    name: 'Fizz',
+    description: 'Bubbling with joy, ideal for success celebrations or upbeat positive feedback.',
+    tags: ["Substantial","Rigid","Saw","Extended"],
+    duration: 500,
+    image: FizzImage,
+    play: Presets.Fizz,
+  },
+  {
+    name: 'Flick',
+    description: 'A light, quick tap with minimal presence, ideal for chips, tags, and filters.',
+    tags: ["Gentle","Flexible","Peak","Impulse"],
+    duration: 80,
+    image: FlickImage,
+    play: Presets.Flick,
+  },
+  {
+    name: 'Gallop',
+    description: 'A natural four-beat rhythm, suited for multi-step processes or organic rhythmic feedback.',
+    tags: ["Bold","Flexible","Impulses","Long"],
+    duration: 750,
+    image: GallopImage,
+    play: Presets.Gallop,
   },
   {
     name: 'GameCombo',
-    description: 'Four rapid escalating taps in quick succession with growing intensity, ideal for hit-combo multipliers or rapid-fire scoring feedback in games.',
+    description: 'The thrill of a combo streak, ideal for hit combos, chain multipliers, or rapid-fire scoring.',
     tags: ["Bold","Rigid","Bumps","Extended"],
     duration: 300,
     image: GameComboImage,
@@ -608,15 +616,15 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'GameHit',
-    description: 'A hard, snappy strike that decays rapidly through diminishing resonance, perfect for registering damage or collision impacts in games.',
-    tags: ["Bold","Flexible","Ramp","Short"],
+    description: 'The instant punch of impact, perfect for collision events or taking a hit in games.',
+    tags: ["Bold","Flexible","Peak","Short"],
     duration: 200,
     image: GameHitImage,
     play: Presets.GameHit,
   },
   {
     name: 'GameLevelUp',
-    description: 'Four rising pulses that escalate from a gentle tap to a full triumphant peak, ideal for level-up or rank-promotion celebrations in games.',
+    description: 'The joy of growing stronger, ideal for level-up moments or rank promotion celebrations.',
     tags: ["Bold","Rigid","Bumps","Long"],
     duration: 650,
     image: GameLevelUpImage,
@@ -624,15 +632,23 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'GamePickup',
-    description: 'A light, sparkling double-burst that mimics picking up an item — ideal for in-game collectible or power-up feedback.',
+    description: 'A light, sparkling burst, ideal for in-game collectibles or power-up feedback.',
     tags: ["Gentle","Rigid","Impulses","Impulse"],
     duration: 100,
     image: GamePickupImage,
     play: Presets.GamePickup,
   },
   {
+    name: 'Gavel',
+    description: 'Two weighty, deliberate taps, suited for decisive double-step actions or bold acknowledgement feedback.',
+    tags: ["Bold","Flexible","Impulses","Short"],
+    duration: 201,
+    image: GavelImage,
+    play: Presets.Gavel,
+  },
+  {
     name: 'Glitch',
-    description: 'A chaotic sequence of alternating full-strength and near-silent impacts with wildly shifting frequency, evoking a corrupted signal or digital system error.',
+    description: 'The haptic feel of a system glitching, ideal for data corruption, errors, or intentional glitch aesthetics.',
     tags: ["Bold","Rigid","Pattern","Short"],
     duration: 220,
     image: GlitchImage,
@@ -640,23 +656,23 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'GravityFreefall',
-    description: 'A near-silent buildup that accelerates into a sudden full-force impact, ideal for drop effects or dramatic collision moments.',
-    tags: ["Bold","Soft","Bump","Long"],
+    description: 'The terrifying pause before impact, ideal for drop effects or dramatic collision moments.',
+    tags: ["Bold","Soft","Peak","Long"],
     duration: 1050,
     image: GravityFreefallImage,
     play: Presets.GravityFreefall,
   },
   {
     name: 'GrinningSquinting',
-    description: 'Four rapid high-frequency pulses that gradually swell in intensity, evoking vibrant joy and laughter ideal for reaction or delight moments.',
-    tags: ["Bold","Rigid","Bumps","Extended"],
+    description: 'An irrepressible swell of delight, ideal for reaction moments or expressions of pure joy.',
+    tags: ["Bold","Rigid","Saw","Extended"],
     duration: 330,
     image: GrinningSquintingImage,
     play: Presets.GrinningSquinting,
   },
   {
     name: 'GuitarStrum',
-    description: 'A bold attack that slowly decays over a long sustain like a plucked string, great for musical interactions or satisfying confirmation moments.',
+    description: 'A rich, resonant strike that lingers, ideal for musical interactions or warm confirmation moments.',
     tags: ["Bold","Flexible","Ramp","Long"],
     duration: 1400,
     image: GuitarStrumImage,
@@ -664,103 +680,119 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'Hail',
-    description: 'Dense, irregular high-frequency strikes of varying intensity over a steady background, simulating a barrage of hailstones hitting a surface.',
+    description: 'An unpredictable, relentless barrage, ideal for weather events or disorienting overload feedback.',
     tags: ["Gentle","Rigid","Solid","Extended"],
     duration: 430,
     image: HailImage,
     play: Presets.Hail,
   },
   {
-    name: 'HappinessJoyful',
-    description: 'A rising sequence of bouncy, sharp taps that crescendo like bubbles of joy, ideal for success celebrations or upbeat positive feedback.',
-    tags: ["Substantial","Rigid","Pattern","Extended"],
-    duration: 500,
-    image: HappinessJoyfulImage,
-    play: Presets.HappinessJoyful,
-  },
-  {
-    name: 'HappinessLight',
-    description: 'Three gentle bouncing taps with slightly rising intensity and sharpness, evoking light-hearted joy ideal for positive micro-interactions or upbeat feedback.',
-    tags: ["Substantial","Rigid","Bumps","Extended"],
-    duration: 360,
-    image: HappinessLightImage,
-    play: Presets.HappinessLight,
-  },
-  {
     name: 'Heartbeat',
-    description: 'A rhythmic lub-dub double-beat pattern with a strong first strike and softer echo, perfect for conveying life, tension, or a living system state.',
-    tags: ["Bold","Soft","Pattern","Long"],
+    description: 'The familiar lub-dub of life and tension, perfect for health apps or anxious waiting moments.',
+    tags: ["Substantial","Soft","Pattern","Long"],
     duration: 1000,
     image: HeartbeatImage,
     play: Presets.Heartbeat,
   },
   {
-    name: 'HeavyImpact',
-    description: 'A maximum-amplitude, deep-frequency collision that rumbles down to silence, conveying the weight of a massive physical impact.',
-    tags: ["Bold","Soft","Ramp","Extended"],
-    duration: 500,
-    image: HeavyImpactImage,
-    play: Presets.HeavyImpact,
+    name: 'Herald',
+    description: 'Two gentle knocks building to a decisive third, ideal for staged confirmations with a clear conclusion.',
+    tags: ["Substantial","Rigid","Impulses","Short"],
+    duration: 208,
+    image: HeraldImage,
+    play: Presets.Herald,
+  },
+  {
+    name: 'HoofBeat',
+    description: 'Two warm, grounded taps, ideal for mellow double confirmations or soft paired feedback.',
+    tags: ["Bold","Soft","Impulses","Short"],
+    duration: 201,
+    image: HoofBeatImage,
+    play: Presets.HoofBeat,
+  },
+  {
+    name: 'Ignition',
+    description: 'Three beats that sharpen with each hit, ideal for staged confirmations or escalating emphasis.',
+    tags: ["Bold","Flexible","Impulses","Short"],
+    duration: 173,
+    image: IgnitionImage,
+    play: Presets.Ignition,
+  },
+  {
+    name: 'Jolt',
+    description: 'The most intense hit possible, suited for critical alerts or any moment that demands absolute impact.',
+    tags: ["Bold","Rigid","Impulses","Impulse"],
+    duration: 0,
+    image: JoltImage,
+    play: Presets.Jolt,
   },
   {
     name: 'KeyboardMechanical',
-    description: 'A two-phase mechanical click with a distinct actuation point followed by a sharp snap — great for simulating the feel of a mechanical keyboard key press.',
-    tags: ["Substantial","Rigid","Impulses","Impulse"],
+    description: 'The satisfying two-stage snap of a mechanical key, great for precision typing or keyboard simulations.',
+    tags: ["Gentle","Flexible","Impulses","Impulse"],
     duration: 55,
     image: KeyboardMechanicalImage,
     play: Presets.KeyboardMechanical,
   },
   {
     name: 'KeyboardMembrane',
-    description: 'A soft, muffled press with no distinct click point — best for simulating the quiet, cushioned feel of a membrane keyboard.',
-    tags: ["Gentle","Flexible","Impulses","Short"],
+    description: 'A soft, muffled press, best for simulating the quiet feel of a membrane keyboard.',
+    tags: ["Gentle","Soft","Impulses","Short"],
     duration: 140,
     image: KeyboardMembraneImage,
     play: Presets.KeyboardMembrane,
   },
   {
-    name: 'KeyboardTypewriterOld',
-    description: 'A heavy initial strike with a mechanical resonance and two decaying echoes, evoking the satisfying thud of a vintage typewriter key, perfect for retro keyboard feedback.',
-    tags: ["Bold","Flexible","Bumps","Short"],
-    duration: 200,
-    image: KeyboardTypewriterOldImage,
-    play: Presets.KeyboardTypewriterOld,
-  },
-  {
     name: 'KnockDoor',
-    description: 'Three evenly spaced identical low-frequency taps with natural decay, evoking a polite door knock ideal for attention requests or gentle arrival signals.',
+    description: 'A polite knock announcing arrival, ideal for gentle attention requests or non-urgent presence alerts.',
     tags: ["Substantial","Soft","Bumps","Long"],
     duration: 760,
     image: KnockDoorImage,
     play: Presets.KnockDoor,
   },
   {
+    name: 'Latch',
+    description: 'The clear feel of something switching off, communicates deactivation or opting out.',
+    tags: ["Substantial","Flexible","Bumps","Short"],
+    duration: 230,
+    image: LatchImage,
+    play: Presets.Latch,
+  },
+  {
     name: 'LevelUp',
-    description: 'An ascending arpeggio of seven taps with accelerating tempo and rising amplitude that peaks in a long triumphant hold, evoking a classic RPG level-up reward.',
+    description: 'The rush of leveling up, evoking the classic RPG reward of growth and progression.',
     tags: ["Bold","Flexible","Pattern","Long"],
     duration: 2400,
     image: LevelUpImage,
     play: Presets.LevelUp,
   },
   {
+    name: 'Lighthouse',
+    description: 'Steady and bias-free, suitable for neutral status updates or steady-state notifications.',
+    tags: ["Substantial","Flexible","Pattern","Long"],
+    duration: 1050,
+    image: LighthouseImage,
+    play: Presets.Lighthouse,
+  },
+  {
     name: 'LoaderBreathing',
-    description: 'A slow, deep inhale-exhale amplitude cycle that feels like calm breathing, ideal for indicating background processing without distracting the user.',
-    tags: ["Substantial","Soft","Pattern","Long"],
+    description: 'Calm and unobtrusive, ideal for background processing that should not disturb the user.',
+    tags: ["Substantial","Soft","Bumps","Long"],
     duration: 6000,
     image: LoaderBreathingImage,
     play: Presets.LoaderBreathing,
   },
   {
     name: 'LoaderPulse',
-    description: 'A gentle, steady on-off pulse that quietly signals ongoing activity without demanding attention, suitable as a subtle loading indicator.',
-    tags: ["Gentle","Flexible","Pattern","Long"],
+    description: 'A gentle, steady pulse that quietly signals ongoing activity without demanding attention.',
+    tags: ["Gentle","Flexible","Bumps","Long"],
     duration: 2000,
     image: LoaderPulseImage,
     play: Presets.LoaderPulse,
   },
   {
     name: 'LoaderRadar',
-    description: 'A sharp ping followed by a quick decaying echo repeating every 800ms like a radar sweep, ideal for showing a system actively scanning or waiting for a server response.',
+    description: 'The focused sweep of active scanning, ideal for network requests or polling states.',
     tags: ["Substantial","Flexible","Pattern","Long"],
     duration: 2520,
     image: LoaderRadarImage,
@@ -768,79 +800,71 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'LoaderSpin',
-    description: 'Eight evenly spaced crisp ticks per cycle that feel like a mechanical spinner rotating, great for indicating a looping process with precise, regular feedback.',
-    tags: ["Substantial","Flexible","Pattern","Long"],
+    description: 'A crisp, mechanical rhythm communicating repeating progress, great for looping or spinner states.',
+    tags: ["Substantial","Flexible","Saw","Long"],
     duration: 1808,
     image: LoaderSpinImage,
     play: Presets.LoaderSpin,
   },
   {
     name: 'LoaderWave',
-    description: 'A smooth sinusoidal oscillation that gently rises and falls like an ocean wave, designed for calm background loading states that should not break the user\'s focus.',
-    tags: ["Substantial","Soft","Pattern","Long"],
+    description: 'Gentle and uninterrupting, communicates ongoing activity without breaking the user\'s focus.',
+    tags: ["Substantial","Soft","Bumps","Long"],
     duration: 2800,
     image: LoaderWaveImage,
     play: Presets.LoaderWave,
   },
   {
     name: 'Lock',
-    description: 'A soft preparatory tap followed by a crisp high-intensity snap, ideal for locking, latching, or secure-confirmation interactions.',
-    tags: ["Bold","Rigid","Bumps","Short"],
+    description: 'The satisfying click of locking into place, ideal for locking, latching, or secure-confirmation interactions.',
+    tags: ["Substantial","Flexible","Bumps","Short"],
     duration: 220,
     image: LockImage,
     play: Presets.Lock,
   },
   {
     name: 'LongPress',
-    description: 'A gentle rising tension over the hold duration that culminates in a sharp high-intensity confirmation thud, ideal for long-press activation or charge-complete feedback.',
-    tags: ["Bold","Rigid","Bump","Long"],
+    description: 'Rising tension that releases into certainty, ideal for long-press activation or charge-complete feedback.',
+    tags: ["Substantial","Flexible","Peak","Long"],
     duration: 650,
     image: LongPressImage,
     play: Presets.LongPress,
   },
   {
+    name: 'March',
+    description: 'Like an encouraging pat on the back, ideal for motivational confirmations or achievement feedback.',
+    tags: ["Substantial","Soft","Bumps","Long"],
+    duration: 900,
+    image: MarchImage,
+    play: Presets.March,
+  },
+  {
     name: 'MarioGameOver',
-    description: 'Three descending staccato hits followed by a long low rumble that fades away, capturing the deflating feeling of a game-over defeat.',
+    description: 'The sinking finality of defeat, captures the deflating feeling of a game-over moment.',
     tags: ["Bold","Flexible","Pattern","Long"],
     duration: 2450,
     image: MarioGameOverImage,
     play: Presets.MarioGameOver,
   },
   {
-    name: 'MaxImpact',
-    description: 'A single maximum-strength, maximum-sharpness burst — delivers the most intense and crisp haptic hit possible, suited for critical alerts or emphatic confirmations.',
-    tags: ["Bold","Rigid","Impulses","Impulse"],
-    duration: 0,
-    image: MaxImpactImage,
-    play: Presets.MaxImpact,
-  },
-  {
-    name: 'MutedImpact',
-    description: 'A mid-strength impulse with low sharpness that feels muted and rounded — suitable for understated feedback that still has noticeable weight.',
-    tags: ["Substantial","Soft","Impulses","Impulse"],
-    duration: 0,
-    image: MutedImpactImage,
-    play: Presets.MutedImpact,
-  },
-  {
-    name: 'NeutralClear',
-    description: 'Two identical clean mid-intensity taps evenly spaced, ideal for neutral confirmation, pagination steps, or generic two-step UI feedback.',
-    tags: ["Substantial","Flexible","Bumps","Extended"],
+    name: 'Metronome',
+    description: 'Balanced and unemotional, ideal for neutral confirmations, pagination steps, or generic two-step feedback.',
+    tags: ["Substantial","Flexible","Impulses","Extended"],
     duration: 280,
-    image: NeutralClearImage,
-    play: Presets.NeutralClear,
+    image: MetronomeImage,
+    play: Presets.Metronome,
   },
   {
-    name: 'NeutralSteady',
-    description: 'Three evenly spaced, balanced taps with no emotional charge, suitable for neutral status updates or steady-state notifications.',
-    tags: ["Substantial","Flexible","Pattern","Long"],
-    duration: 1050,
-    image: NeutralSteadyImage,
-    play: Presets.NeutralSteady,
+    name: 'Murmur',
+    description: 'Two soft, quiet taps, ideal for subtle double-step interactions or unobtrusive confirmations.',
+    tags: ["Substantial","Soft","Impulses","Impulse"],
+    duration: 80,
+    image: MurmurImage,
+    play: Presets.Murmur,
   },
   {
     name: 'NewMessage',
-    description: 'Two ascending taps with the second slightly stronger and sharper, ideal for friendly message arrival or chat notification feedback.',
+    description: 'A warm, friendly double-tap, ideal for incoming messages or chat notifications.',
     tags: ["Substantial","Flexible","Bumps","Extended"],
     duration: 380,
     image: NewMessageImage,
@@ -848,7 +872,7 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'Notification',
-    description: 'A gentle double tap with a softer second hit that politely announces an incoming notification without being intrusive.',
+    description: 'A polite, unobtrusive double tap that announces a notification without being intrusive.',
     tags: ["Substantial","Flexible","Bumps","Short"],
     duration: 180,
     image: NotificationImage,
@@ -856,7 +880,7 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'NotificationKnock',
-    description: 'A discrete two-tap notification using only impulse events, delivering a clean double-knock that announces an alert with minimal continuous vibration.',
+    description: 'A clean double-knock that announces an alert quietly, ideal for non-urgent in-app notifications.',
     tags: ["Substantial","Flexible","Bumps","Short"],
     duration: 120,
     image: NotificationKnockImage,
@@ -864,7 +888,7 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'NotificationUrgent',
-    description: 'Three rapid identical high-intensity sharp taps that are impossible to ignore, ideal for critical alerts or urgent notifications requiring immediate attention.',
+    description: 'Impossible to ignore, ideal for critical alerts or notifications that cannot wait.',
     tags: ["Bold","Rigid","Bumps","Extended"],
     duration: 265,
     image: NotificationUrgentImage,
@@ -872,7 +896,7 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'NotifyInfoStandard',
-    description: 'Two identical clean mid-intensity taps at a neutral frequency, ideal as the baseline double-tap for informational notifications.',
+    description: 'A neutral heads-up suited as a baseline for informational notifications.',
     tags: ["Substantial","Flexible","Bumps","Short"],
     duration: 215,
     image: NotifyInfoStandardImage,
@@ -880,7 +904,7 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'NotifyReminderFinal',
-    description: 'A strong initial impact that sustains then decays before a softer follow-up pulse, ideal for urgent last-call reminder or deadline-critical alerts.',
+    description: 'A commanding last-chance signal, ideal for final reminders or deadline-critical alerts.',
     tags: ["Bold","Flexible","Bumps","Extended"],
     duration: 550,
     image: NotifyReminderFinalImage,
@@ -888,23 +912,15 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'NotifyReminderNudge',
-    description: 'A gentle first tap followed after a pause by a slightly firmer second tap, ideal for soft reminder nudges that escalate attention without urgency.',
+    description: 'A patient nudge that quietly escalates, ideal for reminders that build attention without anxiety.',
     tags: ["Substantial","Flexible","Bumps","Extended"],
     duration: 425,
     image: NotifyReminderNudgeImage,
     play: Presets.NotifyReminderNudge,
   },
   {
-    name: 'NotifyReminderSoft',
-    description: 'A gentle, warm tap that fades softly, providing a polite and non-disruptive nudge for reminders or low-priority notifications.',
-    tags: ["Substantial","Flexible","Ramp","Short"],
-    duration: 180,
-    image: NotifyReminderSoftImage,
-    play: Presets.NotifyReminderSoft,
-  },
-  {
     name: 'NotifySocialMention',
-    description: 'Three quick firm taps with the final one slightly stronger, ideal for social mention or tag notifications where someone specifically called your attention.',
+    description: 'Someone specifically called your name, ideal for mentions, tags, or direct-attention notifications.',
     tags: ["Substantial","Flexible","Bumps","Extended"],
     duration: 280,
     image: NotifySocialMentionImage,
@@ -912,143 +928,167 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'NotifySocialMessage',
-    description: 'Two ascending taps with rising sharpness, giving a warm personal feel ideal for direct messages or social notifications from contacts.',
+    description: 'Warm and personal, ideal for direct messages or social notifications from people you know.',
     tags: ["Substantial","Flexible","Bumps","Extended"],
     duration: 360,
     image: NotifySocialMessageImage,
     play: Presets.NotifySocialMessage,
   },
   {
-    name: 'NotifySuccessSubtle',
-    description: 'Two ascending taps where the second is slightly higher in amplitude and frequency, conveying quiet satisfaction on a successful operation without drawing too much attention.',
-    tags: ["Substantial","Flexible","Bumps","Short"],
-    duration: 210,
-    image: NotifySuccessSubtleImage,
-    play: Presets.NotifySuccessSubtle,
-  },
-  {
     name: 'NotifyTimerDone',
-    description: 'Three evenly paced taps in a 1-2-3 rhythm with the final one stronger and longer, ideal for timer completion or countdown-finished alerts.',
+    description: 'A countdown that closes with emphasis, ideal for timer completions or countdown-finished alerts.',
     tags: ["Bold","Flexible","Bumps","Long"],
     duration: 680,
     image: NotifyTimerDoneImage,
     play: Presets.NotifyTimerDone,
   },
   {
-    name: 'NotifyWarnMild',
-    description: 'A firm initial tap followed by a softer echo, ideal for mild warnings or gentle attention-drawing notifications that do not require immediate action.',
-    tags: ["Substantial","Flexible","Bumps","Extended"],
-    duration: 290,
-    image: NotifyWarnMildImage,
-    play: Presets.NotifyWarnMild,
-  },
-  {
-    name: 'NotifyWarnModerate',
-    description: 'Three evenly spaced firm taps of equal intensity, conveying a measured urgency ideal for moderate warnings that require a response but not panic.',
-    tags: ["Bold","Flexible","Bumps","Extended"],
-    duration: 438,
-    image: NotifyWarnModerateImage,
-    play: Presets.NotifyWarnModerate,
-  },
-  {
     name: 'PassingCar',
-    description: 'A smooth Doppler-like swell that rises from silence to a peak then gradually fades, ideal for vehicle pass-by or motion-blur effects.',
-    tags: ["Bold","Flexible","Bump","Long"],
+    description: 'The whoosh of something passing at speed, ideal for vehicle pass-by or motion-blur effects.',
+    tags: ["Bold","Flexible","Peak","Long"],
     duration: 1100,
     image: PassingCarImage,
     play: Presets.PassingCar,
   },
   {
+    name: 'Patter',
+    description: 'Three mild, unforced taps, ideal for low-key acknowledgements or non-urgent triple feedback.',
+    tags: ["Substantial","Soft","Impulses","Short"],
+    duration: 179,
+    image: PatterImage,
+    play: Presets.Patter,
+  },
+  {
+    name: 'Peal',
+    description: 'Firm and measured, conveys that something needs attention soon without triggering panic.',
+    tags: ["Bold","Flexible","Bumps","Extended"],
+    duration: 438,
+    image: PealImage,
+    play: Presets.Peal,
+  },
+  {
+    name: 'Peck',
+    description: 'An ultra-short, precise tap, perfect for small icon buttons.',
+    tags: ["Gentle","Flexible","Peak","Impulse"],
+    duration: 28,
+    image: PeckImage,
+    play: Presets.Peck,
+  },
+  {
     name: 'Pendulum',
-    description: 'Rhythmic swinging oscillations that gradually fade away, evoking the natural deceleration of a pendulum coming to rest.',
+    description: 'A rhythmic swing that gradually settles, ideal for winding-down moments or calm settling effects.',
     tags: ["Substantial","Flexible","Bumps","Long"],
     duration: 2400,
     image: PendulumImage,
     play: Presets.Pendulum,
   },
   {
+    name: 'Ping',
+    description: 'A precise, definitive click, ideal for list selections or any interaction where clarity of choice matters.',
+    tags: ["Substantial","Rigid","Impulses","Impulse"],
+    duration: 35,
+    image: PingImage,
+    play: Presets.Ping,
+  },
+  {
+    name: 'Piston',
+    description: 'Two forceful, immediate strikes, ideal for commanding double-confirmations or high-energy paired actions.',
+    tags: ["Bold","Flexible","Impulses","Impulse"],
+    duration: 73,
+    image: PistonImage,
+    play: Presets.Piston,
+  },
+  {
+    name: 'Plunk',
+    description: 'Understated but present, suitable for subdued feedback that still has noticeable weight.',
+    tags: ["Substantial","Soft","Impulses","Impulse"],
+    duration: 0,
+    image: PlunkImage,
+    play: Presets.Plunk,
+  },
+  {
     name: 'PowerDown',
-    description: 'A sustained vibration that steadily slows and diminishes like an engine spinning down to a halt, suitable for shutdown or deactivation events.',
+    description: 'A steady deceleration to silence, communicates shutdown, power-off, or deactivation.',
     tags: ["Bold","Flexible","Ramp","Long"],
     duration: 1800,
     image: PowerDownImage,
     play: Presets.PowerDown,
   },
   {
-    name: 'QuadBeat',
-    description: 'Four bold taps alternating between mid and low frequency across a long pattern, offering varied rhythmic feedback.',
-    tags: ["Bold","Flexible","Impulses","Long"],
-    duration: 750,
-    image: QuadBeatImage,
-    play: Presets.QuadBeat,
-  },
-  {
-    name: 'QuadRamp',
-    description: 'Four taps starting bold and sharp then settling into medium soft taps, ideal for an attention-grabbing then settling pattern.',
-    tags: ["Substantial","Flexible","Impulses","Extended"],
-    duration: 500,
-    image: QuadRampImage,
-    play: Presets.QuadRamp,
-  },
-  {
-    name: 'QuadThud',
-    description: 'Four bold, consistently low-frequency taps spread across a long pattern, ideal for spaced strong soft feedback.',
-    tags: ["Bold","Soft","Impulses","Long"],
-    duration: 750,
-    image: QuadThudImage,
-    play: Presets.QuadThud,
+    name: 'Propel',
+    description: 'A confident forward push communicating that a form or action has been decisively submitted.',
+    tags: ["Bold","Flexible","Bumps","Extended"],
+    duration: 300,
+    image: PropelImage,
+    play: Presets.Propel,
   },
   {
     name: 'Rain',
-    description: 'Irregular gentle taps of varying intensity that mimic individual raindrops falling, suitable for ambient atmospheric effects or soft ambient notifications.',
+    description: 'Soft and unpredictable, ideal for ambient atmospheric effects or organic ambient notifications.',
     tags: ["Gentle","Flexible","Pattern","Long"],
     duration: 950,
     image: RainImage,
     play: Presets.Rain,
   },
   {
+    name: 'Ratchet',
+    description: 'A firm, assertive triple beat, suited for strong confirmations or emphatic acknowledgements.',
+    tags: ["Bold","Rigid","Impulses","Extended"],
+    duration: 398,
+    image: RatchetImage,
+    play: Presets.Ratchet,
+  },
+  {
     name: 'ReadySteadyGo',
-    description: 'Three escalating strikes spaced like a countdown — each stronger and sharper than the last — building up to a maximum full-hold final impact, perfect for race-start or countdown sequences.',
+    description: 'The electric buildup of a countdown, perfect for race starts or any go moment.',
     tags: ["Bold","Rigid","Pattern","Long"],
     duration: 2046,
     image: ReadySteadyGoImage,
     play: Presets.ReadySteadyGo,
   },
   {
+    name: 'Rebound',
+    description: 'A strong opening that softens on the second hit, ideal for double-tap confirmations.',
+    tags: ["Bold","Rigid","Impulses","Impulse"],
+    duration: 80,
+    image: ReboundImage,
+    play: Presets.Rebound,
+  },
+  {
     name: 'ReliefSigh',
-    description: 'A medium intensity release that transitions from tension to calm over a long exhale, well-suited for completing a stressful task or resolving an error.',
+    description: 'Tension releasing into calm, ideal for completing a stressful task or resolving an error.',
     tags: ["Substantial","Flexible","Ramp","Long"],
     duration: 1200,
     image: ReliefSighImage,
     play: Presets.ReliefSigh,
   },
   {
-    name: 'ReliefSoft',
-    description: 'A gentle, soothing fade that dissolves from a soft onset to silence, conveying calm relief after a mild challenge or a successful low-stakes action.',
-    tags: ["Gentle","Soft","Ramp","Long"],
-    duration: 1200,
-    image: ReliefSoftImage,
-    play: Presets.ReliefSoft,
-  },
-  {
     name: 'Ripple',
-    description: 'A strong initial impact followed by progressively weaker and softer waves, mimicking the ripple effect of a stone dropped in water.',
+    description: 'A strong hit that radiates outward in softening waves, ideal for touch ripples or impact echo effects.',
     tags: ["Bold","Flexible","Bumps","Extended"],
     duration: 420,
     image: RippleImage,
     play: Presets.Ripple,
   },
   {
-    name: 'SadnessMelancholic',
-    description: 'Slow, heavy beats that gradually diminish in amplitude and frequency like a fading heartache, best used to convey grief, loss, or deep sorrow.',
-    tags: ["Substantial","Soft","Pattern","Long"],
-    duration: 2600,
-    image: SadnessMelancholicImage,
-    play: Presets.SadnessMelancholic,
+    name: 'Rivet',
+    description: 'Three sharp, assertive beats, suited for triple-step confirmations or high-confidence feedback.',
+    tags: ["Bold","Rigid","Impulses","Short"],
+    duration: 150,
+    image: RivetImage,
+    play: Presets.Rivet,
+  },
+  {
+    name: 'Rustle',
+    description: 'A gentle heads-up that does not demand immediate action, ideal for mild warnings.',
+    tags: ["Substantial","Flexible","Bumps","Extended"],
+    duration: 290,
+    image: RustleImage,
+    play: Presets.Rustle,
   },
   {
     name: 'Searching',
-    description: 'A sharp ping with a long fade-out tail repeating every 600ms like a radar scan, ideal for search operations or polling animations.',
+    description: 'The rhythmic pulse of active searching, ideal for search operations or background polling states.',
     tags: ["Substantial","Rigid","Pattern","Long"],
     duration: 2100,
     image: SearchingImage,
@@ -1056,23 +1096,15 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'SearchSuccess',
-    description: 'Three quiet scanning pings followed by a sudden sharp burst and two triumphant echoes, conveying the satisfying moment of finding what you were looking for.',
+    description: 'The eureka moment, ideal for conveying the satisfying rush of finding what you were looking for.',
     tags: ["Bold","Rigid","Pattern","Long"],
     duration: 2000,
     image: SearchSuccessImage,
     play: Presets.SearchSuccess,
   },
   {
-    name: 'SelectionCrisp',
-    description: 'A sharp, high-frequency click that delivers a precise and unambiguous selection confirmation — ideal for list items and picker controls.',
-    tags: ["Substantial","Rigid","Impulses","Impulse"],
-    duration: 35,
-    image: SelectionCrispImage,
-    play: Presets.SelectionCrisp,
-  },
-  {
     name: 'SelectionSnap',
-    description: 'A firm snap followed by a lighter echo that conveys a locked-in selection — perfect for toggles, switches, or confirming a choice.',
+    description: 'A firm snap that conveys a locked-in selection, perfect for toggles, switches, or confirming a choice.',
     tags: ["Substantial","Flexible","Impulses","Impulse"],
     duration: 90,
     image: SelectionSnapImage,
@@ -1080,7 +1112,7 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'Shockwave',
-    description: 'An instantaneous peak of full force that dissipates outward over nearly a second, evoking a pressure wave from a nearby explosion.',
+    description: 'The pressure wave of a nearby explosion, ideal for detonations, force fields, or dramatic impacts.',
     tags: ["Bold","Flexible","Ramp","Long"],
     duration: 800,
     image: ShockwaveImage,
@@ -1088,79 +1120,119 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'Sneezing',
-    description: 'A gentle build-up through two rising taps that explodes into a strong final impact, perfectly imitating the tension-and-release sensation of a sneeze.',
-    tags: ["Bold","Flexible","Pattern","Extended"],
+    description: 'The tension-and-release of a sneeze, imitates the involuntary build and explosion.',
+    tags: ["Bold","Flexible","Peak","Extended"],
     duration: 300,
     image: SneezingImage,
     play: Presets.Sneezing,
   },
   {
     name: 'Spark',
-    description: 'Three rapid escalating pulses that snap from low to maximum intensity, ideal for electric discharge or quick-fire ignition feedback.',
-    tags: ["Bold","Rigid","Bump","Short"],
+    description: 'The snap of electric ignition, ideal for discharge effects, ignition moments, or quick-fire activation.',
+    tags: ["Bold","Rigid","Peak","Short"],
     duration: 185,
     image: SparkImage,
     play: Presets.Spark,
   },
   {
+    name: 'Stampede',
+    description: 'Four deep, measured thumps, suited for grounded step-by-step confirmation feedback.',
+    tags: ["Bold","Soft","Impulses","Long"],
+    duration: 750,
+    image: StampedeImage,
+    play: Presets.Stampede,
+  },
+  {
+    name: 'Stomp',
+    description: 'Three deep, grounded beats, suitable for unhurried triple confirmations or calm rhythmic emphasis.',
+    tags: ["Bold","Soft","Impulses","Short"],
+    duration: 150,
+    image: StompImage,
+    play: Presets.Stomp,
+  },
+  {
+    name: 'StoneSkip',
+    description: 'Three firm taps with a softening finish, suited for decisive but composed triple confirmations.',
+    tags: ["Bold","Flexible","Impulses","Short"],
+    duration: 181,
+    image: StoneSkipImage,
+    play: Presets.StoneSkip,
+  },
+  {
+    name: 'Strike',
+    description: 'A confident, decisive strike that delivers a clear and satisfying response for the main call-to-action.',
+    tags: ["Substantial","Flexible","Peak","Impulse"],
+    duration: 80,
+    image: StrikeImage,
+    play: Presets.Strike,
+  },
+  {
     name: 'SuccessFlourish',
-    description: 'A sweeping rise to a strong peak that gradually trails off with softening taps, ideal for achievement unlocked or triumphant completion feedback.',
-    tags: ["Bold","Rigid","Bump","Long"],
+    description: 'Triumphant and expansive, ideal for achievement unlocked or major task completions.',
+    tags: ["Bold","Rigid","Peak","Long"],
     duration: 917,
     image: SuccessFlourishImage,
     play: Presets.SuccessFlourish,
   },
   {
-    name: 'SuccessGentle',
-    description: 'A soft preliminary tap that steps up to a slightly firmer confirmation pulse, ideal for subtle task completion or non-intrusive positive feedback.',
-    tags: ["Substantial","Flexible","Bumps","Extended"],
-    duration: 300,
-    image: SuccessGentleImage,
-    play: Presets.SuccessGentle,
-  },
-  {
-    name: 'SupportSteady',
-    description: 'Rhythmic, reassuring taps that slowly rise and hold like a gentle hand on the shoulder, well suited for calming or encouraging feedback.',
-    tags: ["Substantial","Soft","Pattern","Long"],
-    duration: 1900,
-    image: SupportSteadyImage,
-    play: Presets.SupportSteady,
-  },
-  {
-    name: 'SupportStrong',
-    description: 'Three confident, firm taps with trailing warmth that feel like an encouraging pat on the back, ideal for motivational confirmations or achievement feedback.',
-    tags: ["Substantial","Soft","Pattern","Long"],
-    duration: 900,
-    image: SupportStrongImage,
-    play: Presets.SupportStrong,
-  },
-  {
     name: 'SurpriseGasp',
-    description: 'Two rapid, intense pulses like a sharp intake of breath from shock, well-suited for unexpected alerts or startling reveals.',
+    description: 'A shock to the senses, ideal for unexpected alerts or startling reveals.',
     tags: ["Bold","Flexible","Bumps","Extended"],
     duration: 280,
     image: SurpriseGaspImage,
     play: Presets.SurpriseGasp,
   },
   {
+    name: 'Sway',
+    description: 'Reassuring and rhythmic, ideal for calming or encouraging feedback.',
+    tags: ["Substantial","Soft","Bumps","Long"],
+    duration: 1900,
+    image: SwayImage,
+    play: Presets.Sway,
+  },
+  {
+    name: 'Syncopate',
+    description: 'A lively three-beat rhythm with mixed texture, ideal for multi-step confirmations or animated feedback.',
+    tags: ["Bold","Rigid","Impulses","Extended"],
+    duration: 399,
+    image: SyncopateImage,
+    play: Presets.Syncopate,
+  },
+  {
     name: 'Tada',
-    description: 'A crescendo of six quickening taps that climax in a bold triumphant strike with a held resonance, ideal for celebrations, completions, or fanfare moments.',
-    tags: ["Bold","Flexible","Pattern","Extended"],
+    description: 'A joyful flourish that peaks in triumph, ideal for celebrations or milestone completions.',
+    tags: ["Bold","Flexible","Saw","Extended"],
     duration: 460,
     image: TadaImage,
     play: Presets.Tada,
   },
   {
+    name: 'Thud',
+    description: 'A soft, warm acknowledgement, ideal for opening a menu or drawer.',
+    tags: ["Substantial","Flexible","Peak","Short"],
+    duration: 160,
+    image: ThudImage,
+    play: Presets.Thud,
+  },
+  {
+    name: 'Thump',
+    description: 'Confident and present without being harsh, useful for bold feedback that avoids aggression.',
+    tags: ["Bold","Flexible","Impulses","Impulse"],
+    duration: 0,
+    image: ThumpImage,
+    play: Presets.Thump,
+  },
+  {
     name: 'Thunder',
-    description: 'A deep low-frequency rumble that slowly builds before erupting into a thunderous peak and then rolling off into a long resonating echo, ideal for thunderstorm or dramatic impact moments.',
-    tags: ["Bold","Soft","Bump","Long"],
+    description: 'The raw power of a thunderstorm, ideal for dramatic reveals or moments of overwhelming force.',
+    tags: ["Bold","Soft","Peak","Long"],
     duration: 2000,
     image: ThunderImage,
     play: Presets.Thunder,
   },
   {
     name: 'ThunderRoll',
-    description: 'Thirteen taps escalating in frequency then fading in amplitude, forming a bold long impulse arc.',
+    description: 'A dramatic arc of mounting intensity, ideal for thunderstorm effects or climactic UI transitions.',
     tags: ["Bold","Flexible","Impulses","Long"],
     duration: 670,
     image: ThunderRollImage,
@@ -1168,199 +1240,127 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'TickTock',
-    description: 'An alternating strong-weak double tick pattern that mimics a clock\'s tick-tock rhythm, suitable for timing feedback or metronome-style interactions.',
+    description: 'The steady pulse of time, ideal for timing feedback, countdowns, or metronome-style interactions.',
     tags: ["Bold","Flexible","Pattern","Long"],
     duration: 1200,
     image: TickTockImage,
     play: Presets.TickTock,
   },
   {
+    name: 'TidalSurge',
+    description: 'Two waves of escalating intensity, suited for compound actions or impactful paired confirmations.',
+    tags: ["Bold","Flexible","Impulses","Extended"],
+    duration: 455,
+    image: TidalSurgeImage,
+    play: Presets.TidalSurge,
+  },
+  {
     name: 'TideSwell',
-    description: 'Fourteen medium-amplitude taps with frequency rising then falling, creating a smooth long arc of impulses.',
+    description: 'A long wave-like arc that rises and falls, ideal for extended ambient effects or fluid UI transitions.',
     tags: ["Substantial","Flexible","Impulses","Long"],
     duration: 727,
     image: TideSwellImage,
     play: Presets.TideSwell,
   },
   {
-    name: 'TripleBeat',
-    description: 'Three bold taps with mixed mid-to-low frequencies, creating a varied triple impulse pattern.',
-    tags: ["Bold","Soft","Impulses","Short"],
-    duration: 173,
-    image: TripleBeatImage,
-    play: Presets.TripleBeat,
+    name: 'Tremor',
+    description: 'Pure, heavy rumble with no sharpness, ideal for seismic events or maximum-weight impact simulations.',
+    tags: ["Bold","Soft","Impulses","Impulse"],
+    duration: 0,
+    image: TremorImage,
+    play: Presets.Tremor,
   },
   {
-    name: 'TripleClick',
-    description: 'Three bold, consistently high-frequency sharp taps in an extended pattern for strong rigid confirmation.',
-    tags: ["Bold","Rigid","Impulses","Extended"],
-    duration: 398,
-    image: TripleClickImage,
-    play: Presets.TripleClick,
-  },
-  {
-    name: 'TripleDecay',
-    description: 'Three bold taps with descending frequency from sharp to soft, forming a varied extended triple pattern.',
-    tags: ["Bold","Flexible","Impulses","Extended"],
-    duration: 399,
-    image: TripleDecayImage,
-    play: Presets.TripleDecay,
-  },
-  {
-    name: 'TripleDrum',
-    description: 'Three bold, consistently low-frequency taps in an extended pattern, suited for strong repeated soft feedback.',
-    tags: ["Bold","Soft","Impulses","Extended"],
-    duration: 398,
-    image: TripleDrumImage,
-    play: Presets.TripleDrum,
-  },
-  {
-    name: 'TripleEscalation',
-    description: 'Three bold taps escalating in frequency, delivering a dynamic triple impulse with increasing sharpness.',
-    tags: ["Bold","Flexible","Impulses","Short"],
-    duration: 173,
-    image: TripleEscalationImage,
-    play: Presets.TripleEscalation,
-  },
-  {
-    name: 'TripleFade',
-    description: 'Three bold taps with gradually decreasing amplitude and low frequency, creating a fading triple rhythm.',
-    tags: ["Bold","Soft","Impulses","Short"],
-    duration: 150,
-    image: TripleFadeImage,
-    play: Presets.TripleFade,
-  },
-  {
-    name: 'TripleGentleTap',
-    description: 'Three medium-strength taps with low-to-mid frequency range, forming a consistent soft triple pattern.',
-    tags: ["Substantial","Soft","Impulses","Short"],
-    duration: 179,
-    image: TripleGentleTapImage,
-    play: Presets.TripleGentleTap,
-  },
-  {
-    name: 'TripleKnock',
-    description: 'Two medium taps followed by a bold sharp impulse, escalating into a strong triple confirmation pattern.',
-    tags: ["Substantial","Rigid","Impulses","Short"],
-    duration: 208,
-    image: TripleKnockImage,
-    play: Presets.TripleKnock,
-  },
-  {
-    name: 'TriplePat',
-    description: 'Three consistent medium taps with flexible frequency, offering a steady extended triple rhythm.',
-    tags: ["Substantial","Flexible","Impulses","Extended"],
-    duration: 231,
-    image: TriplePatImage,
-    play: Presets.TriplePat,
-  },
-  {
-    name: 'TriplePulse',
-    description: 'Three bold taps with mixed high-mid-high frequency, creating a strong extended triple pattern with varied sharpness.',
-    tags: ["Bold","Rigid","Impulses","Extended"],
-    duration: 399,
-    image: TriplePulseImage,
-    play: Presets.TriplePulse,
-  },
-  {
-    name: 'TripleStrike',
-    description: 'Three bold taps with descending frequency from rigid to soft, suitable for a firm triple-tap confirmation.',
-    tags: ["Bold","Flexible","Impulses","Short"],
-    duration: 181,
-    image: TripleStrikeImage,
-    play: Presets.TripleStrike,
-  },
-  {
-    name: 'TripleSurge',
-    description: 'Two medium flexible taps followed by a bold soft impulse, forming an escalating triple pattern.',
-    tags: ["Substantial","Flexible","Impulses","Short"],
-    duration: 202,
-    image: TripleSurgeImage,
-    play: Presets.TripleSurge,
-  },
-  {
-    name: 'TripleTap',
-    description: 'Three bold, sharp high-frequency taps delivering a crisp triple-confirmation pattern.',
-    tags: ["Bold","Rigid","Impulses","Short"],
-    duration: 150,
-    image: TripleTapImage,
-    play: Presets.TripleTap,
-  },
-  {
-    name: 'TripleThud',
-    description: 'Three bold, low-frequency taps in a steady triple pattern suited for strong but soft rhythmic feedback.',
-    tags: ["Bold","Soft","Impulses","Short"],
-    duration: 150,
-    image: TripleThudImage,
-    play: Presets.TripleThud,
+    name: 'Typewriter',
+    description: 'The nostalgic thud of a vintage typewriter, perfect for retro keyboard or analog-feel experiences.',
+    tags: ["Bold","Flexible","Peak","Short"],
+    duration: 200,
+    image: TypewriterImage,
+    play: Presets.Typewriter,
   },
   {
     name: 'Victory',
-    description: 'A building fanfare of rising taps that peaks in three powerful repeated strikes, conveying triumph and achievement for major success moments.',
-    tags: ["Bold","Flexible","Pattern","Long"],
+    description: 'Pure triumph, conveys the overwhelming joy of a major win or achievement.',
+    tags: ["Bold","Flexible","Saw","Long"],
     duration: 1100,
     image: VictoryImage,
     play: Presets.Victory,
   },
   {
     name: 'Vomiting',
-    description: 'A quick ramp to a strong peak followed by a slow low-frequency decay, ideal for disgust reactions or sudden forceful expulsion moments.',
-    tags: ["Bold","Flexible","Bump","Extended"],
+    description: 'The involuntary heave of disgust, ideal for aversion reactions or gross-out moments in playful UI contexts.',
+    tags: ["Bold","Flexible","Peak","Extended"],
     duration: 380,
     image: VomitingImage,
     play: Presets.Vomiting,
   },
   {
     name: 'Vortex',
-    description: 'An exponentially accelerating spiral that pulls from a whisper to a full-force peak before snapping off, ideal for black-hole pull or draining funnel effects.',
-    tags: ["Bold","Rigid","Bump","Long"],
+    description: 'An irresistible pull into the unknown, ideal for drain animations or dramatic disappearing transitions.',
+    tags: ["Substantial","Flexible","Peak","Long"],
     duration: 1400,
     image: VortexImage,
     play: Presets.Vortex,
   },
   {
+    name: 'WarDrum',
+    description: 'Three steady drum-like beats, ideal for grounded triple confirmations or structured repetitive feedback.',
+    tags: ["Bold","Soft","Impulses","Extended"],
+    duration: 398,
+    image: WarDrumImage,
+    play: Presets.WarDrum,
+  },
+  {
     name: 'WarningPulse',
-    description: 'A strong sharp strike followed by a softer echo like an accelerated heartbeat, ideal for warning alerts or pre-danger tension feedback.',
-    tags: ["Bold","Flexible","Bumps","Short"],
+    description: 'An accelerated heartbeat that signals something is wrong, ideal for pre-danger tension or warning states.',
+    tags: ["Substantial","Flexible","Impulses","Short"],
     duration: 230,
     image: WarningPulseImage,
     play: Presets.WarningPulse,
   },
   {
-    name: 'WarningSoft',
-    description: 'A single, composed pulse that tapers off cleanly, delivering a subtle heads-up for non-critical warnings without interrupting the user.',
-    tags: ["Substantial","Flexible","Ramp","Short"],
-    duration: 200,
-    image: WarningSoftImage,
-    play: Presets.WarningSoft,
-  },
-  {
     name: 'WarningUrgent',
-    description: 'Four rapid uniform bold taps delivered in quick succession, demanding immediate user attention ideal for critical warnings or emergency alerts.',
-    tags: ["Bold","Rigid","Bumps","Extended"],
+    description: 'Impossible to ignore, suited for critical warnings, emergency alerts, or safety-critical states.',
+    tags: ["Bold","Flexible","Saw","Extended"],
     duration: 430,
     image: WarningUrgentImage,
     play: Presets.WarningUrgent,
   },
   {
     name: 'Waterfall',
-    description: 'Seven bold taps with rapidly decreasing frequency, transitioning from sharp to soft across an extended pattern.',
+    description: 'A rush of energy that spills and softens, ideal for clearing actions or flowing state transitions.',
     tags: ["Bold","Flexible","Impulses","Extended"],
     duration: 309,
     image: WaterfallImage,
     play: Presets.Waterfall,
   },
   {
+    name: 'Wisp',
+    description: 'A barely-there touch, best for ghost or outline buttons that should feel subtle and unobtrusive.',
+    tags: ["Gentle","Flexible","Peak","Impulse"],
+    duration: 60,
+    image: WispImage,
+    play: Presets.Wisp,
+  },
+  {
+    name: 'Wobble',
+    description: 'A gentle correction without alarm, ideal for minor validation errors or soft negative feedback.',
+    tags: ["Substantial","Rigid","Peak","Ramp","Short"],
+    duration: 180,
+    image: WobbleImage,
+    play: Presets.Wobble,
+  },
+  {
     name: 'Woodpecker',
-    description: 'Ten evenly-spaced, hard taps at constant amplitude and high frequency, like rapid machine-like pecking, suitable for mechanical or repetitive action feedback.',
-    tags: ["Substantial","Rigid","Solid","Extended"],
+    description: 'Mechanical and relentless, ideal for repetitive automated sequences where precision is key.',
+    tags: ["Bold","Rigid","Solid","Extended"],
     duration: 460,
     image: WoodpeckerImage,
     play: Presets.Woodpecker,
   },
   {
     name: 'ZeldaChest',
-    description: 'A rapid four-note ascending arpeggio with escalating amplitude followed by a long sustained triumphant hold, evoking the classic treasure chest discovery moment.',
+    description: 'The unmistakable thrill of discovery, evoking the iconic joy of opening a treasure chest.',
     tags: ["Bold","Flexible","Pattern","Long"],
     duration: 1180,
     image: ZeldaChestImage,
@@ -1368,7 +1368,7 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'Zipper',
-    description: 'A quiet, steady buzz punctuated by evenly-spaced ticks that ends with a final snap, mimicking the sensation of pulling a zipper closed.',
+    description: 'The familiar drag and snap of a zipper closing, ideal for closure interactions or drawer animations.',
     tags: ["Gentle","Flexible","Solid","Extended"],
     duration: 460,
     image: ZipperImage,

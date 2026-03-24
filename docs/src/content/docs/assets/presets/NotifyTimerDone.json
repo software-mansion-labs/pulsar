@@ -51,23 +51,13 @@
   },
   "discretePattern": [
     {
-      "time": 0,
-      "amplitude": 0.7,
-      "frequency": 0.58
-    },
-    {
-      "time": 200,
-      "amplitude": 0.7,
-      "frequency": 0.58
-    },
-    {
       "time": 400,
       "amplitude": 0.9,
       "frequency": 0.65
     }
   ],
   "name": "NotifyTimerDone",
-  "description": "Three evenly paced taps in a 1-2-3 rhythm with the final one stronger and longer, ideal for timer completion or countdown-finished alerts.",
+  "description": "A countdown that closes with emphasis, ideal for timer completions or countdown-finished alerts.",
   "tags": [
     "Bold",
     "Flexible",

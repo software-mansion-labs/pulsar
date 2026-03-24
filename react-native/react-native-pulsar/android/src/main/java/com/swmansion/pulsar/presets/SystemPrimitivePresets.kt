@@ -43,11 +43,13 @@ class SystemPrimitivePresets(private val engine: HapticEngineWrapper) {
 class SystemEffectClickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.65f, 0.85f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -60,11 +62,14 @@ class SystemEffectClickPreset(haptics: Pulsar, private val systemPresets: System
 class SystemDoubleClickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.65f, 0.85f),
+                listOf(120.0f, 0.55f, 0.8f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -77,11 +82,13 @@ class SystemDoubleClickPreset(haptics: Pulsar, private val systemPresets: System
 class SystemTickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.2f, 0.9f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -94,11 +101,13 @@ class SystemTickPreset(haptics: Pulsar, private val systemPresets: SystemPrimiti
 class SystemHeavyClickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.9f, 0.45f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {

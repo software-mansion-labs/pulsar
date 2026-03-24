@@ -1,6 +1,6 @@
 {
   "name": "CoinDrop",
-  "description": "A rapid sequence of irregular high-frequency taps of varying strength that mimics coins falling one by one, ideal for reward or payment confirmation feedback.",
+  "description": "A playful cascade of coins, ideal for reward moments, payment confirmations, or in-app purchases.",
   "discretePattern": [
     {
       "time": 0,
@@ -141,7 +141,7 @@
   "tags": [
     "Bold",
     "Rigid",
-    "Pattern",
+    "Saw",
     "Extended"
   ],
   "duration": 675

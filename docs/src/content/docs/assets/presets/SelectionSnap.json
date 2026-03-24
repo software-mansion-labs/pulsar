@@ -1,6 +1,6 @@
 {
   "name": "SelectionSnap",
-  "description": "A firm snap followed by a lighter echo that conveys a locked-in selection \u2014 perfect for toggles, switches, or confirming a choice.",
+  "description": "A firm snap that conveys a locked-in selection, perfect for toggles, switches, or confirming a choice.",
   "discretePattern": [
     {
       "time": 0,

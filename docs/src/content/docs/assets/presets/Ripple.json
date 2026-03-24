@@ -6,10 +6,6 @@
         "value": 0
       },
       {
-        "time": 5,
-        "value": 1
-      },
-      {
         "time": 70,
         "value": 0
       },
@@ -60,8 +56,8 @@
   "discretePattern": [
     {
       "time": 0,
-      "amplitude": 1,
-      "frequency": 0.65
+      "amplitude": 0.858,
+      "frequency": 0.72
     },
     {
       "time": 140,
@@ -80,7 +76,7 @@
     }
   ],
   "name": "Ripple",
-  "description": "A strong initial impact followed by progressively weaker and softer waves, mimicking the ripple effect of a stone dropped in water.",
+  "description": "A strong hit that radiates outward in softening waves, ideal for touch ripples or impact echo effects.",
   "tags": [
     "Bold",
     "Flexible",

@@ -13,17 +13,17 @@ public class PatternComposer: NSObject {
   private var discretePattern: CHHapticPattern?
   private var audioBuffer: AVAudioPCMBuffer?
   private var audioSimulator: AudioSimulator!
-    
+
   public convenience init(engine: HapticEngineWrapper, audioSimulator: AudioSimulator) {
     self.init()
     self.engine = engine
     self.audioSimulator = audioSimulator
   }
-  
+
   deinit {
     stop()
   }
-  
+
   public func parseJSON(_ jsonData: String) -> PatternData? {
     let decoder = JSONDecoder()
     do {
@@ -33,25 +33,25 @@ public class PatternComposer: NSObject {
       return nil
     }
   }
-  
+
   @objc public func parsePattern(hapticsData: PatternData) {
     discreteLine.reset()
     continuousLine.reset()
-    
+
     let intensityCurveLine = continuousLine.intensityCurveLine
     let sharpnessCurveLine = continuousLine.sharpnessCurveLine
-    
+
     for discretePoint in hapticsData.discretePattern {
       discreteLine.addEvent(timestamp: discretePoint.time, intensity: discretePoint.amplitude, sharpness: discretePoint.frequency)
     }
-    
+
     for intensityPoint in hapticsData.continuousPattern.amplitude {
       intensityCurveLine.addPoint(time: intensityPoint.time, value: intensityPoint.value)
     }
     for sharpnessPoint in hapticsData.continuousPattern.frequency {
       sharpnessCurveLine.addPoint(time: sharpnessPoint.time, value: sharpnessPoint.value)
     }
-    
+
     do {
       if (!intensityCurveLine.isEmpty && !sharpnessCurveLine.isEmpty) {
         let pattern = try CHHapticPattern(
@@ -86,15 +86,15 @@ public class PatternComposer: NSObject {
     } catch {
       print("Error playing pattern: \(error.localizedDescription)")
     }
-    
+
     audioBuffer = audioSimulator.parsePattern(from: hapticsData)
   }
-  
+
   public func playPattern(hapticsData: PatternData) {
     self.parsePattern(hapticsData: hapticsData)
     self.play()
   }
-  
+
   @objc public func play() {
     audioSimulator.play(buffer: audioBuffer)
     if let id = continuousPlayerId { engine.playPlayer(id: id, pattern: continuousPattern) }
@@ -104,7 +104,7 @@ public class PatternComposer: NSObject {
   @objc public func playAudioOnly() {
     audioSimulator.play(buffer: audioBuffer)
   }
-  
+
   @objc public func stop() {
     audioSimulator.stop()
     if let id = continuousPlayerId { engine.stopPlayer(id: id) }

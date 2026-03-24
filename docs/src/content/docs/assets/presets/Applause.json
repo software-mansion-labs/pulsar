@@ -111,11 +111,11 @@
     }
   ],
   "name": "Applause",
-  "description": "A slowly building wave of discrete taps that gradually increases in intensity and sharpness, ideal for celebratory or crowd-approval moments.",
+  "description": "A growing wave of appreciation, ideal for celebratory moments or social approval.",
   "tags": [
-    "Bold",
-    "Rigid",
-    "Bump",
+    "Substantial",
+    "Flexible",
+    "Solid",
     "Long"
   ],
   "duration": 1564

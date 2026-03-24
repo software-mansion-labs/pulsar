@@ -48,7 +48,7 @@
   "discretePattern": [
     {
       "time": 0,
-      "amplitude": 1,
+      "amplitude": 0.872,
       "frequency": 0.7
     },
     {
@@ -63,11 +63,11 @@
     }
   ],
   "name": "AimingFire",
-  "description": "A sharp, powerful strike followed by a decaying echo, ideal for confirming a triggered action like firing a weapon or releasing a charged gesture.",
+  "description": "The decisive moment of release, ideal for weapon discharge, trigger confirmation, or releasing a charged gesture.",
   "tags": [
     "Bold",
     "Flexible",
-    "Bumps",
+    "Peak",
     "Extended"
   ],
   "duration": 280

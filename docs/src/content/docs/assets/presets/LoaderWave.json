@@ -1,6 +1,6 @@
 {
   "name": "LoaderWave",
-  "description": "A smooth sinusoidal oscillation that gently rises and falls like an ocean wave, designed for calm background loading states that should not break the user's focus.",
+  "description": "Gentle and uninterrupting, communicates ongoing activity without breaking the user's focus.",
   "discretePattern": [],
   "continuousPattern": {
     "amplitude": [
@@ -51,7 +51,7 @@
   "tags": [
     "Substantial",
     "Soft",
-    "Pattern",
+    "Bumps",
     "Long"
   ],
   "duration": 2800

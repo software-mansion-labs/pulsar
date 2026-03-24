@@ -35,11 +35,11 @@
   },
   "discretePattern": [],
   "name": "LoaderBreathing",
-  "description": "A slow, deep inhale-exhale amplitude cycle that feels like calm breathing, ideal for indicating background processing without distracting the user.",
+  "description": "Calm and unobtrusive, ideal for background processing that should not disturb the user.",
   "tags": [
     "Substantial",
     "Soft",
-    "Pattern",
+    "Bumps",
     "Long"
   ],
   "duration": 6000

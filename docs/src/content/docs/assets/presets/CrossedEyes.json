@@ -1,7 +1,7 @@
 {
-  "emoji": "\ud83d\ude35",
+  "emoji": "😵",
   "name": "CrossedEyes",
-  "description": "A disorienting sequence of impacts with rapidly shifting frequency that fades out, simulating the woozy dizziness of being stunned or hit.",
+  "description": "Woozy and disorienting, ideal for confusion, error overload, or hit-stun effects.",
   "discretePattern": [
     {
       "time": 0,
@@ -89,7 +89,7 @@
   "tags": [
     "Substantial",
     "Flexible",
-    "Pattern",
+    "Saw",
     "Extended"
   ],
   "duration": 320

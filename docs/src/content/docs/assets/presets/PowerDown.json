@@ -53,7 +53,7 @@
     }
   ],
   "name": "PowerDown",
-  "description": "A sustained vibration that steadily slows and diminishes like an engine spinning down to a halt, suitable for shutdown or deactivation events.",
+  "description": "A steady deceleration to silence, communicates shutdown, power-off, or deactivation.",
   "tags": [
     "Bold",
     "Flexible",

@@ -1,6 +1,6 @@
 {
   "name": "AngerFrustration",
-  "description": "An escalating burst of sharp, high-frequency impacts that builds to a maximum strike, conveying intense frustration or a forceful block event.",
+  "description": "Escalating rage that peaks at full force, suited for blocked actions, critical failures, or frustrated moments.",
   "discretePattern": [
     {
       "time": 0,
@@ -93,7 +93,7 @@
   "tags": [
     "Bold",
     "Rigid",
-    "Pattern",
+    "Saw",
     "Extended"
   ],
   "duration": 450

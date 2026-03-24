@@ -1,6 +1,6 @@
 {
   "name": "LoaderSpin",
-  "description": "Eight evenly spaced crisp ticks per cycle that feel like a mechanical spinner rotating, great for indicating a looping process with precise, regular feedback.",
+  "description": "A crisp, mechanical rhythm communicating repeating progress, great for looping or spinner states.",
   "discretePattern": [
     {
       "time": 0,
@@ -128,7 +128,7 @@
   "tags": [
     "Substantial",
     "Flexible",
-    "Pattern",
+    "Saw",
     "Long"
   ],
   "duration": 1808

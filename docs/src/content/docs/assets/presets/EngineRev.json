@@ -55,19 +55,9 @@
   },
   "discretePattern": [
     {
-      "time": 0,
-      "amplitude": 0.2,
-      "frequency": 0.1
-    },
-    {
       "time": 700,
       "amplitude": 0.8,
       "frequency": 0.4
-    },
-    {
-      "time": 720,
-      "amplitude": 0.3,
-      "frequency": 0.15
     },
     {
       "time": 1400,
@@ -76,7 +66,7 @@
     }
   ],
   "name": "EngineRev",
-  "description": "Two revving surges separated by a gear-shift dip, building from idle to full throttle, ideal for racing games or mechanical acceleration feedback.",
+  "description": "The thrill of revving to full throttle, ideal for racing games or mechanical acceleration feedback.",
   "tags": [
     "Bold",
     "Flexible",

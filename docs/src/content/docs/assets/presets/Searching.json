@@ -1,6 +1,6 @@
 {
   "name": "Searching",
-  "description": "A sharp ping with a long fade-out tail repeating every 600ms like a radar scan, ideal for search operations or polling animations.",
+  "description": "The rhythmic pulse of active searching, ideal for search operations or background polling states.",
   "discretePattern": [
     {
       "time": 0,

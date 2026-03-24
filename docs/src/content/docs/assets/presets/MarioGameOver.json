@@ -1,6 +1,6 @@
 {
   "name": "MarioGameOver",
-  "description": "Three descending staccato hits followed by a long low rumble that fades away, capturing the deflating feeling of a game-over defeat.",
+  "description": "The sinking finality of defeat, captures the deflating feeling of a game-over moment.",
   "discretePattern": [
     {
       "time": 0,

@@ -1,6 +1,6 @@
 {
   "name": "LoaderPulse",
-  "description": "A gentle, steady on-off pulse that quietly signals ongoing activity without demanding attention, suitable as a subtle loading indicator.",
+  "description": "A gentle, steady pulse that quietly signals ongoing activity without demanding attention.",
   "discretePattern": [],
   "continuousPattern": {
     "amplitude": [
@@ -47,7 +47,7 @@
   "tags": [
     "Gentle",
     "Flexible",
-    "Pattern",
+    "Bumps",
     "Long"
   ],
   "duration": 2000

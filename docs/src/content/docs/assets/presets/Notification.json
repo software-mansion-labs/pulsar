@@ -1,6 +1,6 @@
 {
   "name": "Notification",
-  "description": "A gentle double tap with a softer second hit that politely announces an incoming notification without being intrusive.",
+  "description": "A polite, unobtrusive double tap that announces a notification without being intrusive.",
   "discretePattern": [
     {
       "time": 0,

@@ -1,38 +1,4 @@
 {
-  "name": "SearchSuccess",
-  "description": "Three quiet scanning pings followed by a sudden sharp burst and two triumphant echoes, conveying the satisfying moment of finding what you were looking for.",
-  "discretePattern": [
-    {
-      "time": 0,
-      "amplitude": 0.35,
-      "frequency": 0.7
-    },
-    {
-      "time": 600,
-      "amplitude": 0.35,
-      "frequency": 0.7
-    },
-    {
-      "time": 1200,
-      "amplitude": 0.35,
-      "frequency": 0.7
-    },
-    {
-      "time": 1650,
-      "amplitude": 1,
-      "frequency": 0.75
-    },
-    {
-      "time": 1800,
-      "amplitude": 0.65,
-      "frequency": 0.65
-    },
-    {
-      "time": 1920,
-      "amplitude": 0.4,
-      "frequency": 0.6
-    }
-  ],
   "continuousPattern": {
     "amplitude": [
       {
@@ -76,12 +42,12 @@
         "value": 0
       },
       {
-        "time": 1650,
+        "time": 1620,
         "value": 0
       },
       {
-        "time": 1655,
-        "value": 1
+        "time": 1663,
+        "value": 0.855
       },
       {
         "time": 1700,
@@ -123,6 +89,35 @@
       }
     ]
   },
+  "discretePattern": [
+    {
+      "time": 0,
+      "amplitude": 0.35,
+      "frequency": 0.7
+    },
+    {
+      "time": 600,
+      "amplitude": 0.35,
+      "frequency": 0.7
+    },
+    {
+      "time": 1200,
+      "amplitude": 0.35,
+      "frequency": 0.7
+    },
+    {
+      "time": 1800,
+      "amplitude": 0.65,
+      "frequency": 0.65
+    },
+    {
+      "time": 1920,
+      "amplitude": 0.4,
+      "frequency": 0.6
+    }
+  ],
+  "name": "SearchSuccess",
+  "description": "The eureka moment, ideal for conveying the satisfying rush of finding what you were looking for.",
   "tags": [
     "Bold",
     "Rigid",

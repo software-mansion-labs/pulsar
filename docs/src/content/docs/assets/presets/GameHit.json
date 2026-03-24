@@ -51,11 +51,11 @@
     }
   ],
   "name": "GameHit",
-  "description": "A hard, snappy strike that decays rapidly through diminishing resonance, perfect for registering damage or collision impacts in games.",
+  "description": "The instant punch of impact, perfect for collision events or taking a hit in games.",
   "tags": [
     "Bold",
     "Flexible",
-    "Ramp",
+    "Peak",
     "Short"
   ],
   "duration": 200

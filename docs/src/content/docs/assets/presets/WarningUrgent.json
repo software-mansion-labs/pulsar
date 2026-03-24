@@ -72,11 +72,11 @@
     }
   ],
   "name": "WarningUrgent",
-  "description": "Four rapid uniform bold taps delivered in quick succession, demanding immediate user attention ideal for critical warnings or emergency alerts.",
+  "description": "Impossible to ignore, suited for critical warnings, emergency alerts, or safety-critical states.",
   "tags": [
     "Bold",
-    "Rigid",
-    "Bumps",
+    "Flexible",
+    "Saw",
     "Extended"
   ],
   "duration": 430

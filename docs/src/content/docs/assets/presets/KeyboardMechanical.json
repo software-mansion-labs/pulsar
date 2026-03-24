@@ -1,6 +1,6 @@
 {
   "name": "KeyboardMechanical",
-  "description": "A two-phase mechanical click with a distinct actuation point followed by a sharp snap \u2014 great for simulating the feel of a mechanical keyboard key press.",
+  "description": "The satisfying two-stage snap of a mechanical key, great for precision typing or keyboard simulations.",
   "discretePattern": [
     {
       "time": 0,
@@ -56,8 +56,8 @@
     ]
   },
   "tags": [
-    "Substantial",
-    "Rigid",
+    "Gentle",
+    "Flexible",
     "Impulses",
     "Impulse"
   ],

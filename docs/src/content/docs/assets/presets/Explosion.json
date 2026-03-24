@@ -49,21 +49,26 @@
     {
       "time": 0,
       "amplitude": 1,
-      "frequency": 0.3
+      "frequency": 0.4
     },
     {
       "time": 50,
       "amplitude": 0.8,
-      "frequency": 0.25
+      "frequency": 0.328
     },
     {
       "time": 120,
-      "amplitude": 0.5,
-      "frequency": 0.2
+      "amplitude": 0.722,
+      "frequency": 0.256
+    },
+    {
+      "time": 187,
+      "amplitude": 0.594,
+      "frequency": 0.138
     }
   ],
   "name": "Explosion",
-  "description": "A maximum-force detonation impact that decays into a long, deep rumble, ideal for game explosions or dramatic destructive events.",
+  "description": "A catastrophic detonation that echoes into rumble, ideal for game destruction events or dramatic impacts.",
   "tags": [
     "Bold",
     "Soft",

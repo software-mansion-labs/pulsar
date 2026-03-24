@@ -1,6 +1,6 @@
 {
   "name": "GamePickup",
-  "description": "A light, sparkling double-burst that mimics picking up an item \u2014 ideal for in-game collectible or power-up feedback.",
+  "description": "A light, sparkling burst, ideal for in-game collectibles or power-up feedback.",
   "discretePattern": [
     {
       "time": 0,

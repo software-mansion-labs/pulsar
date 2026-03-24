@@ -72,13 +72,13 @@
     }
   ],
   "name": "Vomiting",
-  "description": "A quick ramp to a strong peak followed by a slow low-frequency decay, ideal for disgust reactions or sudden forceful expulsion moments.",
+  "description": "The involuntary heave of disgust, ideal for aversion reactions or gross-out moments in playful UI contexts.",
   "tags": [
     "Bold",
     "Flexible",
-    "Bump",
+    "Peak",
     "Extended"
   ],
   "duration": 380,
-  "emoji": "\ud83e\udd2e"
+  "emoji": "🤮"
 }

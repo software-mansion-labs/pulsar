@@ -89,13 +89,13 @@
     }
   ],
   "name": "ExplodingHead",
-  "description": "A rapid ramp to full-peak intensity followed by a sharp decay, ideal for overwhelming surprise or mind-blowing reveal moments.",
+  "description": "A mind-blowing jolt, ideal for overwhelming surprise or impossible-to-believe reveals.",
   "tags": [
     "Bold",
     "Rigid",
-    "Bump",
+    "Peak",
     "Extended"
   ],
   "duration": 380,
-  "emoji": "\ud83e\udd2f"
+  "emoji": "🤯"
 }

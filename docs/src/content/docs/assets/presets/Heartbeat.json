@@ -1,6 +1,6 @@
 {
   "name": "Heartbeat",
-  "description": "A rhythmic lub-dub double-beat pattern with a strong first strike and softer echo, perfect for conveying life, tension, or a living system state.",
+  "description": "The familiar lub-dub of life and tension, perfect for health apps or anxious waiting moments.",
   "discretePattern": [
     {
       "time": 0,
@@ -78,7 +78,7 @@
     ]
   },
   "tags": [
-    "Bold",
+    "Substantial",
     "Soft",
     "Pattern",
     "Long"

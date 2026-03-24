@@ -66,11 +66,11 @@
     }
   ],
   "name": "LongPress",
-  "description": "A gentle rising tension over the hold duration that culminates in a sharp high-intensity confirmation thud, ideal for long-press activation or charge-complete feedback.",
+  "description": "Rising tension that releases into certainty, ideal for long-press activation or charge-complete feedback.",
   "tags": [
-    "Bold",
-    "Rigid",
-    "Bump",
+    "Substantial",
+    "Flexible",
+    "Peak",
     "Long"
   ],
   "duration": 650

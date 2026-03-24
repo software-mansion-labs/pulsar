@@ -46,11 +46,11 @@
     }
   ],
   "name": "WarningPulse",
-  "description": "A strong sharp strike followed by a softer echo like an accelerated heartbeat, ideal for warning alerts or pre-danger tension feedback.",
+  "description": "An accelerated heartbeat that signals something is wrong, ideal for pre-danger tension or warning states.",
   "tags": [
-    "Bold",
+    "Substantial",
     "Flexible",
-    "Bumps",
+    "Impulses",
     "Short"
   ],
   "duration": 230

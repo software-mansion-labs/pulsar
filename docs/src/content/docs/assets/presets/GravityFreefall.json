@@ -69,11 +69,11 @@
     }
   ],
   "name": "GravityFreefall",
-  "description": "A near-silent buildup that accelerates into a sudden full-force impact, ideal for drop effects or dramatic collision moments.",
+  "description": "The terrifying pause before impact, ideal for drop effects or dramatic collision moments.",
   "tags": [
     "Bold",
     "Soft",
-    "Bump",
+    "Peak",
     "Long"
   ],
   "duration": 1050

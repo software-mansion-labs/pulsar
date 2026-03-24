@@ -1,6 +1,6 @@
 {
   "name": "Alarm",
-  "description": "A relentless alternating high-low pulse pattern that mimics a ringing alarm bell, best used for urgent alerts or critical error states.",
+  "description": "Relentless and urgent, best for critical errors or emergencies that require immediate attention.",
   "discretePattern": [
     {
       "time": 0,
@@ -141,7 +141,7 @@
   },
   "tags": [
     "Bold",
-    "Flexible",
+    "Rigid",
     "Pattern",
     "Extended"
   ],

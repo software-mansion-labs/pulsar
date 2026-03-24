@@ -98,11 +98,13 @@ class SystemViewBasedPresets(private var context: Context) {
 class SystemLongPressPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.55f, 0.35f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -115,11 +117,13 @@ class SystemLongPressPreset(haptics: Pulsar, private val systemPresets: SystemVi
 class SystemVirtualKeyPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.4f, 0.7f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -132,11 +136,13 @@ class SystemVirtualKeyPreset(haptics: Pulsar, private val systemPresets: SystemV
 class SystemKeyboardTapPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.3f, 0.8f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -149,11 +155,13 @@ class SystemKeyboardTapPreset(haptics: Pulsar, private val systemPresets: System
 class SystemClockTickPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.18f, 0.9f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -166,11 +174,13 @@ class SystemClockTickPreset(haptics: Pulsar, private val systemPresets: SystemVi
 class SystemCalendarDatePreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.28f, 0.75f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -183,11 +193,13 @@ class SystemCalendarDatePreset(haptics: Pulsar, private val systemPresets: Syste
 class SystemContextClickPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.3f, 0.78f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -200,11 +212,13 @@ class SystemContextClickPreset(haptics: Pulsar, private val systemPresets: Syste
 class SystemKeyboardPressPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.35f, 0.65f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -217,11 +231,13 @@ class SystemKeyboardPressPreset(haptics: Pulsar, private val systemPresets: Syst
 class SystemKeyboardReleasePreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.22f, 0.7f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -234,11 +250,13 @@ class SystemKeyboardReleasePreset(haptics: Pulsar, private val systemPresets: Sy
 class SystemVirtualKeyReleasePreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.18f, 0.65f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -251,11 +269,13 @@ class SystemVirtualKeyReleasePreset(haptics: Pulsar, private val systemPresets: 
 class SystemTextHandleMovePreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.12f, 0.85f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -268,11 +288,13 @@ class SystemTextHandleMovePreset(haptics: Pulsar, private val systemPresets: Sys
 class SystemDragCrossingPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.3f, 0.6f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -285,11 +307,13 @@ class SystemDragCrossingPreset(haptics: Pulsar, private val systemPresets: Syste
 class SystemGestureStartPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.42f, 0.55f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -302,11 +326,13 @@ class SystemGestureStartPreset(haptics: Pulsar, private val systemPresets: Syste
 class SystemGestureEndPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.3f, 0.5f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -319,11 +345,13 @@ class SystemGestureEndPreset(haptics: Pulsar, private val systemPresets: SystemV
 class SystemEdgeSqueezePreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.65f, 0.3f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -336,11 +364,13 @@ class SystemEdgeSqueezePreset(haptics: Pulsar, private val systemPresets: System
 class SystemEdgeReleasePreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.35f, 0.4f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -353,11 +383,14 @@ class SystemEdgeReleasePreset(haptics: Pulsar, private val systemPresets: System
 class SystemConfirmPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.4f, 0.55f),
+                listOf(120.0f, 0.75f, 0.55f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -370,11 +403,14 @@ class SystemConfirmPreset(haptics: Pulsar, private val systemPresets: SystemView
 class SystemReleasePreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.65f, 0.3f),
+                listOf(130.0f, 0.75f, 0.25f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -387,11 +423,13 @@ class SystemReleasePreset(haptics: Pulsar, private val systemPresets: SystemView
 class SystemScrollTickPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.15f, 0.9f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -404,11 +442,13 @@ class SystemScrollTickPreset(haptics: Pulsar, private val systemPresets: SystemV
 class SystemScrollItemFocusPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.22f, 0.8f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -421,11 +461,13 @@ class SystemScrollItemFocusPreset(haptics: Pulsar, private val systemPresets: Sy
 class SystemScrollLimitPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.55f, 0.3f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -438,11 +480,13 @@ class SystemScrollLimitPreset(haptics: Pulsar, private val systemPresets: System
 class SystemToggleOnPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.4f, 0.65f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -455,11 +499,13 @@ class SystemToggleOnPreset(haptics: Pulsar, private val systemPresets: SystemVie
 class SystemToggleOffPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.25f, 0.55f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -472,11 +518,13 @@ class SystemToggleOffPreset(haptics: Pulsar, private val systemPresets: SystemVi
 class SystemDragStartPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.35f, 0.5f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -489,11 +537,13 @@ class SystemDragStartPreset(haptics: Pulsar, private val systemPresets: SystemVi
 class SystemSegmentTickPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.18f, 0.85f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {
@@ -506,11 +556,13 @@ class SystemSegmentTickPreset(haptics: Pulsar, private val systemPresets: System
 class SystemSegmentFrequentTickPreset(haptics: Pulsar, private val systemPresets: SystemViewBasedPresets) : Preset,
     Player(
         haptics,
+//CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(.1f, 1.0f, 1.0f),
+                listOf(0.0f, 0.1f, 0.9f),
             ),
         ),
+//CODEGEN_END_{system_preset}
         true
     ) {
     override fun play() {

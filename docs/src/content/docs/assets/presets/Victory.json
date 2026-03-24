@@ -1,6 +1,6 @@
 {
   "name": "Victory",
-  "description": "A building fanfare of rising taps that peaks in three powerful repeated strikes, conveying triumph and achievement for major success moments.",
+  "description": "Pure triumph, conveys the overwhelming joy of a major win or achievement.",
   "discretePattern": [
     {
       "time": 0,
@@ -123,7 +123,7 @@
   "tags": [
     "Bold",
     "Flexible",
-    "Pattern",
+    "Saw",
     "Long"
   ],
   "duration": 1100

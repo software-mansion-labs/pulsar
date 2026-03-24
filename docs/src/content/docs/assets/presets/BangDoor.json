@@ -1,6 +1,6 @@
 {
   "name": "BangDoor",
-  "description": "A series of progressively louder and faster thuds with a deep, low frequency that feels like an insistent fist banging on a door, suitable for urgent or forceful interaction feedback.",
+  "description": "The insistent urgency of a fist on a door, ideal for forceful alerts or escalating persistent notifications.",
   "discretePattern": [
     {
       "time": 0,
@@ -126,7 +126,7 @@
   "tags": [
     "Bold",
     "Soft",
-    "Pattern",
+    "Saw",
     "Long"
   ],
   "duration": 1050

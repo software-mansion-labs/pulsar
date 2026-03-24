@@ -63,7 +63,7 @@
     }
   ],
   "name": "NotifySocialMention",
-  "description": "Three quick firm taps with the final one slightly stronger, ideal for social mention or tag notifications where someone specifically called your attention.",
+  "description": "Someone specifically called your name, ideal for mentions, tags, or direct-attention notifications.",
   "tags": [
     "Substantial",
     "Flexible",

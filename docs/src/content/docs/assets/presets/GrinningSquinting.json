@@ -76,13 +76,13 @@
     }
   ],
   "name": "GrinningSquinting",
-  "description": "Four rapid high-frequency pulses that gradually swell in intensity, evoking vibrant joy and laughter ideal for reaction or delight moments.",
+  "description": "An irrepressible swell of delight, ideal for reaction moments or expressions of pure joy.",
   "tags": [
     "Bold",
     "Rigid",
-    "Bumps",
+    "Saw",
     "Extended"
   ],
   "duration": 330,
-  "emoji": "\ud83d\ude04"
+  "emoji": "😄"
 }

@@ -16,13 +16,13 @@ public class HapticEngineWrapper {
   private var playerCreationOrder: [Int] = []
   private let playerLimit = 20
   private var nextPlayerId: Int = 0
-  
+
   public init() {
     guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
       print("Error: Device doens't supports haptics")
       return
     }
-    
+
     do {
       engine = try CHHapticEngine()
       startEngine()
@@ -37,16 +37,16 @@ public class HapticEngineWrapper {
         print("Error starting engine: \(error.localizedDescription)")
     }
   }
-  
+
   deinit {
     if !initialized { return }
     engine?.stop()
   }
-  
+
   public func enableHaptics(_ state: Bool) {
     if (isHapticsEnabled != state) {
       isHapticsEnabled = state
-      
+
       if (!isHapticsEnabled) {
         stopHaptics()
       } else {
@@ -56,18 +56,18 @@ public class HapticEngineWrapper {
       }
     }
   }
-  
+
   public func stopHaptics() {
     if !initialized { return }
     engine?.stop()
     initialized = false
   }
-  
+
   public func shutDownEngine() {
     stopHaptics()
     engine = nil
   }
-  
+
   private func startEngine() {
     if initialized { return }
     do {
@@ -80,11 +80,11 @@ public class HapticEngineWrapper {
         print("Error starting engine: \(error.localizedDescription)")
     }
   }
-  
+
   @objc func appDidBecomeInactive() {
     initialized = false
   }
-  
+
   public func createPlayer(pattern: CHHapticPattern?) -> Int? {
     startEngine()
     guard let player = buildPatternPlayer(pattern: pattern) else { return nil }
@@ -175,9 +175,9 @@ public class HapticEngineWrapper {
     let oldestId = playerCreationOrder.removeFirst()
     playerRegistry.removeValue(forKey: oldestId)
   }
-  
+
   func isHapticsSupported() -> Bool {
     return CHHapticEngine.capabilitiesForHardware().supportsHaptics
   }
-  
+
 }

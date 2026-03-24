@@ -1,5 +1,5 @@
 {
-  "emoji": "\ud83d\ude44",
+  "emoji": "🙄",
   "continuousPattern": {
     "amplitude": [
       {
@@ -34,22 +34,11 @@
       }
     ]
   },
-  "discretePattern": [
-    {
-      "time": 0,
-      "amplitude": 0.45,
-      "frequency": 0.5
-    },
-    {
-      "time": 180,
-      "amplitude": 0.25,
-      "frequency": 0.4
-    }
-  ],
+  "discretePattern": [],
   "name": "EyeRolling",
-  "description": "A slow, lazy ramp-down that languidly fades away, evoking a dismissive eye-roll and fitting for sarcastic or indifferent UI moments.",
+  "description": "A lazy, dismissive fade, fitting for sarcastic or indifferent UI moments.",
   "tags": [
-    "Substantial",
+    "Gentle",
     "Flexible",
     "Ramp",
     "Extended"

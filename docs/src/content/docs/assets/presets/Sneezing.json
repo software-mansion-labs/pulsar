@@ -1,7 +1,7 @@
 {
-  "emoji": "\ud83e\udd27",
+  "emoji": "🤧",
   "name": "Sneezing",
-  "description": "A gentle build-up through two rising taps that explodes into a strong final impact, perfectly imitating the tension-and-release sensation of a sneeze.",
+  "description": "The tension-and-release of a sneeze, imitates the involuntary build and explosion.",
   "discretePattern": [
     {
       "time": 0,
@@ -68,7 +68,7 @@
   "tags": [
     "Bold",
     "Flexible",
-    "Pattern",
+    "Peak",
     "Extended"
   ],
   "duration": 300

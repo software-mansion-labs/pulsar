@@ -1,6 +1,6 @@
 {
   "name": "ZeldaChest",
-  "description": "A rapid four-note ascending arpeggio with escalating amplitude followed by a long sustained triumphant hold, evoking the classic treasure chest discovery moment.",
+  "description": "The unmistakable thrill of discovery, evoking the iconic joy of opening a treasure chest.",
   "discretePattern": [
     {
       "time": 0,
