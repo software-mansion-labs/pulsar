@@ -9,7 +9,8 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pulsar.app"
+      "bundleIdentifier": "com.pulsar.app",
+      "associatedDomains": ["applinks:pulsar.godetour.link"]
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +29,20 @@
             {
               "scheme": "pulsarapp",
               "host": "connect"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        },
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "pulsar.godetour.link"
             }
           ],
           "category": [

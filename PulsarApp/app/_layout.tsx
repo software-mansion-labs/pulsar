@@ -1,3 +1,4 @@
+import { DetourProvider, type Config } from '@swmansion/react-native-detour';
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { isRunningInExpoGo } from 'expo';
 import { Stack, useNavigationContainerRef, usePathname, useGlobalSearchParams } from 'expo-router';
@@ -33,6 +34,12 @@ Sentry.init({
 
 export const unstable_settings = {
   anchor: '(tabs)',
+};
+
+const detourConfig: Config = {
+  apiKey: process.env.EXPO_PUBLIC_DETOUR_API_KEY!,
+  appID: process.env.EXPO_PUBLIC_DETOUR_APP_ID!,
+  shouldUseClipboard: true,
 };
 
 function RootLayout() {
@@ -78,13 +85,15 @@ function RootLayout() {
           <FilterProvider>
             <OnboardingProvider>
               <ThemeProvider value={{...DefaultTheme, ...Theme}}>
-                <Stack>
-                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                  <Stack.Screen name="filtersModal" options={{ presentation: 'modal', title: 'Filters', headerShown: false }} />
-                  <Stack.Screen name="tagsModal" options={{ presentation: 'modal', title: 'Tags', headerShown: false }} />
-                  <Stack.Screen name="playgroundModal" options={{ presentation: 'modal', title: 'Playground', headerShown: false }} />
-                </Stack>
-                <StatusBar style="auto" />
+                <DetourProvider config={detourConfig}>
+                  <Stack>
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="filtersModal" options={{ presentation: 'modal', title: 'Filters', headerShown: false }} />
+                    <Stack.Screen name="tagsModal" options={{ presentation: 'modal', title: 'Tags', headerShown: false }} />
+                    <Stack.Screen name="playgroundModal" options={{ presentation: 'modal', title: 'Playground', headerShown: false }} />
+                  </Stack>
+                  <StatusBar style="auto" />
+                </DetourProvider>
               </ThemeProvider>
             </OnboardingProvider>
           </FilterProvider>
