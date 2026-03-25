@@ -19,7 +19,7 @@ public class HapticEngineWrapper {
 
   public init() {
     guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
-      print("Error: Device doens't supports haptics")
+      print("Error: Device doesn't support haptics")
       return
     }
 
@@ -83,6 +83,8 @@ public class HapticEngineWrapper {
 
   @objc func appDidBecomeInactive() {
     initialized = false
+    playerRegistry.removeAll()
+    playerCreationOrder.removeAll()
   }
 
   public func createPlayer(pattern: CHHapticPattern?) -> Int? {
