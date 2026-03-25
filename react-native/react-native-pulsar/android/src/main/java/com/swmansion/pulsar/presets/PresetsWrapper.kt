@@ -14,6 +14,7 @@ class PresetsWrapper(
 ) {
     private var useCache: Boolean = true
     private val cache = mutableMapOf<String, Preset>()
+    private val systemEffectPresets = SystemEffectPresets(engine)
     private val systemPrimitivePresets = SystemPrimitivePresets(engine)
     private val systemViewBasedPresets = SystemViewBasedPresets(activity)
 
@@ -27,10 +28,19 @@ class PresetsWrapper(
         SystemNotificationWarningPreset.name to { haptics -> SystemNotificationWarningPreset(haptics) },
         SystemNotificationErrorPreset.name to { haptics -> SystemNotificationErrorPreset(haptics) },
 
-        SystemEffectClickPreset.name to { haptics -> SystemEffectClickPreset(haptics, systemPrimitivePresets) },
-        SystemDoubleClickPreset.name to { haptics -> SystemDoubleClickPreset(haptics, systemPrimitivePresets) },
-        SystemTickPreset.name to { haptics -> SystemTickPreset(haptics, systemPrimitivePresets) },
-        SystemHeavyClickPreset.name to { haptics -> SystemHeavyClickPreset(haptics, systemPrimitivePresets) },
+        SystemEffectClickPreset.name to { haptics -> SystemEffectClickPreset(haptics, systemEffectPresets) },
+        SystemEffectDoubleClickPreset.name to { haptics -> SystemEffectDoubleClickPreset(haptics, systemEffectPresets) },
+        SystemEffectTickPreset.name to { haptics -> SystemEffectTickPreset(haptics, systemEffectPresets) },
+        SystemEffectHeavyClickPreset.name to { haptics -> SystemEffectHeavyClickPreset(haptics, systemEffectPresets) },
+
+        SystemPrimitiveClickPreset.name to { haptics -> SystemPrimitiveClickPreset(haptics, systemPrimitivePresets) },
+        SystemPrimitiveThudPreset.name to { haptics -> SystemPrimitiveThudPreset(haptics, systemPrimitivePresets) },
+        SystemPrimitiveSpinPreset.name to { haptics -> SystemPrimitiveSpinPreset(haptics, systemPrimitivePresets) },
+        SystemPrimitiveQuickRisePreset.name to { haptics -> SystemPrimitiveQuickRisePreset(haptics, systemPrimitivePresets) },
+        SystemPrimitiveSlowRisePreset.name to { haptics -> SystemPrimitiveSlowRisePreset(haptics, systemPrimitivePresets) },
+        SystemPrimitiveQuickFallPreset.name to { haptics -> SystemPrimitiveQuickFallPreset(haptics, systemPrimitivePresets) },
+        SystemPrimitiveTickPreset.name to { haptics -> SystemPrimitiveTickPreset(haptics, systemPrimitivePresets) },
+        SystemPrimitiveLowTickPreset.name to { haptics -> SystemPrimitiveLowTickPreset(haptics, systemPrimitivePresets) },
 
         SystemLongPressPreset.name to { haptics -> SystemLongPressPreset(haptics, systemViewBasedPresets) },
         SystemVirtualKeyPreset.name to { haptics -> SystemVirtualKeyPreset(haptics, systemViewBasedPresets) },
@@ -249,6 +259,186 @@ class PresetsWrapper(
         } else {
             mapper[name]?.invoke(haptics) ?: return null
         }
+    }
+
+    fun systemImpactLight() {
+        getCacheablePreset(SystemImpactLightPreset.name)!!.play()
+    }
+
+    fun systemImpactMedium() {
+        getCacheablePreset(SystemImpactMediumPreset.name)!!.play()
+    }
+
+    fun systemImpactHeavy() {
+        getCacheablePreset(SystemImpactHeavyPreset.name)!!.play()
+    }
+
+    fun systemImpactSoft() {
+        getCacheablePreset(SystemImpactSoftPreset.name)!!.play()
+    }
+
+    fun systemImpactRigid() {
+        getCacheablePreset(SystemImpactRigidPreset.name)!!.play()
+    }
+
+    fun systemNotificationSuccess() {
+        getCacheablePreset(SystemNotificationSuccessPreset.name)!!.play()
+    }
+
+    fun systemNotificationWarning() {
+        getCacheablePreset(SystemNotificationWarningPreset.name)!!.play()
+    }
+
+    fun systemNotificationError() {
+        getCacheablePreset(SystemNotificationErrorPreset.name)!!.play()
+    }
+
+    fun systemEffectClick() {
+        getCacheablePreset(SystemEffectClickPreset.name)!!.play()
+    }
+
+    fun systemEffectDoubleClick() {
+        getCacheablePreset(SystemEffectDoubleClickPreset.name)!!.play()
+    }
+
+    fun systemEffectTick() {
+        getCacheablePreset(SystemEffectTickPreset.name)!!.play()
+    }
+
+    fun systemEffectHeavyClick() {
+        getCacheablePreset(SystemEffectHeavyClickPreset.name)!!.play()
+    }
+
+    fun systemLongPress() {
+        getCacheablePreset(SystemLongPressPreset.name)!!.play()
+    }
+
+    fun systemVirtualKey() {
+        getCacheablePreset(SystemVirtualKeyPreset.name)!!.play()
+    }
+
+    fun systemKeyboardTap() {
+        getCacheablePreset(SystemKeyboardTapPreset.name)!!.play()
+    }
+
+    fun systemClockTick() {
+        getCacheablePreset(SystemClockTickPreset.name)!!.play()
+    }
+
+    fun systemCalendarDate() {
+        getCacheablePreset(SystemCalendarDatePreset.name)!!.play()
+    }
+
+    fun systemContextClick() {
+        getCacheablePreset(SystemContextClickPreset.name)!!.play()
+    }
+
+    fun systemKeyboardPress() {
+        getCacheablePreset(SystemKeyboardPressPreset.name)!!.play()
+    }
+
+    fun systemKeyboardRelease() {
+        getCacheablePreset(SystemKeyboardReleasePreset.name)!!.play()
+    }
+
+    fun systemVirtualKeyRelease() {
+        getCacheablePreset(SystemVirtualKeyReleasePreset.name)!!.play()
+    }
+
+    fun systemTextHandleMove() {
+        getCacheablePreset(SystemTextHandleMovePreset.name)!!.play()
+    }
+
+    fun systemDragCrossing() {
+        getCacheablePreset(SystemDragCrossingPreset.name)!!.play()
+    }
+
+    fun systemGestureStart() {
+        getCacheablePreset(SystemGestureStartPreset.name)!!.play()
+    }
+
+    fun systemGestureEnd() {
+        getCacheablePreset(SystemGestureEndPreset.name)!!.play()
+    }
+
+    fun systemEdgeSqueeze() {
+        getCacheablePreset(SystemEdgeSqueezePreset.name)!!.play()
+    }
+
+    fun systemEdgeRelease() {
+        getCacheablePreset(SystemEdgeReleasePreset.name)!!.play()
+    }
+
+    fun systemConfirm() {
+        getCacheablePreset(SystemConfirmPreset.name)!!.play()
+    }
+
+    fun systemRelease() {
+        getCacheablePreset(SystemReleasePreset.name)!!.play()
+    }
+
+    fun systemScrollTick() {
+        getCacheablePreset(SystemScrollTickPreset.name)!!.play()
+    }
+
+    fun systemScrollItemFocus() {
+        getCacheablePreset(SystemScrollItemFocusPreset.name)!!.play()
+    }
+
+    fun systemScrollLimit() {
+        getCacheablePreset(SystemScrollLimitPreset.name)!!.play()
+    }
+
+    fun systemToggleOn() {
+        getCacheablePreset(SystemToggleOnPreset.name)!!.play()
+    }
+
+    fun systemToggleOff() {
+        getCacheablePreset(SystemToggleOffPreset.name)!!.play()
+    }
+
+    fun systemDragStart() {
+        getCacheablePreset(SystemDragStartPreset.name)!!.play()
+    }
+
+    fun systemSegmentTick() {
+        getCacheablePreset(SystemSegmentTickPreset.name)!!.play()
+    }
+
+    fun systemSegmentFrequentTick() {
+        getCacheablePreset(SystemSegmentFrequentTickPreset.name)!!.play()
+    }
+
+    fun systemPrimitiveClick() {
+        getCacheablePreset(SystemPrimitiveClickPreset.name)!!.play()
+    }
+
+    fun systemPrimitiveThud() {
+        getCacheablePreset(SystemPrimitiveThudPreset.name)!!.play()
+    }
+
+    fun systemPrimitiveSpin() {
+        getCacheablePreset(SystemPrimitiveSpinPreset.name)!!.play()
+    }
+
+    fun systemPrimitiveQuickRise() {
+        getCacheablePreset(SystemPrimitiveQuickRisePreset.name)!!.play()
+    }
+
+    fun systemPrimitiveSlowRise() {
+        getCacheablePreset(SystemPrimitiveSlowRisePreset.name)!!.play()
+    }
+
+    fun systemPrimitiveQuickFall() {
+        getCacheablePreset(SystemPrimitiveQuickFallPreset.name)!!.play()
+    }
+
+    fun systemPrimitiveTick() {
+        getCacheablePreset(SystemPrimitiveTickPreset.name)!!.play()
+    }
+
+    fun systemPrimitiveLowTick() {
+        getCacheablePreset(SystemPrimitiveLowTickPreset.name)!!.play()
     }
 
 // CODEGEN_BEGIN_{getters}

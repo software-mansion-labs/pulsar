@@ -10,37 +10,61 @@ import com.swmansion.pulsar.types.Preset
 import com.swmansion.pulsar.types.PresetWithName
 
 class SystemPrimitivePresets(private val engine: HapticEngineWrapper) {
-    fun effectClick() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            playHaptic(VibrationEffect.EFFECT_CLICK)
+    fun primitiveClick() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_CLICK)
         }
     }
-    fun effectDoubleClick() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            playHaptic(VibrationEffect.EFFECT_DOUBLE_CLICK)
+    fun primitiveThud() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_THUD)
         }
     }
-    fun effectTick() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            playHaptic(VibrationEffect.EFFECT_TICK)
+    fun primitiveSpin() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_SPIN)
         }
     }
-    fun effectHeavyClick() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            playHaptic(VibrationEffect.EFFECT_HEAVY_CLICK)
+    fun primitiveQuickRise() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_QUICK_RISE)
+        }
+    }
+    fun primitiveSlowRise() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_SLOW_RISE)
+        }
+    }
+    fun primitiveQuickFall() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_QUICK_FALL)
+        }
+    }
+    fun primitiveTick() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_TICK)
+        }
+    }
+    fun primitiveLowTick() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            playHaptic(VibrationEffect.Composition.PRIMITIVE_LOW_TICK)
         }
     }
 
-    private fun playHaptic(preset: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            engine.vibrate(VibrationEffect.createPredefined(preset))
+    private fun playHaptic(primitive: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            engine.vibrate(
+                VibrationEffect.startComposition()
+                    .addPrimitive(primitive)
+                    .compose()
+            )
         } else {
-            Log.w("Pulsar", "Incompatible Android version. System primitive presset unsupported")
+            Log.w("Pulsar", "Incompatible Android version. System primitive preset unsupported")
         }
     }
 }
 
-class SystemEffectClickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+class SystemPrimitiveClickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
 //CODEGEN_BEGIN_{system_preset}
@@ -54,19 +78,18 @@ class SystemEffectClickPreset(haptics: Pulsar, private val systemPresets: System
     ) {
     override fun play() {
         super.play()
-        systemPresets.effectClick()
+        systemPresets.primitiveClick()
     }
-    companion object: PresetWithName { override val name = "SystemEffectClickPreset" }
+    companion object: PresetWithName { override val name = "SystemPrimitiveClickPreset" }
 }
 
-class SystemDoubleClickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+class SystemPrimitiveThudPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(0.0f, 0.65f, 0.85f),
-                listOf(120.0f, 0.55f, 0.8f),
+                listOf(0.0f, 0.9f, 0.2f),
             ),
         ),
 //CODEGEN_END_{system_preset}
@@ -74,12 +97,88 @@ class SystemDoubleClickPreset(haptics: Pulsar, private val systemPresets: System
     ) {
     override fun play() {
         super.play()
-        systemPresets.effectDoubleClick()
+        systemPresets.primitiveThud()
     }
-    companion object: PresetWithName { override val name = "SystemDoubleClickPreset" }
+    companion object: PresetWithName { override val name = "SystemPrimitiveThudPreset" }
 }
 
-class SystemTickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+class SystemPrimitiveSpinPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+    Player(
+        haptics,
+//CODEGEN_BEGIN_{system_preset}
+        PatternData(
+            rawDiscretePattern = listOf(
+                listOf(0.0f, 0.5f, 0.5f),
+            ),
+        ),
+//CODEGEN_END_{system_preset}
+        true
+    ) {
+    override fun play() {
+        super.play()
+        systemPresets.primitiveSpin()
+    }
+    companion object: PresetWithName { override val name = "SystemPrimitiveSpinPreset" }
+}
+
+class SystemPrimitiveQuickRisePreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+    Player(
+        haptics,
+//CODEGEN_BEGIN_{system_preset}
+        PatternData(
+            rawDiscretePattern = listOf(
+                listOf(0.0f, 0.7f, 0.6f),
+            ),
+        ),
+//CODEGEN_END_{system_preset}
+        true
+    ) {
+    override fun play() {
+        super.play()
+        systemPresets.primitiveQuickRise()
+    }
+    companion object: PresetWithName { override val name = "SystemPrimitiveQuickRisePreset" }
+}
+
+class SystemPrimitiveSlowRisePreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+    Player(
+        haptics,
+//CODEGEN_BEGIN_{system_preset}
+        PatternData(
+            rawDiscretePattern = listOf(
+                listOf(0.0f, 0.5f, 0.4f),
+            ),
+        ),
+//CODEGEN_END_{system_preset}
+        true
+    ) {
+    override fun play() {
+        super.play()
+        systemPresets.primitiveSlowRise()
+    }
+    companion object: PresetWithName { override val name = "SystemPrimitiveSlowRisePreset" }
+}
+
+class SystemPrimitiveQuickFallPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+    Player(
+        haptics,
+//CODEGEN_BEGIN_{system_preset}
+        PatternData(
+            rawDiscretePattern = listOf(
+                listOf(0.0f, 0.7f, 0.7f),
+            ),
+        ),
+//CODEGEN_END_{system_preset}
+        true
+    ) {
+    override fun play() {
+        super.play()
+        systemPresets.primitiveQuickFall()
+    }
+    companion object: PresetWithName { override val name = "SystemPrimitiveQuickFallPreset" }
+}
+
+class SystemPrimitiveTickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
 //CODEGEN_BEGIN_{system_preset}
@@ -93,18 +192,18 @@ class SystemTickPreset(haptics: Pulsar, private val systemPresets: SystemPrimiti
     ) {
     override fun play() {
         super.play()
-        systemPresets.effectTick()
+        systemPresets.primitiveTick()
     }
-    companion object: PresetWithName { override val name = "SystemTickPreset" }
+    companion object: PresetWithName { override val name = "SystemPrimitiveTickPreset" }
 }
 
-class SystemHeavyClickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
+class SystemPrimitiveLowTickPreset(haptics: Pulsar, private val systemPresets: SystemPrimitivePresets) : Preset,
     Player(
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawDiscretePattern = listOf(
-                listOf(0.0f, 0.9f, 0.45f),
+                listOf(0.0f, 0.2f, 0.5f),
             ),
         ),
 //CODEGEN_END_{system_preset}
@@ -112,7 +211,7 @@ class SystemHeavyClickPreset(haptics: Pulsar, private val systemPresets: SystemP
     ) {
     override fun play() {
         super.play()
-        systemPresets.effectHeavyClick()
+        systemPresets.primitiveLowTick()
     }
-    companion object: PresetWithName { override val name = "SystemHeavyClickPreset" }
+    companion object: PresetWithName { override val name = "SystemPrimitiveLowTickPreset" }
 }

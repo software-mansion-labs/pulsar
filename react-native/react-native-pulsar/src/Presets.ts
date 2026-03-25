@@ -47,17 +47,17 @@ export default {
         'worklet';
         Pulsar.Pulsar_play('SystemEffectClickPreset');
       },
-      DoubleClickPreset: () => {
+      EffectDoubleClickPreset: () => {
         'worklet';
-        Pulsar.Pulsar_play('SystemDoubleClickPreset');
+        Pulsar.Pulsar_play('SystemEffectDoubleClickPreset');
       },
-      TickPreset: () => {
+      EffectTickPreset: () => {
         'worklet';
-        Pulsar.Pulsar_play('SystemTickPreset');
+        Pulsar.Pulsar_play('SystemEffectTickPreset');
       },
-      HeavyClickPreset: () => {
+      EffectHeavyClickPreset: () => {
         'worklet';
-        Pulsar.Pulsar_play('SystemHeavyClickPreset');
+        Pulsar.Pulsar_play('SystemEffectHeavyClickPreset');
       },
       LongPressPreset: () => {
         'worklet';
