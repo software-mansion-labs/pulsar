@@ -2,8 +2,8 @@
   "discretePattern": [
     {
       "time": 0,
-      "amplitude": 0.65,
-      "frequency": 0.85
+      "amplitude": 0.9,
+      "frequency": 0.5
     }
   ],
   "continuousPattern": {
@@ -15,10 +15,11 @@
   "tags": [
     "System",
     "Android",
+    "Primitive",
     "Substantial",
     "Rigid",
     "Impulses",
     "Impulse"
   ],
-  "duration": 50
+  "duration": 12
 }

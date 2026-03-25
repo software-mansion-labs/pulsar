@@ -98,6 +98,10 @@ class SystemLongPressPreset(haptics: Pulsar, private val systemPresets: SystemVi
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.9f, 0.45f),
             ),
@@ -117,6 +121,10 @@ class SystemVirtualKeyPreset(haptics: Pulsar, private val systemPresets: SystemV
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -136,6 +144,10 @@ class SystemKeyboardTapPreset(haptics: Pulsar, private val systemPresets: System
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -155,6 +167,10 @@ class SystemClockTickPreset(haptics: Pulsar, private val systemPresets: SystemVi
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.12f, 0.9f),
             ),
@@ -174,6 +190,10 @@ class SystemCalendarDatePreset(haptics: Pulsar, private val systemPresets: Syste
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -193,6 +213,10 @@ class SystemContextClickPreset(haptics: Pulsar, private val systemPresets: Syste
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -212,6 +236,10 @@ class SystemKeyboardPressPreset(haptics: Pulsar, private val systemPresets: Syst
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -231,6 +259,10 @@ class SystemKeyboardReleasePreset(haptics: Pulsar, private val systemPresets: Sy
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -250,6 +282,10 @@ class SystemVirtualKeyReleasePreset(haptics: Pulsar, private val systemPresets: 
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -269,6 +305,10 @@ class SystemTextHandleMovePreset(haptics: Pulsar, private val systemPresets: Sys
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.12f, 0.9f),
             ),
@@ -288,6 +328,10 @@ class SystemDragCrossingPreset(haptics: Pulsar, private val systemPresets: Syste
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -307,6 +351,10 @@ class SystemGestureStartPreset(haptics: Pulsar, private val systemPresets: Syste
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -326,6 +374,10 @@ class SystemGestureEndPreset(haptics: Pulsar, private val systemPresets: SystemV
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -345,6 +397,10 @@ class SystemEdgeSqueezePreset(haptics: Pulsar, private val systemPresets: System
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.9f, 0.45f),
             ),
@@ -364,6 +420,10 @@ class SystemEdgeReleasePreset(haptics: Pulsar, private val systemPresets: System
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -383,6 +443,10 @@ class SystemConfirmPreset(haptics: Pulsar, private val systemPresets: SystemView
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -402,6 +466,10 @@ class SystemReleasePreset(haptics: Pulsar, private val systemPresets: SystemView
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.81f, 0.61f),
                 listOf(120.0f, 0.7f, 0.35f),
@@ -422,6 +490,10 @@ class SystemScrollTickPreset(haptics: Pulsar, private val systemPresets: SystemV
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -441,6 +513,10 @@ class SystemScrollItemFocusPreset(haptics: Pulsar, private val systemPresets: Sy
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -460,6 +536,10 @@ class SystemScrollLimitPreset(haptics: Pulsar, private val systemPresets: System
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -479,6 +559,10 @@ class SystemToggleOnPreset(haptics: Pulsar, private val systemPresets: SystemVie
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.5f, 0.9f),
             ),
@@ -498,6 +582,10 @@ class SystemToggleOffPreset(haptics: Pulsar, private val systemPresets: SystemVi
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.4f),
             ),
@@ -517,6 +605,10 @@ class SystemDragStartPreset(haptics: Pulsar, private val systemPresets: SystemVi
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.9f, 0.45f),
             ),
@@ -536,6 +628,10 @@ class SystemSegmentTickPreset(haptics: Pulsar, private val systemPresets: System
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -555,6 +651,10 @@ class SystemSegmentFrequentTickPreset(haptics: Pulsar, private val systemPresets
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.12f, 0.9f),
             ),

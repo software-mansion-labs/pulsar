@@ -1,14 +1,34 @@
 {
-  "discretePattern": [
-    {
-      "time": 0,
-      "amplitude": 0.5,
-      "frequency": 0.5
-    }
-  ],
+  "discretePattern": [],
   "continuousPattern": {
-    "amplitude": [],
-    "frequency": []
+    "amplitude": [
+      {
+        "time": 0,
+        "value": 0
+      },
+      {
+        "time": 75,
+        "value": 0.5
+      },
+      {
+        "time": 150,
+        "value": 0
+      }
+    ],
+    "frequency": [
+      {
+        "time": 0,
+        "value": 0.33
+      },
+      {
+        "time": 75,
+        "value": 0.17
+      },
+      {
+        "time": 150,
+        "value": 0.25
+      }
+    ]
   },
   "name": "SystemPrimitiveSpinPreset",
   "description": "VibrationEffect.Composition.PRIMITIVE_SPIN",
@@ -21,5 +41,5 @@
     "Impulses",
     "Short"
   ],
-  "duration": 200
+  "duration": 150
 }

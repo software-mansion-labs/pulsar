@@ -1,14 +1,26 @@
 {
-  "discretePattern": [
-    {
-      "time": 0,
-      "amplitude": 0.7,
-      "frequency": 0.6
-    }
-  ],
+  "discretePattern": [],
   "continuousPattern": {
-    "amplitude": [],
-    "frequency": []
+    "amplitude": [
+      {
+        "time": 0,
+        "value": 0
+      },
+      {
+        "time": 150,
+        "value": 0.5
+      }
+    ],
+    "frequency": [
+      {
+        "time": 0,
+        "value": 0.25
+      },
+      {
+        "time": 150,
+        "value": 0.33
+      }
+    ]
   },
   "name": "SystemPrimitiveQuickRisePreset",
   "description": "VibrationEffect.Composition.PRIMITIVE_QUICK_RISE",
@@ -21,5 +33,5 @@
     "Impulses",
     "Impulse"
   ],
-  "duration": 100
+  "duration": 150
 }

@@ -45,6 +45,10 @@ class SystemEffectClickPreset(haptics: Pulsar, private val systemPresets: System
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.65f, 0.85f),
             ),
@@ -64,6 +68,10 @@ class SystemEffectDoubleClickPreset(haptics: Pulsar, private val systemPresets: 
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.81f, 0.61f),
                 listOf(120.0f, 0.7f, 0.35f),
@@ -84,6 +92,10 @@ class SystemEffectTickPreset(haptics: Pulsar, private val systemPresets: SystemE
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.2f, 0.9f),
             ),
@@ -103,6 +115,10 @@ class SystemEffectHeavyClickPreset(haptics: Pulsar, private val systemPresets: S
         haptics,
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
+            rawContinuousPattern = listOf(
+                listOf(),
+                listOf(),
+            ),
             rawDiscretePattern = listOf(
                 listOf(0.0f, 0.9f, 0.45f),
             ),

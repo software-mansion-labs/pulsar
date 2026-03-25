@@ -1,14 +1,26 @@
 {
-  "discretePattern": [
-    {
-      "time": 0,
-      "amplitude": 0.7,
-      "frequency": 0.7
-    }
-  ],
+  "discretePattern": [],
   "continuousPattern": {
-    "amplitude": [],
-    "frequency": []
+    "amplitude": [
+      {
+        "time": 0,
+        "value": 0.65
+      },
+      {
+        "time": 100,
+        "value": 0
+      }
+    ],
+    "frequency": [
+      {
+        "time": 0,
+        "value": 1.0
+      },
+      {
+        "time": 100,
+        "value": 0.5
+      }
+    ]
   },
   "name": "SystemPrimitiveQuickFallPreset",
   "description": "VibrationEffect.Composition.PRIMITIVE_QUICK_FALL",
