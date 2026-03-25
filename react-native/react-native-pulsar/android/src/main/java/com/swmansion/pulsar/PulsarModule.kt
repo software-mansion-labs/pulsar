@@ -16,7 +16,7 @@ import com.swmansion.pulsar.types.ValuePoint
 class PulsarModule(reactContext: ReactApplicationContext) :
   NativeRNPulsarSpec(reactContext) {
   
-  private val pulsar: Pulsar = Pulsar(reactContext)
+  private val pulsar: PulsarReactNative = PulsarReactNative(reactContext)
   private val realtimeComposer: RealtimeComposer = pulsar.getRealtimeComposer()
   private var nextId: Int = 1
   private val patternComposersRegistry: MutableMap<Int, PatternComposer> = mutableMapOf()
