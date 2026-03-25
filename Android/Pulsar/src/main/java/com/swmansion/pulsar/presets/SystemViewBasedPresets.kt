@@ -9,7 +9,7 @@ import com.swmansion.pulsar.types.PatternData
 import com.swmansion.pulsar.types.Preset
 import com.swmansion.pulsar.types.PresetWithName
 
-class SystemViewBasedPresets(private var context: Context) {
+class SystemViewBasedPresets(private var activity: Activity?) {
     fun longPress() { playHaptic(HapticFeedbackConstants.LONG_PRESS) }
     fun virtualKey() { playHaptic(HapticFeedbackConstants.VIRTUAL_KEY) }
     fun keyboardTap() { playHaptic(HapticFeedbackConstants.KEYBOARD_TAP) }
@@ -89,9 +89,7 @@ class SystemViewBasedPresets(private var context: Context) {
     }
 
     private fun playHaptic(preset: Int) {
-        if (context is Activity) {
-            (context as Activity).window.decorView.performHapticFeedback(preset)
-        }
+        activity?.window?.decorView?.performHapticFeedback(preset)
     }
 }
 
