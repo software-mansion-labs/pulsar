@@ -9,6 +9,10 @@
       {
         "time": 150,
         "value": 0.5
+      },
+      {
+        "time": 155,
+        "value": 0.0
       }
     ],
     "frequency": [
@@ -33,5 +37,5 @@
     "Impulses",
     "Impulse"
   ],
-  "duration": 150
+  "duration": 155
 }

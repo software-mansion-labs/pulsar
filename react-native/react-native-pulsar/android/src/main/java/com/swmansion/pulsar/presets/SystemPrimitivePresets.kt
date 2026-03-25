@@ -137,7 +137,7 @@ class SystemPrimitiveQuickRisePreset(haptics: Pulsar, private val systemPresets:
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawContinuousPattern = listOf(
-                listOf(listOf(0.0f, 0.0f), listOf(150.0f, 0.5f)),
+                listOf(listOf(0.0f, 0.0f), listOf(150.0f, 0.5f), listOf(155.0f, 0.0f)),
                 listOf(listOf(0.0f, 0.25f), listOf(150.0f, 0.33f)),
             ),
             rawDiscretePattern = listOf(
@@ -159,7 +159,7 @@ class SystemPrimitiveSlowRisePreset(haptics: Pulsar, private val systemPresets: 
 //CODEGEN_BEGIN_{system_preset}
         PatternData(
             rawContinuousPattern = listOf(
-                listOf(listOf(0.0f, 0.0f), listOf(500.0f, 0.5f)),
+                listOf(listOf(0.0f, 0.0f), listOf(500.0f, 0.5f), listOf(505.0f, 0.0f)),
                 listOf(listOf(0.0f, 0.25f), listOf(500.0f, 0.33f)),
             ),
             rawDiscretePattern = listOf(
