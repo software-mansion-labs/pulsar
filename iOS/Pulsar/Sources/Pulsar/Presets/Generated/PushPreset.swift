@@ -1,8 +1,8 @@
 import UIKit
 import Foundation
 
-@objc public class ClickPreset : Player, Preset {
-  public static let name: String = "Click"
+@objc public class PushPreset : Player, Preset {
+  public static let name: String = "Push"
 
   @objc public init(_ haptics: Pulsar) {
     super.init(
@@ -18,6 +18,6 @@ import Foundation
   }
 
   public static func getInstance(haptics: Pulsar) -> Preset {
-    return ClickPreset(haptics)
+    return PushPreset(haptics)
   }
 }

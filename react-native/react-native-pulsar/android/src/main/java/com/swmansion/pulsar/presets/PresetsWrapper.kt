@@ -88,7 +88,6 @@ class PresetsWrapper(
         ChipPreset.name to { haptics -> ChipPreset(haptics) },
         ChirpPreset.name to { haptics -> ChirpPreset(haptics) },
         CleavePreset.name to { haptics -> CleavePreset(haptics) },
-        ClickPreset.name to { haptics -> ClickPreset(haptics) },
         CoinDropPreset.name to { haptics -> CoinDropPreset(haptics) },
         CombinationLockPreset.name to { haptics -> CombinationLockPreset(haptics) },
         ConfirmPreset.name to { haptics -> ConfirmPreset(haptics) },
@@ -166,6 +165,7 @@ class PresetsWrapper(
         PlunkPreset.name to { haptics -> PlunkPreset(haptics) },
         PowerDownPreset.name to { haptics -> PowerDownPreset(haptics) },
         PropelPreset.name to { haptics -> PropelPreset(haptics) },
+        PushPreset.name to { haptics -> PushPreset(haptics) },
         RainPreset.name to { haptics -> RainPreset(haptics) },
         RatchetPreset.name to { haptics -> RatchetPreset(haptics) },
         ReadySteadyGoPreset.name to { haptics -> ReadySteadyGoPreset(haptics) },
@@ -370,10 +370,6 @@ class PresetsWrapper(
 
     fun cleave() {
         getCacheablePreset(CleavePreset.name)!!.play()
-    }
-
-    fun click() {
-        getCacheablePreset(ClickPreset.name)!!.play()
     }
 
     fun coinDrop() {
@@ -682,6 +678,10 @@ class PresetsWrapper(
 
     fun propel() {
         getCacheablePreset(PropelPreset.name)!!.play()
+    }
+
+    fun push() {
+        getCacheablePreset(PushPreset.name)!!.play()
     }
 
     fun rain() {

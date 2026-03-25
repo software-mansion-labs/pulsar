@@ -32,7 +32,6 @@ const CatPawImage = require('@/assets/presets/CatPaw.png');
 const ChipImage = require('@/assets/presets/Chip.png');
 const ChirpImage = require('@/assets/presets/Chirp.png');
 const CleaveImage = require('@/assets/presets/Cleave.png');
-const ClickImage = require('@/assets/presets/Click.png');
 const CoinDropImage = require('@/assets/presets/CoinDrop.png');
 const CombinationLockImage = require('@/assets/presets/CombinationLock.png');
 const ConfirmImage = require('@/assets/presets/Confirm.png');
@@ -110,6 +109,7 @@ const PistonImage = require('@/assets/presets/Piston.png');
 const PlunkImage = require('@/assets/presets/Plunk.png');
 const PowerDownImage = require('@/assets/presets/PowerDown.png');
 const PropelImage = require('@/assets/presets/Propel.png');
+const PushImage = require('@/assets/presets/Push.png');
 const RainImage = require('@/assets/presets/Rain.png');
 const RatchetImage = require('@/assets/presets/Ratchet.png');
 const ReadySteadyGoImage = require('@/assets/presets/ReadySteadyGo.png');
@@ -397,14 +397,6 @@ export const PresetsConfig: Array<PresetProps> = [
     duration: 250,
     image: CleaveImage,
     play: Presets.Cleave,
-  },
-  {
-    name: 'Click',
-    description: 'A quieter click that supports without competing, ideal for secondary actions.',
-    tags: ["Gentle","Flexible","Peak","Impulse"],
-    duration: 90,
-    image: ClickImage,
-    play: Presets.Click,
   },
   {
     name: 'CoinDrop',
@@ -1021,6 +1013,14 @@ export const PresetsConfig: Array<PresetProps> = [
     duration: 300,
     image: PropelImage,
     play: Presets.Propel,
+  },
+  {
+    name: 'Push',
+    description: 'A quieter click that supports without competing, ideal for secondary actions.',
+    tags: ["Gentle","Flexible","Peak","Impulse"],
+    duration: 90,
+    image: PushImage,
+    play: Presets.Push,
   },
   {
     name: 'Rain',

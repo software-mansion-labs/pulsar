@@ -6,7 +6,7 @@ import com.swmansion.pulsar.types.PatternData
 import com.swmansion.pulsar.types.Preset
 import com.swmansion.pulsar.types.PresetWithName
 
-class ClickPreset(haptics: Pulsar) :
+class PushPreset(haptics: Pulsar) :
     Preset,
     Player(haptics, PatternData(
         rawContinuousPattern = listOf(
@@ -18,6 +18,6 @@ class ClickPreset(haptics: Pulsar) :
         )
     )) {
     companion object: PresetWithName {
-        override val name = "Click"
+        override val name = "Push"
     }
 }

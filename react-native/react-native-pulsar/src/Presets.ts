@@ -282,10 +282,6 @@ export default {
     'worklet';
     Pulsar.Pulsar_play('Cleave');
   },
-  Click: () => { 
-    'worklet';
-    Pulsar.Pulsar_play('Click');
-  },
   CoinDrop: () => { 
     'worklet';
     Pulsar.Pulsar_play('CoinDrop');
@@ -593,6 +589,10 @@ export default {
   Propel: () => { 
     'worklet';
     Pulsar.Pulsar_play('Propel');
+  },
+  Push: () => { 
+    'worklet';
+    Pulsar.Pulsar_play('Push');
   },
   Rain: () => { 
     'worklet';

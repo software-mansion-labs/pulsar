@@ -61,8 +61,6 @@ import ChirpPreset from './Chirp.json';
 import ChirpImage from './Chirp.png';
 import CleavePreset from './Cleave.json';
 import CleaveImage from './Cleave.png';
-import ClickPreset from './Click.json';
-import ClickImage from './Click.png';
 import CoinDropPreset from './CoinDrop.json';
 import CoinDropImage from './CoinDrop.png';
 import CombinationLockPreset from './CombinationLock.json';
@@ -217,6 +215,8 @@ import PowerDownPreset from './PowerDown.json';
 import PowerDownImage from './PowerDown.png';
 import PropelPreset from './Propel.json';
 import PropelImage from './Propel.png';
+import PushPreset from './Push.json';
+import PushImage from './Push.png';
 import RainPreset from './Rain.json';
 import RainImage from './Rain.png';
 import RatchetPreset from './Ratchet.json';
@@ -339,7 +339,6 @@ export const PresetsConfig: Array<PresetConfig> = [
   { data: ChipPreset, image: ChipImage },
   { data: ChirpPreset, image: ChirpImage },
   { data: CleavePreset, image: CleaveImage },
-  { data: ClickPreset, image: ClickImage },
   { data: CoinDropPreset, image: CoinDropImage },
   { data: CombinationLockPreset, image: CombinationLockImage },
   { data: ConfirmPreset, image: ConfirmImage },
@@ -417,6 +416,7 @@ export const PresetsConfig: Array<PresetConfig> = [
   { data: PlunkPreset, image: PlunkImage },
   { data: PowerDownPreset, image: PowerDownImage },
   { data: PropelPreset, image: PropelImage },
+  { data: PushPreset, image: PushImage },
   { data: RainPreset, image: RainImage },
   { data: RatchetPreset, image: RatchetImage },
   { data: ReadySteadyGoPreset, image: ReadySteadyGoImage },

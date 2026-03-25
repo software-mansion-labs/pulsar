@@ -51,7 +51,6 @@ import AVFAudio
     "Chip": ChipPreset.self,
     "Chirp": ChirpPreset.self,
     "Cleave": CleavePreset.self,
-    "Click": ClickPreset.self,
     "CoinDrop": CoinDropPreset.self,
     "CombinationLock": CombinationLockPreset.self,
     "Confirm": ConfirmPreset.self,
@@ -129,6 +128,7 @@ import AVFAudio
     "Plunk": PlunkPreset.self,
     "PowerDown": PowerDownPreset.self,
     "Propel": PropelPreset.self,
+    "Push": PushPreset.self,
     "Rain": RainPreset.self,
     "Ratchet": RatchetPreset.self,
     "ReadySteadyGo": ReadySteadyGoPreset.self,
@@ -382,10 +382,6 @@ import AVFAudio
 
   public func cleave() {
     getCacheablePreset(CleavePreset.self).play()
-  }
-
-  public func click() {
-    getCacheablePreset(ClickPreset.self).play()
   }
 
   public func coinDrop() {
@@ -694,6 +690,10 @@ import AVFAudio
 
   public func propel() {
     getCacheablePreset(PropelPreset.self).play()
+  }
+
+  public func push() {
+    getCacheablePreset(PushPreset.self).play()
   }
 
   public func rain() {
