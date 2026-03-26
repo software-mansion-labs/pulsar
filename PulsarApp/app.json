@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.swmansion.pulsar",
+      "bundleIdentifier": "com.swmansion.pulsar.app",
       "associatedDomains": ["applinks:pulsar.godetour.link"]
     },
     "android": {
@@ -20,7 +20,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.swmansion.pulsar",
+      "package": "com.swmansion.pulsar.app",
       "intentFilters": [
         {
           "action": "VIEW",
