@@ -1,14 +1,14 @@
-import AimingFirePreset from '../../../content/docs/assets/presets/AimingFire.json';
-import AimingFireImage from '../../../content/docs/assets/presets/AimingFire.png';
+import AlarmPreset from '../../../content/docs/assets/presets/Alarm.json';
+import AlarmImage from '../../../content/docs/assets/presets/Alarm.png';
 import type { PresetConfig } from '../../../content/docs/components/Preset/types';
 
 export const PresetsConfig: Array<PresetConfig> = [
   {
-    data: AimingFirePreset,
-    image: AimingFireImage,
+    data: AlarmPreset,
+    image: AlarmImage,
   },
   {
-    data: AimingFirePreset,
-    image: AimingFireImage,
+    data: AlarmPreset,
+    image: AlarmImage,
   },
 ];
