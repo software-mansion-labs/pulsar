@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import Pulsar from './NativeRNPulsar';
 import type { Pattern, PatternComposer } from './types';
 import { useSharableState } from './useSharableState';

@@ -71,7 +71,6 @@ export default function SensorHapticsDemo() {
         // Only play collision haptic on first contact, not while already pressed against edge
         if (!isColliding.value) {
           isColliding.value = true;
-          composer.stop();
 
           const currentTime = Date.now();
           if (velocityMagnitude > 2) {
@@ -85,6 +84,16 @@ export default function SensorHapticsDemo() {
               composer.playDiscrete(0.6, 0.35);
             }
           }
+        }
+
+        // Play continuous if dot is sliding along the edge, stop if stationary
+        const postBounceSpeed = Math.sqrt(velocityX.value * velocityX.value + velocityY.value * velocityY.value);
+        if (postBounceSpeed > 0.5) {
+          const amplitude = interpolate(postBounceSpeed, [0.5, 12], [0.1, 0.5], Extrapolation.CLAMP);
+          const frequency = interpolate(postBounceSpeed, [0.5, 12], [0.2, 0.7], Extrapolation.CLAMP);
+          composer.set(amplitude, frequency);
+        } else {
+          composer.stop();
         }
       } else {
         if (distanceFromCenter < maxDistance * 0.85) {
