@@ -80,6 +80,14 @@ class HapticEngineWrapper(context: Context) {
                 vibrationService.frequencyProfile !== null
     }
 
+    fun getMinControlPointDurationMillis(): Long {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+            vibrator?.envelopeEffectInfo?.minControlPointDurationMillis ?: 15L
+        } else {
+            15L
+        }
+    }
+
     fun getFrequencyProfile() : VibratorFrequencyProfile? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
             vibrator?.frequencyProfile
