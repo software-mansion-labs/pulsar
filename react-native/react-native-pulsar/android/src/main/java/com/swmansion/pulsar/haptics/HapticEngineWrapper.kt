@@ -92,6 +92,10 @@ class HapticEngineWrapper(context: Context) {
         hapticBuilder.simulateCompatibilityMode(mode)
     }
 
+    fun enableImpulseCompositionMode(enabled: Boolean) {
+        hapticBuilder.enableImpulseCompositionMode(enabled)
+    }
+
     fun getRealCompatibilityMode(): CompatibilityMode {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
             if (isFrequencyProfileSupported()) {

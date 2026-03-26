@@ -76,4 +76,8 @@ open class Pulsar(protected var context: Context) {
     fun stopHaptics() {
         engine.stop()
     }
+
+    fun enableImpulseCompositionMode(state: Boolean) {
+        engine.enableImpulseCompositionMode(state)
+    }
 }

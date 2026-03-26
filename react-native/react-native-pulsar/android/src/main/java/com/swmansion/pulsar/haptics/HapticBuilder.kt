@@ -10,9 +10,19 @@ import com.swmansion.pulsar.types.ControlPoint
 class HapticBuilder(engine: HapticEngineWrapper) {
 
   private var vibrationEffectsGenerator = VibrationEffectsGenerator(engine)
+  private val impulseCompositionBuilder = ImpulseCompositionHapticBuilder()
+  private var impulseCompositionEnabled = true
+
+  fun enableImpulseCompositionMode(enabled: Boolean) {
+    impulseCompositionEnabled = enabled
+  }
 
   @RequiresApi(Build.VERSION_CODES.O)
   fun createVibrationEffect(preset: PatternData): VibrationEffect {
+    if (impulseCompositionEnabled && ImpulseCompositionHapticBuilder.isImpulsesOnly(preset)) {
+      val effect = impulseCompositionBuilder.createCompositionEffect(preset)
+      if (effect != null) return effect
+    }
     val controlPoints = convertToControlPoints(preset)
     return vibrationEffectsGenerator.convertToVibrationEffect(controlPoints)
   }
