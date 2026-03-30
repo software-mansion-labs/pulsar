@@ -3,15 +3,22 @@ interface Props {
   headers: string[];
   rows: string[][];
   initialRows?: number;
+  codeColumns?: number[];
+  colMinWidths?: Record<number, string>;
 }
 
-const { headers, rows, initialRows = 5 } = Astro.props;
+const { headers, rows, initialRows = 5, codeColumns = [], colMinWidths = {} } = Astro.props;
 const hasMore = rows.length > initialRows;
 const id = `table-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
 <div class="collapsible-table">
   <table>
+    {Object.keys(colMinWidths).length > 0 && (
+      <colgroup>
+        {headers.map((_, i) => <col style={colMinWidths[i] ? `min-width: ${colMinWidths[i]}` : undefined} />)}
+      </colgroup>
+    )}
     <thead>
       <tr>
         {headers.map((h) => <th>{h}</th>)}
@@ -20,7 +27,7 @@ const id = `table-${Math.random().toString(36).slice(2, 9)}`;
     <tbody>
       {rows.map((row, i) => (
         <tr class={i >= initialRows ? `${id}-extra hidden` : ''}>
-          {row.map((cell) => <td><code>{cell}</code></td>)}
+          {row.map((cell, j) => <td>{codeColumns.includes(j) ? <code>{cell}</code> : cell}</td>)}
         </tr>
       ))}
     </tbody>
