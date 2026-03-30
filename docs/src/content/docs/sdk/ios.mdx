@@ -39,6 +39,7 @@ head:
 ---
 
 import { Code } from '@astrojs/starlight/components';
+import CollapsibleTable from '../../../components/CollapsibleTable.astro';
 
 The Pulsar iOS SDK provides haptic feedback through three building blocks: `Presets`, `PatternComposer`, and `RealtimeComposer`. All are accessed through the main `Pulsar` class.
 
@@ -85,12 +86,43 @@ let presets = pulsar.getPresets()
 
 ### Built-in presets
 
-| Method         | Description                    |
-| -------------- | ------------------------------ |
-| `earthquake()` | Rumbling earthquake pattern    |
-| `success()`    | Positive confirmation feedback |
-| `fail()`       | Negative failure feedback      |
-| `tap()`        | Simple single tap              |
+<CollapsibleTable
+  headers={["Method", "Description"]}
+  rows={[
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+    ["earthquake()", "Rumbling earthquake pattern"],
+    ["success()", "Positive confirmation feedback"],
+    ["fail()", "Negative failure feedback"],
+    ["tap()", "Simple single tap"],
+  ]}
+/>
 
 ### System presets
 
