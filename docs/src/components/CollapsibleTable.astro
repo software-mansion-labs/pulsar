@@ -67,7 +67,8 @@ const id = `table-${Math.random().toString(36).slice(2, 9)}`;
 </style>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('.show-more-btn').forEach((btn) => {
+  document.querySelectorAll<HTMLButtonElement>('.show-more-btn:not([data-initialized])').forEach((btn) => {
+    btn.dataset.initialized = 'true';
     btn.addEventListener('click', () => {
       const id = btn.dataset.target!;
       const extras = document.querySelectorAll<HTMLElement>(`.${id}-extra`);
