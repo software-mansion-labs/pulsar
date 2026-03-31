@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { useCallback } from 'react';
-import { useHapticsComposer, Pattern } from 'react-native-pulsar';
+import { usePatternComposer, Pattern } from 'react-native-pulsar';
 
 import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
@@ -37,9 +37,9 @@ export default function SliderDemo() {
   const value2 = useSharedValue(50);
   const value3 = useSharedValue(50);
 
-  const quickTickComposer = useHapticsComposer(quickTickPattern);
-  const softTickComposer = useHapticsComposer(softTickPattern);
-  const deepTickComposer = useHapticsComposer(deepTickPattern);
+  const quickTickComposer = usePatternComposer(quickTickPattern);
+  const softTickComposer = usePatternComposer(softTickPattern);
+  const deepTickComposer = usePatternComposer(deepTickPattern);
 
   const handleSlider1Change = useCallback((newValue: number) => {
     'worklet';

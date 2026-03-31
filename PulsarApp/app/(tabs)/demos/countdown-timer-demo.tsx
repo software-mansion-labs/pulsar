@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
-import { Pattern, useHapticsComposer } from 'react-native-pulsar';
+import { Pattern, usePatternComposer } from 'react-native-pulsar';
 
 import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
@@ -41,9 +41,9 @@ export default function CountdownTimerDemo() {
     continuousPattern: { amplitude: [], frequency: [] },
   };
 
-  const tickComposer = useHapticsComposer(tickPattern);
-  const finalTickComposer = useHapticsComposer(finalTickPattern);
-  const completeComposer = useHapticsComposer(completePattern);
+  const tickComposer = usePatternComposer(tickPattern);
+  const finalTickComposer = usePatternComposer(finalTickPattern);
+  const completeComposer = usePatternComposer(completePattern);
 
   // Timer effect
   useEffect(() => {

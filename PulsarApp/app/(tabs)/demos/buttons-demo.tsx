@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Pattern, useHapticsComposer } from 'react-native-pulsar';
+import { Pattern, usePatternComposer } from 'react-native-pulsar';
 
 import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
@@ -54,12 +54,12 @@ export default function ButtonsDemo() {
     continuousPattern: { amplitude: [], frequency: [] },
   };
 
-  const tapComposer = useHapticsComposer(tapPattern);
-  const softComposer = useHapticsComposer(softPattern);
-  const deepComposer = useHapticsComposer(deepPattern);
-  const doubleComposer = useHapticsComposer(doublePattern);
-  const knockComposer = useHapticsComposer(knockPattern);
-  const rippleComposer = useHapticsComposer(ripplePattern);
+  const tapComposer = usePatternComposer(tapPattern);
+  const softComposer = usePatternComposer(softPattern);
+  const deepComposer = usePatternComposer(deepPattern);
+  const doubleComposer = usePatternComposer(doublePattern);
+  const knockComposer = usePatternComposer(knockPattern);
+  const rippleComposer = usePatternComposer(ripplePattern);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
