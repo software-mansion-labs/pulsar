@@ -84,7 +84,7 @@ class SystemEffectDoubleClickPreset(haptics: Pulsar, private val systemPresets: 
         super.play()
         systemPresets.effectDoubleClick()
     }
-    companion object: PresetWithName { override val name = "SystemDoubleClick" }
+    companion object: PresetWithName { override val name = "SystemEffectDoubleClick" }
 }
 
 class SystemEffectTickPreset(haptics: Pulsar, private val systemPresets: SystemEffectPresets) : Preset,
@@ -107,7 +107,7 @@ class SystemEffectTickPreset(haptics: Pulsar, private val systemPresets: SystemE
         super.play()
         systemPresets.effectTick()
     }
-    companion object: PresetWithName { override val name = "SystemTick" }
+    companion object: PresetWithName { override val name = "SystemEffectTick" }
 }
 
 class SystemEffectHeavyClickPreset(haptics: Pulsar, private val systemPresets: SystemEffectPresets) : Preset,
@@ -130,5 +130,5 @@ class SystemEffectHeavyClickPreset(haptics: Pulsar, private val systemPresets: S
         super.play()
         systemPresets.effectHeavyClick()
     }
-    companion object: PresetWithName { override val name = "SystemHeavyClick" }
+    companion object: PresetWithName { override val name = "SystemEffectHeavyClick" }
 }

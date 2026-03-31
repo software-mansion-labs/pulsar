@@ -254,7 +254,7 @@ export default function HomeScreen() {
 
   const playPattern = (patternName: string): boolean => {
     if (patternName.includes('System')) {
-      const key = patternName.replace('System', '');
+      const key = patternName.replace('System', '').replace('Preset', '');
       const systemPreset = (Presets.System as any)[key];
       if (typeof systemPreset === 'function') {
         systemPreset();
