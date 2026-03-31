@@ -36,7 +36,7 @@ Add Pulsar as a Swift Package dependency in Xcode, or add it to your `Package.sw
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/software-mansion-labs/pulsar-ios", from: "1.0.0")
+  .package(url: "https://github.com/software-mansion-labs/pulsar-ios")
 ]
 ```
 
@@ -53,7 +53,7 @@ Add Pulsar as a Gradle dependency:
 
 ```kotlin
 dependencies {
-  implementation("com.swmansion:pulsar:1.0.0")
+  implementation("com.swmansion:pulsar")
 }
 ```
 
@@ -76,6 +76,7 @@ pulsar/
 │   └── PulsarApp/      # Android native demo app
 ├── react-native/
 │   └── react-native-pulsar/  # React Native Turbo Module
+│   └── PulsarApp/            # React Native native demo app
 ├── PulsarApp/          # React Native Expo showcase app
 └── docs/               # Documentation site (Astro/Starlight)
 ```
