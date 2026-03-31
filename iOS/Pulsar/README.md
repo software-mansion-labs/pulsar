@@ -4,133 +4,105 @@
 
 A haptic feedback SDK for iOS, written in Swift. Pulsar provides ready-to-use haptic presets, a pattern composer for custom haptic sequences, and a real-time composer for gesture-driven feedback.
 
-## Requirements
+## Features
 
-- iOS 13+
-- macOS 10.15+ (for Mac Catalyst)
-- Swift 6.1+
+- **Presets** - Library of built-in haptic patterns (earthquake, success, fail, tap) and system feedback styles (impacts, notifications, selection)
+- **Pattern Composer** - Define custom haptic patterns using discrete events and continuous amplitude/frequency envelopes
+- **Realtime Composer** - Live amplitude and frequency control for gesture-driven haptics
+- **Apple-native** - Built with Core Haptics and UIKit feedback generators
+- **Swift-first** - Clean Swift API for iOS apps and SDK integrations
 
-## Installation
+## Quick start
 
-### Swift Package Manager (Xcode)
+### Installation
 
-In Xcode, go to **File → Add Package Dependencies** and enter the repository URL:
+In Xcode, go to **File > Add Package Dependencies...** and use:
 
+```text
+https://github.com/software-mansion-labs/pulsar-ios
 ```
-https://github.com/software-mansion/pulsar
-```
 
-### Package.swift
+Or add Pulsar to your `Package.swift`:
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/software-mansion/pulsar", from: "0.1.0")
+  .package(url: "https://github.com/software-mansion-labs/pulsar-ios")
 ]
 ```
 
-Then add `"Pulsar"` to your target's dependencies.
+Then add `"Pulsar"` to your target dependencies.
 
-## Usage
-
-### Presets
-
-Play a built-in haptic preset:
+### Preset example
 
 ```swift
 import Pulsar
 
 let pulsar = Pulsar()
-pulsar.getPresets().success()
-pulsar.getPresets().earthquake()
+let presets = pulsar.getPresets()
+
+// Play a preset
+presets.hammer()
+
+// Play a system haptic
+presets.systemImpactMedium()
 ```
 
-Play a system haptic style:
+### PatternComposer example
 
 ```swift
-pulsar.getPresets().system.impactMedium()
-pulsar.getPresets().system.notificationSuccess()
-pulsar.getPresets().system.selection()
-```
+import Pulsar
 
-### Pattern Composer
-
-Define and play a custom haptic pattern using discrete events and continuous amplitude/frequency envelopes:
-
-```swift
+let pulsar = Pulsar()
 let composer = pulsar.getPatternComposer()
 
-let patternData = PatternData(
-  discretePattern: [
-    DiscretePoint(time: 0.0, amplitude: 1.0, frequency: 0.5),
-    DiscretePoint(time: 0.2, amplitude: 0.8, frequency: 0.3)
-  ],
+let pattern = PatternData(
   continuousPattern: ContinuousPattern(
-    amplitude: [CurvePoint(time: 0.0, value: 0.5), CurvePoint(time: 1.0, value: 0.0)],
-    frequency: [CurvePoint(time: 0.0, value: 0.5), CurvePoint(time: 1.0, value: 0.5)]
-  )
+    amplitude: [
+      ValuePoint(time: 0, value: 0),
+      ValuePoint(time: 200, value: 1),
+      ValuePoint(time: 400, value: 0),
+    ],
+    frequency: [
+      ValuePoint(time: 0, value: 0.3),
+      ValuePoint(time: 400, value: 0.8),
+    ]
+  ),
+  discretePattern: [
+    DiscretePoint(time: 0, amplitude: 1, frequency: 0.5),
+    DiscretePoint(time: 100, amplitude: 0.5, frequency: 0.5),
+  ]
 )
 
-composer.parsePattern(hapticsData: patternData)
-composer.play()
+composer.playPattern(hapticsData: pattern)
 ```
 
-### Realtime Composer
-
-Control haptic amplitude and frequency in real time, useful for gesture-driven feedback:
+### RealtimeComposer example
 
 ```swift
+import Pulsar
+
+let pulsar = Pulsar()
 let realtime = pulsar.getRealtimeComposer()
 
-// Drive haptics from a gesture (call on every update)
-realtime.set(amplitude: 0.8, frequency: 0.5)
-
-// Stop when the gesture ends
+realtime.set(amplitude: 0.7, frequency: 0.5)
 realtime.stop()
-
-// Play a single transient event
-realtime.playDiscrete(amplitude: 1.0, frequency: 0.5)
-```
-
-## Configuration
-
-```swift
-// Enable or disable haptics
-pulsar.enableHaptics(state: true)
-
-// Enable or disable audio simulation
-pulsar.enableSound(state: true)
-
-// Enable or disable preset caching
-pulsar.enableCache(state: true)
-
-// Preload specific presets for low-latency playback
-pulsar.preloadPresets(presetNames: ["Success", "Earthquake"])
-
-// Clear the preset cache
-pulsar.clearCache()
-
-// Stop all active haptics
-pulsar.stopHaptics()
-
-// Shut down the haptic engine
-pulsar.shutDownEngine()
-
-// Check if haptics are supported on the current device
-let supported = pulsar.isHapticsSupported()
 ```
 
 ## Documentation
 
-Full API reference and guides: [pulsar.swmansion.com/sdk/ios](https://pulsar.swmansion.com/sdk/ios)
+Full API reference and guides are available at the [documentation site](https://docs.swmansion.com/pulsar).
 
-## Contributing
-
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for development setup and guidelines.
+- [SDK Overview](https://docs.swmansion.com/pulsar/sdk) - Core concepts: types of haptics, preloading, and caching
+- [iOS SDK](https://docs.swmansion.com/pulsar/sdk/ios) - Swift API reference
 
 ## License
 
-Pulsar is licensed under [The MIT License](../../LICENSE).
+Pulsar library is licensed under [The MIT License](../../LICENSE).
+
+## Community Discord
+
+[Join the Software Mansion Community Discord](https://discord.swmansion.com) to chat about haptics or other Software Mansion libraries.
 
 ## Pulsar is created by Software Mansion
 
-Since 2012 [Software Mansion](https://swmansion.com) is a software agency with experience in building web and mobile apps. We are Core React Native Contributors and experts in dealing with all kinds of React Native issues. We can help you build your next dream product – [Hire us](https://swmansion.com/contact/projects?utm_source=pulsar&utm_medium=readme).
+Since 2012 [Software Mansion](https://swmansion.com) is a software agency with experience in building web and mobile apps. We are Core React Native Contributors and experts in dealing with all kinds of React Native issues. We can help you build your next dream product – [Hire us](https://swmansion.com/contact/projects?utm_source=reanimated&utm_medium=readme).

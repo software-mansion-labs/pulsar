@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../docs/src/assets/og.png" alt="Pulsar - Rich and ready-to use haptics library" />
+  <img src="../../docs/src/assets/og.png" alt="Pulsar - Rich and ready-to use haptics library" />
 </p>
 
 A haptic feedback SDK for React Native. Pulsar provides ready-to-use haptic presets, a pattern composer for custom haptic sequences, and a real-time composer for gesture-driven feedback.
@@ -14,25 +14,61 @@ A haptic feedback SDK for React Native. Pulsar provides ready-to-use haptic pres
 
 ## Quick start
 
-### React Native
+### Installation
 
 ```bash
 npx expo install react-native-pulsar
 ```
 
+### Preset example
+
 ```ts
-import { Presets, usePatternComposer, useRealtimeComposer } from 'react-native-pulsar';
+import { Presets } from 'react-native-pulsar';
 
 // Play a preset
 Presets.hammer();
 
 // Play a system haptic
 Presets.System.impactMedium();
+```
 
-// Create a custom pattern
-const composer = usePatternComposer({
-  
-});
+### usePatternComposer example
+
+```ts
+import { usePatternComposer } from 'react-native-pulsar';
+
+const pattern = {
+  discretePattern: [
+    { time: 0, amplitude: 1, frequency: 0.5 },
+    { time: 100, amplitude: 0.5, frequency: 0.5 },
+  ],
+  continuousPattern: {
+    amplitude: [
+      { time: 0, value: 0 },
+      { time: 200, value: 1 },
+      { time: 400, value: 0 },
+    ],
+    frequency: [
+      { time: 0, value: 0.3 },
+      { time: 400, value: 0.8 },
+    ],
+  },
+};
+
+const { play } = usePatternComposer(pattern);
+
+play();
+```
+
+### useRealtimeComposer example
+
+```ts
+import { useRealtimeComposer } from 'react-native-pulsar';
+
+const { set, stop } = useRealtimeComposer();
+
+set(0.7, 0.5);
+stop();
 ```
 
 ## Documentation

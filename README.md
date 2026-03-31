@@ -36,7 +36,7 @@ Add Pulsar as a Swift Package dependency in Xcode, or add it to your `Package.sw
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/software-mansion/pulsar", from: "0.1.0")
+  .package(url: "https://github.com/software-mansion-labs/pulsar-ios", from: "1.0.0")
 ]
 ```
 
@@ -53,7 +53,7 @@ Add Pulsar as a Gradle dependency:
 
 ```kotlin
 dependencies {
-  implementation("com.swmansion:pulsar:0.1.0")
+  implementation("com.swmansion:pulsar:1.0.0")
 }
 ```
 
@@ -82,12 +82,12 @@ pulsar/
 
 ## Documentation
 
-Full API reference and guides are available at the [documentation site](https://pulsar.swmansion.com).
+Full API reference and guides are available at the [documentation site](https://docs.swmansion.com/pulsar).
 
-- [SDK Overview](https://pulsar.swmansion.com/sdk) - Core concepts: types of haptics, preloading, and caching
-- [iOS SDK](https://pulsar.swmansion.com/sdk/ios) - Swift API reference
-- [Android SDK](https://pulsar.swmansion.com/sdk/android) - Kotlin API reference
-- [React Native SDK](https://pulsar.swmansion.com/sdk/react-native) - TypeScript API reference
+- [SDK Overview](https://docs.swmansion.com/pulsar/sdk) - Core concepts: types of haptics, preloading, and caching
+- [iOS SDK](https://docs.swmansion.com/pulsar/sdk/ios) - Swift API reference
+- [Android SDK](https://docs.swmansion.com/pulsar/sdk/android) - Kotlin API reference
+- [React Native SDK](https://docs.swmansion.com/pulsar/sdk/react-native) - TypeScript API reference
 
 ## Contributing
 
