@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
     `maven-publish`
     signing
+    alias(libs.plugins.nmcp)
 }
 
 android {
@@ -69,40 +70,39 @@ afterEvaluate {
                 pom {
                     name.set("Pulsar Android Library")
                     description.set("Pulsar audio visualization and manipulation library for Android")
-                    url.set("https://github.com/swmansion/pulsar")
+                    url.set("https://github.com/software-mansion-labs/pulsar")
                     
                     licenses {
                         license {
                             name.set("MIT License")
-                            url.set("https://github.com/swmansion/pulsar/blob/main/LICENSE")
+                            url.set("https://github.com/software-mansion-labs/pulsar/blob/main/LICENSE")
                         }
                     }
                     
                     developers {
                         developer {
-                            id.set("swmansion")
+                            id.set("software-mansion")
                             name.set("Software Mansion")
-                            email.set("hello@swmansion.com")
+                            email.set("project@swmansion.com")
                         }
                     }
                     
                     scm {
-                        connection.set("scm:git:https://github.com/swmansion/pulsar.git")
-                        developerConnection.set("scm:git:https://github.com/swmansion/pulsar.git")
-                        url.set("https://github.com/swmansion/pulsar")
+                        connection.set("scm:git:https://github.com/software-mansion-labs/pulsar.git")
+                        developerConnection.set("scm:git:https://github.com/software-mansion-labs/pulsar.git")
+                        url.set("https://github.com/software-mansion-labs/pulsar")
                     }
                 }
             }
         }
 
-        repositories {
-            maven {
-                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                credentials {
-                    username = System.getenv("MAVEN_USERNAME")
-                    password = System.getenv("MAVEN_PASSWORD")
-                }
-            }
+    }
+
+    nmcp {
+        publishAllPublicationsToCentralPortal {
+            username = System.getenv("MAVEN_USERNAME") ?: ""
+            password = System.getenv("MAVEN_PASSWORD") ?: ""
+            publicationType = "AUTOMATIC"
         }
     }
 
