@@ -1,4 +1,4 @@
-name: Publish stable
+name: Publish React Native to npm
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         required: false
         default: ''
       dry-run:
-        description: 'Dry run (does not publish or push git tags)'
+        description: 'Dry run'
         required: false
         type: boolean
         default: 'true'
@@ -26,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Enable Corepack
         run: corepack enable
