@@ -63,7 +63,7 @@ export function TopBanner() {
         </div>
 
         <div className={styles.header}>
-          <div className={styles.title}>Rich and ready-to use haptics library</div>
+          <div className={styles.title}>Rich and ready-to-use haptics library</div>
           <div className={styles.subtitle}>
             Presets that you can hear and feel with Live Preview.
           </div>
