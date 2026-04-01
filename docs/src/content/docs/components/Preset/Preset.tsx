@@ -18,7 +18,8 @@ declare global {
 }
 
 function getSwiftPresetImport(shortName: string) {
-  return `import Pulsar\n\nlet pulsar = Pulsar()\npulsar.getPresets().${shortName}()`;
+  const normalizedName = shortName.charAt(0).toLowerCase() + shortName.slice(1);
+  return `import Pulsar\n\nlet pulsar = Pulsar()\npulsar.getPresets().${normalizedName}()`;
 }
 
 const SYSTEM_CROSS_PLATFORM_PRESETS = new Set([
@@ -28,18 +29,21 @@ const SYSTEM_CROSS_PLATFORM_PRESETS = new Set([
 
 function getReactNativePresetImport(shortName: string) {
   if (shortName.startsWith('System')) {
-    const name = shortName.slice('System'.length);
+    const name = shortName.slice('System'.length).replace('Preset', '');
+    const normalizedName = name.charAt(0).toLowerCase() + name.slice(1);
     if (SYSTEM_CROSS_PLATFORM_PRESETS.has(name)) {
-      return `import { Presets } from 'react-native-pulsar';\n\nPresets.System.${name}()`;
+      return `import { Presets } from 'react-native-pulsar';\n\nPresets.System.${normalizedName}()`;
     }
-    return `import { Presets } from 'react-native-pulsar';\n\nPresets.System.Android.${name}()`;
+    return `import { Presets } from 'react-native-pulsar';\n\nPresets.System.Android.${normalizedName}()`;
   }
-  return `import { Presets } from 'react-native-pulsar';\n\nPresets.${shortName}()`;
+  const normalizedName = shortName.charAt(0).toLowerCase() + shortName.slice(1);
+  return `import { Presets } from 'react-native-pulsar';\n\nPresets.${normalizedName}()`;
 }
 
 function getKotlinPresetImport(shortName: string) {
-    return `import com.swmansion.pulsar\n\nlet pulsar = Pulsar()\npulsar.getPresets().${shortName}()`;
-  }
+  const normalizedName = shortName.charAt(0).toLowerCase() + shortName.slice(1);
+  return `import com.swmansion.pulsar\n\nlet pulsar = Pulsar()\npulsar.getPresets().${normalizedName}()`;
+}
 
 function toAnchorId(name: string) {
   return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');

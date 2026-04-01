@@ -47,7 +47,7 @@ function Button({
     .onBegin(() => {
       setPressed(true);
       if (!isLoading && enabled) {
-        if (!disableHaptics) Presets.Chip();
+        if (!disableHaptics) Presets.chip();
         onClick?.();
       }
     }).runOnJS(true);
