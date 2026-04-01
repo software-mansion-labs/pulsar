@@ -1,34 +1,18 @@
-import { useRef, useCallback } from "react";
-
-let hasWorkletsAvailable = false;
-let createSynchronizable = () => { return { getBlocking: () => -1, setBlocking: (_: number) => {} }; };
-try {
-  const worklets = require('react-native-worklets');
-  createSynchronizable = worklets.createSynchronizable;
-  hasWorkletsAvailable = true;
-} catch (e) {}
+import { useCallback } from "react";
+import { createSynchronizable } from "react-native-worklets";
 
 export function useSharableState(initialValue: number) {
-  const stateRef = useRef(initialValue);
-  const synchronizable = createSynchronizable();
+  const synchronizable = createSynchronizable(initialValue);
 
   const set = useCallback((newValue: number) => {
     'worklet';
-    if (hasWorkletsAvailable) {
-      synchronizable.setBlocking(newValue);
-    } else {
-      stateRef.current = newValue;
-    }
+    synchronizable.setBlocking(newValue);
   }, []);
 
-  const get = () => {
+  const get = useCallback(() => {
     'worklet';
-    if (hasWorkletsAvailable) {
-      return synchronizable.getBlocking();
-    } else {
-      return stateRef.current;
-    }
-  };
+    return synchronizable.getBlocking();
+  }, []);
 
   return { get, set };
 }
