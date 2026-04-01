@@ -19,7 +19,6 @@ const BongoImage = require('@/assets/presets/Bongo.png');
 const BoulderImage = require('@/assets/presets/Boulder.png');
 const BreakingWaveImage = require('@/assets/presets/BreakingWave.png');
 const BreathImage = require('@/assets/presets/Breath.png');
-const BreathingImage = require('@/assets/presets/Breathing.png');
 const BuildupImage = require('@/assets/presets/Buildup.png');
 const BurstImage = require('@/assets/presets/Burst.png');
 const BuzzImage = require('@/assets/presets/Buzz.png');
@@ -288,19 +287,11 @@ export const PresetsConfig: Array<PresetProps> = [
   },
   {
     name: 'Breath',
-    description: 'Slow, calming in-and-out rhythm, ideal for meditation guides or breathing exercises.',
+    description: 'Slow, calming in-and-out rhythm, ideal for breathing exercises.',
     tags: ["Substantial","Soft","Bumps","Long"],
     duration: 3200,
     image: BreathImage,
     play: Presets.breath,
-  },
-  {
-    name: 'Breathing',
-    description: 'Calm and unobtrusive, ideal for background processing that should not disturb the user.',
-    tags: ["Substantial","Soft","Bumps","Long"],
-    duration: 6000,
-    image: BreathingImage,
-    play: Presets.breathing,
   },
   {
     name: 'Buildup',

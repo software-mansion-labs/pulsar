@@ -86,7 +86,6 @@ class PresetsWrapper(
         BoulderPreset.name to { haptics -> BoulderPreset(haptics) },
         BreakingWavePreset.name to { haptics -> BreakingWavePreset(haptics) },
         BreathPreset.name to { haptics -> BreathPreset(haptics) },
-        BreathingPreset.name to { haptics -> BreathingPreset(haptics) },
         BuildupPreset.name to { haptics -> BuildupPreset(haptics) },
         BurstPreset.name to { haptics -> BurstPreset(haptics) },
         BuzzPreset.name to { haptics -> BuzzPreset(haptics) },
@@ -513,10 +512,6 @@ class PresetsWrapper(
 
     fun breath() {
         getCacheablePreset(BreathPreset.name)!!.play()
-    }
-
-    fun breathing() {
-        getCacheablePreset(BreathingPreset.name)!!.play()
     }
 
     fun buildup() {

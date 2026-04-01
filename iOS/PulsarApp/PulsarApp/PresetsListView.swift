@@ -31,7 +31,6 @@ struct PresetsListView: View {
         PresetItem(name: "Boulder", displayName: "📳 Boulder"),
         PresetItem(name: "BreakingWave", displayName: "📳 BreakingWave"),
         PresetItem(name: "Breath", displayName: "📳 Breath"),
-        PresetItem(name: "Breathing", displayName: "📳 Breathing"),
         PresetItem(name: "Buildup", displayName: "📳 Buildup"),
         PresetItem(name: "Burst", displayName: "📳 Burst"),
         PresetItem(name: "Buzz", displayName: "📳 Buzz"),

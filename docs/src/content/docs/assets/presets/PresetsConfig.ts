@@ -35,8 +35,6 @@ import BreakingWavePreset from './BreakingWave.json';
 import BreakingWaveImage from './BreakingWave.png';
 import BreathPreset from './Breath.json';
 import BreathImage from './Breath.png';
-import BreathingPreset from './Breathing.json';
-import BreathingImage from './Breathing.png';
 import BuildupPreset from './Buildup.json';
 import BuildupImage from './Buildup.png';
 import BurstPreset from './Burst.json';
@@ -326,7 +324,6 @@ export const PresetsConfig: Array<PresetConfig> = [
   { data: BoulderPreset, image: BoulderImage },
   { data: BreakingWavePreset, image: BreakingWaveImage },
   { data: BreathPreset, image: BreathImage },
-  { data: BreathingPreset, image: BreathingImage },
   { data: BuildupPreset, image: BuildupImage },
   { data: BurstPreset, image: BurstImage },
   { data: BuzzPreset, image: BuzzImage },

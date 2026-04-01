@@ -264,10 +264,6 @@ export default {
     'worklet';
     Pulsar.Pulsar_play('Breath');
   },
-  breathing: () => { 
-    'worklet';
-    Pulsar.Pulsar_play('Breathing');
-  },
   buildup: () => { 
     'worklet';
     Pulsar.Pulsar_play('Buildup');

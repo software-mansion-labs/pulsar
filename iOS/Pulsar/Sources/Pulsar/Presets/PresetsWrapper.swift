@@ -38,7 +38,6 @@ import AVFAudio
     "Boulder": BoulderPreset.self,
     "BreakingWave": BreakingWavePreset.self,
     "Breath": BreathPreset.self,
-    "Breathing": BreathingPreset.self,
     "Buildup": BuildupPreset.self,
     "Burst": BurstPreset.self,
     "Buzz": BuzzPreset.self,
@@ -330,10 +329,6 @@ import AVFAudio
 
   public func breath() {
     getCacheablePreset(BreathPreset.self).play()
-  }
-
-  public func breathing() {
-    getCacheablePreset(BreathingPreset.self).play()
   }
 
   public func buildup() {

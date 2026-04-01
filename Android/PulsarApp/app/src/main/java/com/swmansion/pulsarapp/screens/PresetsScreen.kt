@@ -46,7 +46,6 @@ fun PresetsScreen(pulsar: Pulsar?) {
             PresetItem("Boulder") { pulsar?.getPresets()?.boulder() },
             PresetItem("BreakingWave") { pulsar?.getPresets()?.breakingWave() },
             PresetItem("Breath") { pulsar?.getPresets()?.breath() },
-            PresetItem("Breathing") { pulsar?.getPresets()?.breathing() },
             PresetItem("Buildup") { pulsar?.getPresets()?.buildup() },
             PresetItem("Burst") { pulsar?.getPresets()?.burst() },
             PresetItem("Buzz") { pulsar?.getPresets()?.buzz() },

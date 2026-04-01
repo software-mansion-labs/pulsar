@@ -44,7 +44,6 @@ const PRESETS: PresetItem[] = [
   { name: 'Boulder', displayName: '📳 Boulder', play: Presets.boulder },
   { name: 'BreakingWave', displayName: '📳 BreakingWave', play: Presets.breakingWave },
   { name: 'Breath', displayName: '📳 Breath', play: Presets.breath },
-  { name: 'Breathing', displayName: '📳 Breathing', play: Presets.breathing },
   { name: 'Buildup', displayName: '📳 Buildup', play: Presets.buildup },
   { name: 'Burst', displayName: '📳 Burst', play: Presets.burst },
   { name: 'Buzz', displayName: '📳 Buzz', play: Presets.buzz },
