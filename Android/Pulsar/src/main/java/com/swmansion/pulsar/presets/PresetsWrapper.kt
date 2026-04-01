@@ -27,6 +27,7 @@ class PresetsWrapper(
         SystemNotificationSuccessPreset.name to { haptics -> SystemNotificationSuccessPreset(haptics) },
         SystemNotificationWarningPreset.name to { haptics -> SystemNotificationWarningPreset(haptics) },
         SystemNotificationErrorPreset.name to { haptics -> SystemNotificationErrorPreset(haptics) },
+        SystemSelectionPreset.name to { haptics -> SystemSelectionPreset(haptics) },
 
         SystemEffectClickPreset.name to { haptics -> SystemEffectClickPreset(haptics, systemEffectPresets) },
         SystemEffectDoubleClickPreset.name to { haptics -> SystemEffectDoubleClickPreset(haptics, systemEffectPresets) },
@@ -291,6 +292,10 @@ class PresetsWrapper(
 
     fun systemNotificationError() {
         getCacheablePreset(SystemNotificationErrorPreset.name)!!.play()
+    }
+
+    fun systemSelection() {
+        getCacheablePreset(SystemSelectionPreset.name)!!.play()
     }
 
     fun systemEffectClick() {

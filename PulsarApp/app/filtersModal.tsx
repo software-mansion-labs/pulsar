@@ -33,7 +33,7 @@ export default function FiltersModal() {
   const posthog = usePostHog();
   const { selectedTags, setSelectedTags, soundEnabled, setSoundEnabled, showSystemPresets, setShowSystemPresets, selectedSystemPresetTags, setSelectedSystemPresetTags } = useFilters();
 
-  const SYSTEM_PRESET_TAG_OPTIONS = ['Effect', 'Primitive', 'Vendor'];
+  const SYSTEM_PRESET_TAG_OPTIONS = ['Effect', 'Primitive', 'Vendor', 'iOS Fallback'];
 
   const toggleSystemPresetTag = (tag: string) => {
     setSelectedSystemPresetTags(
