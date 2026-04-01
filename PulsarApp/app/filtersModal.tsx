@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Pressable, ScrollView, Switch } from 'react-native';
+import { StyleSheet, View, Text, Pressable, ScrollView, Switch, Platform } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import Button from '@/components/Button';
 import { Colors } from '@/constants/theme';
@@ -144,7 +144,7 @@ export default function FiltersModal() {
                 thumbColor={showSystemPresets ? '#2B85AB' : '#f0f0f0'}
               />
             </View>
-            {showSystemPresets && (
+            {showSystemPresets && Platform.OS === 'android' && (
               <View style={styles.systemPresetTagsSection}>
                 <View style={styles.optionsGrid}>
                   {SYSTEM_PRESET_TAG_OPTIONS.map(tag => (

@@ -15,11 +15,13 @@ export function useFilteredPresets() {
     if (!showSystemPresets) {
       return PresetsConfig;
     }
-    const base = Platform.OS === 'ios' ? IOSPresetsConfig : AndroidPresetsConfig;
+    if (Platform.OS === 'ios') {
+      return IOSPresetsConfig;
+    }
     if (selectedSystemPresetTags.length === 0) {
       return [];
     }
-    return base.filter(preset =>
+    return AndroidPresetsConfig.filter(preset =>
       selectedSystemPresetTags.some(tag => preset.tags.includes(tag))
     );
   }, [showSystemPresets, selectedSystemPresetTags]);
