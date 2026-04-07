@@ -73,6 +73,10 @@ RCT_EXPORT_MODULE()
   // do nothing on iOS
 }
 
+- (void)Pulsar_setRealtimeComposerStrategy:(double)strategy {
+  // do nothing on iOS
+}
+
 // PatternComposer -----------------------------------------------------------------
 
 static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) {

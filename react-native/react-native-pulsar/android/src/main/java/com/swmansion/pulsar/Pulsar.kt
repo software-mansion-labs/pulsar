@@ -13,8 +13,16 @@ import com.swmansion.pulsar.types.RealtimeComposerStrategy
 
 open class Pulsar(protected var context: Context) {
     protected val engine = HapticEngineWrapper(context)
-    private val audioSimulator = AudioSimulator(engine.getRealCompatibilityMode())
+    private val audioSimulator = AudioSimulator(hapticSupport())
     protected var _presets: PresetsWrapper? = null
+    var realtimeComposerStrategy =
+        if (hapticSupport() >= CompatibilityMode.STANDARD_SUPPORT) {
+            RealtimeComposerStrategy.ENVELOPE
+        } else if (hapticSupport() >= CompatibilityMode.LIMITED_SUPPORT) {
+            RealtimeComposerStrategy.PRIMITIVE_COMPLEX
+        } else {
+            RealtimeComposerStrategy.PRIMITIVE_TICK
+        }
     private var realtimeComposer: RealtimeComposer? = null
 
     open fun getPresets(): PresetsWrapper {
@@ -30,16 +38,13 @@ open class Pulsar(protected var context: Context) {
 
     fun getRealtimeComposer(strategy: RealtimeComposerStrategy? = null): RealtimeComposer {
         if (realtimeComposer == null) {
-            var composerStrategy = strategy
-            val compatibility = engine.getRealCompatibilityMode()
-            if (composerStrategy == null) {
-                composerStrategy = if (compatibility >= CompatibilityMode.STANDARD_SUPPORT) {
-                    RealtimeComposerStrategy.ENVELOPE
-                } else {
-                    RealtimeComposerStrategy.PRIMITIVE_TICK
-                }
-            }
-            realtimeComposer = RealtimeComposer(engine, composerStrategy, compatibility)
+            val composerStrategy = strategy ?: realtimeComposerStrategy
+            realtimeComposer = RealtimeComposer(engine, composerStrategy, hapticSupport())
+            realtimeComposerStrategy = composerStrategy
+        }
+        if (strategy != null && strategy != realtimeComposerStrategy) {
+            realtimeComposer = RealtimeComposer(engine, strategy, hapticSupport())
+            realtimeComposerStrategy = strategy
         }
         return realtimeComposer!!
     }

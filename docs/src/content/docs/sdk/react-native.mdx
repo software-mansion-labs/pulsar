@@ -563,6 +563,7 @@ import { Settings } from 'react-native-pulsar';
 | `Settings.getHapticsSupportLevel()`              | Returns the device's `HapticSupport` level  |
 | `Settings.forceHapticsSupportLevel(level)`       | (Android only) Override the detected support level         |
 | `Settings.enableImpulseCompositionMode(state: boolean)`       | (Android only) Enable or disable impulse composition mode         |
+| `Settings.setRealtimeComposerStrategy(strategy)`              | (Android only) Set the strategy used by the realtime composer     |
 
 ### Example
 
@@ -651,4 +652,34 @@ enum HapticSupport {
   STANDARD_SUPPORT = 3,
   ADVANCED_SUPPORT = 4,
 }
+```
+
+### RealtimeComposerStrategy
+
+Android-only. Controls how `useRealtimeComposer` simulates continuous haptics, since Android has no native continuous haptic API. Pass one of these values to `Settings.setRealtimeComposerStrategy()`.
+
+```ts
+import { RealtimeComposerStrategy } from 'react-native-pulsar';
+```
+
+```ts
+enum RealtimeComposerStrategy {
+  ENVELOPE = 0,
+  PRIMITIVE_TICK = 1,
+  PRIMITIVE_COMPLEX = 2,
+}
+```
+
+| Value             | Description |
+| ----------------- | ----------- |
+| `ENVELOPE`        | Approximation based on the Envelope API. Allows control over amplitude and frequency, but the signal oscillates and can be unstable. Available on Android API 36+. |
+| `PRIMITIVE_TICK`  | Approximation using the Composition API TICK primitive at varying intervals. Amplitude is controllable; frequency is simulated by the timing between ticks. Signal is discrete rather than continuous. |
+| `PRIMITIVE_COMPLEX` | Similar to `PRIMITIVE_TICK`, but uses multiple primitives depending on the requested frequency. |
+
+**Example**
+
+```ts
+import { Settings, RealtimeComposerStrategy } from 'react-native-pulsar';
+
+Settings.setRealtimeComposerStrategy(RealtimeComposerStrategy.PRIMITIVE_COMPLEX);
 ```
