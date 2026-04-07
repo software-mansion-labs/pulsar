@@ -7,6 +7,14 @@ on:
         description: 'Version to publish (x.y.z). Leave empty to infer from branch name.'
         required: false
         default: ''
+      tag:
+        description: 'npm tag to publish under'
+        required: false
+        type: choice
+        options:
+          - latest
+          - rc
+        default: 'latest'
       dry-run:
         description: 'Dry run'
         required: false
@@ -38,5 +46,6 @@ jobs:
           package-json-path: react-native/react-native-pulsar/package.json
           release-type: stable
           version: ${{ github.event.inputs.version || '' }}
+          tag: ${{ github.event.inputs.tag || 'latest' }}
           dry-run: ${{ github.event.inputs.dry-run || 'true' }}
           install-dependencies-command: yarn install --immutable
