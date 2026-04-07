@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useRealtimeComposer } from 'react-native-pulsar';
 import Animated, {
   useSharedValue,
@@ -19,9 +19,10 @@ const CIRCLE_BORDER_WIDTH = 2;
 const DOT_SIZE = 30;
 const CENTER_X = CIRCLE_RADIUS - CIRCLE_BORDER_WIDTH; // Center of circle from left
 const CENTER_Y = CIRCLE_RADIUS - CIRCLE_BORDER_WIDTH; // Center of circle from top
+const isAndroid = Platform.OS === 'android';
 
 export default function SensorHapticsDemo() {
-  const accelerometer = useAnimatedSensor(SensorType.ACCELEROMETER);
+  const sensor = useAnimatedSensor(isAndroid ? SensorType.GYROSCOPE : SensorType.ACCELEROMETER);
   const composer = useRealtimeComposer();
 
   const dotX = useSharedValue(CENTER_X - DOT_SIZE / 2);
@@ -34,15 +35,21 @@ export default function SensorHapticsDemo() {
 
   useAnimatedReaction(
     () => ({
-      x: accelerometer.sensor.value.x,
-      y: accelerometer.sensor.value.y,
+      sensorX: sensor.sensor.value.x,
+      sensorY: sensor.sensor.value.y,
     }),
-    ({ x, y }) => {
-      const scale = 0.6;
-      velocityX.value += x * scale;
-      velocityY.value -= y * scale;
-      velocityX.value *= 0.8;
-      velocityY.value *= 0.8;
+    ({ sensorX, sensorY }) => {
+      // iOS accelerometer: g-force units (-1 to 1), x/y map directly to tilt direction.
+      // Android gyroscope: rotation rate in rad/s; roll (gy) drives horizontal,
+      // pitch (gx) drives vertical. Signs may need flipping if movement feels inverted.
+      const scale = isAndroid ? 1.5 : 0.6;
+      const damping = isAndroid ? 0.75 : 0.8;
+      const inputX = isAndroid ? sensorY : sensorX;
+      const inputY = isAndroid ? sensorX : -sensorY;
+      velocityX.value += inputX * scale;
+      velocityY.value += inputY * scale;
+      velocityX.value *= damping;
+      velocityY.value *= damping;
 
       const newX = dotX.value + velocityX.value;
       const newY = dotY.value + velocityY.value;
