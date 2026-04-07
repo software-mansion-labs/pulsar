@@ -101,9 +101,8 @@ class RealtimePrimitiveComposer(
             return VibrationEffect.Composition.PRIMITIVE_TICK
         }
         return when {
-            value > 0.75f -> VibrationEffect.Composition.PRIMITIVE_TICK
-            value > 0.50f -> VibrationEffect.Composition.PRIMITIVE_SPIN
-            value > 0.25f -> VibrationEffect.Composition.PRIMITIVE_THUD
+            value > 0.66f -> VibrationEffect.Composition.PRIMITIVE_CLICK
+            value > 0.33f -> VibrationEffect.Composition.PRIMITIVE_TICK
             else -> VibrationEffect.Composition.PRIMITIVE_LOW_TICK
         }
     }
