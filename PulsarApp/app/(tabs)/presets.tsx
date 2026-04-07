@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Margins } from '@/constants/theme';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
@@ -8,11 +8,12 @@ import { useFilteredPresets } from '@/components/PresetList';
 import Preset from '@/components/Preset';
 import Card from '@/components/Card';
 import SelectedTags from '@/components/SelectedTags';
-import { useMemo } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 import { useFilters } from '@/contexts/FilterContext';
 
 const infoIcon = require('@/assets/images/info.svg');
 const slidersIcon = require('@/assets/images/sliders.svg');
+const xIcon = require('@/assets/images/x.svg');
 
 const defaultEdges = {
   top: 'additive',
@@ -24,6 +25,18 @@ const defaultEdges = {
 export default function PresetsScreen() {
   const { filteredPresets, selectedTags } = useFilteredPresets();
   const { compactLayout } = useFilters();
+  const [searchQuery, setSearchQuery] = useState('');
+  const deferredQuery = useDeferredValue(searchQuery);
+
+  const displayedPresets = useMemo(() => {
+    if (!deferredQuery.trim()) return filteredPresets;
+    const q = deferredQuery.toLowerCase();
+    return filteredPresets.filter(preset =>
+      preset.name.toLowerCase().includes(q) ||
+      preset.description.toLowerCase().includes(q) ||
+      preset.tags.some(tag => tag.toLowerCase().includes(q))
+    );
+  }, [filteredPresets, deferredQuery]);
 
   const listHeader = useMemo(() => (
     <>
@@ -54,21 +67,49 @@ export default function PresetsScreen() {
         </Link>
       </View>
 
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search presets..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          autoCorrect={false}
+        />
+        {searchQuery.length > 0 && (
+          <TouchableOpacity style={styles.searchClear} onPress={() => setSearchQuery('')}>
+            <Image source={xIcon} style={styles.searchClearIcon} />
+          </TouchableOpacity>
+        )}
+      </View>
+
       <SelectedTags />
     </>
-  ), []);
+  ), [searchQuery]);
 
-  const listEmpty = useMemo(() => selectedTags.length > 0 ? (
-    <Card>
-      <ThemedText type='subtitle'>No presets for selected tags 😕</ThemedText>
-      <ThemedText>Try adjusting your filters to see more presets.</ThemedText>
-    </Card>
-  ) : null, [selectedTags.length]);
+  const listEmpty = useMemo(() => {
+    if (deferredQuery.trim()) {
+      return (
+        <Card>
+          <ThemedText type='subtitle'>No presets found 😕</ThemedText>
+          <ThemedText>Try a different search term or clear the search.</ThemedText>
+        </Card>
+      );
+    }
+    if (selectedTags.length > 0) {
+      return (
+        <Card>
+          <ThemedText type='subtitle'>No presets for selected tags 😕</ThemedText>
+          <ThemedText>Try adjusting your filters to see more presets.</ThemedText>
+        </Card>
+      );
+    }
+    return null;
+  }, [selectedTags.length, deferredQuery]);
 
   return (
     <SafeAreaView edges={defaultEdges as any} style={styles.safeArea}>
       <FlatList
-        data={filteredPresets}
+        data={displayedPresets}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         contentContainerStyle={styles.contentContainer}
         ListHeaderComponent={listHeader}
@@ -121,5 +162,28 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     marginTop: 20,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: '#5BB9E0',
+    borderWidth: 2,
+    backgroundColor: 'white',
+    marginBottom: 12,
+  },
+  searchInput: {
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    color: '#001A72',
+    fontSize: 16,
+  },
+  searchClear: {
+    padding: 10,
+  },
+  searchClearIcon: {
+    width: 16,
+    height: 16,
   },
 });
