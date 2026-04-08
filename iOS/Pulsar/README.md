@@ -4,6 +4,8 @@
 
 A haptic feedback SDK for iOS, written in Swift. Pulsar provides ready-to-use haptic presets, a pattern composer for custom haptic sequences, and a real-time composer for gesture-driven feedback.
 
+> **Note:** This repository is a mirror of the iOS implementation from the [Pulsar monorepo](https://github.com/software-mansion-labs/pulsar). The monorepo is the primary source of development and also contains example apps for both Android and iOS. For the full source and examples, visit the main repository.
+
 ## Features
 
 - **Presets** - Library of built-in haptic patterns (earthquake, success, fail, tap) and system feedback styles (impacts, notifications, selection)
