@@ -2,7 +2,6 @@ package com.swmansion.pulsar
 
 import android.app.Activity
 import android.content.Context
-import com.facebook.react.bridge.ReactApplicationContext
 import com.swmansion.pulsar.audio.AudioSimulator
 import com.swmansion.pulsar.composers.PatternComposer
 import com.swmansion.pulsar.composers.RealtimeComposer
