@@ -1,7 +1,7 @@
 {
   "name": "react-native-pulsar",
-  "version": "0.1.0",
-  "description": "bzz brr",
+  "version": "1.0.0",
+  "description": "Rich and ready-to-use haptics library",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
