@@ -49,6 +49,7 @@ export default function HomeScreen() {
   const socketRef = useRef<WebSocket | null>(null);
   const pingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const patternNotificationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const connectingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const appStateRef = useRef(AppState.currentState);
 
   useEffect(() => {
@@ -109,6 +110,9 @@ export default function HomeScreen() {
       if (patternNotificationTimeoutRef.current) {
         clearTimeout(patternNotificationTimeoutRef.current);
       }
+      if (connectingTimeoutRef.current) {
+        clearTimeout(connectingTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -139,6 +143,14 @@ export default function HomeScreen() {
 
   const handleOnConnect = (hasToken: boolean, code: string) => {
     setErrorType(null);
+    if (pingIntervalRef.current) {
+      clearInterval(pingIntervalRef.current);
+      pingIntervalRef.current = null;
+    }
+    if (connectingTimeoutRef.current) {
+      clearTimeout(connectingTimeoutRef.current);
+      connectingTimeoutRef.current = null;
+    }
     const connectionCode = code?.trim() || connectingCode.trim();
     if (!hasToken && connectionCode.length === 0) {
       return;
@@ -158,6 +170,15 @@ export default function HomeScreen() {
 
     const socket = new WebSocket(socketUrl);
     socketRef.current = socket;
+    let hadError = false;
+
+    connectingTimeoutRef.current = setTimeout(() => {
+      if (socketRef.current === socket) {
+        socket.close();
+        setConnectionState('ERROR');
+        setErrorType('CONNECTION_FAILED');
+      }
+    }, 15_000);
 
     setConnectionState('CONNECTING');
 
@@ -218,6 +239,10 @@ export default function HomeScreen() {
     };
 
     socket.onopen = () => {
+      if (connectingTimeoutRef.current) {
+        clearTimeout(connectingTimeoutRef.current);
+        connectingTimeoutRef.current = null;
+      }
       setConnectionState('CONNECTED_TO_SERVER');
       pingIntervalRef.current = setInterval(() => {
         if (socketRef.current?.readyState === WebSocket.OPEN) {
@@ -227,6 +252,8 @@ export default function HomeScreen() {
     };
 
     socket.onerror = () => {
+      if (socketRef.current !== socket) return;
+      hadError = true;
       setConnectionState('ERROR');
       setErrorType('CONNECTION_FAILED');
       Presets.chirp();
@@ -240,11 +267,16 @@ export default function HomeScreen() {
     };
 
     socket.onclose = (e) => {
+      if (socketRef.current !== socket) return;
+      if (connectingTimeoutRef.current) {
+        clearTimeout(connectingTimeoutRef.current);
+        connectingTimeoutRef.current = null;
+      }
       if (pingIntervalRef.current) {
         clearInterval(pingIntervalRef.current);
         pingIntervalRef.current = null;
       }
-      if (e.code !== 1000) {
+      if (e.code !== 1000 && !hadError) {
         setConnectionState('ERROR');
         setErrorType('INVALID_DATA');
         Presets.chirp();
@@ -253,9 +285,10 @@ export default function HomeScreen() {
           close_code: e.code,
           connection_action: action,
         });
-      } else {
+      } else if (e.code === 1000) {
         setConnectionState('DISCONNECTED');
       }
+      // if hadError=true: onerror already set CONNECTION_FAILED, do nothing
     };
   }
 
@@ -273,9 +306,14 @@ export default function HomeScreen() {
     });
     socketRef.current?.close();
     socketRef.current = null;
+    tokenRef.current = '';
     if (pingIntervalRef.current) {
       clearInterval(pingIntervalRef.current);
       pingIntervalRef.current = null;
+    }
+    if (connectingTimeoutRef.current) {
+      clearTimeout(connectingTimeoutRef.current);
+      connectingTimeoutRef.current = null;
     }
     setConnectingCode('');
     setHasToken(false);
