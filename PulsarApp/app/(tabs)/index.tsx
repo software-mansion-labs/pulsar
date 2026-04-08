@@ -39,6 +39,7 @@ export default function HomeScreen() {
   const [hasToken, setHasToken] = useState(false);
   const [showPatternNotification, setShowPatternNotification] = useState(false);
   const [patternFound, setPatternFound] = useState(false);
+  const [patternName, setPatternName] = useState<string>('');
 
   const [connectingCode, setConnectingCode] = useState('');
   const tokenRef = useRef('');
@@ -160,7 +161,7 @@ export default function HomeScreen() {
         } else if (json.type === 'broadcast') {
           if (json.message) {
             const found = playPattern(json.message);
-            showPatternReceivedNotification(found);
+            showPatternReceivedNotification(found, json.message);
           }
         }
       } catch (err) {
@@ -265,12 +266,13 @@ export default function HomeScreen() {
     return false;
   };
 
-  const showPatternReceivedNotification = (found: boolean) => {
+  const showPatternReceivedNotification = (found: boolean, name: string) => {
     if (patternNotificationTimeoutRef.current) {
       clearTimeout(patternNotificationTimeoutRef.current);
     }
 
     setPatternFound(found);
+    setPatternName(name);
     setShowPatternNotification(true);
 
     patternNotificationTimeoutRef.current = setTimeout(() => {
@@ -337,7 +339,7 @@ export default function HomeScreen() {
           </Card>
         </View>
 
-        {showPatternNotification && <PatternIsPlaying found={patternFound} />}
+        {showPatternNotification && <PatternIsPlaying found={patternFound} name={patternName} />}
 
       </BasicLayout>
     </BaseButton>
@@ -449,11 +451,11 @@ function InfoBox({ connectionState, errorType }: { connectionState: ConnectionSt
   );
 }
 
-function PatternIsPlaying({ found }: { found: boolean }) {
+function PatternIsPlaying({ found, name }: { found: boolean; name: string }) {
   return (
     <Card style={Margins.marginTop4X} enableAnimation={true}>
       <ThemedText type="defaultSemiBold">
-        {found ? 'New pattern received!' : 'Preset not found!'}
+        {found ? `${name} is playing!` : 'Preset not found!'}
       </ThemedText>
     </Card>
   );
