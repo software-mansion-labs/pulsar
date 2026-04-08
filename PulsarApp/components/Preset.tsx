@@ -294,6 +294,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		color: '#001A72',
 		marginLeft: 10,
+		width: 15,
 	},
 	playIndicator: {
 		position: 'absolute',
