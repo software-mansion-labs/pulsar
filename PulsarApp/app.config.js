@@ -23,6 +23,7 @@ export default {
     },
     predictiveBackGestureEnabled: false,
     package: "com.swmansion.pulsar.app",
+    versionCode: 2,
     intentFilters: [
       {
         action: "VIEW",
