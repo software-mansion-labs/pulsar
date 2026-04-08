@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Alert, Keyboard, AppState } from 'react-native';
+import { StyleSheet, View, Alert, Keyboard, AppState, Platform, TouchableOpacity } from 'react-native';
 import * as Linking from 'expo-linking';
 import { usePostHog } from 'posthog-react-native';
 
@@ -15,12 +15,13 @@ import ConnectionIndicator from '@/components/ConnectionIndicator';
 import { Margins } from '@/constants/theme';
 import { SOCKET_SERVER_URL } from '@/constants/Connection';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Settings, Presets } from 'react-native-pulsar';
+import { Settings, Presets, HapticSupport } from 'react-native-pulsar';
 import { BaseButton } from 'react-native-gesture-handler';
 import Button from '@/components/Button';
 import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 
 const logo = require('@/assets/images/logo.png');
+const closeIcon = require('@/assets/images/x.svg');
 
 type ConnectionState = 
   | 'INITIAL'              // Checking if token exists
@@ -40,6 +41,8 @@ export default function HomeScreen() {
   const [showPatternNotification, setShowPatternNotification] = useState(false);
   const [patternFound, setPatternFound] = useState(false);
   const [patternName, setPatternName] = useState<string>('');
+  const [showHapticsBanner, setShowHapticsBanner] = useState(false);
+  const [hapticsSupportLevel, setHapticsSupportLevel] = useState<HapticSupport>(HapticSupport.NO_SUPPORT);
 
   const [connectingCode, setConnectingCode] = useState('');
   const tokenRef = useRef('');
@@ -47,6 +50,22 @@ export default function HomeScreen() {
   const pingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const patternNotificationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const appStateRef = useRef(AppState.currentState);
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      AsyncStorage.getItem('hapticsSupportBannerDismissed').then((value) => {
+        if (!value) {
+          setHapticsSupportLevel(Settings.getHapticsSupportLevel());
+          setShowHapticsBanner(true);
+        }
+      });
+    }
+  }, []);
+
+  const handleCloseBanner = () => {
+    setShowHapticsBanner(false);
+    AsyncStorage.setItem('hapticsSupportBannerDismissed', 'true');
+  };
 
   useEffect(() => {
     Settings.enableSound(true);
@@ -338,8 +357,8 @@ export default function HomeScreen() {
             <ThemedText type="subtitle">Connect device</ThemedText>
             <AdditionalInfo connectionState={connectionState} />
 
-            {connectionState !== 'INITIAL' && 
-              <InfoBox 
+            {connectionState !== 'INITIAL' &&
+              <InfoBox
                 connectionState={connectionState}
                 errorType={errorType}
               />}
@@ -354,17 +373,21 @@ export default function HomeScreen() {
                 </BaseButton>
               </View>}
 
-            {(!hasToken || connectionState === 'DISCONNECTED' || connectionState === 'ERROR') && 
-              <ConnectionForm 
-                connectingCode={connectingCode} 
+            {(!hasToken || connectionState === 'DISCONNECTED' || connectionState === 'ERROR') &&
+              <ConnectionForm
+                connectingCode={connectingCode}
                 setConnectingCode={setConnectingCode}
-                handleOnConnect={handleOnConnect} 
+                handleOnConnect={handleOnConnect}
                 connectionState={connectionState}
                 hasToken={hasToken}
               />}
 
           </Card>
         </View>
+
+        {showHapticsBanner && (
+          <HapticsSupportBanner level={hapticsSupportLevel} onClose={handleCloseBanner} />
+        )}
 
         {showPatternNotification && <PatternIsPlaying found={patternFound} name={patternName} />}
 
@@ -488,6 +511,35 @@ function PatternIsPlaying({ found, name }: { found: boolean; name: string }) {
   );
 }
 
+function HapticsSupportBanner({ level, onClose }: { level: HapticSupport; onClose: () => void }) {
+  const getLevelInfo = (): { name: string; description: string } => {
+    switch (level) {
+      case HapticSupport.ADVANCED_SUPPORT:
+        return { name: 'Advanced', description: 'All presets are fully supported on your device.' };
+      case HapticSupport.STANDARD_SUPPORT:
+        return { name: 'Standard', description: 'Most presets are fully supported on your device.' };
+      case HapticSupport.LIMITED_SUPPORT:
+        return { name: 'Limited', description: 'Some presets may not work as expected on your device.' };
+      case HapticSupport.MINIMAL_SUPPORT:
+        return { name: 'Minimal', description: 'Only basic vibrations are available on your device.' };
+      default:
+        return { name: 'None', description: 'Your device does not support haptics.' };
+    }
+  };
+
+  const { name, description } = getLevelInfo();
+
+  return (
+    <Card style={Margins.marginTop4X}>
+      <TouchableOpacity onPress={onClose} style={styles.hapticsBannerClose}>
+        <Image source={closeIcon} style={styles.hapticsBannerCloseIcon} />
+      </TouchableOpacity>
+      <ThemedText type="subtitle">Haptic support: {name}</ThemedText>
+      <ThemedText style={Margins.marginTop2X}>{description}</ThemedText>
+    </Card>
+  );
+}
+
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
@@ -543,5 +595,14 @@ const styles = StyleSheet.create({
   disconnect: {
     textAlign: 'center',
     textDecorationLine: 'underline',
+  },
+  hapticsBannerClose: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+  },
+  hapticsBannerCloseIcon: {
+    width: 34,
+    height: 34,
   },
 });

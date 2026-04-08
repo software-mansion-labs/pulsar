@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { Margins } from '@/constants/theme';
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Settings, HapticSupport } from 'react-native-pulsar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
@@ -22,11 +23,22 @@ const defaultEdges = {
   right: 'additive',
 };
 
+function getHapticsSupportName(level: HapticSupport): string {
+  switch (level) {
+    case HapticSupport.ADVANCED_SUPPORT: return 'Advanced';
+    case HapticSupport.STANDARD_SUPPORT: return 'Standard';
+    case HapticSupport.LIMITED_SUPPORT: return 'Limited';
+    case HapticSupport.MINIMAL_SUPPORT: return 'Minimal';
+    default: return 'None';
+  }
+}
+
 export default function PresetsScreen() {
   const { filteredPresets, selectedTags, showFavouritesOnly } = useFilteredPresets();
   const { compactLayout } = useFilters();
   const [searchQuery, setSearchQuery] = useState('');
   const deferredQuery = useDeferredValue(searchQuery);
+  const hapticsSupportName = getHapticsSupportName(Settings.getHapticsSupportLevel());
 
   const displayedPresets = useMemo(() => {
     if (!deferredQuery.trim()) return filteredPresets;
@@ -45,6 +57,10 @@ export default function PresetsScreen() {
       </ThemedText>
       <ThemedText style={Margins.marginTop2X}>
         Don't spend time creating your own patterns. Just use ours and enjoy the benefits of having haptics in your app by using presets.
+      </ThemedText>
+
+      <ThemedText style={[Margins.marginTop2X, styles.hapticsSupportInfo]}>
+        Haptic support level: {hapticsSupportName}
       </ThemedText>
 
       <Link href="/tagsModal" style={Margins.marginTop4X}>
@@ -193,5 +209,9 @@ const styles = StyleSheet.create({
   searchClearIcon: {
     width: 16,
     height: 16,
+  },
+  hapticsSupportInfo: {
+    fontSize: 13,
+    color: '#2B85AB',
   },
 });
