@@ -27,6 +27,21 @@
     }
   }
 }
+.compactToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  user-select: none;
+
+  input[type='checkbox'] {
+    cursor: pointer;
+  }
+}
+
 .resultCount {
   margin-bottom: 12px;
+  margin-top: 12px;
 }

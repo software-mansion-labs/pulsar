@@ -10,6 +10,8 @@ import { AndroidPresetsConfig, IOSPresetsConfig } from '../../assets/systemPrese
 import { NoResult } from '../NoResult/NoResult';
 import { ChartModal } from '../ChartModal/ChartModal';
 
+const COMPACT_LAYOUT_KEY = 'presets_compact_layout';
+
 declare global {
   interface Window {
     posthog?: {
@@ -22,6 +24,15 @@ export function PresetsList() {
   const [showModal, setShowModal] = useState<'no' | 'tags' | 'chart'>('no');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedSystemPresets, setSelectedSystemPresets] = useState<string[]>([]);
+  const [compactLayout, setCompactLayout] = useState<boolean>(
+    () => typeof localStorage !== 'undefined' && localStorage.getItem(COMPACT_LAYOUT_KEY) === 'true'
+  );
+
+  function handleCompactToggle(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.checked;
+    setCompactLayout(value);
+    localStorage.setItem(COMPACT_LAYOUT_KEY, String(value));
+  }
 
   const androidSystemPresetTagMap: Record<string, string> = {
     'Android Primitives': 'Primitive',
@@ -125,6 +136,11 @@ export function PresetsList() {
         setSelectedSystemPresets={setSelectedSystemPresets}
       />
 
+      <label className={style.compactToggle}>
+        <input type="checkbox" checked={compactLayout} onChange={handleCompactToggle} />
+        Compact list
+      </label>
+
       {filteredPresets.length > 0 && (
         <div className={style.resultCount}>{filteredPresets.length} results</div>
       )}
@@ -132,7 +148,7 @@ export function PresetsList() {
       {filteredPresets.length === 0 && <NoResult />}
 
       {filteredPresets.map((preset) => (
-        <Preset key={preset.data.name} {...preset} />
+        <Preset key={preset.data.name} {...preset} compact={compactLayout} />
       ))}
 
       {showModal === 'tags' && <TagsModal onClose={() => setShowModal('no')} />}
