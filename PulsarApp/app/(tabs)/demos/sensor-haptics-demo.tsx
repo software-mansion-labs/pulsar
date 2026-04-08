@@ -1,4 +1,6 @@
+import { useCallback } from 'react';
 import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { useFocusEffect } from 'expo-router';
 import { useRealtimeComposer } from 'react-native-pulsar';
 import Animated, {
   useSharedValue,
@@ -13,6 +15,7 @@ import Animated, {
 import BasicLayout from '@/components/BasicLayout';
 import { ThemedText } from '@/components/themed-text';
 import { Margins } from '@/constants/theme';
+import { runOnUIAsync } from 'react-native-worklets';
 
 const CIRCLE_RADIUS = 150;
 const CIRCLE_BORDER_WIDTH = 2;
@@ -24,6 +27,16 @@ const isAndroid = Platform.OS === 'android';
 export default function SensorHapticsDemo() {
   const sensor = useAnimatedSensor(isAndroid ? SensorType.GYROSCOPE : SensorType.ACCELEROMETER);
   const composer = useRealtimeComposer();
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        runOnUIAsync(() => {
+          composer.stop();
+        });
+      };
+    }, [])
+  );
 
   const dotX = useSharedValue(CENTER_X - DOT_SIZE / 2);
   const dotY = useSharedValue(CENTER_Y - DOT_SIZE / 2);
