@@ -134,7 +134,7 @@ function BalloonCell({ index }: { index: number }) {
       }
 
       // Release: balloon deflates — one soft puff
-      if (current <= 0 && prev > 0.05) {
+      if (current <= 0 && prev > 0) {
         composer.stop();
         composer.playDiscrete(0.18, freqLow);
         return;
