@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import com.swmansion.pulsar.haptics.HapticEngineWrapper
 import com.swmansion.pulsar.types.CompatibilityMode
 import com.swmansion.pulsar.types.RealtimeComposable
+import java.util.concurrent.atomic.AtomicBoolean
 
 open class RealtimePrimitiveComposer(
     private val engine: HapticEngineWrapper,
@@ -23,20 +24,20 @@ open class RealtimePrimitiveComposer(
         }
     }
 
-    private var isPlaying = false
-    private var currentAmplitude = 0.0f
-    private var currentFrequency = 0.0f
-    private var currentIntervalMs: Long = 50L
+    private val isPlaying = AtomicBoolean(false)
+    @Volatile private var currentAmplitude = 0.0f
+    @Volatile private var currentFrequency = 0.0f
+    @Volatile private var currentIntervalMs: Long = 50L
 
     private val handler = Handler(Looper.getMainLooper())
     private val loopRunnable = Runnable { loop() }
 
     private fun start(amplitude: Float, frequency: Float) {
-        if (isPlaying) {
+        if (isPlaying.get()) {
             stop()
         }
 
-        isPlaying = true
+        isPlaying.set(true)
         set(amplitude, frequency)
         loop()
     }
@@ -46,7 +47,7 @@ open class RealtimePrimitiveComposer(
         currentFrequency = frequency.coerceIn(0f, 1f)
         currentIntervalMs = (minIntervalMs + (1 - frequency) * (maxIntervalMs - minIntervalMs)).toLong()
 
-        if (!isPlaying) {
+        if (!isPlaying.get()) {
             start(currentAmplitude, currentFrequency)
         }
     }
@@ -60,17 +61,16 @@ open class RealtimePrimitiveComposer(
     }
 
     override fun stop() {
-        if (!isPlaying) return
+        if (!isPlaying.compareAndSet(true, false)) return
 
-        isPlaying = false
         handler.removeCallbacks(loopRunnable)
         engine.stop()
     }
 
-    override fun isActive(): Boolean = isPlaying
+    override fun isActive(): Boolean = isPlaying.get()
 
     private fun loop() {
-        if (!isPlaying || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (!isPlaying.get() || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return
         }
 
