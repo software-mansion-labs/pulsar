@@ -1,5 +1,6 @@
 import styles from './TopBanner.module.scss';
 
+import { BASE_PATH } from '../../../../config';
 import swmLogo from '../../../assets/swm-logo.svg';
 import starIcon from '../../../assets/landing-page/star.svg';
 import angelIcon from '../../../assets/landing-page/angel.svg';
@@ -77,14 +78,14 @@ export function TopBanner() {
         <div className={styles.buttonHolder}>
           <Button
             label="Preset playground"
-            url={'/presets-playground'}
+            url={`${BASE_PATH}/presets-playground`}
             className={styles.fullWidth}
             onClick={() => window.posthog?.capture('preset_playground_cta_clicked')}
           />
           <Button
             label="Read the docs"
             variant="filled"
-            url={'/getting-started'}
+            url={`${BASE_PATH}/getting-started`}
             className={styles.fullWidth}
             onClick={() => window.posthog?.capture('docs_cta_clicked')}
           />
