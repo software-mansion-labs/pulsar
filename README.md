@@ -53,7 +53,7 @@ Add Pulsar as a Gradle dependency:
 
 ```kotlin
 dependencies {
-  implementation("com.swmansion:pulsar")
+  implementation("com.swmansion:pulsar:1.0.0")
 }
 ```
 

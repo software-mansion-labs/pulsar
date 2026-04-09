@@ -31,19 +31,17 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.swmansion.pulsar.composers.RealtimeComposer
-import com.swmansion.pulsar.haptics.HapticEngineWrapper
-import com.swmansion.pulsar.types.CompatibilityMode
+import com.swmansion.pulsar.Pulsar
 import com.swmansion.pulsar.types.RealtimeComposerStrategy
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RealtimeComposerScreen() {
     val context = LocalContext.current
-    val engine = remember { HapticEngineWrapper(context) }
+    val pulsar = Pulsar(context)
     var selectedStrategy by remember { mutableStateOf(RealtimeComposerStrategy.ENVELOPE_WITH_DISCRETE_PRIMITIVES) }
-    val realtimeComposer = remember(selectedStrategy) {
-        RealtimeComposer(engine, selectedStrategy, engine.getRealCompatibilityMode())
+    var realtimeComposer = remember(selectedStrategy) {
+        pulsar.getRealtimeComposer(selectedStrategy)
     }
 
     var amplitude by remember { mutableStateOf(0.5f) }

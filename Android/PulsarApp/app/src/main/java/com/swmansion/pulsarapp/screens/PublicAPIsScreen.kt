@@ -63,7 +63,7 @@ fun PublicAPIsScreen(pulsar: Pulsar?) {
                     label = "Play Preset",
                     state = "Ready",
                     onButtonClick = {
-                        pulsar?.getPresets()?.earthquake()
+                        pulsar?.getPresets()?.bloom()
                     }
                 )
             }
