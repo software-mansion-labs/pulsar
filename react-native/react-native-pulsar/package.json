@@ -50,14 +50,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/software-mansion-labs/pulsar.git"
+    "url": "git+https://github.com/software-mansion/pulsar.git"
   },
   "author": "Krzysztof Piaskowy <krzysztof.piaskowy@swmansion.com> (https://github.com/piaskowyk)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/software-mansion-labs/pulsar/issues"
+    "url": "https://github.com/software-mansion/pulsar/issues"
   },
-  "homepage": "https://github.com/software-mansion-labs/pulsar#readme",
+  "homepage": "https://github.com/software-mansion/pulsar#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

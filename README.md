@@ -81,6 +81,14 @@ pulsar/
 └── docs/               # Documentation site (Astro/Starlight)
 ```
 
+## Packages
+
+| Platform | Package |
+|----------|---------|
+| React Native | [![npm](https://img.shields.io/npm/v/react-native-pulsar)](https://www.npmjs.com/package/react-native-pulsar) |
+| iOS | [Swift Package](https://github.com/software-mansion-labs/pulsar-ios) |
+| Android | [Maven Central](https://central.sonatype.com/artifact/com.swmansion/pulsar) |
+
 ## Documentation
 
 Full API reference and guides are available at the [documentation site](https://docs.swmansion.com/pulsar).
