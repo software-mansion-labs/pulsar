@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="https://github.com/software-mansion-labs/pulsar/raw/main/docs/src/assets/og.png" alt="Pulsar - Rich and ready-to use haptics library" />
+  <img src="https://github.com/software-mansion/pulsar/raw/main/docs/src/assets/og.png" alt="Pulsar - Rich and ready-to use haptics library" />
 </p>
 A haptic feedback SDK for Android, written in Kotlin. Pulsar provides ready-to-use haptic presets, a pattern composer for custom haptic sequences, and a real-time composer for gesture-driven feedback.
 
-> **Note:** This repository is a mirror of the Android implementation from the [Pulsar monorepo](https://github.com/software-mansion-labs/pulsar). The monorepo is the primary source of development and also contains example apps for both Android and iOS. For the full source and examples, visit the main repository.
+> **Note:** This repository is a mirror of the Android implementation from the [Pulsar monorepo](https://github.com/software-mansion/pulsar). The monorepo is the primary source of development and also contains example apps for both Android and iOS. For the full source and examples, visit the main repository.
 
 ## Features
 

@@ -70,12 +70,12 @@ afterEvaluate {
                 pom {
                     name.set("Pulsar Android Library")
                     description.set("Pulsar audio visualization and manipulation library for Android")
-                    url.set("https://github.com/software-mansion-labs/pulsar")
+                    url.set("https://github.com/software-mansion/pulsar")
                     
                     licenses {
                         license {
                             name.set("MIT License")
-                            url.set("https://github.com/software-mansion-labs/pulsar/blob/main/LICENSE")
+                            url.set("https://github.com/software-mansion/pulsar/blob/main/LICENSE")
                         }
                     }
                     
@@ -88,9 +88,9 @@ afterEvaluate {
                     }
                     
                     scm {
-                        connection.set("scm:git:https://github.com/software-mansion-labs/pulsar.git")
-                        developerConnection.set("scm:git:https://github.com/software-mansion-labs/pulsar.git")
-                        url.set("https://github.com/software-mansion-labs/pulsar")
+                        connection.set("scm:git:https://github.com/software-mansion/pulsar.git")
+                        developerConnection.set("scm:git:https://github.com/software-mansion/pulsar.git")
+                        url.set("https://github.com/software-mansion/pulsar")
                     }
                 }
             }
