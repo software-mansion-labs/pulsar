@@ -70,8 +70,8 @@ export default function PublicApisScreen() {
   };
 
   const handlePreloadPresets = () => {
-    Settings.preloadPresets(['Earthquake', 'Success', 'Fail']);
-    setLastAction('Preloaded: Earthquake, Success, Fail');
+    Settings.preloadPresets(['Fanfare', 'Explosion', 'Heartbeat']);
+    setLastAction('Preloaded: Fanfare, Explosion, Heartbeat');
   };
 
   const handleStopHaptics = () => {
@@ -204,7 +204,7 @@ export default function PublicApisScreen() {
 
           <ApiButton
             title="Preload Presets"
-            subtitle="Pulsar_preloadPresets(['Earthquake', ...])"
+            subtitle="Pulsar_preloadPresets(['Fanfare', 'Explosion', 'Heartbeat'])"
             onPress={handlePreloadPresets}
           />
 

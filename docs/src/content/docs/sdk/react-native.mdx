@@ -571,7 +571,7 @@ import { Settings } from 'react-native-pulsar';
 import { Settings } from 'react-native-pulsar';
 
 // Preload frequently used presets
-Settings.preloadPresets(['Earthquake', 'Success']);
+Settings.preloadPresets(['Fanfare', 'Explosion', 'Heartbeat']);
 
 // Disable haptics temporarily
 Settings.enableHaptics(false);
@@ -608,7 +608,7 @@ import { Settings, HapticSupport, Presets } from 'react-native-pulsar';
 const support = Settings.getHapticsSupportLevel();
 
 if (support >= HapticSupport.STANDARD_SUPPORT) {
-  Presets.Success();
+  Presets.dogBark();
 }
 ```
 
