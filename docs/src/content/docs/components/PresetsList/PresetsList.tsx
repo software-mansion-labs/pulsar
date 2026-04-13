@@ -26,7 +26,7 @@ export function PresetsList() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedSystemPresets, setSelectedSystemPresets] = useState<string[]>([]);
   const [compactLayout, setCompactLayout] = useState<boolean>(
-    () => typeof localStorage !== 'undefined' && localStorage.getItem(COMPACT_LAYOUT_KEY) === 'true'
+    () => typeof window !== 'undefined' && localStorage.getItem(COMPACT_LAYOUT_KEY) === 'true'
   );
   const [favourites, setFavourites] = useState<Set<string>>(new Set());
 
