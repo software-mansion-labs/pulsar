@@ -278,6 +278,8 @@ See [Design Principles — Custom Pattern Parameters](../common/design-principle
 
 ## Real-Time Haptics with RealtimeComposer
 
+> **Gesture design guide:** For design principles, parameter mapping, phase tables, and common gesture patterns (drag-and-drop, snap points, pull-to-refresh, swipe-to-delete), see [Gesture-Based Haptics](../common/gesture-haptics.md). This section covers the iOS API surface only.
+
 `RealtimeComposer` lets you modulate haptic intensity and sharpness in real time, synchronized with live gesture values. Get the shared instance from `pulsar.getRealtimeComposer()`.
 
 ```swift

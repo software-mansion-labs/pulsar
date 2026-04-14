@@ -120,6 +120,62 @@
         "The reasoning mentions mechanical, crisp, or precise character",
         "The recommended preset is NOT Soft texture (no breath, sway, murmur, stamp, or warm/rounded presets)"
       ]
+    },
+    {
+      "id": 11,
+      "prompt": "I'm building a file manager app. When the user confirms permanent deletion of a file (no trash, gone forever), I want to add a haptic. What preset should I use and exactly when in the flow should it fire?",
+      "expected_output": "Recommends a high-stakes preset (e.g. cleave, lock, stamp) and specifies firing on the confirmed state change, not on button hover or press-down. Should mention pairing with visible feedback.",
+      "files": [],
+      "expectations": [
+        "Recommends firing the haptic at the moment the deletion is confirmed/completed — not on button hover, not on press-down",
+        "Recommends a high-intensity or stakes-appropriate preset (e.g. cleave, stamp, lock, jolt, or similar bold/irreversible-action preset)",
+        "Mentions pairing the haptic with a visible state change in the UI (e.g. item disappears, confirmation animation)"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "I'm building a guided breathing meditation feature. The screen shows an expanding/contracting circle and I want the phone to vibrate in sync with the breathing rhythm — inhale for 4 seconds, hold 1 second, exhale for 4 seconds. What haptic pattern approach and parameter values make sense?",
+      "expected_output": "Recommends a continuous pattern (not discrete taps) with low amplitude (subtle, 0.0-0.3 range) and low frequency (soft/round, 0.0-0.3) for a calming feel. Should explain the amplitude/frequency model.",
+      "files": [],
+      "expectations": [
+        "Recommends a continuous haptic pattern (not individual discrete taps/clicks) to match the sustained breathing rhythm",
+        "Recommends low or subtle amplitude values (described as gentle, subtle, or in the 0.0-0.3 range) for calm feel",
+        "Recommends low frequency / soft texture (round, not sharp/crisp) to match the meditative tone",
+        "Distinguishes between discrete and continuous pattern types OR recommends an appropriate ambient preset (breath, wave, pulse)"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "My subscription app shows a premium upsell paywall when users try to access a locked feature. I want to add a strong, urgent haptic when they tap 'Dismiss' on the paywall — something that makes them feel like they're missing out and reconsider. Is this a good idea and what should I use?",
+      "expected_output": "Should flag ethical/UX concerns about using alarming haptics to manipulate users (dark haptics). Should warn against using high-urgency/alarm haptics to pressure users on consent/paywall flows. May suggest no haptic or at most a very subtle one.",
+      "files": [],
+      "expectations": [
+        "Flags that using strong or urgent haptics to pressure or manipulate users into not dismissing a paywall is a problematic design pattern",
+        "Does NOT unconditionally recommend a high-intensity or alarm-class preset for this dismiss action",
+        "Advises that haptics should match the actual interaction (a simple dismiss) rather than engineer an emotional state"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "I'm building a health monitoring app targeting users aged 65 and older. What should I know about haptic feedback design for this demographic? Are there any special considerations I'm likely to miss?",
+      "expected_output": "Should mention age-related reduction in vibrotactile sensitivity (may need stronger/longer patterns), the need for accessibility controls (ability to disable/adjust intensity), and that some older users may find unexpected vibrations distressing.",
+      "files": [],
+      "expectations": [
+        "Mentions that vibrotactile sensitivity decreases with age (older users may need stronger or more pronounced haptic patterns to perceive them)",
+        "Recommends providing controls to disable haptics or adjust intensity level",
+        "Mentions that unexpected vibrations can be distressing or disorienting for some users (accessibility concern)"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "My app has a background sync operation that can take 10-30 seconds. I want to loop a gentle haptic pulse throughout the entire sync to keep the user aware it's still running. What preset should I loop and are there any pitfalls to watch out for?",
+      "expected_output": "Should strongly warn against looping haptics for the full duration (habituation, fatigue, annoyance). Should recommend no haptic during sync, or haptics only at start and end. Should explain the habituation/fatigue problem.",
+      "files": [],
+      "expectations": [
+        "Explicitly warns against looping a haptic continuously for 10-30 seconds",
+        "Explains why looping is problematic (habituation, fatigue, annoyance — the signal value collapses or users are irritated)",
+        "Recommends an alternative (e.g. haptic only at sync start and/or on completion, not throughout the duration)"
+      ]
     }
   ]
 }

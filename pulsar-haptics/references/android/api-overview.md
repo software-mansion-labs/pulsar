@@ -286,6 +286,8 @@ See [Design Principles — Custom Pattern Parameters](../common/design-principle
 
 ## Gesture-Based Haptics with RealtimeComposer
 
+> **Gesture design guide:** For design principles, parameter mapping, phase tables, and common gesture patterns (drag-and-drop, snap points, pull-to-refresh, swipe-to-delete), see [Gesture-Based Haptics](../common/gesture-haptics.md). This section covers the Android API surface and strategy selection only.
+
 `RealtimeComposer` provides real-time haptic control — update amplitude and frequency continuously as a gesture evolves.
 
 Get the shared instance from `pulsar.getRealtimeComposer()`. The strategy can be specified at creation time. Calling `getRealtimeComposer()` a second time with the same strategy returns the cached instance; calling it with a different strategy creates a new instance.

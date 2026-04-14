@@ -190,6 +190,8 @@ For pattern design tips — amplitude ranges, frequency ranges, and when to use 
 
 ## Gesture-Based Haptics with useRealtimeComposer
 
+> **Gesture design guide:** For design principles, parameter mapping, phase tables, and common gesture patterns (drag-and-drop, snap points, pull-to-refresh, swipe-to-delete), see [Gesture-Based Haptics](../common/gesture-haptics.md). This section covers the React Native hook API only.
+
 `useRealtimeComposer` lets you modulate haptic intensity and sharpness in real time, synchronized with user gestures.
 
 **Hook API:**

@@ -12,8 +12,10 @@ Swift SDK built on CoreHaptics (iOS 13+). Wraps `CHHapticEngine` lifecycle, patt
 
 ## References
 
-- **[design-principles.md](../common/design-principles.md)** — Universal design principles (shared across all platforms). Includes an iOS-specific section covering Taptic Engine quality differences across iPhone generations (older iPhones have weaker actuators), iPad and Mac Catalyst considerations (`isHapticsSupported()` returns `false` on most iPads), automatic engine lifecycle handling by Pulsar (no foreground/background management needed), and audio simulation on the iOS Simulator.
+- **api-overview.md** — Load to know how to use the library API, and library capabilities.
 
-- **[presets-guide.md](presets-guide.md)** — Same preset groups as the React Native guide but with Swift syntax examples. Includes a "playing by name" section (`pulsar.play(named:)`). Full preset list at the bottom.
+- **presets-guide.md** — Load when choosing a preset for a specific interaction / emotion / use case in the app.
 
-- **[api-overview.md](api-overview.md)** — Full Swift API reference. Covers: Swift Package Manager installation; `Pulsar()` initializer and SwiftUI vs. UIKit integration; playing presets and system presets with UIKit mapping; `PatternComposer` with the four Swift types (`PatternData`, `ContinuousPattern`, `ValuePoint`, `DiscretePoint`) and a complete UIKit example; `RealtimeComposer` with UIKit pan gesture and SwiftUI drag gesture examples; caching/preloading API; the full configuration method table; audio simulation control; and a hardware support matrix showing which iPhone generations support which features.
+- **../common/design-principles.md** — Load to understand how to use haptics in mobile apps, and how to design custom patterns. It covers best practices and guidelines.
+
+- **gesture-haptics.md** — Load when implementing gesture-driven haptics. Also load **../common/gesture-haptics.md** for the full design principles and patterns.

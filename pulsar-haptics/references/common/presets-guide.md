@@ -1,5 +1,16 @@
 # Choosing the Right Preset
 
+## Contents
+
+- [Preset Selection Workflow](#preset-selection-workflow) — 5-step process: read code, identify gaps, ask questions, map tags, recommend (~line 8)
+- [Clarifying Questions](#clarifying-questions) — Q1–Q8 question bank; use only the gaps that cannot be inferred from code (~line 30)
+- [Tag Selection Guide](#tag-selection-guide) — Translate context into Intensity / Texture / Shape / Duration tags (~line 106)
+- [Response Format Rules](#response-format-rules) — How to present recommendations in code and chat (~line 164)
+- [All Presets](#all-presets) — Full alphabetical table: 150+ presets with tags and descriptions (~line 205)
+- [Preset Tags](#preset-tags) — Tag definitions for all four dimensions (~line 362)
+
+---
+
 ## Preset Selection Workflow
 
 When a user asks which preset to use, follow this sequence before writing any code or making a recommendation.
@@ -55,12 +66,14 @@ The full question bank. After reading the code, ask only the questions whose ans
 
 *Maps to: Shape + Duration. Skip if call site is inside a press handler (user) or `useEffect`/callback (system).*
 
-**Q3 — What is the emotional valence?**
-- Positive (success, reward, joy)
-- Negative (error, failure, blocked, destructive)
-- Neutral (informational, status, ambient)
+**Q3 — What is the emotional register?**
+- Positive / completion (task done, save confirmed, dialog accepted, payment received)
+- Positive / celebratory (milestone, streak, rank-up, achievement unlocked, reward)
+- Negative / warning (expiring trial, approaching deadline, soft validation error, caution state)
+- Negative / error or rejection (blocked action, access denied, critical failure, destructive/irreversible)
+- Neutral (informational, status update, ambient indicator)
 
-*Maps to: Shape — positive → Bumps or Saw (celebration); negative → Saw, Pattern, or Impulses; neutral → Peak or Bumps*
+*Maps to: Shape and Intensity — use the full five-way split to avoid collapsing "success confirmation" and "milestone celebration" into the same preset family, or conflating a soft caution with a hard rejection. Positive/completion → Substantial + Short; positive/celebratory → Bold + Extended; warning → Substantial + escalating shape; error/rejection → Bold + Rigid + Saw.*
 
 **Q4 — How urgent or critical is it?**
 - Non-intrusive / can be missed (background task completed quietly)
@@ -91,12 +104,12 @@ The full question bank. After reading the code, ask only the questions whose ans
 
 *Maps to: specific preset recommendations within a category*
 
-**Q8 — What intensity level fits the surrounding UI and moment?**
-- Gentle — barely-there, should not distract
-- Substantial — noticeable but not aggressive
-- Bold — commanding, must land
+**Q8 — What is the physical or emotional quality of this interaction?**
+- Warm, organic, personal — wellness, breathing, meditation, calming, social connection → `Soft`
+- Mechanical, precise, system-like — keyboard input, camera shutter, dial clicks, combination lock, data-entry ticks, sharp system confirmations → `Rigid`
+- General-purpose / neither extreme → `Flexible`
 
-*Maps to: Intensity tag. Ask only if not already resolved by Q4 or the code context.*
+*Maps to: Texture tag. Ask only when the code or app domain doesn't make this clear. Skip if the app clearly signals the answer (explicit wellness/meditation context → Soft; clearly mechanical or precision UI → Rigid). This is the most commonly missed dimension — Texture is the only tag that cannot be inferred from urgency or timing alone.*
 
 ---
 
@@ -122,7 +135,10 @@ Default: `Substantial`. Reserve `Bold` for moments that must capture attention; 
 | Most UI interactions, social moments, notifications, standard app events | `Flexible` |
 | Precision input (list selection, keyboard, camera shutter, data entry); sharp rejection; mechanical/system-like event | `Rigid` |
 
-Default: `Flexible`. Use `Soft` only for explicitly warm or calm contexts. Use `Rigid` for mechanical or decisive interactions.
+Default: `Flexible`. Decision rule:
+- Use `Soft` if the surrounding design is warm, rounded, or personal — wellness apps, breathing exercises, meditation, intimate social moments, or any context where the word "gentle" fits naturally.
+- Use `Rigid` if the interaction has a mechanical analogy or demands precision — keyboards, camera shutters, dial clicks, combination locks, data-entry scroll ticks, or system-level confirmations where crispness matters.
+- Use `Flexible` for everything else: general UI taps, standard notifications, social feeds, navigation, and any context where neither extreme applies.
 
 ### Shape — What is the interaction's arc?
 
@@ -137,6 +153,10 @@ Default: `Flexible`. Use `Soft` only for explicitly warm or calm contexts. Use `
 | Continuous dragging, drawer closing | `Solid` |
 
 Default for user-initiated: `Peak`. Default for system-initiated: `Bumps`.
+
+**Peak vs. Impulses for confirmations:** Both appear in single-tap confirmation contexts. Choose `Peak` when the feel should be smooth and warm — a single arc settling like a gentle press. Choose `Impulses` when it should feel crisp and definitive — one or more sharp transients, like a mechanical click or snap locking in. Most confirmation presets (`stamp`, `ping`, `chip`, `lock`) use `Impulses`; softer organic confirmations (`strike`, `thud`) use `Peak`.
+
+**Bumps vs. Pattern for notifications and ongoing states:** `Bumps` = loosely-spaced rounded pulses, fired once to grab attention (notifications, social signals, reminders). `Pattern` = strict repeating cadence at metronomic intervals (active scanning, polling loops, heartbeat monitoring). Rule of thumb: triggered once to announce → `Bumps`; repeats at a fixed rhythm → `Pattern`.
 
 ### Duration — How long should the user feel this?
 
@@ -160,6 +180,18 @@ Default: `Short` for most standard confirmations and notifications. Avoid `Exten
 **When context is ambiguous:** Do not guess and show code. Ask 1–2 clarifying questions first, wait for the response, then recommend.
 
 **Never surface the tag-matching logic.** The four-tag narrowing process is internal. Users see a confident recommendation with brief reasoning — not intermediate filtering steps.
+
+**When no preset fits well:** If the tag mapping narrows to a shortlist but none of the preset descriptions match the use case — or the use case requires precise timing, rhythm, or sustained texture that named presets can't provide — ask before guessing:
+
+> "No existing preset captures this exactly. Would you like me to build a custom pattern using `PatternComposer`? I can design a discrete tap sequence, a continuous amplitude/frequency envelope, or both layered together to match your specific timing and feel."
+
+If the user confirms, design the pattern using the parameter guidance from the design principles file:
+- Amplitude `0.0–0.3` for subtle/background, `0.4–0.7` for standard interactions, `0.8–1.0` for critical moments
+- Frequency `0.0–0.3` for round/soft/low-pitched, `0.4–0.6` for neutral, `0.7–1.0` for crisp/mechanical
+- Use `discretePattern` events for individual taps; use `continuousPattern` for sustained vibrations with evolving envelopes
+- Both layers can be combined: crisp discrete taps over a sustained background rumble
+
+Reference the platform api-overview for `PatternComposer` syntax.
 
 Example of a correctly formatted response:
 
@@ -214,7 +246,7 @@ Example of a correctly formatted response:
 | `cleave()` | `Bold` `Rigid` `Impulses` `Short` | Signals an irreversible, high-stakes action for deletes, removes, or anything the user cannot undo. |
 | `coil()` | `Substantial` `Flexible` `Peak` `Long` | Rising tension that releases into certainty, ideal for long-press activation or charge-complete feedback. |
 | `coinDrop()` | `Bold` `Rigid` `Saw` `Extended` | A playful cascade of coins, ideal for reward moments, payment confirmations, or in-app purchases. |
-| `combinationLock()` | `Bold` `Rigid` `Saw` `Long` | The ritual of cracking a code, ideal for combination inputs or multi-step secure unlocking. |
+| `combinationLock()` | `Bold` `Rigid` `Saw` `Long` | The ritual of cracking a code — suited for the complete multi-step entry sequence or final unlock confirmation, not individual per-digit ticks. For rapid per-click dial feedback, use `ping()` or `chip()` instead. |
 | `crescendo()` | `Substantial` `Rigid` `Impulses` `Long` | A rising build that peaks with energy, ideal for charge-up moments or building anticipation. |
 | `dewdrop()` | `Substantial` `Flexible` `Bumps` `Short` | A quiet confirmation of success, ideal for operations that completed without needing attention. |
 | `dirge()` | `Substantial` `Soft` `Pattern` `Long` | Heavy and fading like a dying heartache, best for conveying grief, loss, or deep sorrow. |
@@ -426,6 +458,8 @@ Keyboard simulation presets (`keyboardMechanical`, `keyboardMembrane`, `typewrit
 ### Selection & Scrolling
 
 Scroll picker ticks (`ping`, `chip`) are Rigid/Impulse and high-contrast — they reproduce well across mid-range and premium devices. `peck` (Gentle/Impulse) may be undetectable on devices below API 26; omit it entirely on `LIMITED_SUPPORT` hardware rather than substituting a heavier preset, which would feel intrusive at scroll frequency. `snap` is a safe choice for pull-to-refresh threshold feedback across all tiers.
+
+For virtual dial rotation (combination locks, rotary controls), use `ping()` or `chip()` per detent click — both are Rigid/Impulse and brief enough to fire at dial speed without overlap. `combinationLock()` is for the complete combination-entry ceremony or final unlock confirmation, not for individual dial clicks.
 
 ### Drag & Drop
 

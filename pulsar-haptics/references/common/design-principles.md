@@ -32,11 +32,39 @@ Haptics are valuable when they add information or emotional texture that visuals
 
 - **Passive content consumption:** Reading text, watching video, scrolling a news feed — haptics interrupt flow.
 - **Too frequently:** If every interaction vibrates, users become numb to all of them. Save intensity for meaningful moments.
-- **Repeated loops without user control:** Looping a haptic indefinitely (like during a loading spinner) is fatiguing and annoying.
+- **Repeated loops without user control:** Looping a haptic for more than a few seconds (like during a loading spinner or background sync) is fatiguing and annoying. Critically, users habituate to repeated patterns within seconds — the nervous system suppresses constant stimuli, so the signal value collapses almost immediately. Prefer firing a single cue at the start and another at the end of a long operation, rather than looping throughout. If you must signal ongoing activity, fire at a sparse interval (every 4–6 seconds) rather than continuously.
 - **On every keypress in a text field:** Unless building a deliberate keyboard simulation, keyboard input should not vibrate on every character.
 - **Low-information events:** Hovering, focus rings, minor layout changes — things the user doesn't need confirmation for.
 - **When the user has disabled haptics:** Always check the device's haptic support level and respect the system haptics toggle. Never hardcode assumptions about capability.
-- **Accessibility contexts:** Be aware that some users are sensitive to unexpected vibrations. Offer a setting to disable.
+- **Accessibility contexts:** Be aware that some users are sensitive to unexpected vibrations. Offer a setting to disable. See the expanded guidance below.
+- **As a manipulation tool (dark haptics):** Do not use alarming or urgent haptic intensities to pressure users into decisions they are trying to opt out of — for example, firing an error-class haptic when a user dismisses a paywall, or using a distressing vibration on a consent dialog to coerce agreement. This is a dark pattern. Haptics should confirm what the user just did, not engineer an emotional response that overrides their intent. Misuse can trigger App Store review and permanently erodes user trust.
+
+## Accessibility
+
+Haptics are a progressively enhanced layer — the experience must remain fully usable without them.
+
+**Controls to provide:**
+- **On/Off toggle** — mandatory. Some users have conditions that make vibrations painful or meaningless (sensory processing disorders, chronic pain, fibromyalgia).
+- **Intensity slider** (Off / Normal / Strong) — recommended for health, elder-care, or accessibility-focused apps. A binary toggle is the minimum; a spectrum is better.
+- Never use haptics as the sole channel for critical information — always pair with a visual or audio cue.
+
+**Age-related sensitivity decline:**
+Vibrotactile sensitivity decreases measurably with age. Users 65+ may not perceive `Gentle`-tagged presets at all. For apps targeting older adults:
+- Default to `Substantial` intensity presets rather than `Gentle`.
+- For custom patterns, raise baseline amplitude to the 0.6–0.8 range.
+- Use longer-duration patterns rather than brief impulses — longer contact time is easier to perceive.
+- Test on actual hardware with age-representative participants, not lab settings with young testers.
+
+**Sensory and medical considerations:**
+- Users with sensory processing disorders (SPD) can find unexpected vibrations genuinely painful, not merely annoying. Avoid surprise haptics.
+- Peripheral neuropathy (common in diabetes and from some medications) can make tactile perception unreliable. Never rely on haptics alone for health-critical alerts.
+- Prosthetic limb users may not perceive device haptics at all if the device is held differently.
+- Tremors (essential tremor affects ~15% of adults over 80) can make short, rapid pulses indistinguishable from involuntary movement. Prefer rhythmically distinctive, longer patterns.
+
+**Haptic memory and vocabulary:**
+Users can reliably recognize only a small number of distinct haptic patterns without training — research suggests ~10 as an upper bound, but in practice 3–5 is more realistic for casual app use. Haptic memory also fades faster than visual or auditory memory: users recognize patterns they encounter frequently, but will not recall patterns they've seen only once. Design for recognition, not recall — keep your app's haptic vocabulary to the patterns users will encounter often enough to internalize.
+
+---
 
 ## Haptics and Emotions
 
@@ -53,6 +81,8 @@ Haptic patterns convey emotional meaning. Use this intentionally:
 | **Calm / ambient** | Gentle, rhythmic, unobtrusive | `breath`, `pulse`, `wave`, `murmur`, `feather`, `wisp` |
 | **Surprise / shock** | Sudden, intense, jarring | `flare`, `flinch`, `shockwave`, `jolt`, `explosion` |
 | **Playful / whimsical** | Light, fun, bouncy | `chirp`, `fizz`, `coinDrop`, `pip`, `lope`, `unfurl` |
+
+> **Note on variability:** These mappings reflect widely shared design conventions and cross-cultural associations, not universal laws. Individual responses to the same haptic pattern can vary by 30–40%. Treat this table as a useful starting vocabulary, not a guarantee of emotional outcome. For apps serving diverse or international audiences, consider offering an "expressive" vs. "subtle" haptic mode rather than a fixed mapping.
 
 ---
 
@@ -99,6 +129,25 @@ A custom pattern has two independent layers:
 - **`continuousPattern`** — A sustained vibration whose amplitude and frequency evolve over time via envelope curves. Use for rumble, breathing rhythms, sustained pulses, and anything that should feel like ongoing vibration.
 
 Combine both layers to produce complex feels — crisp discrete taps layered over a sustained background rumble. If either layer is empty, only the other plays.
+
+### Timing and perception thresholds
+
+These psychophysical benchmarks guide custom pattern design:
+
+| Parameter | Value | Implication |
+|---|---|---|
+| **Haptic + visual sync window** | 45–75 ms | Haptic and its visual counterpart must arrive within this window to feel simultaneous. Anything beyond 100 ms feels disconnected — like a dubbed film. |
+| **Optimal discrete event duration** | 10–20 ms | The vibration itself; the actuator rings out for an additional 20–50 ms. Design pattern gaps accordingly. |
+| **Minimum gap between primitives** | 50 ms | Two events closer than 50 ms blur into one sensation. Use ≥50 ms gaps for distinct, separable beats. |
+| **Perceptibly distinct amplitude step** | ≥ 1.4× ratio | Amplitude must differ by at least 40% to feel noticeably different to most users. Small tweaks (e.g. 0.5 → 0.6) are imperceptible in practice. |
+
+---
+
+## Gesture-Based Haptics
+
+Gesture-driven haptics require a different approach from event-based haptics — you drive amplitude and frequency in real time as the gesture evolves, using **RealtimeComposer** rather than PatternComposer.
+
+For full design guidance, parameter mapping, phase tables, common patterns (drag-and-drop, snap points, pull-to-refresh, swipe-to-delete), and platform-specific implementation notes, see [Gesture-Based Haptics](gesture-haptics.md).
 
 ---
 
