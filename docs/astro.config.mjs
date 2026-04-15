@@ -40,10 +40,10 @@ export default defineConfig({
           label: 'Presets playground',
           slug: 'presets-playground',
         },
-        {
-          label: 'AI Skills',
-          slug: 'skills',
-        },
+        // {
+        //   label: 'AI Skills',
+        //   slug: 'skills',
+        // },
         {
           label: 'Pulsar Studio',
           slug: 'pulsar-studio',
