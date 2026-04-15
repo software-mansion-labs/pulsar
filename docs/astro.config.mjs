@@ -80,6 +80,7 @@ export default defineConfig({
       components: {
         ThemeSelect: './src/components/ThemeSelect.astro',
         Head: './src/components/Head.astro',
+        PageFrame: './src/components/PageFrame.astro',
       },
     }),
     react(),
