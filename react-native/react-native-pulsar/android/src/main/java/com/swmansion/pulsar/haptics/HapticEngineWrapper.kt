@@ -1,6 +1,8 @@
 package com.swmansion.pulsar.haptics
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -9,9 +11,12 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.swmansion.pulsar.types.CompatibilityMode
 
-class HapticEngineWrapper(context: Context) {
+class HapticEngineWrapper(private val context: Context) {
 
     private val vibrationService = context.getSystemService(Vibrator::class.java)
+    private val hasVibrationPermission: Boolean by lazy {
+        ContextCompat.checkSelfPermission(context, Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED
+    }
     private var vibrator: Vibrator? = null
     private var initialized = false
     private var isHapticsEnabled = true
@@ -39,10 +44,18 @@ class HapticEngineWrapper(context: Context) {
         if (!isHapticsEnabled) {
             return
         }
+        if (!hasVibrationPermission) {
+            Log.w(TAG, "Skipping vibration because android.permission.VIBRATE is not granted")
+            return
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrationService.vibrate(vibrationEffect)
+            try {
+                vibrationService.vibrate(vibrationEffect)
+            } catch (securityException: SecurityException) {
+                Log.w(TAG, "Skipping vibration because the app cannot use the vibrator", securityException)
+            }
         } else {
-            Log.w("Pulsar", "Incompatible Android version. Minimal supported version is Android API 26")
+            Log.w(TAG, "Incompatible Android version. Minimal supported version is Android API 26")
         }
     }
 
@@ -118,5 +131,9 @@ class HapticEngineWrapper(context: Context) {
                 CompatibilityMode.MINIMAL_SUPPORT
             }
         }
+    }
+
+    private companion object {
+        const val TAG = "Pulsar"
     }
 }
