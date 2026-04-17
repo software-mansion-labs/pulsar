@@ -6,6 +6,7 @@ import OnboardingOverlay from './OnboardingOverlay';
 import { useRealtimeComposer } from 'react-native-pulsar';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { useComposedGesture } from '@/hooks/useComposedGesture';
+import { useHapticsScreenActivity } from '@/hooks/useHapticsScreenActivity';
 import { useOnboardingComposedGesture } from '@/hooks/useOnboardingComposedGesture';
 import { usePatternRecorder } from '@/hooks/usePatternRecorder';
 import { useImperativeHandle, forwardRef, useEffect } from 'react';
@@ -32,6 +33,7 @@ const GesturePlayground = forwardRef<GesturePlaygroundHandle, GesturePlaygroundP
 ) {
   const { onboardingState, setOnboardingState } = useOnboarding();
   const composer = useRealtimeComposer();
+  useHapticsScreenActivity(composer);
   const containerSize = useSharedValue({ width: 0, height: 0 });
   const tapIndicatorPosition = useSharedValue({ x: -100, y: -100 });
   const panIndicatorPosition = useSharedValue({ x: -100, y: -100 });
