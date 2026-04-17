@@ -35,12 +35,13 @@
     "!scripts"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-pulsar-example",
+    "example": "npm --prefix ../../PulsarApp run start",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "yarn && bob build",
+    "clean": "del-cli android/build lib",
+    "build": "bob build",
+    "prepare": "bob build",
     "release": "release-it --only-version"
   },
   "keywords": [
@@ -93,14 +94,10 @@
     "react-native": "*",
     "react-native-worklets": "*"
   },
-  "workspaces": [
-    "example"
-  ],
-  "packageManager": "yarn@4.1.1",
+  "packageManager": "npm@11.12.1",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
   },

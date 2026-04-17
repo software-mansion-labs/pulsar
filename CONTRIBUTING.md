@@ -52,11 +52,11 @@ cd Android
 
 ```bash
 cd react-native/react-native-pulsar
-yarn install
-yarn prepare    # Build TypeScript output to lib/
-yarn typecheck  # TypeScript check
-yarn lint       # ESLint
-yarn test       # Jest tests
+npm install
+npm run prepare    # Build TypeScript output to lib/
+npm run typecheck  # TypeScript check
+npm run lint       # ESLint
+npm test           # Jest tests
 ```
 
 Run the example app:
@@ -74,13 +74,13 @@ For native changes (Swift/Kotlin), rebuild the app after running the above. For 
 
 ```bash
 cd PulsarApp
-yarn install
-yarn ios      # Build and run on iOS
-yarn android  # Build and run on Android
-yarn start    # Start Metro bundler
+npm install
+npm run ios      # Build and run on iOS
+npm run android  # Build and run on Android
+npm run start    # Start Metro bundler
 ```
 
-The app references the RN library locally via `"react-native-pulsar": "file:../react-native/react-native-pulsar"`. After making library changes, run `yarn prepare` in the library directory, then restart Metro.
+The app references the RN library locally via `"react-native-pulsar": "file:../react-native/react-native-pulsar"`. After making library changes, run `npm run prepare` in the library directory, then restart Metro.
 
 ### Documentation site
 
