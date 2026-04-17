@@ -12,6 +12,7 @@ public class HapticEngineWrapper {
   private var engine: CHHapticEngine?
   private var initialized: Bool = false
   private(set) var isHapticsEnabled: Bool = true
+  private var isAppActive: Bool
   private var playerRegistry: [Int: PlayerEntry] = [:]
   private var playerCreationOrder: [Int] = []
   private let playerLimit = 20
@@ -19,6 +20,8 @@ public class HapticEngineWrapper {
   private var cachedRealtimePlayer: CHHapticAdvancedPatternPlayer?
 
   public init() {
+    isAppActive = UIApplication.shared.applicationState == .active
+
     guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
       print("Error: Device doesn't support haptics")
       return
@@ -31,7 +34,7 @@ public class HapticEngineWrapper {
 
       NotificationCenter.default.addObserver(
         self,
-        selector: #selector(appDidBecomeInactive),
+        selector: #selector(appDidEnterBackground),
         name: UIApplication.didEnterBackgroundNotification,
         object: nil
       )
@@ -39,6 +42,18 @@ public class HapticEngineWrapper {
         self,
         selector: #selector(appWillEnterForeground),
         name: UIApplication.willEnterForegroundNotification,
+        object: nil
+      )
+      NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(appDidBecomeActive),
+        name: UIApplication.didBecomeActiveNotification,
+        object: nil
+      )
+      NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(appWillResignActive),
+        name: UIApplication.willResignActiveNotification,
         object: nil
       )
     } catch {
@@ -57,10 +72,8 @@ public class HapticEngineWrapper {
 
       if (!isHapticsEnabled) {
         stopHaptics()
-      } else {
-        if !initialized {
-          startEngine()
-        }
+      } else if (canPlayHaptics() && !initialized) {
+        startEngine()
       }
     }
   }
@@ -77,7 +90,7 @@ public class HapticEngineWrapper {
   }
 
   private func startEngine() {
-    if initialized || !isHapticsEnabled { return }
+    if initialized || !canPlayHaptics() { return }
     do {
       if engine == nil {
         engine = try CHHapticEngine()
@@ -89,6 +102,14 @@ public class HapticEngineWrapper {
       print("Error starting engine: \(error.localizedDescription)")
       engine = nil  // Force fresh creation on next attempt
     }
+  }
+
+  func updatePlaybackAvailability(for state: UIApplication.State) {
+    isAppActive = state == .active
+  }
+
+  func canPlayHaptics() -> Bool {
+    isHapticsEnabled && isAppActive && isHapticsSupported()
   }
 
   private func setupEngineHandlers() {
@@ -106,7 +127,7 @@ public class HapticEngineWrapper {
     }
   }
 
-  @objc func appDidBecomeInactive() {
+  private func clearPlayersForSuspension() {
     initialized = false
     engine?.stop()
     for entry in playerRegistry.values {
@@ -118,12 +139,28 @@ public class HapticEngineWrapper {
     cachedRealtimePlayer = nil
   }
 
+  @objc func appDidEnterBackground() {
+    updatePlaybackAvailability(for: .background)
+    clearPlayersForSuspension()
+  }
+
   @objc func appWillEnterForeground() {
+    updatePlaybackAvailability(for: UIApplication.shared.applicationState)
+  }
+
+  @objc func appDidBecomeActive() {
+    updatePlaybackAvailability(for: .active)
     engine = nil
     startEngine()
   }
 
+  @objc func appWillResignActive() {
+    updatePlaybackAvailability(for: .inactive)
+    clearPlayersForSuspension()
+  }
+
   public func createPlayer(pattern: CHHapticPattern?) -> Int? {
+    guard canPlayHaptics() else { return nil }
     startEngine()
     guard let player = buildPatternPlayer(pattern: pattern) else { return nil }
     return registerPlayer(player, isRealtime: false)
@@ -139,6 +176,7 @@ public class HapticEngineWrapper {
   }
 
   public func getRealtimePlayer() -> CHHapticAdvancedPatternPlayer? {
+    guard canPlayHaptics() else { return nil }
     startEngine()
     if let player = cachedRealtimePlayer { return player }
     let intensityParam = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1)
@@ -161,6 +199,7 @@ public class HapticEngineWrapper {
 
 
   public func playPlayer(id: Int, pattern: CHHapticPattern? = nil) {
+    guard canPlayHaptics() else { return }
     if let entry = playerRegistry[id] {
       do {
         try entry.player.start(atTime: 0)
