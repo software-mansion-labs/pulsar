@@ -1,4 +1,5 @@
 #import "Haptics.h"
+#import <UIKit/UIKit.h>
 #if __has_include(<Pulsar/Pulsar-Swift.h>)
 #import <Pulsar/Pulsar-Swift.h>
 #else
@@ -12,8 +13,8 @@
   NSMutableDictionary<NSNumber*, PatternComposer*> *patternComposersRegistry_;
 }
 
-static BOOL RNPulsarCanPlayNow(Pulsar *pulsar) {
-  return pulsar != nil && [pulsar canPlayHaptics];
+static BOOL RNPulsarIsAppActive(void) {
+  return UIApplication.sharedApplication.applicationState == UIApplicationStateActive;
 }
 
 static void RNPulsarLogBridgeException(NSString *context, NSException *exception) {
@@ -51,7 +52,7 @@ RCT_EXPORT_MODULE()
 // Pulsar -----------------------------------------------------------------
 
 - (void)Pulsar_play:(nonnull NSString *)name {
-  if (!RNPulsarCanPlayNow(pulsar_)) {
+  if (!RNPulsarIsAppActive()) {
     return;
   }
 
@@ -147,7 +148,7 @@ static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) 
 }
 
 - (void)PatternComposer_play:(double)patternId {
-  if (!RNPulsarCanPlayNow(pulsar_)) {
+  if (!RNPulsarIsAppActive()) {
     return;
   }
 
@@ -167,7 +168,7 @@ static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) 
 // RealtimeComposer -----------------------------------------------------------------
 
 - (void)RealtimeComposer_set:(double)amplitude frequency:(double)frequency {
-  if (!RNPulsarCanPlayNow(pulsar_)) {
+  if (!RNPulsarIsAppActive()) {
     return;
   }
 
@@ -177,7 +178,7 @@ static PatternData *PatternDataFromJSPattern(JS::NativeRNPulsar::Pattern &data) 
 }
 
 - (void)RealtimeComposer_playDiscrete:(double)amplitude frequency:(double)frequency {
-  if (!RNPulsarCanPlayNow(pulsar_)) {
+  if (!RNPulsarIsAppActive()) {
     return;
   }
 
