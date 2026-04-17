@@ -22,8 +22,16 @@ const files = [
 ];
 
 function replaceGeneratedSection(content, key, replacement) {
+  const startPatterns = [
+    `<!-- GENERATED:${key}_START -->`,
+    String.raw`\{\/\*\s*GENERATED:${key}_START\s*\*\/\}`,
+  ];
+  const endPatterns = [
+    `<!-- GENERATED:${key}_END -->`,
+    String.raw`\{\/\*\s*GENERATED:${key}_END\s*\*\/\}`,
+  ];
   const pattern = new RegExp(
-    `<!-- GENERATED:${key}_START -->[\\s\\S]*?<!-- GENERATED:${key}_END -->`,
+    `(?:${startPatterns.join('|')})[\\s\\S]*?(?:${endPatterns.join('|')})`,
     'g'
   );
 
@@ -31,9 +39,17 @@ function replaceGeneratedSection(content, key, replacement) {
     throw new Error(`Missing generated section markers for ${key}`);
   }
 
+  const usesMdxComments = content.includes(`{/* GENERATED:${key}_START */}`);
+  const startMarker = usesMdxComments
+    ? `{/* GENERATED:${key}_START */}`
+    : `<!-- GENERATED:${key}_START -->`;
+  const endMarker = usesMdxComments
+    ? `{/* GENERATED:${key}_END */}`
+    : `<!-- GENERATED:${key}_END -->`;
+
   return content.replace(
     pattern,
-    `<!-- GENERATED:${key}_START -->\n${replacement}\n<!-- GENERATED:${key}_END -->`
+    `${startMarker}\n${replacement}\n${endMarker}`
   );
 }
 
